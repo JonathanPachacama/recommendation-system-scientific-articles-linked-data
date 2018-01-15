@@ -1,0 +1,238 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
+xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es-Es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <title>Obtener lista XML de autores con Ajax</title>
+  <link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
+
+  <style>
+    /* Ocultar botón radio */
+    input[id^="spoiler"]{
+      display: none;
+    }
+    /* Estilo botón clicable */
+    input[id^="spoiler"] + label {
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+
+      color: #01549b;
+      cursor: pointer;
+      text-align: left;
+    }
+    /* Estilo botón cuando su INPUT está seleccionado */
+    input[id^="spoiler"]:checked + label {
+      color: #01549b;
+
+      text-align: left;
+    }
+    /* Estilo caja SPOILER (inicialmente oculto) */
+    input[id^="spoiler"] ~ .spoiler {
+      width: 90%;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin: 10px auto 0;
+      text-align: left;
+
+    }
+    /* Estilo caja SPOILER cuando su INPUT está seleccionado */
+    input[id^="spoiler"]:checked + label + .spoiler{
+      height: auto;
+      opacity: 1;
+      text-align: left;
+
+    }
+  </style>
+
+</head>
+<body>
+
+
+
+<input type="text" name="q" placeholder="Search" id="homepage-search-input">
+<i class="icon-search orange">
+
+</i>
+
+<button type="button" onclick="descargaArchivo();limpiar()">BUSCAR</button>
+
+<button type="button" onclick="limpiar();">limpiar</button>
+
+
+<script type="text/javascript">
+  function descargaArchivo() {
+
+    // $("p").empty();
+    // Obtener la instancia del objeto XMLHttpRequest
+    if(window.XMLHttpRequest) {
+      peticionHttp = new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject) {
+      peticionHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    // Preparar la funcion de respuesta
+    peticionHttp.onreadystatechange = muestraContenido;
+    // Realizar peticion HTTP
+    var busquedarxiv = document.getElementById("homepage-search-input").value;
+    var par1= 'http://export.arxiv.org/api/query?search_query=all:';
+    mm= busquedarxiv;
+    console.log("Este es el valor del cookie:",mm);
+    var concatenacion1= par1+busquedarxiv;
+    peticionHttp.open('GET',concatenacion1, true);
+    peticionHttp.send(null);
+    function muestraContenido() {
+      if(peticionHttp.readyState == 4) {
+        if(peticionHttp.status == 200) {
+          //Creamos el objeto de tipo documento XML
+          var documentoXml = peticionHttp.responseXML;
+          //Obtenemos la raíz del documento
+          var root = documentoXml.getElementsByTagName("feed")[0];
+          var tope = root.getElementsByTagName("entry").length;
+          //Recorremos todos los elementos Libro del documento
+          for(var i = 0; i < tope; i++){
+            libro = root.getElementsByTagName("entry")[i];
+            title = libro.getElementsByTagName("title")[0].firstChild.nodeValue;
+            summary = libro.getElementsByTagName("summary")[0].firstChild.nodeValue;
+            link = libro.getElementsByTagName("id")[0].firstChild.nodeValue;
+
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("arxiv:comment")[0]!== 'undefined') {
+                coment = libro.getElementsByTagName("arxiv:comment")[0].firstChild.nodeValue;
+
+              }
+              else {
+
+                var coment= '';
+
+
+              }
+
+            }
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("arxiv:journal_ref")[0]!== 'undefined') {
+                coment2 = libro.getElementsByTagName("arxiv:journal_ref")[0].firstChild.nodeValue;
+
+              }
+              else {
+
+                var coment2= '';
+
+
+              }
+
+            }
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("author")[0]!== 'undefined') {
+
+                author = libro.getElementsByTagName("author")[0];
+                nombre = author.getElementsByTagName("name")[0].firstChild.nodeValue;
+                var nombres= nombre;
+              }
+              else {
+
+                var nombre= '';
+
+
+              }
+
+            }
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("author")[1]!== 'undefined') {
+
+                author1 = libro.getElementsByTagName("author")[1];
+                nombre1 = author1.getElementsByTagName("name")[0].firstChild.nodeValue;
+                var nombres= nombre +' ,'+nombre1;
+                console.log("autor2", nombres);
+              }
+              else {
+
+                var nombre1= '';
+
+
+              }
+
+            }
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("author")[2]!== 'undefined') {
+
+                author2 = libro.getElementsByTagName("author")[2];
+                nombre2 = author2.getElementsByTagName("name")[0].firstChild.nodeValue;
+                var nombres= nombre +' ,'+nombre1+' ,'+nombre2;
+              }
+              else {
+
+                var nombre2= ' ';
+
+
+              }
+
+            }
+            for (var j = 0; j < 10; j++) {
+              if (typeof libro.getElementsByTagName("author")[3]!== 'undefined') {
+
+                author3 = libro.getElementsByTagName("author")[3];
+                nombre3 = author3.getElementsByTagName("name")[0].firstChild.nodeValue;
+                var nombres= nombre +' ,'+nombre1+' ,'+nombre2+' ,'+nombre3;
+              }
+              else {
+
+                var nombre3= ' ';
+
+
+              }
+
+            }
+
+            var comentary = coment+' '+coment2;
+
+
+
+
+            muestraHTML('pRespuesta',"<div class='row'>  " +
+              "<div class='container'>" +
+
+              "<div class='card'> <div class='card-block'>" +
+              "<div >" +
+              "<font color='#01549b'><h4><b> Title: </b></h4></font>"+'<a href= '+link+'><h4><b>' + title  +'</b></h4></a>'+
+              "<font color='#01549b'><h4><b> Authors: </b></h4></font><h4><b>" +nombres+"</h4></b> <br>"+
+              "<font color='#01549b'><h4><b> Coments: </b></h4></font><h4><b>" + comentary + "</h4></b><br>" +
+              "<font color='#01549b'><h4><b><u>Abstract </u> </b></h4></font><h4><b>" + "<p ><b><h4><p align='justify'>" + ' ' + "</p></p></h4></b></p>" + "</h4></b><br>" +
+
+              // "<div align='left'>"+"<input type='checkbox' id='spoiler2' align='left'></input> <label for='spoiler2' align='left'><p id='spoiler2' align='left'><h4><u>Abstract</p></h4></u></label> <div class='spoiler'>"+"<p ><b><h4><p align='justify'>" + summary + "</p></p></h4></b></p>" +"</div>"+"</div>"+
+
+
+              "</div></div> </div></div>"
+            );
+
+          }
+
+        }
+      }
+    }
+    function muestraHTML(id, texto){
+      if(document.getElementById){
+        document.getElementById(id).innerHTML += texto;
+      }
+
+    }
+
+  }
+  function limpiar(){
+    var resultados = document.getElementById("pRespuesta");
+    resultados.innerHTML='';
+  }
+  window.onload = descargaArchivo;
+</script>
+<font ><h1><b> The article was successfully saved!!! </b></h1></font><br>
+<font color='#01549b'><h4><b> We recommend you to review the following articles </b></h4></font><br>
+<p id="pRespuesta"></p>
+
+
+
+</body>
+</html>

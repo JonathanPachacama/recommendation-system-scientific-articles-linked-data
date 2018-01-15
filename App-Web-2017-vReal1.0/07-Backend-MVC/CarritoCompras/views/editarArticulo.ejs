@@ -1,0 +1,339 @@
+<h3>You are editing:</h3>
+ <h3> <%= articulos.title %></h3>
+
+
+
+<form action="/Articulo/editanota" method="post">
+
+
+  <input hidden
+         class="form-control"
+         type="text"
+         id="id"
+         name="id"
+         value="<%= articulos.id %>">
+
+  <div class="form-group row">
+    <label for="title" class="col-2 col-form-label"><h5><b>Title</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="title"
+             name="title"
+             value="<%= articulos.title %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="country" class="col-2 col-form-label"><h5><b>Country</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="country"
+             name="country"
+             value="<%= articulos.country %>"
+
+      >
+
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="number" class="col-2 col-form-label"><h5><b>Number</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="number"
+             name="number"
+             value="<%= articulos.number %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="volume" class="col-2 col-form-label"><h5><b>Volume</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="volume"
+             name="volume"
+             value="<%= articulos.volume %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="year" class="col-2 col-form-label"><h5><b>Year</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="year"
+             name="year"
+             value="<%= articulos.year %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="journal" class="col-2 col-form-label"><h5><b>Journal</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="journal"
+             name="journal"
+             value="<%= articulos.journal %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="editorial" class="col-2 col-form-label"><h5><b>Editorial</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="editorial"
+             name="editorial"
+             value="<%= articulos.editorial %>"
+
+      >
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label for="abstract" class="col-2 col-form-label"><h5><b>Abstract</b></h5></label>
+    <div class="col-10">
+      <textarea
+        readonly
+             id="abstract"
+             name="abstract"
+             rows="5" cols="110"
+             value="<%= articulos.abstract %>"
+
+      >"<%= articulos.abstract %>"</textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="issns" class="col-2 col-form-label"><h5><b>ISSNS</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="issns"
+             name="issns"
+             value="<%= articulos.issns %>"
+
+      >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="language" class="col-2 col-form-label"><h5><b>Language</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="language"
+             name="language"
+             value="<%= articulos.language %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="keywords" class="col-2 col-form-label"><h5><b>Keywords</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="keywords"
+             name="keywords"
+             value="<%= articulos.keywords %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="link" class="col-2 col-form-label"><h5><b>Link</b></h5></label>
+    <div class="col-10">
+        <a href="<%= articulos.link %>">Full text</a>
+
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="author" class="col-2 col-form-label"><h5><b>Authors</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="author"
+             name="author"
+             value="<%= articulos.authores %>"
+
+      >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="category" class="col-2 col-form-label"><h5><b>Category</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="category"
+             name="category"
+             value="<%= articulos.category %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="pages" class="col-2 col-form-label"><h5><p>Pages</p></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="pages"
+             name="pages"
+             value="<%= articulos.pages %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="notas" class="col-2 col-form-label"><h5><b>Notes</b></h5></label>
+    <div class="col-10">
+      <textarea
+
+        id="notas"
+        name="notas"
+        rows="5" cols="110"
+        value="<%= articulos.notas %>"
+
+      >"<%= articulos.notas %>"</textarea>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label for="pages" class="col-2 col-form-label"><h5><b>Files</b></h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+             readonly
+             placeholder="Ingrese sus nombres"
+             id="pages"
+             name="pages"
+             value="<%= articulos.files %>"
+
+      >
+    </div>
+  </div>
+
+  <button
+    class="btn btn-outline-success">Guardar </button>
+</form>
+
+<br>
+<br>
+
+<div class="container">
+<form action="http://localhost:1337/file/upload" enctype="multipart/form-data" method="post">
+  <input hidden
+         class="form-control"
+         type="text"
+         id="id"
+         name="id"
+         value="<%= articulos.id %>">
+
+
+
+  <!--<input type="text" name="title"><br>-->
+  <label for="avatar"><b>Choose attachments to upload</b></label><br>
+  <input type="file" id="avatar" name="avatar" multiple="multiple"><br>
+
+  <input type="submit" value="Upload" class="btn btn-primary">
+</form>
+</div>
+<br>
+<br>
+<div class="container">
+  <h2>Generar Bibliografia</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver Bibliografia</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bibliografia</h4>
+        </div>
+        <div class="modal-body">
+          <label for="apa" class="col-2 col-form-label"><h5>APA</h5></label>
+          <p ALIGN='justify'> <%= articulos.authores %>. (<%= articulos.year %>).<%= articulos.title %>.<i> <%= articulos.journal %> </i>,<i> <%= articulos.volume %> </i>( <%= articulos.number %> ),<%= articulos.pages %></p>
+
+          <label for="ieee" class="col-2 col-form-label"><h5>IEEE</h5></label>
+          <div class="col-10">
+            <p ALIGN='justify' ><%= articulos.authores %>,"<%= articulos.title %>",<i> <%= articulos.journal %> </i>, vol.<%= articulos.volume %>, no. <%= articulos.number %>, pp.<%= articulos.pages %>pp.<%= articulos.pages %>,<%= articulos.year %> </p>
+
+        </div>
+          <label for="harvard" class="col-2 col-form-label"><h5>ISO</h5></label>
+          <div class="col-10">
+        <p ALIGN='justify'><%= articulos.authores %>,<%= articulos.year %>,<%= articulos.title %>.<i><u> <%= articulos.journal %> </u></i>,[Fecha de consulta: <script>
+            var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            var f=new Date();
+            document.write(f.getDate() + " " + meses[f.getMonth()] + " " + f.getFullYear());
+          </script> ],pp.<%= articulos.pages %>.Disponible en:  <a href="<%= articulos.link %>"><%= articulos.link %></a></p>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<br>
+<br>
+<br>

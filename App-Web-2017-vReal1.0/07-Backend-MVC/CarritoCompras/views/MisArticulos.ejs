@@ -1,0 +1,56 @@
+<form action="/mibiblioteca">
+  <div class="form-group row">
+    <label for="mibusqueda" class="col-4 col-form-label">
+      Busque por Palabras clave o presiona buscar para ver todos
+    </label>
+    <div class="col-8">
+      <input class="form-control" type="text" placeholder="Seach" id="mibiblioteca"
+             name="mibiblioteca">
+    </div>
+  </div>
+  <button class="btn btn-success btn-block">Buscar</button>
+</form>
+
+<br>
+<br>
+
+
+
+
+
+<div class="row">
+  <% for(var i=0;i<MiArticulo.length;i++){ %>
+  <div class="card" style="width: 20rem;">
+    <div class="card-block">
+      <h4 class="card-title"><%=MiArticulo[i].title%></h4>
+      <p class="card-text"><h10><b>Autores:</b></h10><%=MiArticulo[i].authors%></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h10><b>Categoria:</b></h10><%=MiArticulo[i].category%></li>
+      <li class="list-group-item"><h10><b>Idiomas:</b></h10><%=MiArticulo[i].language%></li>
+      <li class="list-group-item"><h10><b>Año Publicacion:</b></h10><%=MiArticulo[i].year%></li>
+    </ul>
+    <div class="card-block">
+      <form action="/Saludo/eliminarmiArticulo" method="post">
+        <input hidden
+               type="text"
+               value="<%=MiArticulo[i].id%>"
+               name="id">
+        <button  type="submit"
+                 class="btn btn-outline-danger">Borrar</button>
+
+        <a href="/VerMisArticulo?id=<%=MiArticulo[i].id%>">
+          <button type="button" class="btn btn-primary">
+            Ver
+          </button>
+        </a>
+      </form>
+    </div>
+  </div>
+  <%}%>
+</div>
+<hr>
+<br>
+<br>
+<br>
+

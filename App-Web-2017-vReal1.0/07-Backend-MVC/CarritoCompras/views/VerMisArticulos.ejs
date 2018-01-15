@@ -1,0 +1,338 @@
+<font color="#01549b"><h3>You are editing:</h3></font>
+<font color="#449d44"> <h3> <%= Miarticulo.title %></h3></font>
+<br>
+<br>
+<form action="/MiArticulo/editanota" method="post">
+
+
+  <input hidden
+         class="form-control"
+         type="text"
+         id="id"
+         name="id"
+         value="<%= Miarticulo.id %>">
+
+  <div class="form-group row">
+    <label for="title" class="col-2 col-form-label"><h5>Titulo</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="title"
+             name="title"
+             value="<%= Miarticulo.title %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="country" class="col-2 col-form-label"><h5>Pais de publicacion</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="country"
+             name="country"
+             value="<%= Miarticulo.country %>"
+
+      >
+
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="number" class="col-2 col-form-label"><h5>Numero</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="number"
+             name="number"
+             value="<%= Miarticulo.number %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="volume" class="col-2 col-form-label"><h5>volumen</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="volume"
+             name="volume"
+             value="<%= Miarticulo.volume %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="year" class="col-2 col-form-label"><h5>Año de publicación</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="year"
+             name="year"
+             value="<%= Miarticulo.year %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="journal" class="col-2 col-form-label"><h5>journal</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="journal"
+             name="journal"
+             value="<%= Miarticulo.journal %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="editorial" class="col-2 col-form-label"><h5>editorial</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="editorial"
+             name="editorial"
+             value="<%= Miarticulo.editorial %>"
+
+      >
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label for="abstract" class="col-2 col-form-label"><h5>Abstract</h5></label>
+    <div class="col-10">
+      <textarea
+
+        id="abstract"
+        name="abstract"
+        rows="5" cols="110"
+        value="<%= Miarticulo.abstract %>"
+
+      >"<%= Miarticulo.abstract %>"</textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="issns" class="col-2 col-form-label"><h5>issns</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="issns"
+             name="issns"
+             value="<%= Miarticulo.issns %>"
+
+      >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="language" class="col-2 col-form-label"><h5>language</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="language"
+             name="language"
+             value="<%= Miarticulo.language %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="keywords" class="col-2 col-form-label"><h5>keywords</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="keywords"
+             name="keywords"
+             value="<%= Miarticulo.keywords %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="link" class="col-2 col-form-label"><h5>Link</h5></label>
+    <div class="col-10">
+      <a href="<%= Miarticulo.link %>">Full text</a>
+
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="author" class="col-2 col-form-label"><h5>author</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="author"
+             name="author"
+             value="<%= Miarticulo.authores %>"
+
+      >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="category" class="col-2 col-form-label"><h5>category</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="category"
+             name="category"
+             value="<%= Miarticulo.category %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="pages" class="col-2 col-form-label"><h5>pages</h5></label>
+    <div class="col-10">
+      <input class="form-control"
+             type="text"
+
+             placeholder="Ingrese sus nombres"
+             id="pages"
+             name="pages"
+             value="<%= Miarticulo.pages %>"
+
+      >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="notas" class="col-2 col-form-label"><h5>Notas</h5></label>
+    <div class="col-10">
+      <textarea
+
+        id="notas"
+        name="notas"
+        rows="5" cols="110"
+        value="<%= Miarticulo.notas %>"
+
+      >"<%= Miarticulo.notas %>"</textarea>
+    </div>
+  </div>
+
+
+  <button
+    class="btn btn-outline-success">Guardar </button>
+</form>
+
+<br>
+<br>
+<hr>
+<div class="container">
+  <form action="http://localhost:1337/mifile/upload" enctype="multipart/form-data" method="post">
+    <input hidden
+           class="form-control"
+           type="text"
+           id="id"
+           name="id"
+           value="<%= Miarticulo.id %>">
+
+
+
+    <!--<input type="text" name="title"><br>-->
+    <label for="avatar"><b>Choose attachments to upload</b></label><br>
+    <input type="file" id="avatar" name="avatar" multiple="multiple"><br>
+
+    <input type="submit" value="Upload" class="btn btn-primary">
+  </form>
+</div>
+<br>
+<br>
+<div class="container">
+  <h3>Generar Bibliografia</h3>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver Bibliografia</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bibliografia</h4>
+        </div>
+        <div class="modal-body">
+          <label for="apa" class="col-2 col-form-label"><h5>APA</h5></label>
+          <textarea
+
+            id="notas"
+            name="notas"
+            rows="5" cols="50"
+            value="<%= Miarticulo.title %>"
+
+          >"<%= Miarticulo.title %>"</textarea>
+
+          <label for="ieee" class="col-2 col-form-label"><h5>IEEE</h5></label>
+          <div class="col-10">
+            <textarea
+
+              id="notas"
+              name="notas"
+              rows="5" cols="50"
+              value="<%= Miarticulo.title %>"
+
+            >"<%= Miarticulo.title %>"</textarea>
+          </div>
+          <label for="harvard" class="col-2 col-form-label"><h5>Harvard</h5></label>
+          <div class="col-10">
+          <textarea
+
+            id="notas"
+            name="notas"
+            rows="5" cols="50"
+            value="<%= Miarticulo.title %>"
+
+          >"<%= Miarticulo.title %>"</textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+</div>
+<br>
+<br>

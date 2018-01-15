@@ -1,0 +1,729 @@
+{
+        "prev": "https://doaj.org/api/v1/search/articles/personas?page=1&pageSize=10",
+        "last": "https://doaj.org/api/v1/search/articles/personas?page=964&pageSize=10",
+        "pageSize": 10,
+        "timestamp": "2017-0714T15:20:08Z",
+        "results": [
+                {
+                        "last_updated": "2017-07-06T15:32:39Z",
+                        "id": "befadf4c093b4675a90df97a3059f68e",
+                        "bibjson": {
+                                "start_page": "103",
+                                "author": [
+                                        {
+                                                "name": "Ronald Soto Calderón"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Universidad de Costa Rica",
+                                        "language": [
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://revistas.ucr.ac.cr/index.php/educacion/about/editorialPolicies#openAccessPolicy",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-ND",
+                                                        "title": "CC BY-NC-ND"
+                                                }
+                                        ],
+                                        "title": "Revista Educación",
+                                        "country": "CR",
+                                        "number": "1",
+                                        "volume": "25",
+                                        "issns": [
+                                                "0379-7082",
+                                                "2215-2644"
+                                        ]
+                                },
+                                "title": "La evaluación de las personas con autismo",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Education (General)",
+                                                "code": "L7-991"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=44002510",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }"link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=44002510",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2001",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "0379-7082"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2215-2644"
+                                        }
+                                ],
+                                "abstract": "Este artículo pretende brindar elementos básicos\r\nque deben ser utilizados en el desarrollo de procesos\r\nde evaluación de personas con autismo, la idea es ir dando\r\nsentido al diagnóstico realizado por los profesionales,\r\ne ir desarrollando estrategias compartidas tanto por docentes\r\n(principalmente de Educación Especial) como a\r\npsicólogos y otros profesionales involucrados en el trabajo\r\nde personas con autismo, de tal manera que se le dé la\r\nimportancia que se persigue con el trabajo en equipo. Este\r\nartículo es una primera parte donde se abordan conceptos\r\ny aspectos generales del diagnóstico, posteriormente\r\nse hará referencia a técnicas y métodos específicos utilizados\r\nen el diagnóstico de personas con autismo",
+                                "end_page": "110"
+                        },
+                        "created_date": "2013-02-28T01:29:56Z"
+                },
+                {
+                        "last_updated": "2017-07-07T23:38:36Z",
+                        "id": "8cdcb332e57d4780872c799c6aea6401",
+                        "bibjson": {
+                                "start_page": "39",
+                                "author": [
+                                        {
+                                                "name": "Vanessa Sánchez Mendoza"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Universidad Santo Tomás",
+                                        "language": [
+                                                "EN",
+                                                "ES",
+                                                "PT"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://revistas.usantotomas.edu.co/index.php/diversitas/about/submissions#copyrightNotice",
+                                                        "open_access": true,
+                                                        "type": "CC BY-SA",
+                                                        "title": "CC BY-SA"
+                                                }
+                                        ],
+                                        "title": "Diversitas: Perspectivas en Psicología",
+                                        "country": "CO",
+                                        "number": "1",
+                                        "volume": "8",
+                                        "issns": [
+                                                "1794-9998"
+                                        ]
+                                },
+                                "title": "El bienestar de los jóvenes en las representaciones sociales de las personas mayores",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Psychology",
+                                                "code": "BF1-990"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=67923973003",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2012",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "1794-9998"
+                                        }
+                                ],
+                                "abstract": "Esta investigación tuvo como objetivo identificar las representaciones sociales que las personas mayores tienen sobre el bienestar de los jóvenes, para ello se contó con la participación de dos poblaciones, una compuesta por 50 personas mayores (25 hombres y25 mujeres) con edades comprendidas entre 60 y 70 años, y otra compuesta por 50 jóvenes (25 hombres y 25 mujeres) entre los 15 y 25 años de edad. Los datos se analizaron a partir de las categorías emergentes tras la aplicación de una entrevista semiestructurada con preguntas abiertas. Los resultados obtenidos muestran que las personas mayores asocian el bienestar de los jóvenes con las siguientes categorías: un trabajo estable y bien remunerado, una relación depareja, acceso a la salud y la educación.",
+                                "end_page": "52"
+                        },
+                        "created_date": "2013-12-09T20:20:40Z"
+                },
+                {
+                        "last_updated": "2017-07-07T18:01:58Z",
+                        "id": "6a6988eb6c1249c8b5f0903fe82d88eb",
+                        "bibjson": {
+                                "start_page": "85",
+                                "author": [
+                                        {
+                                                "name": "Nicolás Arturo Núñez Gómez"
+                                        },
+                                        {
+                                                "name": "Silvia Leonor Olivera Plaza"
+                                        },
+                                        {
+                                                "name": "Iván Daniel Losada Ramírez"
+                                        },
+                                        {
+                                                "name": "Myriam Patricia Pardo Torres"
+                                        },
+                                        {
+                                                "name": "Luis Guillermo Díaz Monrroy"
+                                        },
+                                        {
+                                                "name": "Homero Abraham Rojas Vega"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Pontificia Universidad Javeriana",
+                                        "language": [
+                                                "Spanish"
+                                        ],
+                                        "license": [],
+                                        "title": "Pensamiento Psicológico",
+                                        "country": "CO",
+                                        "number": "10",
+                                        "volume": "4",
+                                        "issns": [
+                                                "1657-8961"
+                                        ]
+                                },
+                                "title": "Perfil multidimensional de personas que han realizado intento de suicidio",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Psychology",
+                                                "code": "BF1-990"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Philosophy. Psychology. Religion",
+                                                "code": "B"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=80111670005",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2008",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "1657-8961"
+                                        }
+                                ],
+                                "abstract": "Establecer el perfil multidimensional de personas con intento de suicidio. Se estudiaron 116 personas reportadas con intento de suicidio en servicios de urgencias e instituciones educativas del departamento del Huila. Diseño descriptivo; con entrevista semi-estructurada, prueba de personalidad, inventario de depresión, evaluación de alcoholismo, evaluación de ideación e intento de suicidio. El perfil multidimensional se caracterizó: adolescentes rurales, adultos citadinos; son de consideración: ama de casa, con relación de pareja estable, y personas solas, divorciadas, desempleadas. La relación neuroticismo bajo y piscoticismo alto podría ayudar a explicar que el intento de suicidio haya sido realizado de \"repente\" sin existir ningún síntoma previo. La estructura y dinámica familiar disfuncional están altamente asociadas a la persona con intento de suicidio.",
+                                "end_page": "100"
+                        },
+                        "created_date": "2013-03-01T18:30:07Z"
+                },
+                {
+                        "last_updated": "2017-07-05T14:54:49Z",
+                        "id": "e3470b75e7a149aab0e1c06ca84e1b30",
+                        "bibjson": {
+                                "start_page": "273",
+                                "author": [
+                                        {
+                                                "name": "Itxaso Tellado Ruiz de Gauna"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Servicio de Publicaciones de la Universidad de Zaragoza",
+                                        "language": [
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://aufop.com/aufop/uploaded_files/normas/1484776742.pdf",
+                                                        "open_access": true,
+                                                        "type": "Publisher's own license",
+                                                        "title": "Publisher's own license"
+                                                }
+                                        ],
+                                        "title": " Revista Interuniversitaria de Formación del Profesorado",
+                                        "country": "ES",
+                                        "number": "3",
+                                        "volume": "23",
+                                        "issns": [
+                                                "0213-8646",
+                                                "2530-3791"
+                                        ]
+                                },
+                                "title": "DIALOGIC MANAGEMENT IN ADULT EDUCATION: A CASE STUDY IN SPAIN",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Education",
+                                                "code": "L"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Education (General)",
+                                                "code": "L7-991"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=27419066014",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2009",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "0213-8646"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2530-3791"
+                                        }
+                                ],
+                                "abstract": "Este trabajo de investigación presenta la gestión dialógica en educación de personas adultas como práctica de excelencia para los centros de aprendizaje de personas adultas. De forma habitual, las personas en niveles iniciales de alfabetización así como personas de clase trabajadora han sido excluidas de las posiciones de gestión y de toma de decisiones de los centros educativos en los que aprenden. Este estudio se centra en su participación en los espacios de toma de decisiones así como en la gestión compartida de la escuela de personas adultas. Se realizó un estudio de caso en una escuela de personas adultas de Barcelona, la escuela de personas adultas de La Verneda-Sant Martí, investigando cómo esta institución centra su trabajo en el colectivo y cómo las personas adultas que participan en ella perciben su participación en la gestión del centro. Las personas participantes y los/as educadores/as participan activamente en la toma de decisiones en ámbitos tales como la financiación, programación de actividades, diseño de proyectos y actividades, y creando vínculos con entidades a nivel local, nacional e internacional. La implicación de las personas participantes en los equipos de toma de decisiones es esencial para el éxito de la dirección compartida y otras estructuras de participación. Además es uno de los aspectos que explica los altos niveles de participación en la escuela. Este estudio se centra en las estrategias organizativas y educativas que se utilizan dentro de la organización comunitaria para llevar a cabo prácticas educativas de educación democrática de personas adultas y en cómo estas experiencias de éxito ayudan o dificultan la superación de la exclusión social. Los resultados del estudio apoyan las teorías y prácticas que enfatizan el valor de la participación de las personas en procesos de aprendizaje en la gestión de la escuela de personas adultas. Las consecuencias de este tipo de participación afectan no solo a las personas de forma individual sino que también al centro educativo, a las personas alrededor de la persona participante y a la comunidad.",
+                                "end_page": "274"
+                        },
+                        "created_date": "2017-06-07T19:12:38Z"
+                },
+                {
+                        "last_updated": "2016-08-19T12:44:52Z",
+                        "id": "40ddd198adab4273873e5d4410027d56",
+                        "bibjson": {
+                                "end_page": "69",
+                                "start_page": "57",
+                                "author": [
+                                        {
+                                                "affiliation": "Matia Instituto Gerontológico (España)",
+                                                "name": "Igone Etxeberria"
+                                        }
+                                ],
+                                "abstract": "Se analizó el funcionamiento emocional (afecto positivo y negativo, satisfacción con la vida, soledad y estrategias de regulación) de las personas centenarias en comparación con el de personas de menor edad (65-74, 75-84 y 85-94 años). Participaron en el estudio 257 personas mayores sin deterioro cognitivo y sin dependencia para las Actividades de la Vida Diaria (AVD). Los resultados revelaron que, en las personas centenarias, se producía una disminución de la afectividad positiva en comparación con los grupos de 65 a 74 años y de 75 a 84 años, pero no así con el de 85 a 94 años. Además, presentaban menor afecto negativo y más satisfacción con la vida (en comparación con el grupo de 65 a 74 años), al tiempo que manifestaban sentirse más solas (en comparación con los grupos de 65 a 74 años y de 75 a 84 años). Con respecto a las estrategias de regulación, en general, las personas centenarias utilizan en menor medida las estrategias proactivas y la solución de problemas y en mayor medida las pasivas, al menos en la regulación de la tristeza. En conclusión, a pesar de experimentar menos afecto positivo y más soledad se produce cierta disminución en el afecto negativo, e incluso cierto aumento de la satisfacción con la vida. En lo que respecta a la regulación emocional, las personas centenarias utilizan menos las estrategias proactivas y más las pasivas (tristeza).",
+                                "title": "Estudio descriptivo de algunas variables emocionales en las personas mayores",
+                                "month": "8",
+                                "link": [
+                                        {
+                                                "url": "http://formacionasunivep.com/ejihpe/index.php/journal/article/view/159/131",
+                                                "type": "fulltext"
+                                        }
+                                ],
+                                "year": "2016",
+                                "keywords": [
+                                        "Diferencias de edad",
+                                        "funcionamiento emocional",
+                                        "personas centenarias",
+                                        "Age differences",
+                                        "emotional functioning",
+                                        "centenarians"
+                                ],
+                                "identifier": [
+                                        {
+                                                "type": "doi",
+                                                "id": "10.1989/ejihpe.v6i2.159"
+                                        },
+                                        {
+                                                "type": "pissn",
+                                                "id": "2174-8144"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2254-9625"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Asociación Universitaria de Educación",
+                                        "language": [
+                                                "EN",
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://www.ejihpe.es/index.php/journal/about",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-ND",
+                                                        "title": "CC BY-NC-ND"
+                                                }
+                                        ],
+                                        "title": "European Journal of Investigation in Health, Psychology and Education",
+                                        "country": "ES",
+                                        "number": "2",
+                                        "volume": "6",
+                                        "issns": [
+                                                "2174-8144",
+                                                "2254-9625"
+                                        ]
+                                },
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Public aspects of medicine",
+                                                "code": "RA1-1270"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Psychology",
+                                                "code": "BF1-990"
+                                        }
+                                ]
+                        },
+                        "created_date": "2016-08-19T12:40:54Z"
+                },
+                {
+                        "last_updated": "2017-07-05T14:41:23Z",
+                        "id": "47c5157824d54b29947045fd87a3eb30",
+                        "bibjson": {
+                                "start_page": "139",
+                                "author": [
+                                        {
+                                                "name": "Fernando Conde Gutiérrez Del Álamo"
+                                        },
+                                        {
+                                                "name": "Pablo Santoro Domingo"
+                                        },
+                                        {
+                                                "name": "Grupo de Asesores en Adherencia al Tratamiento Antirretrovírico de Seisida"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Ministerio de Sanidad y Consumo",
+                                        "language": [
+                                                "EN",
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://www.msssi.gob.es/biblioPublic/publicaciones/recursos_propios/resp/home.htm",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-ND",
+                                                        "title": "CC BY-NC-ND"
+                                                }
+                                        ],
+                                        "title": "Revista Española de Salud Pública",
+                                        "country": "ES",
+                                        "number": "2",
+                                        "volume": "86",
+                                        "issns": [
+                                                "1135-5727"
+                                        ]
+                                },
+                                "title": "TIPOLOGÍA, VALORES Y PREFERENCIAS DE LAS PERSONAS CON VIH E IMAGINARIOS DE LAINFECCIÓN: RESULTADOS DE UN ESTUDIO CUALITATIVO",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Medicine",
+                                                "code": "R"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Public aspects of medicine",
+                                                "code": "RA1-1270"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=17023094003",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2012",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "1135-5727"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2173-9110"
+                                        }
+                                ],
+                                "abstract": "Fundamentos: Los avances que se han producido durante los últimos años en el abordaje terapéutico del VIH se corresponden con modificaciones en las experiencias de las personas con VIH y en el imaginario sociocultural de la infección. El objetivo del trabajo es indagar la tipología actual de personas con VIH y conocer los cambios en el imaginario social de la infección. Métodos: Estudio cualitativo realizado en diversas ciudades españolas (octubre 2010-marzo 2011). Se realizaron 9 grupos de discusión y 30 entrevistas personales con personas con VIH en seguimiento médico, de diferentes edades y tiempos de tratamiento. Se realizó un análisis sociológico de los discursos recogidos. Resultados: Actualmente pueden describirse 7 perfiles de personas con VIH, que reflejan tanto diferentes períodos histórico-epidemiológicos de la infección, la propia evolución de los tratamientos y las experiencias de las personas infectadas. En esta evolución se han producido modificaciones significativas en el sistema social de imágenes del VIH, que apuntan hacia una creciente imagen de \"cronicidad débil\" y un descenso en la percepción de su peligrosidad. Conclusiones: La nueva imagen no llega por igual a todas las personas con VIH, sino que muestra una polarización de los 7 perfiles, esencialmente entre los dos subgrupos que más relevancia epidemiológica tienen en los nuevos diagnósticos: hombres menores de 30-35 años que tienen sexo con hombres y personas inmigrantes.",
+                                "end_page": "152"
+                        },
+                        "created_date": "2016-09-06T01:34:20Z"
+                },
+                {
+                        "last_updated": "2016-08-18T18:51:53Z",
+                        "id": "594a335d52694ed490c2de44d74f78fb",
+                        "bibjson": {
+                                "end_page": "73",
+                                "start_page": "65",
+                                "author": [
+                                        {
+                                                "affiliation": "Universidad de Murcia (España)",
+                                                "name": "Inmaculada Méndez"
+                                        },
+                                        {
+                                                "affiliation": "Universidad de Murcia (España)",
+                                                "name": "Julia García Sevilla"
+                                        },
+                                        {
+                                                "affiliation": "Equipo de Orientación Educativa y Psicopedagógica Murcia 2 (España)",
+                                                "name": "Juan P. Martínez"
+                                        },
+                                        {
+                                                "affiliation": "Universidad de Murcia (España)",
+                                                "name": "Mª Ángeles Boti"
+                                        },
+                                        {
+                                                "affiliation": "Universidad de Murcia (España)",
+                                                "name": "Ana B. Cánovas"
+                                        },
+                                        {
+                                                "affiliation": "Universidad de Murcia (España)",
+                                                "name": "Yolanda Clemente"
+                                        }
+                                ],
+                                "abstract": "La resiliencia supone un constructo dinámico y multidimensional que alude a la capacidad que tienen las personas para afrontar o recuperarse con éxito de las situaciones adversas. El objetivo del presente estudio ha sido analizar la capacidad de resiliencia en trabajadores y en residentes de un centro de personas mayores institucionalizadas en función de las características sociodemográficas (sexo, edad y estado civil) tras la situación adversa por el terremoto ocurrido el Lorca en mayo del 2011. Se ha administrado un cuestionario sociodemográfico desarrollado ad hoc junto a la adaptación de la Escala de Resiliencia de Connor-Davidson (CD-RISC) en los sujetos del estudio. Los participantes fueron 20 trabajadores y 34 personas mayores de un centro de personas mayores institucionalizadas de la Región de Murcia (Lorca). La edad media de las personas mayores institucionalizadas fue de 81 años con una desviación típica de 7.68 y la edad media de los cuidadores profesionales fue de 37.85 años y la desviación típica de 9.60. El estudio permite determinar la capacidad de resiliencia atendiendo a características sociodemográficas así como la existencia de diferencias de medias significativas entre la capacidad de tenacidad autoeficacia entre los trabajadores y los residentes del centro de personas mayores lo que permitirá establecer actividades de prevención y/o de intervención.\r\n",
+                                "title": "Resiliencia en trabajadores y en residentes de un centro de personas mayores institucionalizadas",
+                                "month": "4",
+                                "link": [
+                                        {
+                                                "url": "http://formacionasunivep.com/ejihpe/index.php/journal/article/view/98/85",
+                                                "type": "fulltext"
+                                        }
+                                ],
+                                "year": "2015",
+                                "keywords": [
+                                        "Resiliencia",
+                                        "tenacidad y autoeficacia",
+                                        "control personal",
+                                        "personas mayores"
+                                ],
+                                "identifier": [
+                                        {
+                                                "type": "doi",
+                                                "id": "10.1989/ejihpe.v1i1.91"
+                                        },
+                                        {
+                                                "type": "pissn",
+                                                "id": "2174-8144"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2254-9625"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Asociación Universitaria de Educación",
+                                        "language": [
+                                                "EN",
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://www.ejihpe.es/index.php/journal/about",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-ND",
+                                                        "title": "CC BY-NC-ND"
+                                                }
+                                        ],
+                                        "title": "European Journal of Investigation in Health, Psychology and Education",
+                                        "country": "ES",
+                                        "number": "1",
+                                        "volume": "5",
+                                        "issns": [
+                                                "2174-8144",
+                                                "2254-9625"
+                                        ]
+                                },
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Public aspects of medicine",
+                                                "code": "RA1-1270"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Psychology",
+                                                "code": "BF1-990"
+                                        }
+                                ]
+                        },
+                        "created_date": "2016-08-18T18:51:53Z"
+                },
+                {
+                        "last_updated": "2017-05-02T06:47:43Z",
+                        "id": "1c808938432949fca30dd300e90081d0",
+                        "bibjson": {
+                                "start_page": "e1082",
+                                "author": [
+                                        {
+                                                "affiliation": "Syracuse University",
+                                                "name": "Kevin Crowston"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "University of Massachusetts Medical School, Lamar Soutter Library",
+                                        "language": [
+                                                "EN"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://escholarship.umassmed.edu/jeslib/policies.html",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-SA",
+                                                        "title": "CC BY-NC-SA"
+                                                }
+                                        ],
+                                        "title": "Journal of eScience Librarianship",
+                                        "country": "US",
+                                        "number": "2",
+                                        "volume": "4",
+                                        "issns": [
+                                                "2161-3974"
+                                        ]
+                                },
+                                "title": "“Personas” to Support Development of Cyberinfrastructure for Scientific Data Sharing",
+                                "month": "11",
+                                "link": [
+                                        {
+                                                "url": "http://escholarship.umassmed.edu/jeslib/vol4/iss2/2/",
+                                                "type": "fulltext"
+                                        }
+                                ],
+                                "year": "2015",
+                                "keywords": [
+                                        "cyberinfrastructure development",
+                                        "user requirements",
+                                        "personas"
+                                ],
+                                "identifier": [
+                                        {
+                                                "type": "doi",
+                                                "id": "10.7191/jeslib.2015.1082"
+                                        },
+                                        {
+                                                "type": "eissn",
+                                                "id": "2161-3974"
+                                        }
+                                ],
+                                "abstract": "Objective: To ensure that cyberinfrastructure for sharing scientific data is useful, system developers need to understand what scientists and other intended users do as well as the attitudes and beliefs that shape their behaviours. This paper introduces personas — detailed descriptions of an “archetypical user of a system” — as an approach for capturing and sharing knowledge about potential system users.\r\n\r\nSetting: Personas were developed to support development of the ‘DataONE’ (Data Observation Network for Earth) project, which has developed and deployed a sustainable long-term data preservation and access network to ensure the preservation and access to multi-scale, multi-discipline, and multi-national environmental and biological science data (https://www.dataone.org/what-dataone) (Michener et al. 2012).\r\n\r\nMethods: Personas for DataONE were developed based on data from surveys and interviews done by members of DataONE working groups along with sources such as usage scenarios for DataONE and the Data Conservancy project and the Purdue Data Curation Profiles (Witt et al. 2009).\r\n\r\nResults: A total of 11 personas were developed: five for various kinds of research scientists (e.g., at different career stages and using different types of data); a science data librarian; and five for secondary roles.\r\n\r\nConclusion: Personas were found to be useful for helping developers and other project members to understand users and their needs. The developed DataONE personas may be useful for others trying to develop systems or programs for scientists involved in data sharing.",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Bibliography. Library science. Information resources",
+                                                "code": "Z"
+                                        }
+                                ]
+                        },
+                        "created_date": "2015-11-06T01:53:04Z"
+                },
+                {
+                        "last_updated": "2017-07-07T18:02:38Z",
+                        "id": "416c8f3874ea4c7ab05c011004dae455",
+                        "bibjson": {
+                                "start_page": "43",
+                                "author": [
+                                        {
+                                                "name": "Zoraide Lugli Rivero"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Pontificia Universidad Javeriana",
+                                        "language": [
+                                                "Spanish"
+                                        ],
+                                        "license": [],
+                                        "title": "Pensamiento Psicológico",
+                                        "country": "CO",
+                                        "number": "17",
+                                        "volume": "9",
+                                        "issns": [
+                                                "1657-8961"
+                                        ]
+                                },
+                                "title": "Autoeficacia y locus de control: variables predictoras de la autorregulación del peso en personas obesas",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Psychology",
+                                                "code": "BF1-990"
+                                        },
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Philosophy. Psychology. Religion",
+                                                "code": "B"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://www.redalyc.org/articulo.oa?id=80122596004",
+                                                "type": "fulltext",
+                                                "content_type": "pdf"
+                                        }
+                                ],
+                                "year": "2011",
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "1657-8961"
+                                        }
+                                ],
+                                "abstract": "Objetivo. La presente investigación tuvo por objetivo determinar la capacidad predictiva de la autoeficacia percibida y el locus del control en la autorregulación del peso, en personas obesas que asisten a tratamiento médico en diferentes centros de salud privados de la ciudad de Maracay, Venezuela. Método. Concretamente, se realizó una investigación no experimental, bajo un diseño correlacional, de corte transversal, en una muestra de 243 personas obesas. Se administraron, de forma individual y en formato papel y lápiz, el Inventario de autorregulación del peso, Inventario de autoeficacia percibida en la regulación del peso e Inventario de locus de control del peso. Resultados. Los resultados del estudio demuestran que las personas obesas que se sienten capaces de controlar su peso, y a la vez tienen creencias débiles de que su peso depende de sus acciones, son aquellas que reportan mayor autorregulación del peso. Conclusión. Estos resultados sugieren aspectos a considerar en los tratamientos cognitivo-conductuales dirigidos al control de la obesidad.  Específicamente,las intervenciones deben dirigirse a entrenar a personas en tratamiento de la obesidad en habilidades de autorregulación y cambio de creencias relacionadas con su peso.",
+                                "end_page": "55"
+                        },
+                        "created_date": "2013-03-01T18:30:08Z"
+                },
+                {
+                        "last_updated": "2017-03-11T00:32:08Z",
+                        "id": "11f50e1d576e49acb822bf68efb80c0b",
+                        "bibjson": {
+                                "start_page": "104",
+                                "author": [
+                                        {
+                                                "affiliation": "Universidad de Tarapacá",
+                                                "name": "Lorena Gallardo-Peralta"
+                                        },
+                                        {
+                                                "affiliation": "Universidad de Tarapacá",
+                                                "name": "Dina Conde-Llanes"
+                                        },
+                                        {
+                                                "name": "Isabel Córdova-Jorquera"
+                                        }
+                                ],
+                                "journal": {
+                                        "publisher": "Ediciones SPA S.L.",
+                                        "language": [
+                                                "ES"
+                                        ],
+                                        "license": [
+                                                {
+                                                        "url": "http://scielo.isciii.es/revistas/geroko/eaboutj.htm#Copyright",
+                                                        "open_access": true,
+                                                        "type": "CC BY-NC-SA",
+                                                        "title": "CC BY-NC-SA"
+                                                }
+                                        ],
+                                        "title": "Gerokomos",
+                                        "country": "ES",
+                                        "number": "3",
+                                        "volume": "27",
+                                        "issns": [
+                                                "1134-928X",
+                                                "1578-164X"
+                                        ]
+                                },
+                                "title": "Asociación entre envejecimiento exitoso y participación social en personas mayores chilenas",
+                                "subject": [
+                                        {
+                                                "scheme": "LCC",
+                                                "term": "Nursing",
+                                                "code": "RT1-120"
+                                        }
+                                ],
+                                "link": [
+                                        {
+                                                "url": "http://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S1134-928X2016000300004&lng=en&tlng=en",
+                                                "type": "fulltext",
+                                                "content_type": "html"
+                                        }
+                                ],
+                                "keywords": [
+                                        "envejecimiento exitoso",
+                                        "participación social",
+                                        "gerontología"
+                                ],
+                                "identifier": [
+                                        {
+                                                "type": "pissn",
+                                                "id": "1134-928X"
+                                        }
+                                ],
+                                "abstract": "Objetivos: Analizar la asociación entre la participación social y el envejecimiento exitoso en una muestra representativa de personas mayores chilenas. Método: Se dispone de una muestra de 777 personas mayores chilenas. Se utilizó el Inventario de envejecimiento exitoso (SAI) y todos los sujetos de la muestra firmaron una carta de consentimiento informado. Se realizaron análisis bivariados (prueba t de Student para muestras independientes y prueba de χ²) a través de los programas SPSS (versión 23). Resultados: Se confirma la asociación entre participación social y envejecimiento exitoso; asimismo, los resultados muestran diferencias estadísticamente significativas entre las personas mayores que participan y los que no participan en el proceso de envejecer con éxito. Quienes participan en grupos sociales envejecen con éxito. Conclusiones: La participación social es un recurso psicosocial relevante en la intervención social gerontológica, dada su asociación positiva con el bienestar general de las personas mayores.",
+                                "end_page": "108"
+                        },
+                        "created_date": "2017-01-10T19:06:40Z"
+                }
+        ],
+        "next": "https://doaj.org/api/v1/search/articles/personas?page=3&pageSize=10",
+        "query": "personas",
+        "total": 9632,
+        "page": 2
+}
