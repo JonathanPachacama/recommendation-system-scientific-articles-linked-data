@@ -6,13 +6,10 @@ module.exports = {
             autoIncrement: true,
             primaryKey: true
         },
-        sujeto: {
+        value: {
             type: "string"
         },
-        predicado: {
-            type: "string"
-        },
-        objeto: {
+        type: {
             type: "string"
         },
     }

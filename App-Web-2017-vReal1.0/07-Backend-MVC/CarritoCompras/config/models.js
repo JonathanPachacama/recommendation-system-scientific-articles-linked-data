@@ -28,6 +28,6 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  //migrate: 'alter'//---> migrar automáticamente columnas / campos, pero intento mantener mis datos existentes (experimental)
+  // migrate: 'alter'//---> migrar automáticamente columnas / campos, pero intento mantener mis datos existentes (experimental)
     migrate: 'safe'
 };
