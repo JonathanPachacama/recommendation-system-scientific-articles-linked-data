@@ -31,3 +31,4 @@ module.exports.models = {
   // migrate: 'alter'//---> migrar automáticamente columnas / campos, pero intento mantener mis datos existentes (experimental)
     migrate: 'safe'
 };
+

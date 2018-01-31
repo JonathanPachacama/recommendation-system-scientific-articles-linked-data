@@ -1,4 +1,3 @@
-
 declare var module:any;
 
 module.exports = {
@@ -9,12 +8,19 @@ module.exports = {
       autoIncrement: true,
       primaryKey:true
     },
-    value:{
+
+    links_Value:{
       type:"string"
     },
-    type:{
+    link_Type:{
       type:"string"
     },
+    o_Value:{
+      type:"string"
+    },
+    o_Type:{
+      type:"string"
+    }
 
   }
 
