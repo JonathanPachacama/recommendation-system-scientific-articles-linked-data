@@ -51,8 +51,8 @@ module.exports.connections = {
   Mysqladapter2: {
     adapter: 'sails-mysql',
     host: 'localhost',
-    user: 'escobar',
-    password: 'Mafer199215',
+    user: 'Jonathan',
+    password: '1234',
     database: 'wikindx4',
     port:3306
   },

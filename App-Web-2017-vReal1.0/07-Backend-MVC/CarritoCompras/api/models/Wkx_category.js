@@ -14,7 +14,12 @@ module.exports = {
     },
     categoryCategory: {
       type:"string"
+    },
+    resouceSubcategory:{
+      collection: 'Wkx_resource_category',
+      via: 'resourcecategoryCategoryId'
     }
+
 
   }
 };

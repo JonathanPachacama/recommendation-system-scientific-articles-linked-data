@@ -18,7 +18,6 @@ module.exports = {
     },
     crearMiArticulo: function (req, res) {
         var parametros = req.allParams();
-        sails.log.info("Parametros", parametros);
         var nuevoArticulo = {
             title: parametros.title,
             country: parametros.country,

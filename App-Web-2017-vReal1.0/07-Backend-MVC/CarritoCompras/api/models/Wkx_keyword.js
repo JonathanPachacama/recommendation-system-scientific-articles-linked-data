@@ -17,7 +17,11 @@ module.exports = {
     },
 
     keywordKeyword:{
-      type:"string"
+      type:"longtext"
+    },
+    keyword_Keyword:{
+      collection: 'Wkx_resource_keyword',
+      via: 'resourcekeywordKeywordId'
     }
 
   }

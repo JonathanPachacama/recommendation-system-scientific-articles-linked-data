@@ -1,5 +1,5 @@
 /**
- * Wkx_collection.js
+ * Wkx_resource_keyword.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,23 +10,25 @@ module.exports = {
   autoUpdatedAt: false,
   connection: 'Mysqladapter2',
   attributes: {
-    collectionId:{
-      type:"integer",
+    resourcekeywordId:{
+      type: "integer",
       autoIncrement: true,
-      primaryKey:true
+      primaryKey: true
     },
-    collectionTitle:{
-      type:"string"
+    resourcekeywordResourceId:{
+      model:'Wkx_resource'
     },
-    collectionTitleShort:{
-      type:"string"
+    resourcekeywordQuoteId:{
+      type: "integer"
     },
-    collectionType:{
-      type:"string"
+    resourcekeywordParaphraseId:{
+      type: "integer"
     },
-    misc_collection:{
-      collection: 'Wkx_resource_misc',
-      via: 'resourcemiscCollection'
+    resourcekeywordMusingId:{
+      type: "integer"
+    },
+    resourcekeywordKeywordId:{
+      model:'Wkx_keyword'
     }
   }
 };

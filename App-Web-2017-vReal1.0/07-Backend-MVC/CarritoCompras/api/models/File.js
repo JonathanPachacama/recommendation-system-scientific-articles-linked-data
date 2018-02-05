@@ -17,9 +17,9 @@ module.exports = {
       type: 'string',
       required: true
     },
-    fkIdArticulo:{
-      model:'Articulo'
 
+      fkIdArticulo:{
+        model:'Articulo'
     }
   }
 };
