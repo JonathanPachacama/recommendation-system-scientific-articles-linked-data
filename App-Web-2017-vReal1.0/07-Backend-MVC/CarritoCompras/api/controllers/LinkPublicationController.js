@@ -1,4 +1,7 @@
 module.exports = {
+    recomendador: function (req, res) {
+        return res.view('busquedaArxiv');
+    },
     crearLinkPublication: function (req, res) {
         var parametros = req.allParams();
         var nuevoLinks = {

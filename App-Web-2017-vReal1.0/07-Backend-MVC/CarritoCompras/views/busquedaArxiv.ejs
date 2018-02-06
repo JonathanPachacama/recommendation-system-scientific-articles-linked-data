@@ -161,8 +161,10 @@
   app.controller("Controller",function ($scope,$http) {
 
     $scope.articulos = [];
+    $scope.autores = [];
     $scope.respuestaJson= [];
 
+    //Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
     let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
     let rdf_Prefix = "PREFIX+rdf%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A";
@@ -170,12 +172,17 @@
     let akt_Prefix = "PREFIX+akt%3A++%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
     let owl_Prefix = "PREFIX+owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
+    //Links
     let select = "SELECT+DISTINCT+%3Flinks+%3Fo+";
     let where="WHERE%7B%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+%3Flinks+%3Fo%7D+Limit+20%0D%0A";
-
     var concatenacion = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select+where;
-
     var articulo = $scope.articulos
+    //Autores
+    let select2 = "SELECT+DISTINCT+%3Fname+";
+    let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname%7D++limit+100%0D%0A%0D%0A";
+    var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2;
+    var Autor = $scope.autores
+
     $http.get(concatenacion)
       .success(function (data){
         console.log(data);
@@ -185,8 +192,24 @@
       })
       .error(function (err) {
       });
+
+    $http.get(concatenacion2)
+      .success(function (data){
+        console.log(data);
+        $scope.autores = data.results;
+        $scope.respuestaJson= data;
+        console.log("la url es:" + concatenacion2);
+      })
+      .error(function (err) {
+      });
+
+
+
   });
 </script>
+
+
+
 
 
 

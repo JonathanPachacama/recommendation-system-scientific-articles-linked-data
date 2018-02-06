@@ -5,6 +5,11 @@ declare var LinkPublication;
 
 module.exports = {
 
+  recomendador:(req, res) =>{
+
+    return res.view('busquedaArxiv')
+  },
+
   crearLinkPublication: (req, res) => {
 
     let parametros = req.allParams();
