@@ -1,5 +1,5 @@
 /**
- * Wkx_publisher.js
+ * Wkx_resource_category.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,24 +10,16 @@ module.exports = {
   autoUpdatedAt: false,
   connection: 'Mysqladapter2',
   attributes: {
-    publisherId:{
-      type:"integer",
+    resourcecategoryId: {
+      type: "integer",
       autoIncrement: true,
-      primaryKey:true
+      primaryKey: true
     },
-    publisherLocation:{
-      type:"string"
+    resourcecategoryResourceId: {
+      model:'Wkx_resource'
     },
-
-    publisherName:{
-      type:"string"
-    },
-    publisherType:{
-      type:"string"
-    },
-    misc_Publisher:{
-      collection: 'Wkx_resource_misc',
-      via: 'resourcemiscPublisher'
+    resourcecategoryCategoryId:{
+      model:'Wkx_category'
     }
   }
 };

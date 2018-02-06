@@ -31,6 +31,10 @@ module.exports = {
     },
     creatorSurname:{
       type:"string"
+    },
+    resourcecreatorCreator: {
+      collection: 'Wkx_resource_creator',
+      via: 'resourcecreatorCreatorId'
     }
 
   }

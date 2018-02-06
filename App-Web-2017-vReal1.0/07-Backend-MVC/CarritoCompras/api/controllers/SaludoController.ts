@@ -36,7 +36,7 @@ module.exports = {
 
     let parametros = req.allParams();
 
-    sails.log.info("Parametros",parametros);
+
 
 
 

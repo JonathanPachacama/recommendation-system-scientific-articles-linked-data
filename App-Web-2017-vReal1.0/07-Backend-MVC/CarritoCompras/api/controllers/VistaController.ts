@@ -14,7 +14,7 @@ module.exports = {
  biblioteca:(req,res)=>{
    let parametros = req.allParams();
 
-   sails.log.info("Parametros",parametros);
+
 
    if(!parametros.biblioteca){
      parametros.biblioteca ='';
@@ -28,7 +28,7 @@ module.exports = {
       })
       .exec((err,articulos)=>{
         if(err) return res.negotiate(err);
-        sails.log.info("Articulos",articulos);
+
 
         return res.view('biblioteca',{
           articulos:articulos

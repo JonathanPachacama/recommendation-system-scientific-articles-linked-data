@@ -83,6 +83,18 @@ module.exports = {
     },
     resourceDoi:{
       type:"string"
+    },
+    resouceCategory:{
+      collection: 'Wkx_resource_category',
+      via: 'resourcecategoryResourceId'
+    },
+    creatorResourceId: {
+      collection: 'Wkx_resource_creator',
+      via: 'resourcecreatorResourceId'
+    },
+    keywordResourceId: {
+      collection: 'Wkx_resource_keyword',
+      via: 'resourcekeywordResourceId'
     }
   }
 };

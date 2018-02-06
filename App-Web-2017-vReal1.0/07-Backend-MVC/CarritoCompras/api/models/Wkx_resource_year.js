@@ -1,5 +1,5 @@
 /**
- * Wkx_publisher.js
+ * Wkx_resource_year.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -10,24 +10,21 @@ module.exports = {
   autoUpdatedAt: false,
   connection: 'Mysqladapter2',
   attributes: {
-    publisherId:{
+    resourceyearId:{
       type:"integer",
-      autoIncrement: true,
       primaryKey:true
     },
-    publisherLocation:{
-      type:"string"
+    resourceyearYear1:{
+      type: "string"
     },
-
-    publisherName:{
-      type:"string"
+    resourceyearYear2:{
+      type: "string"
     },
-    publisherType:{
-      type:"string"
+    resourceyearYear3:{
+      type: "string"
     },
-    misc_Publisher:{
-      collection: 'Wkx_resource_misc',
-      via: 'resourcemiscPublisher'
+    resourceyearYear4:{
+      type: "string"
     }
   }
 };

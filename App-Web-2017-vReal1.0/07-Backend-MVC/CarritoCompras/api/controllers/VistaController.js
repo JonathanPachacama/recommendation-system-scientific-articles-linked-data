@@ -4,7 +4,6 @@ module.exports = {
     },
     biblioteca: function (req, res) {
         var parametros = req.allParams();
-        sails.log.info("Parametros", parametros);
         if (!parametros.biblioteca) {
             parametros.biblioteca = '';
         }
@@ -18,7 +17,6 @@ module.exports = {
             .exec(function (err, articulos) {
             if (err)
                 return res.negotiate(err);
-            sails.log.info("Articulos", articulos);
             return res.view('biblioteca', {
                 articulos: articulos
             });
