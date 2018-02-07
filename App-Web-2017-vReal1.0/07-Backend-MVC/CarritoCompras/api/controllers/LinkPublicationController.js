@@ -22,4 +22,49 @@ module.exports = {
             }
         });
     },
+    VerArticulos: function (req, res) {
+        Articulo
+            .find()
+            .exec(function (err, articulo) {
+            if (err)
+                return res.negotiate(err);
+            sails.log.info("Articulo", articulo);
+            return res.view('busquedaArxiv', {
+                Articulo: articulo
+            });
+        });
+    },
+    VerArticulo: function (req, res) {
+        var parametros = req.allParams();
+        if (parametros.id) {
+            Articulo.findOne({
+                id: parametros.id
+            })
+                .exec(function (err, articuloEncontrado) {
+                if (err)
+                    return res.serverError(err);
+                if (articuloEncontrado) {
+                    //Si encontro
+                    var authors = articuloEncontrado.authores;
+                    var abstract = articuloEncontrado.abstract;
+                    var keywords = articuloEncontrado.keywords;
+                    var category = articuloEncontrado.category;
+                    sails.log.info("autor/es:", authors);
+                    sails.log.info("abstract:", abstract);
+                    sails.log.info("palabra clave:", keywords);
+                    sails.log.info("categoria:", category);
+                    return res.view('busquedaArxiv', {
+                        authors: articuloEncontrado
+                    });
+                }
+                else {
+                    //No encontro
+                    return res.redirect('/');
+                }
+            });
+        }
+        else {
+            return res.redirect('/');
+        }
+    }
 };
