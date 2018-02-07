@@ -62,6 +62,10 @@
 
 <br>
 
+<div  ng-repeat="x in respuestaJson2" >
+  <p >{{x.bindings[4].name.value}}</p>
+
+</div>
 
 
 
@@ -163,6 +167,7 @@
     $scope.articulos = [];
     $scope.autores = [];
     $scope.respuestaJson= [];
+    $scope.nombres= [];
 
     //Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
@@ -178,9 +183,13 @@
     var concatenacion = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select+where;
     var articulo = $scope.articulos
     //Autores
+    let name1 = "lu"
+    let apellido1 = "Songwu"
     let select2 = "SELECT+DISTINCT+%3Fname+";
-    let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname%7D++limit+100%0D%0A%0D%0A";
-    var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2;
+    let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
+      "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
+    let limit2="limit+10%0D%0A%0D%0A";
+    var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
     var Autor = $scope.autores
 
     $http.get(concatenacion)
@@ -197,8 +206,9 @@
       .success(function (data){
         console.log(data);
         $scope.autores = data.results;
-        $scope.respuestaJson= data;
+        $scope.respuestaJson2= data;
         console.log("la url es:" + concatenacion2);
+
       })
       .error(function (err) {
       });
