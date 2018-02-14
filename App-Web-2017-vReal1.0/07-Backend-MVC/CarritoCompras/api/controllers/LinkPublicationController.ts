@@ -1,9 +1,15 @@
 declare var module;
 declare var sails;
 declare var LinkPublication;
+declare var Articulo;
 
 
 module.exports = {
+
+  recomendador:(req, res) =>{
+
+    return res.view('busquedaArxiv')
+  },
 
   crearLinkPublication: (req, res) => {
 
@@ -28,4 +34,49 @@ module.exports = {
       )
 
   },
+
+  VerArticulos:(req,res)=>{
+
+    Articulo
+      .find()
+      .exec((err,articulo)=>{
+        if(err) return res.negotiate(err);
+        sails.log.info("Articulo",articulo);
+        return res.view('busquedaArxiv',{
+          Articulo:articulo
+        })
+      })
+
+  },
+  VerArticulo:(req,res)=>{
+    let parametros = req.allParams();
+    if(parametros.id){
+      Articulo.findOne({
+        id:parametros.id
+      })
+        .exec((err,articuloEncontrado)=>{
+          if(err) return res.serverError(err);
+          if(articuloEncontrado){
+            //Si encontro
+            let authors=articuloEncontrado.authores;
+            let abstract=articuloEncontrado.abstract;
+            let keywords=articuloEncontrado.keywords;
+            let category=articuloEncontrado.category;
+            sails.log.info("autor/es:",authors);
+            sails.log.info("abstract:",abstract);
+            sails.log.info("palabra clave:",keywords);
+            sails.log.info("categoria:",category);
+            return res.view('busquedaArxiv',{
+              authors:articuloEncontrado
+            })
+          }else{
+            //No encontro
+            return res.redirect('/')
+          }
+        })
+    }else{
+      return res.redirect('/')
+    }
+
+  }
 }
