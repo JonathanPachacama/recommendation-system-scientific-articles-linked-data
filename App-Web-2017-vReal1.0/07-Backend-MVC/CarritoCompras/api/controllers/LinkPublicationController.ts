@@ -41,14 +41,15 @@ module.exports = {
       .find()
       .exec((err,articulo)=>{
         if(err) return res.negotiate(err);
-        sails.log.info("Articulo",articulo);
+        console.log("Articulo:",articulo)
+
         return res.view('busquedaArxiv',{
-          Articulo:articulo
+          Articulos:articulo
         })
       })
 
   },
-  VerArticulo:(req,res)=>{
+  TraerParametros:(req,res)=>{
     let parametros = req.allParams();
     if(parametros.id){
       Articulo.findOne({
@@ -62,12 +63,17 @@ module.exports = {
             let abstract=articuloEncontrado.abstract;
             let keywords=articuloEncontrado.keywords;
             let category=articuloEncontrado.category;
-            sails.log.info("autor/es:",authors);
+            /*sails.log.info("autor/es:",authors);
             sails.log.info("abstract:",abstract);
             sails.log.info("palabra clave:",keywords);
-            sails.log.info("categoria:",category);
+            sails.log.info("categoria:",category);*/
+            sails.log.info("Articulo:",articuloEncontrado);
             return res.view('busquedaArxiv',{
-              authors:articuloEncontrado
+              /*authors:articuloEncontrado,
+              abstract:articuloEncontrado,
+              keywords:articuloEncontrado,
+              category:articuloEncontrado*/
+              Articulo:articuloEncontrado
             })
           }else{
             //No encontro
