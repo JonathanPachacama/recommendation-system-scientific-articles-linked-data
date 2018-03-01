@@ -59,15 +59,19 @@ module.exports = {
           if(err) return res.serverError(err);
           if(articuloEncontrado){
             //Si encontro
+            let id=articuloEncontrado.id;
+            let title=articuloEncontrado.title;
             let authors=articuloEncontrado.authores;
             let abstract=articuloEncontrado.abstract;
             let keywords=articuloEncontrado.keywords;
             let category=articuloEncontrado.category;
-            /*sails.log.info("autor/es:",authors);
-            sails.log.info("abstract:",abstract);
-            sails.log.info("palabra clave:",keywords);
-            sails.log.info("categoria:",category);*/
-            sails.log.info("Articulo:",articuloEncontrado);
+            sails.log.info("id:",id);
+            sails.log.info("Titulo:",title);
+            sails.log.info("Autor/es:",authors);
+            sails.log.info("Abstract:",abstract);
+            sails.log.info("Palabras clave:",keywords);
+            sails.log.info("Categoria:",category);
+            // sails.log.info("Articulo:",articuloEncontrado);
             return res.view('busquedaArxiv',{
               /*authors:articuloEncontrado,
               abstract:articuloEncontrado,
