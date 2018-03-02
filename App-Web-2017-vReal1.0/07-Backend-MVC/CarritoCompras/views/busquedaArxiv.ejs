@@ -52,20 +52,25 @@
 
 <h1>Metadatos de Articulos Guardados</h1>
 
-
+<!--<form action="/LinkPublication/TraerParametros?id=1" method="post">-->
 <h2> <%= Articulo.id%> - <%= Articulo.title%>  </h2>
 <h3>Autores:</h3>
 <p>Recomendación Mediante Author</p>
-<input type="text" ngModel="authorIn.Autor" value="<%= Articulo.authores%>" >
-<button class="btn btn-success" ng-Click="addAuthor()">Busqueda</button>
+<input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" ><%= Articulo.authores%>
+
+  <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
+
 
 <h3>Autores</h3>
 
 <ul>
-  <li ng-repeat="aut in autoresSeleccionado track by $index">
-    {{aut.autor1}}
+  <li ng-repeat="autor in autoresSeleccionado track by $index">
+    {{autor.autor1}}
   </li>
 </ul>
+
+
+<!--</form>-->
 
 
 <h3>Abstract: </h3><p><%= Articulo.abstract%></p>
@@ -187,26 +192,9 @@
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
 
-    $scope.articulos = [];
-    $scope.autores = [];
-    $scope.respuestaJson= [];
-    $scope.nombres = [];
 
 
-    $scope.authorIn = {};
-    $scope.autoresSeleccionado = [
-      {
-        autor1: "Jonathan"
-      },
-      {
-        autor1: "Paul"
-      },
-    ];
-    $scope.addAuthor = function () {
-      $scope.autoresSeleccionado.push($scope.authorIn)
-    };
-
-    //Publicaciones ACM
+    //Prefijos Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
     let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
     let rdf_Prefix = "PREFIX+rdf%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A";
@@ -214,20 +202,89 @@
     let akt_Prefix = "PREFIX+akt%3A++%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
     let owl_Prefix = "PREFIX+owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
+    $scope.articulos = [];
+    $scope.autores = [];
+    $scope.respuestaJson= [];
+    $scope.nombres = [];
+
+
+    $scope.nuevoAuthorIn = {};
+    $scope.autoresSeleccionado = [
+//      {
+//        autor1: "Jonathan"
+//      },
+//      {
+//        autor1: "Paul"
+//      },
+    ];
+    $scope.addAuthor = function () {
+
+
+      $scope.autoresSeleccionado.push($scope.nuevoAuthorIn);
+      $scope.nuevoAuthorIn ={};
+      console.log("autor es:"+$scope.autoresSeleccionado.length);
+
+      for(var i = 0;i<$scope.autoresSeleccionado.length;i ++){
+        nombres = $scope.autoresSeleccionado[i].autor1
+      console.log("autor es:"+nombres);
+      }
+     function dividirCadena (cadenaADividir,separador){
+        var arrayDeCadena = cadenaADividir.split(separador);
+       console.log("la cadena original es:"+cadenaADividir);
+       console.log("El Separador es:"+separador);
+       console.log("El array tiene:"+arrayDeCadena.length);
+
+       console.log("El array tiene:"+arrayDeCadena[0]);
+       console.log("El array tiene:"+arrayDeCadena[1]);
+
+       for (var j=0;j<arrayDeCadena.length;j++){
+         console.log(arrayDeCadena[j]);
+       }
+
+
+
+
+
+       //Autores
+       let name1 = arrayDeCadena[0]
+       let apellido1 = arrayDeCadena[1]
+       let select2 = "SELECT+DISTINCT+%3Fname+";
+       let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
+         "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
+       let limit2="limit+10%0D%0A%0D%0A";
+       var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
+       //Consumo Api con la consulta por autores
+       $http.get(concatenacion2)
+         .success(function (data){
+           console.log(data);
+           $scope.autores = data.results;
+           $scope.respuestaJson2= data;
+           console.log("la url es:" + concatenacion2);
+         })
+         .error(function (err) {
+         });
+
+      };
+      var cadenaVerso = nombres
+      var patron = ", ";
+      var nuevoValor = " ";
+      var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
+      var espacio = " ";
+      //var coma = ",";
+      dividirCadena(nuevaCadena,espacio);
+      //dividirCadena(cadenaVerso,coma)
+
+
+
+    };
+
+
     //Links
     let select = "SELECT+DISTINCT+%3Flinks+%3Fo+";
     let where="WHERE%7B%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+%3Flinks+%3Fo%7D+Limit+20%0D%0A";
     var concatenacion = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select+where;
-    var articulo = $scope.articulos
-    //Autores
-    let name1 = "lu"
-    let apellido1 = "Songwu"
-    let select2 = "SELECT+DISTINCT+%3Fname+";
-    let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
-      "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
-    let limit2="limit+10%0D%0A%0D%0A";
-    var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
-    var Autor = $scope.autores
+
+
 
     $http.get(concatenacion)
       .success(function (data){
@@ -239,16 +296,7 @@
       .error(function (err) {
       });
 
-    $http.get(concatenacion2)
-      .success(function (data){
-        console.log(data);
-        $scope.autores = data.results;
-        $scope.respuestaJson2= data;
-        console.log("la url es:" + concatenacion2);
 
-      })
-      .error(function (err) {
-      });
 
 
 
