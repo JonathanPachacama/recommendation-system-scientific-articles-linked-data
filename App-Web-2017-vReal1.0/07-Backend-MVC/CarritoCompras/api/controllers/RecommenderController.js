@@ -1,33 +1,17 @@
 module.exports = {
     recomendador: function (req, res) {
-        return res.view('busquedaArxiv');
+        return res.view('recommender');
     },
-    crearLinkPublication: function (req, res) {
-        var parametros = req.allParams();
-        var nuevoLinks = {
-            links_Value: parametros.links_Value,
-            link_Type: parametros.link_Type,
-            o_Value: parametros.o_Value,
-            o_Type: parametros.o_Type,
-        };
-        LinkPublication.create(nuevoLinks)
-            .exec(function (error, linkCreado) {
-            if (error) {
-                return res.serverError(error);
-            }
-            else {
-                // return res.ok(linkCreado);
-                //return res.created('Nuevo articulo creado.');
-                return res.view('busquedaArxiv');
-            }
-        });
-    },
-    VerArticulos: function (req, res) {
-        Articulo.find().exec(function (err, articulosEncontrados) {
+    VerArticuloGuardados: function (req, res) {
+        Articulo
+            .find()
+            .exec(function (err, articulo) {
             if (err)
-                return res.serverError(err);
-            sails.log.info(" Articulos:  ", articulosEncontrados);
-            return res.view('busquedaArxiv', { articulos: articulosEncontrados });
+                return res.negotiate(err);
+            console.log("Articulo:", articulo);
+            return res.view('busquedaArxiv', {
+                Articulos: articulo
+            });
         });
     },
     TraerParametros: function (req, res) {

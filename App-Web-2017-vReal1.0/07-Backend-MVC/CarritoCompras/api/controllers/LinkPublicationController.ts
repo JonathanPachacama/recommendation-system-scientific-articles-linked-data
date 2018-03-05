@@ -37,18 +37,19 @@ module.exports = {
 
   VerArticulos:(req,res)=>{
 
-    Articulo
-      .find()
-      .exec((err,articulo)=>{
-        if(err) return res.negotiate(err);
-        console.log("Articulo:",articulo)
-
-        return res.view('busquedaArxiv',{
-          Articulos:articulo
-        })
-      })
+    Articulo.find().exec(
+      (err, articulosEncontrados) => {
+        if (err) return res.serverError(err)
+        sails.log.info(" Articulos:  ",articulosEncontrados);
+        return res.view('busquedaArxiv',{articulos:articulosEncontrados})
+      });
 
   },
+
+
+
+
+
   TraerParametros:(req,res)=>{
     let parametros = req.allParams();
     if(parametros.id){
@@ -72,7 +73,7 @@ module.exports = {
             sails.log.info("Palabras clave:",keywords);
             sails.log.info("Categoria:",category);
             // sails.log.info("Articulo:",articuloEncontrado);
-            return res.view('busquedaArxiv',{
+            return res.view('recommender',{
               /*authors:articuloEncontrado,
               abstract:articuloEncontrado,
               keywords:articuloEncontrado,
@@ -89,4 +90,8 @@ module.exports = {
     }
 
   }
+
+
+
+
 }
