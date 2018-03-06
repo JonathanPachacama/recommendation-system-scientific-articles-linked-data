@@ -12,41 +12,9 @@
 
 <body ng-controller="Controller">
 
-
 <br>
-<br>
-<br>
-<!--<form action="/LinkPublication/crearLinkPublication" method="post">-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Link Valor</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control"   value="{{articulos[3].links.value}}" type="text"  id="links_Value" name="links_Value">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Link tipo</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control"  value="{{articulos[3].links.type}} "type="text"  id="link_Type" name="link_Type">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Valor de Objeto</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control" value="{{articulos[3].o.value}}" type="text" id="o_Value" name="o_Value">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Tipo del objeto</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control"  value="{{articulos[3].o.type}}" type="text" id="o_Type" name="o_Type">-->
-<!--</div>-->
-<!--</div>-->
 
-<!--<button type="submit" class="btn btn-success">Crear</button>-->
-
-<!--</form>-->
-
-<h1>Metadatos de Articulos Guardados</h1>
+<h1>Metadatos del Articulo Selecionado</h1>
 
 <!--<form action="/LinkPublication/TraerParametros?id=1" method="post">-->
 <h2> <%= article.id%> - <%= article.title%>  </h2>
@@ -69,7 +37,6 @@
     {{autor.autor1}}
   </li>
 </ul>
-
 <!--</form>-->
 
 
@@ -78,22 +45,6 @@
 <h3>Categoria: </h3><p><%= article.category%></p>
 
 
-<!--<div  ng-repeat="x in respuestaJson" >-->
-<!--<p >{{x.bindings[0].o.value}}</p>-->
-<!--<p >{{x.bindings[1].o.value}}</p>-->
-<!--<p >{{x.bindings[2].o.value}}</p>-->
-<!--<p >{{x.bindings[3].o.value}}</p>-->
-<!--<p >{{x.bindings[4].o.value}}</p>-->
-<!--</div>-->
-
-
-
-<!--<br>-->
-
-<!--<div  ng-repeat="x in respuestaJson2" >-->
-<!--<p >{{x.bindings[4].name.value}}</p>-->
-
-<!--</div>-->
 
 <form action="" method="post">
   <div class="container" style="background-color: black">
@@ -145,99 +96,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<form action="/LinkPublication/crearLinkPublication" method="post">-->
-<!--<div class="container" style="background-color: black">-->
-<!--<div class="row">-->
-<!--<img class="img-cabecera"-->
-<!--src="https://www.acm.org/binaries/content/gallery/acm/ctas/fca_logo.jpg/fca_logo.jpg/acm%3Adesktopcta"-->
-<!--alt=""-->
-<!--width="100%">-->
-<!--</div>-->
-<!--<br>-->
-
-<!--<br><br>-->
-<!--<div class="row">-->
-<!--<div class="col-md-4" ng-repeat="articulo in articulos;">-->
-
-<!--<div class="card">-->
-<!--<img class="card-img-top"-->
-<!--src="http://blog.ciat.cgiar.org/wp-content/uploads/magazines.jpg"-->
-<!--alt="Card image cap"  height="200">-->
-
-<!--<div class="fondo">-->
-<!--<br>-->
-<!--<h1>Link relacionados </h1>-->
-<!--<br>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Link Valor</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control" type="text"  value="{{articulo.links.value}}" id="links_Value" name="links_Value">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Link tipo</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control" type="text"  value="{{articulo.links.type}}" id="link_Type" name="link_Type">-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<h1>Objeto</h1>-->
-<!--<br>-->
-
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Valor de Objeto</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control" type="text" value="{{articulo.o.value}}" id="o_Value" name="o_Value">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group row">-->
-<!--<label class="col-2 col-form-label">Tipo del objeto</label>-->
-<!--<div class="col-10">-->
-<!--<input class="form-control" type="text" value="{{articulo.o.type}}" id="o_Type" name="o_Type">-->
-<!--</div>-->
-<!--</div>-->
-<!--<br>-->
-
-<!--<br>-->
-<!--</div>-->
-<!--<br>-->
-<!--<br>-->
-
-<!--&lt;!&ndash;<button type="submit" class="btn btn-success">Crear</button>&ndash;&gt;-->
-<!--<br>-->
-
-
-<!--</div>-->
-<!--</div>-->
-<!--<div class="col-md-4"></div>-->
-<!--<div class="col-md-4"></div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--</form>-->
-
 <script>
 
 
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
-
 
 
     //Prefijos Publicaciones ACM
@@ -248,11 +111,6 @@
     let akt_Prefix = "PREFIX+akt%3A++%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
     let owl_Prefix = "PREFIX+owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
-    $scope.articulos = [];
-    $scope.autores = [];
-    $scope.respuestaJson= [];
-    $scope.nombres = [];
-
 
     $scope.nuevoAuthorIn = {};
     $scope.autoresSeleccionado = [
@@ -271,7 +129,7 @@
       console.log("autor es:"+$scope.autoresSeleccionado.length);
 
       for(var i = 0;i<$scope.autoresSeleccionado.length;i ++){
-        nombres = $scope.autoresSeleccionado[i].autor1
+      var nombres = $scope.autoresSeleccionado[i].autor1
         console.log("autor es:"+nombres);
       }
       function dividirCadena (cadenaADividir,separador){
@@ -324,23 +182,6 @@
     };
 
 
-    //Links
-    let select = "SELECT+DISTINCT+%3Flinks+%3Fo+";
-    let where="WHERE%7B%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+%3Flinks+%3Fo%7D+Limit+20%0D%0A";
-    var concatenacion = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select+where;
-
-
-
-    $http.get(concatenacion)
-      .success(function (data){
-        console.log(data);
-        $scope.articulos = data.results.bindings;
-        $scope.respuestaJson= data;
-        console.log("la url es:" + concatenacion);
-        console.log("Articulos:" + $scope.articulos);
-      })
-      .error(function (err) {
-      });
 
   });
 </script>
