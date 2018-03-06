@@ -51,14 +51,6 @@ module.exports = {
           }
         }
       )
-
-    Articulo.find().exec(
-      (err, articulosEncontrados) => {
-        if (err) return res.serverError(err)
-        sails.log.info(" Articulos:  ",articulosEncontrados);
-        return res.view('busquedaArxiv',{articulos:articulosEncontrados})
-      });
-
   },
   Busqueda:(req,res)=>{
 

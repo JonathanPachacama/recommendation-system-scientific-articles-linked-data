@@ -31,12 +31,6 @@ module.exports = {
                 return res.view('busquedaArxiv');
             }
         });
-        Articulo.find().exec(function (err, articulosEncontrados) {
-            if (err)
-                return res.serverError(err);
-            sails.log.info(" Articulos:  ", articulosEncontrados);
-            return res.view('busquedaArxiv', { articulos: articulosEncontrados });
-        });
     },
     Busqueda: function (req, res) {
         Articulo.find().exec(function (err, articulos) {

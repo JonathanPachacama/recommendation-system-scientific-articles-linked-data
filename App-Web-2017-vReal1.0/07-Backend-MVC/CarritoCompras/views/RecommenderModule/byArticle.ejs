@@ -13,12 +13,6 @@
 <body ng-controller="Controller">
 
 
-<h1>Recomendaciones</h1>
-
-
-
-
-
 <br>
 <br>
 <br>
@@ -55,9 +49,9 @@
 <h1>Metadatos de Articulos Guardados</h1>
 
 <!--<form action="/LinkPublication/TraerParametros?id=1" method="post">-->
-<h2> <%= Articulo.id%> - <%= Articulo.title%>  </h2>
+<h2> <%= article.id%> - <%= article.title%>  </h2>
 <h3>Autores:</h3>
-<%= Articulo.authores%>
+<%= article.authores%>
 <br><br>
 
 
@@ -76,13 +70,12 @@
   </li>
 </ul>
 
-<p>Recomendación Mediante Author</p>
 <!--</form>-->
 
 
-<h3>Abstract: </h3><p><%= Articulo.abstract%></p>
-<h3>Palabras Clave:</h3> <p><%= Articulo.keywords%></p>
-<h3>Categoria: </h3><p><%= Articulo.category%></p>
+<h3>Abstract: </h3><p><%= article.abstract%></p>
+<h3>Palabras Clave:</h3> <p><%= article.keywords%></p>
+<h3>Categoria: </h3><p><%= article.category%></p>
 
 
 <!--<div  ng-repeat="x in respuestaJson" >-->
@@ -102,7 +95,7 @@
 
 <!--</div>-->
 
-<form action="/LinkPublication/crearLinkPublication" method="post">
+<form action="" method="post">
   <div class="container" style="background-color: black">
     <div class="row">
       <img class="img-cabecera"

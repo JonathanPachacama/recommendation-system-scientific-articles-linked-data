@@ -1,33 +1,11 @@
+<!--(start) added for Recommender Module-->
 
+<h1>Articulo guardado satisfactoriamente </h1>
 
-<div id="contenedor" class="row">
-  <% for(var i=0; i<articulos.length; i++) {%>
-  <div class="card" style="width: 20rem;">
-    <div class="card-block">
-      <h4 class="card-title"><%= articulos[i].id %> - <%= articulos[i].title %> </h4>
-      <p class="card-text">
-        <%= articulos[i].authores %>
-      </p>
-      <p class="card-text">
-        <%= articulos[i].abstract %>
-      </p>
-      <p class="card-text">
-        <%= articulos[i].keywords %>
-      </p>
-      <p class="card-text">
-        <%= articulos[i].category %>
-      </p>
+<p>Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda</p>
 
-      <a href="http://localhost:1337/Recommender/TraerParametros?id=<%= articulos[i].id %>">
-        <button type="button"  class="btn btn-primary">Editar</button>
-      </a>
+<a href="/recommendations">
+  <button type="button"  class="btn btn-primary">Recomendaciones</button>
+</a>
 
-    </div>
-  </div>
-  <% } %>
-</div>
-
-
-<br>
-<br>
-<br>
+<!--(end) added for Recommender Module-->
