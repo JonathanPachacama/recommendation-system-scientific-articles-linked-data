@@ -58,6 +58,13 @@ module.exports.routes = {
     'ArticuloController.VerArticulo',
   'get /VerMisArticulo':
     'SaludoController.VerMiArticulo',
+
+  <!--(start) added for Recommender Module-->
+  'get /recommendations':
+    'RecommenderModule/RecommenderController.articlesToRecommend',
+  <!--(end) added for Recommender Module-->
+
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

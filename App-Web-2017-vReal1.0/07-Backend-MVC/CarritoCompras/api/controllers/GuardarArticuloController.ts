@@ -51,7 +51,6 @@ module.exports = {
           }
         }
       )
-
   },
   Busqueda:(req,res)=>{
 

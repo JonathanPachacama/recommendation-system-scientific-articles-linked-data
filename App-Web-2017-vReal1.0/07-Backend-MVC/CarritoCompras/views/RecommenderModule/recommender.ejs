@@ -1,0 +1,21 @@
+
+<h1>Seleccione un articulo</h1>
+
+<p>Para encontrar un articulo relacionado, escoga uno de los guardadao en su biblioteca:</p>
+
+<div id="contenedor" class="row">
+  <% for(var i=0; i<articles.length; i++) {%>
+  <div class="card" style="width: 20rem;">
+    <div class="card-block">
+      <h4 class="card-title"><%= articles[i].id %> - <%= articles[i].title %> </h4>
+
+      <a href="/RecommenderModule/Recommender/bringParameters?id=<%= articles[i].id %>">
+        <button type="button"  class="btn btn-primary">recomendacion</button>
+      </a>
+
+    </div>
+  </div>
+  <% } %>
+</div>
+
+
