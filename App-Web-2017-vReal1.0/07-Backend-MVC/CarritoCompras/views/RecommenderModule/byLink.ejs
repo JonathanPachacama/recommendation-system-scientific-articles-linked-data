@@ -14,67 +14,45 @@
 
 
 
-<form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">
-
-  <div class="col-md-4" ng-repeat="x in responseJson">
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Link Valor</label>
-      <div class="col-10">
-        <input class="form-control"   value="{{x[3].links.value}}" type="text"  id="links_Value" name="links_Value">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Link tipo</label>
-      <div class="col-10">
-        <input class="form-control"  value="{{x[3].links.type}} "type="text"  id="link_Type" name="link_Type">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Valor de Objeto</label>
-      <div class="col-10">
-        <input class="form-control" value="{{x[3].o.value}}" type="text" id="o_Value" name="o_Value">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Tipo del objeto</label>
-      <div class="col-10">
-        <input class="form-control"  value="{{x[3].o.type}}" type="text" id="o_Type" name="o_Type">
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4"></div>
-  <div class="col-md-4"></div>
-
-  <button type="submit" class="btn btn-success">Crear</button>
-
-</form>
+<!--<form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">-->
 
 
+  <!--<h2>Ejemplo Guardar uno por uno</h2>-->
 
+  <!--<div class="col-md-4">-->
+    <!--<div class="form-group row">-->
+      <!--<label class="col-2 col-form-label">Link Valor</label>-->
+      <!--<div class="col-10">-->
+        <!--<input class="form-control"   value="{{responseJson[2].links.value}}" type="text"  id="links_Value" name="links_Value">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group row">-->
+      <!--<label class="col-2 col-form-label">Link tipo</label>-->
+      <!--<div class="col-10">-->
+        <!--<input class="form-control"  value="{{responseJson[2].links.type}} "type="text"  id="link_Type" name="link_Type">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group row">-->
+      <!--<label class="col-2 col-form-label">Valor de Objeto</label>-->
+      <!--<div class="col-10">-->
+        <!--<input class="form-control" value="{{responseJson[2].o.value}}" type="text" id="o_Value" name="o_Value">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group row">-->
+      <!--<label class="col-2 col-form-label">Tipo del objeto</label>-->
+      <!--<div class="col-10">-->
+        <!--<input class="form-control"  value="{{responseJson[2].o.type}}" type="text" id="o_Type" name="o_Type">-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-md-4"></div>-->
+  <!--<div class="col-md-4"></div>-->
 
-<h1>PRUEEEBA</h1>
-{{ responseJson.length}}
+  <!--<button type="submit" class="btn btn-success">Crear</button>-->
 
+<!--</form>-->
 
-{{links}}
-
-
-
-
-
-<h2>Prueba 2</h2>
-<div  ng-repeat="x in responseJson" >
-  <p >{{x.o.value}}</p>
-
-</div>
-
-
-
-
-<br>
-
-
-
+<h1>Resultados de link</h1>
 
 <form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">
   <div class="container" style="background-color: black">
@@ -84,17 +62,18 @@
            alt=""
            width="100%">
     </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4"> <button type="submit" class="btn btn-success">Guardar Todo</button></div>
+      <div class="col-md-4"></div>
+    </div>
     <br>
-
-    <br><br>
     <div class="row">
       <div class="col-md-4" ng-repeat="article in responseJson;">
-
         <div class="card">
           <img class="card-img-top"
                src="http://blog.ciat.cgiar.org/wp-content/uploads/magazines.jpg"
                alt="Card image cap"  height="200">
-
           <div class="fondo">
             <br>
             <h1>Link relacionados </h1>
@@ -130,14 +109,11 @@
             <br>
 
             <br>
+
+
+
           </div>
           <br>
-          <br>
-
-          <button type="submit" class="btn btn-success">Crear</button>
-          <br>
-
-
         </div>
       </div>
       <div class="col-md-4"></div>
@@ -154,6 +130,7 @@
   app.controller("Controller",function ($scope,$http) {
 
     $scope.responseJson= [];
+
     //Prefijos Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
     let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
@@ -175,9 +152,16 @@
         $scope.responseJson = data.results.bindings;
         console.log("la url es:" + concatenation);
         console.log("numero de articulos:" + $scope.responseJson.length);
+
         for(let i = 0;i<$scope.responseJson.length;i ++){
-          let links = $scope.responseJson[i].o.value
-          console.log("valor de o"+i+" es:"+links);
+          let linksValue = $scope.responseJson[i].links.value
+          let linksType = $scope.responseJson[i].links.type
+          let oValue = $scope.responseJson[i].o.value
+          let oType = $scope.responseJson[i].o.type
+          console.log(i+1+": valor de links es:"+ linksValue);
+          console.log(i+1+": tipo de links es:"+ linksType);
+          console.log(i+1+": valor de o es:"+ oValue);
+          console.log(i+1+": tipo de o es:"+ oType);
         }
       })
       .error(function (err) {
