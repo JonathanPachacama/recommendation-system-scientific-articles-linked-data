@@ -1,4 +1,7 @@
 module.exports = {
+    mainWikindx: function (req, res) {
+        return res.view('RecommenderModule/MainWikindx');
+    },
     articlesToRecommend: function (req, res) {
         Wkx_creator
             .find()

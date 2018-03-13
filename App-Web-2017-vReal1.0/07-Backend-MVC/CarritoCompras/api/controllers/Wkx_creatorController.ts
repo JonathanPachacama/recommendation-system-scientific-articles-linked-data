@@ -5,6 +5,13 @@ declare var Articulo;
 
 module.exports = {
 
+
+  mainWikindx:(req,res)=>{
+
+        return res.view('RecommenderModule/MainWikindx')
+
+  },
+
   articlesToRecommend:(req,res)=>{
 
     Wkx_creator

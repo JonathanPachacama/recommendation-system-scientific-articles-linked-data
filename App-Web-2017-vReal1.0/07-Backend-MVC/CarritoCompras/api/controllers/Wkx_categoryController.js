@@ -329,9 +329,12 @@ module.exports = {
                                                                                         return res.serverError(error);
                                                                                     }
                                                                                     else {
-                                                                                        return res.ok(articuloCreado);
+                                                                                        //return res.ok(articuloCreado);
                                                                                         //return res.created('Nuevo articulo creado.');
                                                                                         //  return res.view('Biblioteca')
+                                                                                        //(start) added for Recommender Module
+                                                                                        return res.view('RecommenderModule/MainWikindx');
+                                                                                        //(end) added for Recommender Module
                                                                                     }
                                                                                 });
                                                                             }
