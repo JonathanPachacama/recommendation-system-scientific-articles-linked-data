@@ -159,7 +159,7 @@ module.exports = {
                                             }
                                             else {
                                                 CreatorSurname1 = articuloCreado.creatorSurname;
-                                                if (numero_authors = 2) {
+                                                if (numero_authors == 2) {
                                                     Wkx_creator.create(nuevoAuthor1)
                                                         .exec(function (error, articuloCreado) {
                                                         if (error) {
