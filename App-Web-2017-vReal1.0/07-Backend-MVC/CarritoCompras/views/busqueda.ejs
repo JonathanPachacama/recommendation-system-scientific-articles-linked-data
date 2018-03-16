@@ -462,6 +462,7 @@
       tamAutap=apellidoAuthores.length;
       console.log("autores", authorsb,tamAut,tamAutap);
       console.log("autoreswkd:", nombreA + " "+apellido+ " "+ nombreA1 +  " "+apellido1+  " "+nombreA2 +  " "+apellido2+ " "+ nombreA3 + " "+ apellido3+ " "+ nombreA4 + " "+ apellido4+  " "+nombreA5 +  " "+apellido5);
+      console.log("apellidosA:",apellido+ apellido1+  " "+apellido2+ " "+ apellido3);
 
       for (var j = 0; j < 10; j++) {
         if (bibl.link[j] !== 'undefined') {
@@ -579,7 +580,7 @@
         "<input hidden type='text' name='category' value='" + cate + "'>" +
         "<input hidden type='text' name='pages' value='" + pages + "'>" +
 
-        "<button class='btn btn-outline-primary'>Save in my library</button>" +
+        "<button hidden class='btn btn-outline-primary'>Save in my library</button>" +
         "<br>" +
         "<br>" +
         "</div> </div></form>" +

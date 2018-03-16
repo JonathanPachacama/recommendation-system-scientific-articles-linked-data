@@ -21,15 +21,16 @@
 
 <p><%= creator.creatorFirstname%> <%= creator.creatorSurname%></p>
 
+
 <div class="form-group row">
-  <label class="col-md-4 col-form-label">Recomendación Mediante Author</label>
+  <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
   <div class="col-10">
     <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
   </div>
 </div>
 
 <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
-
+<br><br>
 <ul>
   <li ng-repeat="autor in autoresSeleccionado track by $index">
     {{autor.autor1}}
@@ -48,44 +49,35 @@
            width="100%">
     </div>
     <br>
-
-    <br><br>
     <div class="row">
       <div class="col-md-4" ng-repeat="autor in autores;">
 
         <div class="card">
+          <h1>Autor Relacionado</h1>
           <img class="card-img-top"
                src="http://www.anlagensicherheit.net/mt-medizintechnik/wp-content/uploads/2013/02/Autor_Bild.jpg"
                alt="Card image cap"  height="200">
-
           <div class="fondo">
-            <br>
-            <h1>Autores Relacionados </h1>
-            <br>
             <div class="form-group row">
-              <label class="col-2 col-form-label">Nombre del autor</label>
+              <label class="col-2 col-form-label">Nombre:</label>
               <div class="col-10">
-                <input class="form-control" type="text"  value="{{autor.name.value}}" id="name_Value" name="name_Value">
+                <input class="form-control" type="text"  value=" {{autor.name.value}}" id="name_Value" name="name_Value">
               </div>
             </div>
-            <br>
-            <br>
           </div>
-          <br>
-          <br>
-
           <!--<button type="submit" class="btn btn-success">Crear</button>-->
-          <br>
-
-
         </div>
       </div>
+
       <div class="col-md-4"></div>
       <div class="col-md-4"></div>
+
+
     </div>
   </div>
-
 </form>
+
+
 
 
 
@@ -182,7 +174,9 @@
 
 
 
-
+<br>
+<br>
+<br>
 
 </body>
 </html>
