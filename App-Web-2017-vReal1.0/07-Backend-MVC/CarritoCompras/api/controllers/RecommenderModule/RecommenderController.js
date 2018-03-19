@@ -1,7 +1,4 @@
 module.exports = {
-    recommender: function (req, res) {
-        return res.view('RecommenderModule/recommender');
-    },
     articlesToRecommend: function (req, res) {
         Articulo
             .find()

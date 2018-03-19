@@ -85,6 +85,35 @@ module.exports = {
             resourceBibtexKey: parametros.apellido + parametros.year,
             resourceDoi: parametros.doi
         };
+        var nuevoArticulo = {
+            country: parametros.country,
+            number: parametros.number,
+            title: parametros.title,
+            volume: parametros.volume,
+            year: parametros.year,
+            journal: parametros.journal,
+            editorial: parametros.editorial,
+            abstract: parametros.abstract,
+            issns: parametros.issns,
+            language: parametros.language,
+            keywords: parametros.keywords,
+            link: parametros.link,
+            authores: parametros.authores,
+            category: parametros.category,
+            pages: parametros.pages,
+            notas: parametros.notas
+        };
+        Articulo.create(nuevoArticulo)
+            .exec(function (error, articuloCreado) {
+            if (error) {
+                return res.serverError(error);
+            }
+            else {
+                //return res.ok(articuloCreado);
+                //return res.created('Nuevo articulo creado.');
+                //return res.view('busquedaArxiv')
+            }
+        });
         Wkx_collection.create(nuevoCollection)
             .exec(function (error, articuloCreado) {
             if (error) {
@@ -159,7 +188,7 @@ module.exports = {
                                             }
                                             else {
                                                 CreatorSurname1 = articuloCreado.creatorSurname;
-                                                if (numero_authors = 2) {
+                                                if (numero_authors == 2) {
                                                     Wkx_creator.create(nuevoAuthor1)
                                                         .exec(function (error, articuloCreado) {
                                                         if (error) {
@@ -329,9 +358,12 @@ module.exports = {
                                                                                         return res.serverError(error);
                                                                                     }
                                                                                     else {
-                                                                                        return res.ok(articuloCreado);
+                                                                                        //return res.ok(articuloCreado);
                                                                                         //return res.created('Nuevo articulo creado.');
                                                                                         //  return res.view('Biblioteca')
+                                                                                        //(start) added for Recommender Module
+                                                                                        return res.view('busquedaArxiv');
+                                                                                        //(end) added for Recommender Module
                                                                                     }
                                                                                 });
                                                                             }

@@ -4,11 +4,6 @@ declare var LinkPublication;
 declare var Articulo;
 
 module.exports = {
-  recommender:(req, res) =>{
-
-    return res.view('RecommenderModule/recommender')
-  },
-
 
   articlesToRecommend:(req,res)=>{
 

@@ -5,6 +5,8 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 module.exports = {
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
   connection: 'Mysqladapter2',
   attributes: {
     categoryId: {
