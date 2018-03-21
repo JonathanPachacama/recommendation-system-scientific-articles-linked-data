@@ -30,7 +30,9 @@ module.exports = {
           }else{
             // return res.ok(linkCreado);
             //return res.created('Nuevo articulo creado.');
-            return res.view('RecommenderModule/byLink')
+            return res.view('RecommenderModule/byLink', {
+              link:linkcreated
+            })
           }
         }
       )
