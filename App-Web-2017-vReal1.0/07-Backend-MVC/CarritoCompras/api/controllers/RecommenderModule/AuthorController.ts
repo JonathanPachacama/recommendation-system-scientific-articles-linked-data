@@ -2,6 +2,7 @@ declare var module;
 declare var sails;
 declare var LinkPublication;
 declare var Articulo;
+declare var Wkx_creator;
 
 module.exports = {
 
