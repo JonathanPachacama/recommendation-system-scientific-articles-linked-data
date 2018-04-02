@@ -62,17 +62,19 @@ module.exports = {
                     return res.serverError(err);
                 if (creatorFound) {
                     //Si encontro
-                    Wkx_creator.query('SELECT creatorId,creatorFirstname,creatorSurname,resourceTitle,categoryCategory,keywordKeyword\n' +
+                    Wkx_creator.query('SELECT creatorId,creatorFirstname,creatorSurname,resourceId,resourceTitle,categoryId,categoryCategory,keywordId,keywordKeyword\n' +
                         'FROM wkx_resource,wkx_creator,wkx_resource_creator,wkx_category,wkx_resource_category,wkx_keyword,wkx_resource_keyword\n' +
                         'WHERE wkx_creator.creatorId=wkx_resource_creator.resourcecreatorId AND wkx_resource.resourceId=wkx_resource_creator.resourcecreatorResourceId\n' +
                         'AND(wkx_category.categoryId=wkx_resource_category.resourcecategoryCategoryId AND wkx_resource_category.resourcecategoryResourceId=wkx_resource.resourceId)\n' +
-                        'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)\n', function (err, rawResult) {
+                        'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)', function (err, rawResult) {
                         if (err) {
                             return res.serverError(err);
                         }
                         if (creatorFound.creatorId == rawResult[creatorFound.creatorId - 1].creatorId) {
+                            sails.log("rawResult", rawResult);
+                            sails.log("creatorFound", creatorFound);
                             sails.log("id de la Query", rawResult[0].creatorId);
-                            sails.log("id del find", creatorFound.creatorId);
+                            sails.log("id del findonOneCreator", creatorFound.creatorId);
                             sails.log("pRUEBA", rawResult[creatorFound.creatorId - 1].creatorId);
                             return res.view('RecommenderModule/wkx_creator', {
                                 creator: creatorFound,
