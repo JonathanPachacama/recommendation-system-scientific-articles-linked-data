@@ -17,37 +17,37 @@
 <h1>Metadatos del Articulo Sincronizado a Wikindx </h1>
 
 <!--<form action="/LinkPublication/TraerParametros?id=1" method="post">-->
-<h2> <%= creator2.creatorId%> - <%= creator2.creatorFirstname%> <%= creator2.creatorSurname%>  </h2>
+<h2> <%= creator.creatorId%> - <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
 
 
 <label class="col-2 col-form-label">IdAutor:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].creatorId%>">
+  <input class="form-control" type="text"  value="<%= query.creatorId%>">
 </div>
 
 <label class="col-2 col-form-label">Nombre:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].creatorFirstname%>">
+  <input class="form-control" type="text"  value="<%= query.creatorFirstname%>">
 </div>
 
 <label class="col-2 col-form-label">Apellido:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].creatorSurname%>">
+  <input class="form-control" type="text"  value="<%= query.creatorSurname%>">
 </div>
 
 <label class="col-2 col-form-label">Titulo:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].resourceTitle%>">
+  <input class="form-control" type="text"  value="<%= query.resourceTitle%>">
 </div>
 
 <label class="col-2 col-form-label">Categoria:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].categoryCategory%>">
+  <input class="form-control" type="text"  value="<%= category%>">
 </div>
 
 <label class="col-2 col-form-label">Keyword:</label>
 <div class="col-10">
-  <input class="form-control" type="text"  value="<%= query2[0].keywordKeyword%>">
+  <input class="form-control" type="text"  value="<%= keyword%>">
 </div>
 
 
