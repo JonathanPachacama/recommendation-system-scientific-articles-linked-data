@@ -5,13 +5,13 @@ declare var Articulo;
 
 declare var Wkx_collection;
 declare var Wkx_creator;
-declare var wkx_keyword;
 declare var Wkx_publisher;
 declare var Wkx_resource_misc;
 
+
 declare var PublisherId;
 declare var CollectionId;
-
+declare var wkx_keyword;
 module.exports = {
 
   test:(req,res)=>{
@@ -23,9 +23,7 @@ module.exports = {
 
   recommenderWkx:(req,res)=>{
 
-
     //let CollectionId:number[] = [];
-
 
     Wkx_creator
       .find()
@@ -37,17 +35,6 @@ module.exports = {
           creators:creatorsFound
         })
       });
-
-
-
-
-
-
-
-
-
-
-
 
     // Wkx_collection.find().exec((error,collectionFound)=>{
     //       if(error){
@@ -99,7 +86,6 @@ module.exports = {
           if(err) return res.serverError(err);
           if(creatorFound){
             //Si encontro
-
             Wkx_creator.query('SELECT creatorId,creatorFirstname,creatorSurname,resourceId,resourceTitle,categoryId,categoryCategory,keywordId,keywordKeyword\n' +
               'FROM wkx_resource,wkx_creator,wkx_resource_creator,wkx_category,wkx_resource_category,wkx_keyword,wkx_resource_keyword\n' +
               'WHERE wkx_creator.creatorId=wkx_resource_creator.resourcecreatorId AND wkx_resource.resourceId=wkx_resource_creator.resourcecreatorResourceId\n' +
@@ -107,17 +93,13 @@ module.exports = {
               'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)\n' +
               'AND (wkx_creator.creatorId=?)' , [ creatorFound.creatorId ] ,function(err, rawResult2) {
               if (err) { return res.serverError(err); }
-
-
               if(rawResult2.length!= 1){
 
                 sails.log("tamaño",rawResult2.length);
 
                 var query = [];
-                //query[0] = rawResult2[0]
-                //sails.log("query[0]",query[0]);
-                let iteracion = [];
 
+                let iteracion = [];
                 let keyword = []
                 let category = []
                 for (let i = 0; i < rawResult2.length;i++){
@@ -129,14 +111,49 @@ module.exports = {
                   }
 
                 }
-
                 query = iteracion;
                 sails.log("query ",query);
-
                 sails.log("keyword ",keyword);
                 sails.log("category ",category);
+                var outKeyword=[]
+                var outCategory=[]
+                function eliminateDuplicatesKeyword(arr) {
+                  var i,
+                    len=arr.length,
+                    obj={};
 
-                sails.log("category ",query[0]);
+                  for (i=0;i<len;i++) {
+                    obj[arr[i]]=0;
+                  }
+                  for (i in obj) {
+                    outKeyword.push(i);
+                  }
+
+                  return outKeyword;
+                }
+
+                function eliminateDuplicatesCategory(arr) {
+                  var i,
+                    len=arr.length,
+                    obj={};
+
+                  for (i=0;i<len;i++) {
+                    obj[arr[i]]=0;
+                  }
+                  for (i in obj) {
+                    outCategory.push(i);
+                  }
+
+                  return outCategory;
+                }
+                eliminateDuplicatesKeyword(keyword);
+                eliminateDuplicatesCategory(category);
+
+                keyword =outKeyword;
+                category = outCategory;
+
+                sails.log("keyword Sin duplicados ",keyword);
+                sails.log("category Sin duplicados ",category);
 
                 return res.view('RecommenderModule/wkx_keyword',{
                   creator:creatorFound,
@@ -144,36 +161,7 @@ module.exports = {
                   keyword:keyword,
                   category:category
                 })
-
-                // return res.ok()
-
-
-
-
-
-
-  ///////////////////////ejemplo
-//                 var data = [];
-// // ...
-//                 data[0] = { "ID": "1", "Status": "Valid" };
-//                 data[1] = { "ID": "2", "Status": "Invalid" };
-// // ...
-//                 var tempData = [];
-//                 for ( var index=0; index<data.length; index++ ) {
-//                   if ( data[index].Status == "Valid" ) {
-//                     tempData.push( data );
-//                   }
-//                 }
-//                 data = tempData;
-
-
-
-
-
-
-
               }
-
               else {
                 sails.log("rawResult",rawResult2);
                 sails.log("creatorFound",creatorFound);
@@ -184,15 +172,8 @@ module.exports = {
                   creator:creatorFound,
                   query:query
                 })
-
-
               }
-
-
             });
-
-
-
           }else{
             //No encontro
             return res.redirect('/')

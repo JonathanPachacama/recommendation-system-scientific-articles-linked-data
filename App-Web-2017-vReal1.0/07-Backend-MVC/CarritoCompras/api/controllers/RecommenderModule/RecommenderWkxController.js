@@ -74,8 +74,6 @@ module.exports = {
                         if (rawResult2.length != 1) {
                             sails.log("tamaño", rawResult2.length);
                             var query = [];
-                            //query[0] = rawResult2[0]
-                            //sails.log("query[0]",query[0]);
                             var iteracion = [];
                             var keyword = [];
                             var category = [];
@@ -90,27 +88,40 @@ module.exports = {
                             sails.log("query ", query);
                             sails.log("keyword ", keyword);
                             sails.log("category ", category);
-                            sails.log("category ", query[0]);
+                            var outKeyword = [];
+                            var outCategory = [];
+                            function eliminateDuplicatesKeyword(arr) {
+                                var i, len = arr.length, obj = {};
+                                for (i = 0; i < len; i++) {
+                                    obj[arr[i]] = 0;
+                                }
+                                for (i in obj) {
+                                    outKeyword.push(i);
+                                }
+                                return outKeyword;
+                            }
+                            function eliminateDuplicatesCategory(arr) {
+                                var i, len = arr.length, obj = {};
+                                for (i = 0; i < len; i++) {
+                                    obj[arr[i]] = 0;
+                                }
+                                for (i in obj) {
+                                    outCategory.push(i);
+                                }
+                                return outCategory;
+                            }
+                            eliminateDuplicatesKeyword(keyword);
+                            eliminateDuplicatesCategory(category);
+                            keyword = outKeyword;
+                            category = outCategory;
+                            sails.log("keyword Sin duplicados ", keyword);
+                            sails.log("category Sin duplicados ", category);
                             return res.view('RecommenderModule/wkx_keyword', {
                                 creator: creatorFound,
                                 query: query[0],
                                 keyword: keyword,
                                 category: category
                             });
-                            // return res.ok()
-                            ///////////////////////ejemplo
-                            //                 var data = [];
-                            // // ...
-                            //                 data[0] = { "ID": "1", "Status": "Valid" };
-                            //                 data[1] = { "ID": "2", "Status": "Invalid" };
-                            // // ...
-                            //                 var tempData = [];
-                            //                 for ( var index=0; index<data.length; index++ ) {
-                            //                   if ( data[index].Status == "Valid" ) {
-                            //                     tempData.push( data );
-                            //                   }
-                            //                 }
-                            //                 data = tempData;
                         }
                         else {
                             sails.log("rawResult", rawResult2);
