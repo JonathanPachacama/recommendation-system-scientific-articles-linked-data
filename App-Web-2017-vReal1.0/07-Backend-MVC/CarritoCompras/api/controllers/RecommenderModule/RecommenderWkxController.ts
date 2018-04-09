@@ -50,17 +50,13 @@ module.exports = {
               'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)\n' +
               'AND (wkx_creator.creatorId=?)' , [ creatorFound.creatorId ] ,function(err, rawResult2) {
               if (err) { return res.serverError(err); }
-              if(rawResult2.length!= 1){
-
+              if(rawResult2.length!= 1 || rawResult2.length == 1){
                 sails.log("tamaño",rawResult2.length);
-
                 var query = [];
-
                 let iteracion = [];
                 let keyword = []
                 let category = []
                 for (let i = 0; i < rawResult2.length;i++){
-
                   if(rawResult2[i]. creatorId == creatorFound.creatorId){
                     iteracion.push( rawResult2[i]);
                     keyword.push( rawResult2[i].keywordKeyword);
@@ -87,7 +83,6 @@ module.exports = {
 
                   return outKeyword;
                 }
-
                 function eliminateDuplicatesCategory(arr) {
                   var i,
                     len=arr.length,
@@ -104,13 +99,10 @@ module.exports = {
                 }
                 eliminateDuplicatesKeyword(keyword);
                 eliminateDuplicatesCategory(category);
-
                 keyword =outKeyword;
                 category = outCategory;
-
                 sails.log("keyword Sin duplicados ",keyword);
                 sails.log("category Sin duplicados ",category);
-
                 return res.view('RecommenderModule/wkx_keyword',{
                   creator:creatorFound,
                   query:query[0],
@@ -119,17 +111,16 @@ module.exports = {
                 })
               }
               else {
+
                 sails.log("rawResult",rawResult2);
                 sails.log("creatorFound",creatorFound);
 
                 let query = rawResult2[0]
 
-                return res.view('RecommenderModule/wkx_creator',{
-                  creator:creatorFound,
-                  query:query
-                })
+                return res.redirect('/')
               }
             });
+
           }else{
             //No encontro
             return res.redirect('/')

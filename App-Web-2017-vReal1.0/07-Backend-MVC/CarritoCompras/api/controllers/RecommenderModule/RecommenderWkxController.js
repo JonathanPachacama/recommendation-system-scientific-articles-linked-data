@@ -34,7 +34,7 @@ module.exports = {
                         if (err) {
                             return res.serverError(err);
                         }
-                        if (rawResult2.length != 1) {
+                        if (rawResult2.length != 1 || rawResult2.length == 1) {
                             sails.log("tamaño", rawResult2.length);
                             var query = [];
                             var iteracion = [];
@@ -90,10 +90,7 @@ module.exports = {
                             sails.log("rawResult", rawResult2);
                             sails.log("creatorFound", creatorFound);
                             var query_1 = rawResult2[0];
-                            return res.view('RecommenderModule/wkx_creator', {
-                                creator: creatorFound,
-                                query: query_1
-                            });
+                            return res.redirect('/');
                         }
                     });
                 }
