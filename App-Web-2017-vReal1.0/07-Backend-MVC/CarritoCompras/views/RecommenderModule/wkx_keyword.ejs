@@ -51,6 +51,27 @@
 </div>
 
 
+<label class="col-2 col-form-label">Abstract:</label>
+<div class="col-10">
+<textarea
+
+  id="abstract"
+  name="abstract"
+  rows="5" cols="110"
+  value="<%= abstract %>"
+
+><%= abstract %></textarea>
+
+</div>
+
+
+
+
+
+
+
+
+
 
 <div class="form-group row">
   <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
@@ -170,7 +191,7 @@
         let select2 = "SELECT+DISTINCT+%3Fname+";
         let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
           "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
-        let limit2="limit+1000%0D%0A%0D%0A";
+        let limit2="limit+100";
         var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
         //Consumo Api con la consulta por autores
         $http.get(concatenacion2)

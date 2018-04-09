@@ -30,27 +30,27 @@ module.exports = {
                         'WHERE wkx_creator.creatorId=wkx_resource_creator.resourcecreatorId AND wkx_resource.resourceId=wkx_resource_creator.resourcecreatorResourceId\n' +
                         'AND(wkx_category.categoryId=wkx_resource_category.resourcecategoryCategoryId AND wkx_resource_category.resourcecategoryResourceId=wkx_resource.resourceId)\n' +
                         'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)\n' +
-                        'AND (wkx_creator.creatorId=?)', [creatorFound.creatorId], function (err, rawResult2) {
+                        'AND (wkx_creator.creatorId=?)', [creatorFound.creatorId], function (err, rawResult) {
                         if (err) {
                             return res.serverError(err);
                         }
-                        if (rawResult2.length != 1 || rawResult2.length == 1) {
-                            sails.log("tamaño", rawResult2.length);
+                        if (rawResult.length != 1 || rawResult.length == 1) {
+                            sails.log("tamaño", rawResult.length);
                             var query = [];
                             var iteracion = [];
-                            var keyword = [];
-                            var category = [];
-                            for (var i = 0; i < rawResult2.length; i++) {
-                                if (rawResult2[i].creatorId == creatorFound.creatorId) {
-                                    iteracion.push(rawResult2[i]);
-                                    keyword.push(rawResult2[i].keywordKeyword);
-                                    category.push(rawResult2[i].categoryCategory);
+                            var keyword_1 = [];
+                            var category_1 = [];
+                            for (var i = 0; i < rawResult.length; i++) {
+                                if (rawResult[i].creatorId == creatorFound.creatorId) {
+                                    iteracion.push(rawResult[i]);
+                                    keyword_1.push(rawResult[i].keywordKeyword);
+                                    category_1.push(rawResult[i].categoryCategory);
                                 }
                             }
                             query = iteracion;
                             sails.log("query ", query);
-                            sails.log("keyword ", keyword);
-                            sails.log("category ", category);
+                            sails.log("keyword ", keyword_1);
+                            sails.log("category ", category_1);
                             var outKeyword = [];
                             var outCategory = [];
                             function eliminateDuplicatesKeyword(arr) {
@@ -73,23 +73,30 @@ module.exports = {
                                 }
                                 return outCategory;
                             }
-                            eliminateDuplicatesKeyword(keyword);
-                            eliminateDuplicatesCategory(category);
-                            keyword = outKeyword;
-                            category = outCategory;
-                            sails.log("keyword Sin duplicados ", keyword);
-                            sails.log("category Sin duplicados ", category);
-                            return res.view('RecommenderModule/wkx_keyword', {
-                                creator: creatorFound,
-                                query: query[0],
-                                keyword: keyword,
-                                category: category
+                            eliminateDuplicatesKeyword(keyword_1);
+                            eliminateDuplicatesCategory(category_1);
+                            keyword_1 = outKeyword;
+                            category_1 = outCategory;
+                            sails.log("keyword Sin duplicados ", keyword_1);
+                            sails.log("category Sin duplicados ", category_1);
+                            Wkx_creator.query('SELECT "Title" as Type,resourceId AS Id,resourceTitle AS Value FROM wkx_resource WHERE resourceId = ? ' +
+                                'UNION ' +
+                                'SELECT "Abstract",resourcetextId,resourcetextAbstract FROM wkx_resource_text WHERE resourcetextId =?', [rawResult[0].resourceId, rawResult[0].resourceId], function (err, rawResult2) {
+                                if (err) {
+                                    return res.serverError(err);
+                                }
+                                sails.log(rawResult2);
+                                var abstract = rawResult2[1].Value;
+                                return res.view('RecommenderModule/wkx_keyword', {
+                                    creator: creatorFound,
+                                    query: query[0],
+                                    keyword: keyword_1,
+                                    category: category_1,
+                                    abstract: abstract
+                                });
                             });
                         }
                         else {
-                            sails.log("rawResult", rawResult2);
-                            sails.log("creatorFound", creatorFound);
-                            var query_1 = rawResult2[0];
                             return res.redirect('/');
                         }
                     });
