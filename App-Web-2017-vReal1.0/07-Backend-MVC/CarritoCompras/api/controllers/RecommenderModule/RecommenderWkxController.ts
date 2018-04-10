@@ -101,6 +101,7 @@ module.exports = {
                 eliminateDuplicatesCategory(category);
                 keyword =outKeyword;
                 category = outCategory;
+
                 sails.log("keyword Sin duplicados ",keyword);
                 sails.log("category Sin duplicados ",category);
 
@@ -111,24 +112,55 @@ module.exports = {
                   sails.log(rawResult2);
                   let abstract = rawResult2[1].Value
 
-                  return res.view('RecommenderModule/wkx_keyword',{
-                    creator:creatorFound,
-                    query:query[0],
-                    keyword:keyword,
-                    category:category,
-                    abstract:abstract
-                  })
+                  if (rawResult2[0].id == rawResult2[1].id ){
 
+                    Wkx_creator.query('SELECT "Metadata" as Type, collectionId, publisherId, collectionTitle,publisherName,publisherLocation\n' +
+                      'FROM wkx_collection,wkx_publisher,wkx_resource_misc\n' +
+                      'WHERE wkx_collection.collectionId=wkx_resource_misc.resourcemiscCollection \n' +
+                      'AND wkx_resource_misc.resourcemiscPublisher=wkx_publisher.publisherId\n' +
+                      'AND (wkx_collection.collectionId = wkx_publisher.publisherId)\n' +
+                      'AND wkx_collection.collectionId  = ?\n' +
+                      'UNION \n' +
+                      'SELECT "Title [idT|idT|title|type|type]", resourceId,resourceId,resourceTitle,resourceType,resourceType FROM wkx_resource\n' +
+                      'WHERE wkx_resource.resourceId= ?', [ rawResult[0].resourceId, rawResult[0].resourceId] ,function(err, rawResult3) {
+                      if (err) { return res.serverError(err); }
+                      sails.log(rawResult3);
+
+                      if (rawResult3[0].collectionId == rawResult3[1].collectionId ){
+
+                        let publisher = rawResult3[0].publisherName
+                        let locationPublisher = rawResult3[0].publisherLocation
+                        let journal = rawResult3[0].collectionTitle
+                        sails.log(publisher);
+                        sails.log(locationPublisher);
+                        sails.log(journal);
+
+                        return res.view('RecommenderModule/wkx_keyword',{
+                          creator:creatorFound,
+                          query:query[0],
+                          keyword:keyword,
+                          category:category,
+                          abstract:abstract,
+                          journal:journal,
+                          publisher:publisher,
+                          locationPublisher:locationPublisher
+                        })
+                      }
+                      else {
+                        return res.redirect('/')
+                      }
+                    });
+                  }
+                  else{
+                    return res.redirect('/')
+                  }
                 });
-
               }
               else {
-
                 return res.redirect('/')
               }
             });
-
-          }else{
+          } else{
             //No encontro
             return res.redirect('/')
           }
@@ -136,7 +168,5 @@ module.exports = {
     }else{
       return res.redirect('/')
     }
-
   }
-
 }
