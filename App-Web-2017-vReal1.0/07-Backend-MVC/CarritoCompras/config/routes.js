@@ -64,7 +64,7 @@ module.exports.routes = {
     'RecommenderModule/RecommenderController.articlesToRecommend',
 
   'get /recommendationsWkx':
-    'RecommenderModule/AuthorController.creatorToRecommend',
+    'RecommenderModule/RecommenderWkxController.recommenderWkx',
   <!--(end) added for Recommender Module-->
 
 

@@ -251,7 +251,7 @@ module.exports = {
                                       }else{
                                         CreatorSurname1=articuloCreado.creatorSurname;
 
-                                        if(numero_authors ==2){
+                                        if(numero_authors >=2){
                                           Wkx_creator.create(nuevoAuthor1)
                                             .exec(
                                               (error,articuloCreado)=>{
@@ -270,7 +270,7 @@ module.exports = {
                                                         if(error){
                                                           return res.serverError(error);
                                                         }else{
-                                                          if(numero_authors ==3){
+                                                          if(numero_authors >=3){
                                                             Wkx_creator.create(nuevoAuthor2)
                                                               .exec(
                                                                 (error,articuloCreado)=>{
@@ -289,7 +289,7 @@ module.exports = {
                                                                           if(error){
                                                                             return res.serverError(error);
                                                                           }else{
-                                                                            if(numero_authors ==4){
+                                                                            if(numero_authors >=4){
                                                                               Wkx_creator.create(nuevoAuthor3)
                                                                                 .exec(
                                                                                   (error,articuloCreado)=>{
@@ -308,7 +308,7 @@ module.exports = {
                                                                                             if(error){
                                                                                               return res.serverError(error);
                                                                                             }else{
-                                                                                              if(numero_authors==5){
+                                                                                              if(numero_authors>=5){
                                                                                                 Wkx_creator.create(nuevoAuthor4)
                                                                                                   .exec(
                                                                                                     (error,articuloCreado)=>{
