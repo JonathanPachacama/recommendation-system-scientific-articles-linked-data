@@ -5,6 +5,7 @@
   <title>Recomendador</title>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js"> </script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"> </script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body ng-controller="Controller">
@@ -13,63 +14,54 @@
 <h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
 <br>
 <div class="row">
-
   <label class="col-1 col-form-label">Nombre:</label>
   <div class="col-5">
-    <input class="form-control" type="text"  value="<%= query.creatorFirstname%>">
+    <input class="form-control" type="text"  value="<%= query.creatorFirstname%>" disabled>
   </div>
   <label class="col-1 col-form-label">Apellido:</label>
   <div class="col-5">
-    <input class="form-control" type="text"  value="<%= query.creatorSurname%>">
+    <input class="form-control" type="text"  value="<%= query.creatorSurname%>" disabled>
   </div>
-
 </div>
-
 <div class="row">
-
   <label class="col-1 col-form-label">Revista:</label>
   <div class="col-5">
-    <input class="form-control" type="text"  value="<%= journal%>">
+    <input class="form-control" type="text"  value="<%= journal%>" disabled>
   </div>
   <label class="col-1 col-form-label">Editor:</label>
   <div class="col-5">
-    <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)">
+    <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
   </div>
 </div>
-
 <div class="row">
-
   <label class="col-1 col-form-label">Titulo:</label>
   <div class="col-11">
-    <input class="form-control" type="text"  value="<%= query.resourceTitle%>">
+    <input class="form-control" type="text"  value="<%= query.resourceTitle%>" disabled>
   </div>
-
   <label class="col-1 col-form-label">Categoria:</label>
   <div class="col-11">
-    <input class="form-control" type="text"  value="<%= category%>">
+    <input class="form-control" type="text"  value="<%= category%>" disabled>
   </div>
-
   <label class="col-1 col-form-label">Keyword:</label>
   <div class="col-11">
-    <input class="form-control" type="text"  value="<%= keyword%>">
+    <input class="form-control" type="text" id="keyword"  value="<%= keyword%>" disabled>
   </div>
 </div>
-
-
 <div class="row">
   <label class="col-1 col-form-label">Abstract:</label>
   <div class="col-11">
-<textarea
 
+<textarea
   id="abstract"
   name="abstract"
   rows="5" cols="124"
-  value="<%= abstract %>"
-
-><%= abstract %></textarea>
+  value="<%= abstract%>"
+  disabled
+><%= abstract%></textarea>
 
   </div>
 </div>
+
 
 <div class="form-group row">
   <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
@@ -85,8 +77,6 @@
     {{autor.autor1}}
   </li>
 </ul>
-<!--</form>-->
-
 
 
 <form action="" method="post">
@@ -114,7 +104,6 @@
               </div>
             </div>
           </div>
-          <!--<button type="submit" class="btn btn-success">Crear</button>-->
         </div>
       </div>
 
@@ -131,7 +120,23 @@
 
 
 <script>
+  $(document).ready(function(){
 
+
+    //quitar las etiquetas innecesarias en la vista
+    var contenido = abstract
+    var texto = $(contenido).text();
+    var res = texto.replace(/<[^>]*>?/g, '');
+    $("textarea").text(res);
+
+    //modificar la salida de undefined
+    var	a = $("#keyword").val()
+    if(a == "undefined") {
+      $("#keyword").val("This article does not contain keyword")
+      $("#keyword").css({"font-style": "italic"})
+      $("#keyword").css({"color": "Silver"})
+    }
+  });
 
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
