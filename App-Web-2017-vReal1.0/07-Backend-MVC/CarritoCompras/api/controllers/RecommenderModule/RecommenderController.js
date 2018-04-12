@@ -40,7 +40,7 @@ module.exports = {
                         abstract:articleFound,
                         keywords:articleFound,
                         category:articleFound*/
-                        article: articleFound
+                        article: articleFound,
                     });
                 }
                 else {
