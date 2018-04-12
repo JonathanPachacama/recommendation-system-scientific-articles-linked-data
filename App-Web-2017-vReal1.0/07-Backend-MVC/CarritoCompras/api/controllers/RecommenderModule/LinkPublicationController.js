@@ -15,6 +15,9 @@ module.exports = {
             link: newLinks
         });
     },
+    test2: function (req, res) {
+        return res.view('RecommenderModule/byAutor', {});
+    },
     createLinkToAPublication: function (req, res) {
         var parameters = req.allParams();
         var newLinks = {

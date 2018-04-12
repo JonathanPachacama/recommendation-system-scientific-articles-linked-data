@@ -26,6 +26,12 @@ module.exports = {
       link:newLinks
     })
   },
+  test2:(req, res) =>{
+
+    return res.view('RecommenderModule/byAutor', {
+
+    })
+  },
 
 
   createLinkToAPublication: (req, res) => {
