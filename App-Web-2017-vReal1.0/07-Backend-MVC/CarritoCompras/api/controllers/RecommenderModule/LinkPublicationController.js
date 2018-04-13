@@ -16,7 +16,10 @@ module.exports = {
         });
     },
     test2: function (req, res) {
-        return res.view('RecommenderModule/byAutor', {});
+        return res.view('RecommenderModule/byAuthor', {});
+    },
+    test3: function (req, res) {
+        return res.view('RecommenderModule/byTitleSameAuthor', {});
     },
     createLinkToAPublication: function (req, res) {
         var parameters = req.allParams();

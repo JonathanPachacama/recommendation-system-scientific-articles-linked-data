@@ -28,7 +28,14 @@ module.exports = {
   },
   test2:(req, res) =>{
 
-    return res.view('RecommenderModule/byAutor', {
+    return res.view('RecommenderModule/byAuthor', {
+
+    })
+  },
+
+  test3:(req, res) =>{
+
+    return res.view('RecommenderModule/byTitleSameAuthor', {
 
     })
   },
