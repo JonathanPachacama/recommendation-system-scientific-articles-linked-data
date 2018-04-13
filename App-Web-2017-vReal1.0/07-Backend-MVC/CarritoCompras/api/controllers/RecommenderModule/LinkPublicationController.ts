@@ -7,23 +7,9 @@ declare var Articulo;
 module.exports = {
 
 
-  test:(req, res) =>{
-
-    let parameters = req.allParams();
-    let newLinks = {
-      // links_Value: parameters.links_Value,
-      // link_Type: parameters.link_Type,
-      // o_Value: parameters.o_Value,
-      // o_Type: parameters.o_Type,
-
-      links_Value: "valor",
-      link_Type: "tipo",
-      o_Value: "valor2",
-      o_Type: "tipo2",
-    };
-
+  result:(req, res) =>{
     return res.view('RecommenderModule/byLink', {
-      link:newLinks
+
     })
   },
   test2:(req, res) =>{
