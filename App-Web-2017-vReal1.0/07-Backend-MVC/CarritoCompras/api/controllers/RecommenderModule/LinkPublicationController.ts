@@ -26,6 +26,26 @@ module.exports = {
       link:newLinks
     })
   },
+  test2:(req, res) =>{
+
+    return res.view('RecommenderModule/byAuthor', {
+
+    })
+  },
+
+  test3:(req, res) =>{
+
+    return res.view('RecommenderModule/byTitleSameAuthor', {
+
+    })
+  },
+
+  test4:(req, res) =>{
+
+    return res.view('RecommenderModule/bySameAreaOfinterest', {
+
+    })
+  },
 
 
   createLinkToAPublication: (req, res) => {

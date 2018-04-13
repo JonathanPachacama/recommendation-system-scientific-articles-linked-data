@@ -15,6 +15,15 @@ module.exports = {
             link: newLinks
         });
     },
+    test2: function (req, res) {
+        return res.view('RecommenderModule/byAuthor', {});
+    },
+    test3: function (req, res) {
+        return res.view('RecommenderModule/byTitleSameAuthor', {});
+    },
+    test4: function (req, res) {
+        return res.view('RecommenderModule/bySameAreaOfinterest', {});
+    },
     createLinkToAPublication: function (req, res) {
         var parameters = req.allParams();
         var newLinks = {
