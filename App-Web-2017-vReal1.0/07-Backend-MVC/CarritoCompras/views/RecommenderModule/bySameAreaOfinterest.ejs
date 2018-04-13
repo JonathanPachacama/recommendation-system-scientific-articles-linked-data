@@ -10,11 +10,11 @@
 <div id="containerMain" class="row">
   <div id="TitleURI" class="row">
     <div class="col-sm-12">
-      <h1>Resultados de publicaciones de los mismos autores relacionados al recurso <a href="http://acm.rkbexplorer.com/id/100233">http://acm.rkbexplorer.com/id/100233</a><br></h1>
+      <h1>Resultados de publicaciones de la misma área de interés relacionado con el recurso <a href="http://acm.rkbexplorer.com/id/100233">http://acm.rkbexplorer.com/id/100233</a><br></h1>
     </div>
   </div>
-  <p>los resultados de la ejecución de consulta SPARQL indicada para presentar los títulos de las publicaciones de los mismos autores de la publicación seleccionada.
-    Las propiedades utilizadas en la consulta son akt: has-author y akt: has-title.
+  <p>los resultados de la ejecución de la consulta SPARQL muestra los títulos de las publicaciones de la misma área de interés de la publicación seleccionada.
+    Las propiedades utilizadas en la consulta son akt: addresses-generic-area-of-interest y akt: has-title.
   </p>
   <br>
   <div class="form-group row">
@@ -27,8 +27,11 @@
       name="querySparql"
       rows="5"
       cols="80">
-      SELECT ?resource ?title
-      WHERE {<http://acm.rkbexplorer.com/id/100233> akt:has-author ?a. ?resource akt:has-author ?a. ?resource akt:has-title ?title}
+      SELECT DISTINCT ?t
+      WHERE {?p akt:addresses-generic-area-of-interest ?o. <http://acm.rkbexplorer.com/id/100233> akt:addresses-generic-area-of-interest ?o. ?p akt:has-title ?t}
+      Limit 20
+
+
   </textarea>
   </div>
   <div class="container" style="background-color: black">
@@ -49,30 +52,17 @@
 
           <form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">
             <div class="fondo">
-              <h3>Enlaces relacionados al autor {{responseJson[$index].author.value}} </h3>
+              <h3>Titulo relacionados a la URI</h3>
               <div class="form-group row">
                 <label class="col-2 col-form-label">Valor</label>
                 <div class="col-10">
-                  <input class="form-control" type="text"  value="{{responseJson[$index].resource.value}}" id="" name="">
+                  <input class="form-control" type="text"  value="{{responseJson[$index].title.value}}" id="" name="">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label">tipo</label>
                 <div class="col-10">
-                  <input class="form-control" type="text"  value="{{responseJson[$index].resource .type}}" id="" name="">
-                </div>
-              </div>
-              <h3>Titulos relacionados con los autores</h3>
-              <div class="form-group row">
-                <label class="col-2 col-form-label">Valor</label>
-                <div class="col-10">
-                  <input class="form-control" type="text" value="{{responseJson[$index].title.value}}" id="" name="">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label">Tipo</label>
-                <div class="col-10">
-                  <input class="form-control" type="text" value="{{responseJson[$index].title.type}}" id="" name="">
+                  <input class="form-control" type="text"  value="{{responseJson[$index].title.type}}" id="" name="">
                 </div>
               </div>
               <button class="btn btn-success" type="submit">Guardar</button>
@@ -109,10 +99,11 @@
 
     let prefix = id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix  //Prefijos Publicaciones ACM (Tomar en cuenta que akt_Prefix se repite para que funcione la consulta)
 
-    let select = "SELECT+DISTINCT+%3Fresource+%3Ftitle+%3Fauthor+%0D%0A";
-    let where = "WHERE+%7B%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+akt%3Ahas-author+%3Fa.+%3Fresource+akt%3Ahas-author+%3Fa.+%3Fresource+akt%3Ahas-title+%3Ftitle.%3Fa+akt%3Afull-name+%3Fauthor++%7D%0D%0A%0D%0A";
-   // let limit = "Limit+20";
-    let querySparql = select+where; //consulta Sparql
+    let select = "SELECT+DISTINCT+%3Ftitle+%0D%0A";
+    let where = "\n" +
+      "WHERE+%7B%3Fp+akt%3Aaddresses-generic-area-of-interest+%3Fo.+%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+akt%3Aaddresses-generic-area-of-interest+%3Fo.+%3Fp+akt%3Ahas-title+%3Ftitle%7D";
+    let limit = "Limit+20";
+    let querySparql = select+where+limit; //consulta Sparql
 
     let concatenation = apiAcm+prefix+querySparql;
 
@@ -121,19 +112,15 @@
         console.log(data);
         $scope.responseJson = data.results.bindings;
         console.log("la url es:" + concatenation);
-        console.log("numero de articulos:" + $scope.responseJson.length);
+        console.log("numero de arutores:" + $scope.responseJson.length);
 
         for(let i = 0;i<$scope.responseJson.length;i ++){
-          let resourceValue = $scope.responseJson[i].resource.value
-          let resourceType = $scope.responseJson[i].resource.type
           let titleValue = $scope.responseJson[i].title.value
           let titleType = $scope.responseJson[i].title.type
-          let authorType = $scope.responseJson[i].o.value
-          console.log(i+1+": valor del recurso es:"+ resourceValue);
-          console.log(i+1+": tipo del recurso es:"+ resourceType);
-          console.log(i+1+": valor del titulo es:"+ titleValue);
-          console.log(i+1+": tipo del titulo es:"+ titleType);
-          console.log(i+1+": valor del autor es:"+ authorType);
+
+          console.log(i+1+": valor de nombre es:"+ titleValue);
+          console.log(i+1+": tipo de nombre es:"+ titleType);
+
         }
       })
       .error(function (err) {

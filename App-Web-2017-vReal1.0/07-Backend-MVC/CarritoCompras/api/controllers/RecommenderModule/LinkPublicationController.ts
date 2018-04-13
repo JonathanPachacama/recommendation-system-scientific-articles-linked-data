@@ -40,6 +40,13 @@ module.exports = {
     })
   },
 
+  test4:(req, res) =>{
+
+    return res.view('RecommenderModule/bySameAreaOfinterest', {
+
+    })
+  },
+
 
   createLinkToAPublication: (req, res) => {
 
