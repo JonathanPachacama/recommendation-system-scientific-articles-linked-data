@@ -135,7 +135,7 @@ module.exports = {
                         sails.log(locationPublisher);
                         sails.log(journal);
 
-                        return res.view('RecommenderModule/wkx_keyword',{
+                        return res.view('RecommenderModule/wkx_creator',{
                           creator:creatorFound,
                           query:query[0],
                           keyword:keyword,
