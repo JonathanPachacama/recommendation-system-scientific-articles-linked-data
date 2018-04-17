@@ -7,28 +7,35 @@ declare var Articulo;
 module.exports = {
 
 
-  result:(req, res) =>{
+  result1:(req, res) =>{
     return res.view('RecommenderModule/byLink', {
 
     })
   },
-  test2:(req, res) =>{
+  result2:(req, res) =>{
 
     return res.view('RecommenderModule/byAuthor', {
 
     })
   },
 
-  test3:(req, res) =>{
+  result3:(req, res) =>{
 
     return res.view('RecommenderModule/byTitleSameAuthor', {
 
     })
   },
 
-  test4:(req, res) =>{
+  result4:(req, res) =>{
 
     return res.view('RecommenderModule/bySameAreaOfinterest', {
+
+    })
+  },
+
+  ranking:(req, res) =>{
+
+    return res.view('RecommenderModule/ranking', {
 
     })
   },
