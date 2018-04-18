@@ -1,15 +1,18 @@
 module.exports = {
-    result: function (req, res) {
+    result1: function (req, res) {
         return res.view('RecommenderModule/byLink', {});
     },
-    test2: function (req, res) {
+    result2: function (req, res) {
         return res.view('RecommenderModule/byAuthor', {});
     },
-    test3: function (req, res) {
+    result3: function (req, res) {
         return res.view('RecommenderModule/byTitleSameAuthor', {});
     },
-    test4: function (req, res) {
+    result4: function (req, res) {
         return res.view('RecommenderModule/bySameAreaOfinterest', {});
+    },
+    ranking: function (req, res) {
+        return res.view('RecommenderModule/ranking', {});
     },
     createLinkToAPublication: function (req, res) {
         var parameters = req.allParams();
