@@ -21,7 +21,10 @@
 
 var cssFilesToInject = [
   'styles/**/*.css',
-  'Bootstrap/css/bootstrap.css'
+  'Bootstrap/css/bootstrap.css',
+
+    'lib/google-code-prettify/prettify.css',
+    'lib/google-code-prettify/prettify-desert.css',
 ];
 
 
@@ -34,11 +37,16 @@ var jsFilesToInject = [
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
+  'js/dependencies/jquery/jquery.min.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/**/*.js',
-  'Bootstrap/js/bootstrap.js'
+  'Bootstrap/js/bootstrap.js',
+
+  'js/d3sparql.js',
+  'lib/d3/d3.v3.min.js',
+  'lib/google-code-prettify/prettify.js',
 ];
 
 
@@ -52,7 +60,8 @@ var jsFilesToInject = [
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
 var templateFilesToInject = [
-  'templates/**/*.html'
+  'templates/**/*.html',
+  'templates/d3sparql.html'
 ];
 
 
