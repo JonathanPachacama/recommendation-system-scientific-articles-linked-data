@@ -4,9 +4,9 @@
 $(document).ready(function(){
 
   // Validate
-  // http://bassistance.de/jquery-plugins/jquery-plugin-validation/
-  // http://docs.jquery.com/Plugins/Validation/
-  // http://docs.jquery.com/Plugins/Validation/validate#toptions
+   //http://bassistance.de/jquery-plugins/jquery-plugin-validation/
+  //http://docs.jquery.com/Plugins/Validation/
+  //http://docs.jquery.com/Plugins/Validation/validate#toptions
 
   $('#sign-up-form').validate({
     rules: {
