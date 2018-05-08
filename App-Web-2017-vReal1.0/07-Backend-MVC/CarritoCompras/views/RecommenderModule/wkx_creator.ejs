@@ -1,6 +1,7 @@
 <html ng-app="appRecommender">
 <body ng-controller="Controller">
 <br>
+<div id="metadata">
 <h1>Metadatos Sincronizados en Wikindx en relación al autor </h1>
 <h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
 <br>
@@ -52,7 +53,9 @@
 
   </div>
 </div>
+</div>
 
+<div id="firstQuery">
 
 <div class="form-group row">
   <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
@@ -68,8 +71,9 @@
     {{autor.autor1}}
   </li>
 </ul>
+</div>
 
-
+<div id="result">
 <form action="" method="post">
   <div class="container" style="background-color: black">
     <div class="row">
@@ -91,7 +95,7 @@
             <div class="form-group row">
               <label class="col-2 col-form-label">Nombre:</label>
               <div class="col-10">
-                <input class="form-control" type="text"  value=" {{autor.name.value}}" id="name_Value" name="name_Value">
+                <input class="form-control" type="text"  value=" {{autor.titleUri.value}}" id="name_Value" name="name_Value">
               </div>
             </div>
           </div>
@@ -105,14 +109,11 @@
     </div>
   </div>
 </form>
-
-
-
+</div>
 
 
 <script>
   $(document).ready(function(){
-
 
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
@@ -139,7 +140,6 @@
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
 
-
     //Prefijos Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
     let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
@@ -150,21 +150,12 @@
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
 
     $scope.nuevoAuthorIn = {};
-    $scope.autoresSeleccionado = [
-//      {
-//        autor1: "Jonathan"
-//      },
-//      {
-//        autor1: "Paul"
-//      },
-    ];
+    $scope.autoresSeleccionado = [];
     $scope.addAuthor = function () {
-
 
       $scope.autoresSeleccionado.push($scope.nuevoAuthorIn);
       $scope.nuevoAuthorIn ={};
       console.log("autor es:"+$scope.autoresSeleccionado.length);
-
       for(var i = 0;i<$scope.autoresSeleccionado.length;i ++){
         var nombres = $scope.autoresSeleccionado[i].autor1
         console.log("autor es:"+nombres);
@@ -184,14 +175,12 @@
 
 
 
-
-
         //Autores
         let name1 = arrayDeCadena[0]
         let apellido1 = arrayDeCadena[1]
-        let select2 = "SELECT+DISTINCT+%3Fname+";
-        let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
-          "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
+        let select2 = "SELECT+DISTINCT+%3FtitleUri+";
+        let where2="WHERE+%7B%3FtitleUri+akt%3Ahas-title+%3Fp.+" +
+          "filter+%28%3Fp%3D%22"+name1+"%22%29%7D";
         let limit2="limit+100";
         var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
         //Consumo Api con la consulta por autores
