@@ -1,6 +1,76 @@
 <html ng-app="appRecommender">
+
+<head>
+  <script>
+    var arrayURIS = new Array();
+    var arrayValores = new Array();
+    var prefixs = "PREFIX id:   <http://acm.rkbexplorer.com/id/>"+
+      "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
+      "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>"+
+      "PREFIX owl:  <http://www.w3.org/2002/07/owl#>"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>"+
+      "PREFIX akts: <http://www.aktors.org/ontology/support#>"
+
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+
+    function recom(){
+
+      var sparql = prefixs + "SELECT ?cr1URI WHERE {"+
+        "{?cr1URI ?link <http://acm.rkbexplorer.com/id/100233>.}}"
+      var endpoint = d3.select("#endpoint").property("value")
+      d3sparql.query(endpoint, sparql,almArr)
+    }
+
+    function  almArr(json){
+      var articsArr = json.results.bindings;
+      for(i in articsArr){
+        arrayURIS[i] = articsArr[i].cr1URI.value
+      }
+      var sparqlRec;
+      for(i=0 ; i<arrayURIS.length ; i++){
+        sparqlRec= prefixs +
+          "SELECT ?links WHERE{"+
+          //"{ <http://acm.rkbexplorer.com/id/100233> ?links " + "<" +arrURI[i] + ">.}"+
+          //"UNION"+
+          "{<"+arrayURIS[i]+">" + " ?links <http://acm.rkbexplorer.com/id/100233>.}"+
+          "}"
+        var endpoint = d3.select("#endpoint").property("value")
+        d3sparql.query(endpoint,sparqlRec,almValues)
+      }
+
+      console.log(arrayValores.length)
+
+    }
+
+    function almValues(json){
+      var uris = json.results.bindings;
+      arrayValores.push(uris.length);
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+  </script>
+</head>
 <body ng-controller="Controller">
 <br>
+<div id="metadata">
 <h1>Metadatos Sincronizados en Wikindx en relación al autor </h1>
 <h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
 <br>
@@ -27,7 +97,7 @@
 <div class="row">
   <label class="col-1 col-form-label">Titulo:</label>
   <div class="col-11">
-    <input class="form-control" type="text"  value="<%= query.resourceTitle%>" disabled>
+    <input class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>
   </div>
   <label class="col-1 col-form-label">Categoria:</label>
   <div class="col-11">
@@ -52,24 +122,53 @@
 
   </div>
 </div>
+</div>
 
+<div id="firstQuery">
 
 <div class="form-group row">
   <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
   <div class="col-10">
     <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
+
   </div>
 </div>
 
 <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
+
 <br><br>
 <ul>
   <li ng-repeat="autor in autoresSeleccionado track by $index">
     {{autor.autor1}}
   </li>
 </ul>
+</div>
 
+<div id="query" style="margin:auto">
 
+  <form class="form-inline">
+    <label>SPARQL endpoint:</label><br>
+    <div class="input-append">
+      <input id="endpoint" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+      <button class="btn" type="button" onclick="exec()">Query</button>
+      <button hidden class="btn" type="button" onclick="recom()">Relacionados</button>
+      <button class="btn" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+    </div>
+  </form>
+
+  <br>
+  <textarea id="sparql" class="span9" rows=15 cols="100">
+holaaa
+      </textarea>
+  <br><br>
+</div>
+<div id="result"></div>
+
+<div>
+  <input type="hidden" value="" name="test">
+</div>
+
+<div id="resultApi">
 <form action="" method="post">
   <div class="container" style="background-color: black">
     <div class="row">
@@ -91,7 +190,7 @@
             <div class="form-group row">
               <label class="col-2 col-form-label">Nombre:</label>
               <div class="col-10">
-                <input class="form-control" type="text"  value=" {{autor.name.value}}" id="name_Value" name="name_Value">
+                <input class="form-control" type="text"  value=" {{autor.titleUri.value}}" id="name_Value" name="name_Value">
               </div>
             </div>
           </div>
@@ -105,20 +204,17 @@
     </div>
   </div>
 </form>
-
-
-
+</div>
 
 
 <script>
   $(document).ready(function(){
 
-
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
     var texto = $(contenido).text();
     var res = texto.replace(/<[^>]*>?/g, '');
-    $("textarea").text(res);
+    $("#abstract").text(res);
 
     //modificar la salida de undefined
     var	a = $("#keyword").val()
@@ -134,11 +230,56 @@
       $("#abstract").css({"font-style": "italic"})
       $("#abstract").css({"color": "Silver"})
     }
+
+
+
+    var titulo = $("#title").val();
+    console.log("titulo", titulo)
+
+    function dividirCadena (cadenaADividir,separador){
+
+      var arrayDeCadena = cadenaADividir.split(separador);
+      console.log("la cadena original es:"+cadenaADividir);
+      console.log("El Separador es:"+separador);
+      console.log("El array tiene:"+arrayDeCadena.length);
+
+      for (var j=0;j<arrayDeCadena.length;j++){
+        console.log(arrayDeCadena[j]);
+
+
+      }
+      //Autores
+      let parametro1 = arrayDeCadena[0]
+
+      var consulta =  "PREFIX id:   <http://acm.rkbexplorer.com/id/>\n"+
+        "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
+        "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
+        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+        "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
+        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+        "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
+        "SELECT DISTINCT ?titleUri\n"+
+        "WHERE { ?titleUri akt:has-title ?p. FILTER regex(str(?p), '"+parametro1+"', 'i')}"
+
+      $("#sparql").text(consulta);
+
+    };
+    var cadenaVerso = titulo
+    var patron = ", ";
+    var nuevoValor = " ";
+    var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
+    var espacio = " ";
+    var coma = ",";
+    dividirCadena(nuevaCadena,espacio);
+    //dividirCadena(nuevaCadena,coma);
+
+
+
+
   });
 
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
-
 
     //Prefijos Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
@@ -150,21 +291,12 @@
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
 
     $scope.nuevoAuthorIn = {};
-    $scope.autoresSeleccionado = [
-//      {
-//        autor1: "Jonathan"
-//      },
-//      {
-//        autor1: "Paul"
-//      },
-    ];
+    $scope.autoresSeleccionado = [];
     $scope.addAuthor = function () {
-
 
       $scope.autoresSeleccionado.push($scope.nuevoAuthorIn);
       $scope.nuevoAuthorIn ={};
       console.log("autor es:"+$scope.autoresSeleccionado.length);
-
       for(var i = 0;i<$scope.autoresSeleccionado.length;i ++){
         var nombres = $scope.autoresSeleccionado[i].autor1
         console.log("autor es:"+nombres);
@@ -184,14 +316,12 @@
 
 
 
-
-
         //Autores
         let name1 = arrayDeCadena[0]
         let apellido1 = arrayDeCadena[1]
-        let select2 = "SELECT+DISTINCT+%3Fname+";
-        let where2="WHERE+%7B%3Fs+akt%3Ahas-author+%3Fa.%3Fa+akt%3Afull-name+%3Fname.+" +
-          "FILTER+regex%28str%28%3Fname%29%2C+%22"+name1+"%22%2C+%22"+apellido1+"%22%29%7D+";
+        let select2 = "SELECT+DISTINCT+%3FtitleUri+";
+        let where2="WHERE+%7B%3FtitleUri+akt%3Ahas-title+%3Fp.+" +
+          "filter+%28%3Fp%3D%22"+name1+"%22%29%7D";
         let limit2="limit+100";
         var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
         //Consumo Api con la consulta por autores
