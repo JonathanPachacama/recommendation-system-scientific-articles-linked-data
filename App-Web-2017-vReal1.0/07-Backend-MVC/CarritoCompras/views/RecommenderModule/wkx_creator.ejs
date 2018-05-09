@@ -1,4 +1,73 @@
 <html ng-app="appRecommender">
+
+<head>
+  <script>
+    var arrayURIS = new Array();
+    var arrayValores = new Array();
+    var prefixs = "PREFIX id:   <http://acm.rkbexplorer.com/id/>"+
+      "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
+      "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>"+
+      "PREFIX owl:  <http://www.w3.org/2002/07/owl#>"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>"+
+      "PREFIX akts: <http://www.aktors.org/ontology/support#>"
+
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+
+    function recom(){
+
+      var sparql = prefixs + "SELECT ?cr1URI WHERE {"+
+        "{?cr1URI ?link <http://acm.rkbexplorer.com/id/100233>.}}"
+      var endpoint = d3.select("#endpoint").property("value")
+      d3sparql.query(endpoint, sparql,almArr)
+    }
+
+    function  almArr(json){
+      var articsArr = json.results.bindings;
+      for(i in articsArr){
+        arrayURIS[i] = articsArr[i].cr1URI.value
+      }
+      var sparqlRec;
+      for(i=0 ; i<arrayURIS.length ; i++){
+        sparqlRec= prefixs +
+          "SELECT ?links WHERE{"+
+          //"{ <http://acm.rkbexplorer.com/id/100233> ?links " + "<" +arrURI[i] + ">.}"+
+          //"UNION"+
+          "{<"+arrayURIS[i]+">" + " ?links <http://acm.rkbexplorer.com/id/100233>.}"+
+          "}"
+        var endpoint = d3.select("#endpoint").property("value")
+        d3sparql.query(endpoint,sparqlRec,almValues)
+      }
+
+      console.log(arrayValores.length)
+
+    }
+
+    function almValues(json){
+      var uris = json.results.bindings;
+      arrayValores.push(uris.length);
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+  </script>
+</head>
 <body ng-controller="Controller">
 <br>
 <div id="metadata">
@@ -28,7 +97,7 @@
 <div class="row">
   <label class="col-1 col-form-label">Titulo:</label>
   <div class="col-11">
-    <input class="form-control" type="text"  value="<%= query.resourceTitle%>" disabled>
+    <input class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>
   </div>
   <label class="col-1 col-form-label">Categoria:</label>
   <div class="col-11">
@@ -61,10 +130,12 @@
   <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
   <div class="col-10">
     <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
+
   </div>
 </div>
 
 <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
+
 <br><br>
 <ul>
   <li ng-repeat="autor in autoresSeleccionado track by $index">
@@ -73,7 +144,31 @@
 </ul>
 </div>
 
-<div id="result">
+<div id="query" style="margin:auto">
+
+  <form class="form-inline">
+    <label>SPARQL endpoint:</label><br>
+    <div class="input-append">
+      <input id="endpoint" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+      <button class="btn" type="button" onclick="exec()">Query</button>
+      <button hidden class="btn" type="button" onclick="recom()">Relacionados</button>
+      <button class="btn" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+    </div>
+  </form>
+
+  <br>
+  <textarea id="sparql" class="span9" rows=15 cols="100">
+holaaa
+      </textarea>
+  <br><br>
+</div>
+<div id="result"></div>
+
+<div>
+  <input type="hidden" value="" name="test">
+</div>
+
+<div id="resultApi">
 <form action="" method="post">
   <div class="container" style="background-color: black">
     <div class="row">
@@ -119,7 +214,7 @@
     var contenido = abstract
     var texto = $(contenido).text();
     var res = texto.replace(/<[^>]*>?/g, '');
-    $("textarea").text(res);
+    $("#abstract").text(res);
 
     //modificar la salida de undefined
     var	a = $("#keyword").val()
@@ -135,6 +230,52 @@
       $("#abstract").css({"font-style": "italic"})
       $("#abstract").css({"color": "Silver"})
     }
+
+
+
+    var titulo = $("#title").val();
+    console.log("titulo", titulo)
+
+    function dividirCadena (cadenaADividir,separador){
+
+      var arrayDeCadena = cadenaADividir.split(separador);
+      console.log("la cadena original es:"+cadenaADividir);
+      console.log("El Separador es:"+separador);
+      console.log("El array tiene:"+arrayDeCadena.length);
+
+      for (var j=0;j<arrayDeCadena.length;j++){
+        console.log(arrayDeCadena[j]);
+
+
+      }
+      //Autores
+      let parametro1 = arrayDeCadena[0]
+
+      var consulta =  "PREFIX id:   <http://acm.rkbexplorer.com/id/>\n"+
+        "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
+        "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
+        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+        "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
+        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+        "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
+        "SELECT DISTINCT ?titleUri\n"+
+        "WHERE { ?titleUri akt:has-title ?p. FILTER regex(str(?p), '"+parametro1+"', 'i')}"
+
+      $("#sparql").text(consulta);
+
+    };
+    var cadenaVerso = titulo
+    var patron = ", ";
+    var nuevoValor = " ";
+    var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
+    var espacio = " ";
+    var coma = ",";
+    dividirCadena(nuevaCadena,espacio);
+    //dividirCadena(nuevaCadena,coma);
+
+
+
+
   });
 
   var app = angular.module("appRecommender",[]);
