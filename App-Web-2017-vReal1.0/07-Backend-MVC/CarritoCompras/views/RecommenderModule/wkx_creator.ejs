@@ -22,7 +22,7 @@
       var config = {
         "selector": "#result"
       }
-      d3sparql.htmltable(json, config)
+      d3sparql.htmltable2(json, config)
     }
 
 
@@ -210,6 +210,9 @@ holaaa
 <script>
   $(document).ready(function(){
 
+
+
+
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
     var texto = $(contenido).text();
@@ -258,8 +261,8 @@ holaaa
         "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
         "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
         "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
-        "SELECT DISTINCT ?titleUri\n"+
-        "WHERE { ?titleUri akt:has-title ?p. FILTER regex(str(?p), '"+parametro1+"', 'i')}"
+        "SELECT DISTINCT ?titleUri ?title\n"+
+        "WHERE { ?titleUri akt:has-title ?title. FILTER regex(str(?title), '"+parametro1+"', 'i')} Limit 10"
 
       $("#sparql").text(consulta);
 
@@ -273,6 +276,9 @@ holaaa
     dividirCadena(nuevaCadena,espacio);
     //dividirCadena(nuevaCadena,coma);
 
+    function cambiarValor() {
+      $("#resultQueryTable").text("hola")
+    }
 
 
 

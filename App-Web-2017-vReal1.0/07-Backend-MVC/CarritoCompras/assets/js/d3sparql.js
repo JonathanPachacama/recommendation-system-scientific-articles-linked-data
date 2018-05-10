@@ -59,7 +59,7 @@ d3sparql.htmltable = function(json, config) {
 
   var head = json.head.vars
   var data = json.results.bindings
-
+console.log("data",data)
   var opts = {
     "selector": config.selector || null
   }
@@ -98,8 +98,59 @@ d3sparql.htmltable = function(json, config) {
   })
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//(start) added for Recommender Module  (JONATHAN)
+d3sparql.htmltable2 = function(json, config) {
+  config = config || {}
+
+  var head = json.head.vars
+  var data = json.results.bindings
+  var opts = {
+    "selector": config.selector || null
+  }
+
+  var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+  var thead = table.append("thead")
+  var tbody = table.append("tbody")
+  thead.append("tr")
+    .selectAll("th")
+    .data(head)
+    .enter()
+    .append("th")
+    .text(function(col) { return col })
+  var rows = tbody.selectAll("tr")
+    .data(data)
+    .enter()
+    .append("tr")
+  var cells = rows.selectAll("td")
+    .data(function(row) {
+      return head.map(function(col) {
+        return row[col].value
+      })
+    })
+    .enter()
+    .append("td")
+    .append("button").attr("id", "resultQueryTable").attr("onclick", cambiarValor())
+    .text(function(val) { return val })
+
+  function cambiarValor() {
+    $("#resultQueryTable").text("hola")
+  }
+  // default CSS
+  table.style({
+    "margin": "10px"
+  })
+  table.selectAll("th").style({
+    "background": "#eeeeee",
+    "text-transform": "capitalize",
+  })
 
 
+}
+
+
+//(end) added for Recommender Module  (JONATHAN)
+//////////////////////////////////////////////////////////////////////////////////////////
 
 /*
   Rendering sparql-results+json object into a bar chart
