@@ -100,53 +100,57 @@ console.log("data",data)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //(start) added for Recommender Module  (JONATHAN)
-d3sparql.htmltable2 = function(json, config) {
-  config = config || {}
-
-  var head = json.head.vars
-  var data = json.results.bindings
-  var opts = {
-    "selector": config.selector || null
-  }
-
-  var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
-  var thead = table.append("thead")
-  var tbody = table.append("tbody")
-  thead.append("tr")
-    .selectAll("th")
-    .data(head)
-    .enter()
-    .append("th")
-    .text(function(col) { return col })
-  var rows = tbody.selectAll("tr")
-    .data(data)
-    .enter()
-    .append("tr")
-  var cells = rows.selectAll("td")
-    .data(function(row) {
-      return head.map(function(col) {
-        return row[col].value
-      })
-    })
-    .enter()
-    .append("td")
-    .append("button").attr("id", "resultQueryTable").attr("onclick", cambiarValor())
-    .text(function(val) { return val })
-
-  function cambiarValor() {
-    $("#resultQueryTable").text("hola")
-  }
-  // default CSS
-  table.style({
-    "margin": "10px"
-  })
-  table.selectAll("th").style({
-    "background": "#eeeeee",
-    "text-transform": "capitalize",
-  })
-
-
-}
+// d3sparql.htmltable2 = function(json, config) {
+//   config = config || {}
+//
+//   var head = json.head.vars
+//   var data = json.results.bindings
+//   var opts = {
+//     "selector": config.selector || null
+//   }
+//
+//   var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+//   var thead = table.append("thead")
+//   var tbody = table.append("tbody")
+//   thead.append("tr")
+//     .selectAll("th")
+//     .data(head)
+//     .enter()
+//     .append("th")
+//     .text(function(col) { return col })
+//   var rows = tbody.selectAll("tr")
+//     .data(data)
+//     .enter()
+//     .append("tr")
+//   var cells = rows.selectAll("td")
+//     .data(function(row) {
+//       return head.map(function(col) {
+//         return row[col].value
+//       })
+//     })
+//     .enter()
+//     .append("td")
+//     .append("button").attr("class", "resultQueryTable")
+//     .text(function(val) { return val })
+//
+//
+//   // default CSS
+//   table.style({
+//     "margin": "10px"
+//   })
+//   table.selectAll("th").style({
+//     "background": "#eeeeee",
+//     "text-transform": "capitalize",
+//   })
+//
+//
+//   $(".resultQueryTable").html("hola")
+//   $(".resultQueryTable").click(function(){
+//     alert('Evento click sobre un input text con nombre="nombre1"');
+//   });
+//
+// }
+//
 
 
 //(end) added for Recommender Module  (JONATHAN)
