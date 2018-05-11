@@ -15,7 +15,9 @@
     function exec() {
       var endpoint = d3.select("#endpoint").property("value")
       var sparql = d3.select("#sparql").property("value")
+      var sparqlMetadata = d3.select("#sparqlMetadata").property("value")
       d3sparql.query(endpoint, sparql, render)
+      d3sparql.query(endpoint, sparqlMetadata, render2)
     }
 
     function render(json) {
@@ -24,6 +26,14 @@
       }
       d3sparql.htmltable2(json, config)
     }
+
+    function render2(json) {
+      var config = {
+        "selector": "#resultMetadata"
+      }
+      d3sparql.model(json, config)
+    }
+
 
 
     function recom(){
@@ -181,7 +191,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <button class="btn btn-success" type="button" onclick="exec()">Mostrar Metadatos</button>
+
+        <textarea hidden id="sparqlMetadata" class="span9" rows=15>
+
+      </textarea>
         <div id="resultMetadata"></div>
       </div>
       <div class="modal-footer">
@@ -373,6 +386,71 @@
 
 
     }
+
+
+    var consulta2 =  "PREFIX id:   <http://acm.rkbexplorer.com/id/>\n"+
+      "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
+      "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+      "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
+      "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
+      "SELECT DISTINCT ?nameAutor\n"+
+      "WHERE {<http://acm.rkbexplorer.com/id/106979> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+
+
+    $("#sparqlMetadata").text(consulta2);
+///////////////////////model
+
+    d3sparql.model = function(json, config) {
+      config = config || {}
+
+      var head = json.head.vars
+      var data = json.results.bindings
+      var opts = {
+        "selector": config.selector || null
+      }
+
+      var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+      var thead = table.append("thead")
+      var tbody = table.append("tbody")
+      thead.append("tr")
+        .selectAll("th")
+        .data(head)
+        .enter()
+        .append("th")
+        .text(function(col) { return col })
+      var rows = tbody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr")
+      var cells = rows.selectAll("td")
+        .data(function(row) {
+          return head.map(function(col) {
+            console.log(row[col].value)
+            return row[col].value
+
+          })
+        })
+        .enter()
+        .append("td")
+        .text(function(val) { return val })
+
+      // default CSS
+      table.style({
+        "margin": "10px"
+      })
+      table.selectAll("th").style({
+        "background": "#eeeeee",
+        "text-transform": "capitalize",
+      })
+
+
+
+
+
+    }
+
 
   });
 /////////////////////////angular
