@@ -159,7 +159,7 @@
   <form class="form-inline">
     <label>SPARQL endpoint:</label><br>
     <div class="input-append">
-      <input id="endpoint" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+      <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
       <button class="btn btn-success" type="button" onclick="exec()">Query</button>
       <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
       <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
@@ -270,6 +270,9 @@
 
 
 <script>
+
+
+  ///////////////////////////Jquery
   $(document).ready(function(){
 
     //quitar las etiquetas innecesarias en la vista
@@ -293,34 +296,32 @@
       $("#abstract").css({"color": "Silver"})
     }
 
-
-
     var titulo = $("#title").val();
-    console.log("titulo", titulo)
+
+    var prefixIeee = "PREFIX id:   <http://ieee.rkbexplorer.com/id/>\n"+
+      "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+      "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
+      "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n" +
+      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
+      "PREFIX akts: <http://www.aktors.org/ontology/support#>\n" +
+      "PREFIX iai:  <http://www.iai.uni-sb.de/resist#>\n"
+
 
     function dividirCadena (cadenaADividir,separador){
-
       var arrayDeCadena = cadenaADividir.split(separador);
       console.log("la cadena original es:"+cadenaADividir);
       console.log("El Separador es:"+separador);
       console.log("El array tiene:"+arrayDeCadena.length);
-
       for (var j=0;j<arrayDeCadena.length;j++){
         console.log(arrayDeCadena[j]);
-
 
       }
       //Autores
       let parametro1 = arrayDeCadena[0]
 
-      var consulta1 =  "PREFIX id:   <http://acm.rkbexplorer.com/id/>\n"+
-        "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
-        "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
-        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
-        "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
-        "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
-        "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
-        "SELECT DISTINCT ?titleUri ?title\n"+
+
+      var consulta1 =  prefixIeee + "SELECT DISTINCT ?titleUri ?title\n"+
         "WHERE { ?titleUri akt:has-title ?title. FILTER regex(str(?title), '"+parametro1+"', 'i')} Limit 10"
 
       $("#sparql").text(consulta1);
@@ -337,8 +338,14 @@
 
 
 ////////////tabla de resultados
+
+
+   // var href = document.getElementById("resultMetadata").innerText;
+
+    var href = "https://www.w3schools.com/jsref/prop_node_innertext.asp"
     d3sparql.htmltable2 = function(json, config) {
       config = config || {}
+
 
       var head = json.head.vars
       var data = json.results.bindings
@@ -355,6 +362,7 @@
         .enter()
         .append("th")
         .text(function(col) { return col })
+
       var rows = tbody.selectAll("tr")
         .data(data)
         .enter()
@@ -362,7 +370,7 @@
       var cells = rows.selectAll("td")
         .data(function(row) {
           return head.map(function(col) {
-            console.log(row[col].value)
+
             return row[col].value
 
           })
@@ -370,7 +378,7 @@
         .enter()
         .append("td")
         .append("button").attr("class", "btn btn-primary").attr("data-toggle", "modal").attr("data-target", "#metadataACM")
-        .text(function(val) { return val })
+        .text(function(val) {return val })
 
       // default CSS
       table.style({
@@ -380,23 +388,11 @@
         "background": "#eeeeee",
         "text-transform": "capitalize",
       })
-
-
-
-
-
     }
 
 
-    var consulta2 =  "PREFIX id:   <http://acm.rkbexplorer.com/id/>\n"+
-      "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
-      "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
-      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
-      "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n"+
-      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n"+
-      "PREFIX akts: <http://www.aktors.org/ontology/support#>\n"+
-      "SELECT DISTINCT ?nameAutor\n"+
-      "WHERE {<http://acm.rkbexplorer.com/id/106979> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+    var consulta2 =   prefixIeee +
+      "SELECT DISTINCT ?web WHERE {<http://ieee.rkbexplorer.com/id/publication-00008093> akt:has-web-address ?web.}"
 
 
     $("#sparqlMetadata").text(consulta2);
@@ -434,7 +430,10 @@
         })
         .enter()
         .append("td")
+        .append("a").attr("href", href).attr("id","redireccion")
         .text(function(val) { return val })
+
+
 
       // default CSS
       table.style({
