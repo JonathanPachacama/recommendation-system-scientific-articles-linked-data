@@ -4,6 +4,8 @@
   <script>
     var arrayURIS = new Array();
     var arrayValores = new Array();
+
+    var arrayWeb = new Array();
     var prefixs = "PREFIX id:   <http://acm.rkbexplorer.com/id/>"+
       "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
       "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
@@ -15,9 +17,9 @@
     function exec() {
       var endpoint = d3.select("#endpoint").property("value")
       var sparql = d3.select("#sparql").property("value")
-      var sparqlMetadata = d3.select("#sparqlMetadata").property("value")
+      var sparqlMetadata = d3.select("#sparqlMetadata").property("value")   //añadido jonathan
       d3sparql.query(endpoint, sparql, render)
-      d3sparql.query(endpoint, sparqlMetadata, render2)
+      d3sparql.query(endpoint, sparqlMetadata, render2) //añadido jonathan
     }
 
     function render(json) {
@@ -27,100 +29,101 @@
       d3sparql.htmltable2(json, config)
     }
 
+    //añadido jonathan  start
     function render2(json) {
       var config = {
         "selector": "#resultMetadata"
       }
       d3sparql.model(json, config)
     }
+    //añadido jonathan  end
 
 
-
-    function recom(){
-
-      var sparql = prefixs + "SELECT ?cr1URI WHERE {"+
-        "{?cr1URI ?link <http://acm.rkbexplorer.com/id/100233>.}}"
-      var endpoint = d3.select("#endpoint").property("value")
-      d3sparql.query(endpoint, sparql,almArr)
-    }
-
-    function  almArr(json){
-      var articsArr = json.results.bindings;
-      for(i in articsArr){
-        arrayURIS[i] = articsArr[i].cr1URI.value
-      }
-      var sparqlRec;
-      for(i=0 ; i<arrayURIS.length ; i++){
-        sparqlRec= prefixs +
-          "SELECT ?links WHERE{"+
-          //"{ <http://acm.rkbexplorer.com/id/100233> ?links " + "<" +arrURI[i] + ">.}"+
-          //"UNION"+
-          "{<"+arrayURIS[i]+">" + " ?links <http://acm.rkbexplorer.com/id/100233>.}"+
-          "}"
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint,sparqlRec,almValues)
-      }
-
-      console.log(arrayValores.length)
-
-    }
-
-    function almValues(json){
-      var uris = json.results.bindings;
-      arrayValores.push(uris.length);
-    }
-
-    function exec_offline() {
-      d3.json("cache/interpro/1117-hk.json", render)
-    }
-    function toggle() {
-      d3sparql.toggle()
-    }
+    // function recom(){
+    //
+    //   var sparql = prefixs + "SELECT ?cr1URI WHERE {"+
+    //     "{?cr1URI ?link <http://acm.rkbexplorer.com/id/100233>.}}"
+    //   var endpoint = d3.select("#endpoint").property("value")
+    //   d3sparql.query(endpoint, sparql,almArr)
+    // }
+    //
+    // function  almArr(json){
+    //   var articsArr = json.results.bindings;
+    //   for(i in articsArr){
+    //     arrayURIS[i] = articsArr[i].cr1URI.value
+    //   }
+    //   var sparqlRec;
+    //   for(i=0 ; i<arrayURIS.length ; i++){
+    //     sparqlRec= prefixs +
+    //       "SELECT ?links WHERE{"+
+    //       //"{ <http://acm.rkbexplorer.com/id/100233> ?links " + "<" +arrURI[i] + ">.}"+
+    //       //"UNION"+
+    //       "{<"+arrayURIS[i]+">" + " ?links <http://acm.rkbexplorer.com/id/100233>.}"+
+    //       "}"
+    //     var endpoint = d3.select("#endpoint").property("value")
+    //     d3sparql.query(endpoint,sparqlRec,almValues)
+    //   }
+    //
+    //   console.log(arrayValores.length)
+    //
+    // }
+    //
+    // function almValues(json){
+    //   var uris = json.results.bindings;
+    //   arrayValores.push(uris.length);
+    // }
+    //
+    // function exec_offline() {
+    //   d3.json("cache/interpro/1117-hk.json", render)
+    // }
+    // function toggle() {
+    //   d3sparql.toggle()
+    // }
   </script>
 </head>
 <body ng-controller="Controller">
 <br>
 <div id="metadata">
-<h1>Metadatos Sincronizados en Wikindx en relación al autor </h1>
-<h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
-<br>
-<div class="row">
-  <label class="col-1 col-form-label">Nombre:</label>
-  <div class="col-5">
-    <input class="form-control" type="text"  value="<%= query.creatorFirstname%>" disabled>
+  <h1>Metadatos Sincronizados en Wikindx en relación al autor </h1>
+  <h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
+  <br>
+  <div class="row">
+    <label class="col-1 col-form-label">Nombre:</label>
+    <div class="col-5">
+      <input class="form-control" type="text"  value="<%= query.creatorFirstname%>" disabled>
+    </div>
+    <label class="col-1 col-form-label">Apellido:</label>
+    <div class="col-5">
+      <input class="form-control" type="text"  value="<%= query.creatorSurname%>" disabled>
+    </div>
   </div>
-  <label class="col-1 col-form-label">Apellido:</label>
-  <div class="col-5">
-    <input class="form-control" type="text"  value="<%= query.creatorSurname%>" disabled>
+  <div class="row">
+    <label class="col-1 col-form-label">Revista:</label>
+    <div class="col-5">
+      <input class="form-control" type="text"  value="<%= journal%>" disabled>
+    </div>
+    <label class="col-1 col-form-label">Editor:</label>
+    <div class="col-5">
+      <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
+    </div>
   </div>
-</div>
-<div class="row">
-  <label class="col-1 col-form-label">Revista:</label>
-  <div class="col-5">
-    <input class="form-control" type="text"  value="<%= journal%>" disabled>
+  <div class="row">
+    <label class="col-1 col-form-label">Titulo:</label>
+    <div class="col-11">
+      <input class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>
+    </div>
+    <label class="col-1 col-form-label">Categoria:</label>
+    <div class="col-11">
+      <input class="form-control" type="text"  value="<%= category%>" disabled>
+    </div>
+    <label class="col-1 col-form-label">Keywords:</label>
+    <div class="col-11">
+      <input class="form-control" type="text" id="keyword"  value="<%= keyword%>" disabled>
+    </div>
   </div>
-  <label class="col-1 col-form-label">Editor:</label>
-  <div class="col-5">
-    <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
-  </div>
-</div>
-<div class="row">
-  <label class="col-1 col-form-label">Titulo:</label>
-  <div class="col-11">
-    <input class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>
-  </div>
-  <label class="col-1 col-form-label">Categoria:</label>
-  <div class="col-11">
-    <input class="form-control" type="text"  value="<%= category%>" disabled>
-  </div>
-  <label class="col-1 col-form-label">Keywords:</label>
-  <div class="col-11">
-    <input class="form-control" type="text" id="keyword"  value="<%= keyword%>" disabled>
-  </div>
-</div>
-<div class="row">
-  <label class="col-1 col-form-label">Abstract:</label>
-  <div class="col-11">
+  <div class="row">
+    <label class="col-1 col-form-label">Abstract:</label>
+    <div class="col-11">
 
 <textarea
   id="abstract"
@@ -130,28 +133,28 @@
   disabled
 ><%= abstract%></textarea>
 
+    </div>
   </div>
-</div>
 </div>
 
 <div id="firstQuery">
 
-<div class="form-group row">
-  <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
-  <div class="col-10">
-    <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
+  <div class="form-group row">
+    <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
+    <div class="col-10">
+      <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
 
+    </div>
   </div>
-</div>
 
-<button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
+  <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
 
-<br><br>
-<ul>
-  <li ng-repeat="autor in autoresSeleccionado track by $index">
-    {{autor.autor1}}
-  </li>
-</ul>
+  <br><br>
+  <ul>
+    <li ng-repeat="autor in autoresSeleccionado track by $index">
+      {{autor.autor1}}
+    </li>
+  </ul>
 </div>
 
 <div id="query" style="margin:auto">
@@ -162,7 +165,7 @@
       <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
       <button class="btn btn-success" type="button" onclick="exec()">Query</button>
       <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
-      <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+      <button class="btn btn-success" type="button" onclick="web()"><i id="button" class="fas fa-chevron-up"></i></button>
     </div>
   </form>
 
@@ -209,41 +212,41 @@
 
 
 <div id="resultApi">
-<form action="" method="post">
-  <div class="container" style="background-color: black">
-    <div class="row">
-      <img class="img-cabecera"
-           src="https://www.acm.org/binaries/content/gallery/acm/ctas/fca_logo.jpg/fca_logo.jpg/acm%3Adesktopcta"
-           alt=""
-           width="100%">
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-4" ng-repeat="autor in autores;">
+  <form action="" method="post">
+    <div class="container" style="background-color: black">
+      <div class="row">
+        <img class="img-cabecera"
+             src="https://www.acm.org/binaries/content/gallery/acm/ctas/fca_logo.jpg/fca_logo.jpg/acm%3Adesktopcta"
+             alt=""
+             width="100%">
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4" ng-repeat="autor in autores;">
 
-        <div class="card">
-          <h1>Autor Relacionado</h1>
-          <img class="card-img-top"
-               src="http://www.anlagensicherheit.net/mt-medizintechnik/wp-content/uploads/2013/02/Autor_Bild.jpg"
-               alt="Card image cap"  height="200">
-          <div class="fondo">
-            <div class="form-group row">
-              <label class="col-2 col-form-label">Nombre:</label>
-              <div class="col-10">
-                <input class="form-control" type="text"  value=" {{autor.titleUri.value}}" id="name_Value" name="name_Value">
+          <div class="card">
+            <h1>Autor Relacionado</h1>
+            <img class="card-img-top"
+                 src="http://www.anlagensicherheit.net/mt-medizintechnik/wp-content/uploads/2013/02/Autor_Bild.jpg"
+                 alt="Card image cap"  height="200">
+            <div class="fondo">
+              <div class="form-group row">
+                <label class="col-2 col-form-label">Nombre:</label>
+                <div class="col-10">
+                  <input class="form-control" type="text"  value=" {{autor.titleUri.value}}" id="name_Value" name="name_Value">
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+
+
       </div>
-
-      <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
-
-
     </div>
-  </div>
-</form>
+  </form>
 </div>
 
 
@@ -280,11 +283,9 @@
     var texto = $(contenido).text();
     var res = texto.replace(/<[^>]*>?/g, '');
     $("#abstract").text(res);
-
     //modificar la salida de undefined
     var	a = $("#keyword").val()
     var	b = texto
-
     if(a == "undefined") {
       $("#keyword").val("This article does not contain keyword")
       $("#keyword").css({"font-style": "italic"})
@@ -306,7 +307,6 @@
       "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
       "PREFIX akts: <http://www.aktors.org/ontology/support#>\n" +
       "PREFIX iai:  <http://www.iai.uni-sb.de/resist#>\n"
-
 
     function dividirCadena (cadenaADividir,separador){
       var arrayDeCadena = cadenaADividir.split(separador);
@@ -337,22 +337,15 @@
     //dividirCadena(nuevaCadena,coma);
 
 
-////////////tabla de resultados
+////////////tabla de resultados de la primera busqueda (d3sparql.htmltable2)
 
-
-   // var href = document.getElementById("resultMetadata").innerText;
-
-    var href = "https://www.w3schools.com/jsref/prop_node_innertext.asp"
     d3sparql.htmltable2 = function(json, config) {
       config = config || {}
-
-
       var head = json.head.vars
       var data = json.results.bindings
       var opts = {
         "selector": config.selector || null
       }
-
       var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
       var thead = table.append("thead")
       var tbody = table.append("tbody")
@@ -362,7 +355,6 @@
         .enter()
         .append("th")
         .text(function(col) { return col })
-
       var rows = tbody.selectAll("tr")
         .data(data)
         .enter()
@@ -370,16 +362,14 @@
       var cells = rows.selectAll("td")
         .data(function(row) {
           return head.map(function(col) {
-
             return row[col].value
 
           })
         })
         .enter()
         .append("td")
-        .append("button").attr("class", "btn btn-primary").attr("data-toggle", "modal").attr("data-target", "#metadataACM")
+        .append("button").attr("class", "btn btn-primary").attr("data-toggle", "modal").attr("data-target", "#metadataACM").attr("onclick", web())
         .text(function(val) {return val })
-
       // default CSS
       table.style({
         "margin": "10px"
@@ -390,23 +380,64 @@
       })
     }
 
+
+    function  web(){
+
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql,almArr)
+
+    }
+    function  almArr(json){
+      var articsArr = json.results.bindings;
+      for(i in articsArr){
+        arrayURIS[i] = articsArr[i].titleUri.value
+      }
+      var sparqlRec;
+      for(i=0 ; i<arrayURIS.length ; i++){
+        sparqlRec= prefixIeee +
+          "SELECT DISTINCT ?web WHERE {<" +arrayURIS[i]+"> akt:has-web-address ?web.}"
+
+        var endpoint = d3.select("#endpoint").property("value")
+        d3sparql.query(endpoint,sparqlRec,almValues)
+      }
+    }
+
+    function almValues(json){
+      var uris = json.results.bindings;
+
+      for(i=0 ; i<uris.length ; i++){
+        arrayWeb.push(uris[i].web.value);
+      }
+      console.log("array",arrayWeb.length)
+
+    }
+
+
+    // for(i=0 ; i<arrayWeb.length ; i++){
+    //   console.log("array",arrayWeb[i])
+    // }
 
     var consulta2 =   prefixIeee +
       "SELECT DISTINCT ?web WHERE {<http://ieee.rkbexplorer.com/id/publication-00008093> akt:has-web-address ?web.}"
 
 
     $("#sparqlMetadata").text(consulta2);
+
+    var href = "http://ieeexplore.ieee.org/iel5/10881/34248/01633539.pdf"
+   // var remplazohref = href.replace("web", '');
+    console.log("href: ",href)
+
 ///////////////////////model
+
 
     d3sparql.model = function(json, config) {
       config = config || {}
-
       var head = json.head.vars
       var data = json.results.bindings
       var opts = {
         "selector": config.selector || null
       }
-
       var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
       var thead = table.append("thead")
       var tbody = table.append("tbody")
@@ -423,18 +454,13 @@
       var cells = rows.selectAll("td")
         .data(function(row) {
           return head.map(function(col) {
-            console.log(row[col].value)
             return row[col].value
-
           })
         })
         .enter()
         .append("td")
         .append("a").attr("href", href).attr("id","redireccion")
         .text(function(val) { return val })
-
-
-
       // default CSS
       table.style({
         "margin": "10px"
@@ -443,19 +469,14 @@
         "background": "#eeeeee",
         "text-transform": "capitalize",
       })
-
-
-
-
-
     }
 
 
-  });
-/////////////////////////angular
+
+  });   //end jquery
+  /////////////////////////angular
   var app = angular.module("appRecommender",[]);
   app.controller("Controller",function ($scope,$http) {
-
     //Prefijos Publicaciones ACM
     let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
     let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
@@ -464,11 +485,9 @@
     let akt_Prefix = "PREFIX+akt%3A++%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
     let owl_Prefix = "PREFIX+owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
     let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
-
     $scope.nuevoAuthorIn = {};
     $scope.autoresSeleccionado = [];
     $scope.addAuthor = function () {
-
       $scope.autoresSeleccionado.push($scope.nuevoAuthorIn);
       $scope.nuevoAuthorIn ={};
       console.log("autor es:"+$scope.autoresSeleccionado.length);
@@ -488,9 +507,6 @@
         for (var j=0;j<arrayDeCadena.length;j++){
           console.log(arrayDeCadena[j]);
         }
-
-
-
         //Autores
         let name1 = arrayDeCadena[0]
         let apellido1 = arrayDeCadena[1]
@@ -518,23 +534,13 @@
       //var coma = ",";
       dividirCadena(nuevaCadena,espacio);
       //dividirCadena(cadenaVerso,coma)
-
-
-
     };
-
-
-
   });
+  /////////////////////////////// end angular
 </script>
-
-
-
-
 <br>
 <br>
 <br>
-
 </body>
 </html>
 
