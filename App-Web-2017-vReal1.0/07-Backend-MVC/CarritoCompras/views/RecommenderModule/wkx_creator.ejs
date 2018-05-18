@@ -17,9 +17,9 @@
     function exec() {
       var endpoint = d3.select("#endpoint").property("value")
       var sparql = d3.select("#sparql").property("value")
-      var sparqlMetadata = d3.select("#sparqlMetadata").property("value")   //añadido jonathan
+     // var sparqlMetadata = d3.select("#sparqlMetadata").property("value")   //añadido jonathan
       d3sparql.query(endpoint, sparql, render)
-      d3sparql.query(endpoint, sparqlMetadata, render2) //añadido jonathan
+      //d3sparql.query(endpoint, sparqlMetadata, render2) //añadido jonathan
     }
 
     function render(json) {
@@ -27,15 +27,16 @@
         "selector": "#result"
       }
       d3sparql.htmltable2(json, config)
+
     }
 
     //añadido jonathan  start
-    function render2(json) {
-      var config = {
-        "selector": "#resultMetadata"
-      }
-      d3sparql.model(json, config)
-    }
+    // function render2(json) {
+    //   var config = {
+    //     "selector": "#resultMetadata"
+    //   }
+    //   d3sparql.model(json, config)
+    // }
     //añadido jonathan  end
 
 
@@ -177,6 +178,7 @@
 </div>
 <div id="result"></div>
 
+
 <div>
   <input type="hidden" value="" name="test">
 </div>
@@ -195,9 +197,14 @@
       </div>
       <div class="modal-body">
 
-        <textarea hidden id="sparqlMetadata" class="span9" rows=15>
+        <textarea id="sparqlMetadata" class="span9" rows=15>
+
+
 
       </textarea>
+
+
+        <a id="direccionWeb"></a>
         <div id="resultMetadata"></div>
       </div>
       <div class="modal-footer">
@@ -297,6 +304,7 @@
       $("#abstract").css({"color": "Silver"})
     }
 
+
     var titulo = $("#title").val();
 
     var prefixIeee = "PREFIX id:   <http://ieee.rkbexplorer.com/id/>\n"+
@@ -359,6 +367,11 @@
         .data(data)
         .enter()
         .append("tr")
+
+
+
+console.log("data let",data.length)
+
       var cells = rows.selectAll("td")
         .data(function(row) {
           return head.map(function(col) {
@@ -368,9 +381,23 @@
         })
         .enter()
         .append("td")
-        .append("button").attr("class", "btn btn-primary").attr("data-toggle", "modal").attr("data-target", "#metadataACM").attr("onclick", web())
+        .append("lu")
+        .append("li")
+        .attr({
+          "class": "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#metadataACM",
+          "id":"lista",
+          "onclick": web()
+        })
         .text(function(val) {return val })
       // default CSS
+
+
+
+
+
+
       table.style({
         "margin": "10px"
       })
@@ -378,98 +405,59 @@
         "background": "#eeeeee",
         "text-transform": "capitalize",
       })
-    }
 
 
-    function  web(){
 
-      var endpoint = d3.select("#endpoint").property("value")
-      var sparql = d3.select("#sparql").property("value")
-      d3sparql.query(endpoint, sparql,almArr)
-
-    }
-    function  almArr(json){
-      var articsArr = json.results.bindings;
-      for(i in articsArr){
-        arrayURIS[i] = articsArr[i].titleUri.value
-      }
-      var sparqlRec;
-      for(i=0 ; i<arrayURIS.length ; i++){
-        sparqlRec= prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +arrayURIS[i]+"> akt:has-web-address ?web.}"
+      function  web(){
 
         var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint,sparqlRec,almValues)
+        var sparql = d3.select("#sparql").property("value")
+        d3sparql.query(endpoint, sparql,almArr)
+
       }
+      function  almArr(json){
+        var articsArr = json.results.bindings;
+        for(i in articsArr){
+          arrayURIS[i] = articsArr[i].titleUri.value
+        }
+        var sparqlRec;
+
+
+        for(i=0 ; i<arrayURIS.length ; i++){
+          sparqlRec= prefixIeee +
+            "SELECT DISTINCT ?web WHERE {<" +arrayURIS[i]+"> akt:has-web-address ?web.}"
+
+          $("#sparqlMetadata").text(sparqlRec);
+          var sparqlRec = d3.select("#sparqlMetadata").property("value")
+          var endpoint = d3.select("#endpoint").property("value")
+          d3sparql.query(endpoint,sparqlRec,almValues)
+
+        }
+
+        function almValues(json){
+          var uris = json.results.bindings;
+
+          for(i=0 ; i<uris.length ; i++){
+            arrayWeb.push(uris[i].web.value);
+
+          }
+
+          //if (arrayWeb.length = 0 && )
+          console.log("array",arrayWeb)
+          $("#direccionWeb").text(arrayWeb[0]).attr("href",arrayWeb[0]);
+        }
+
+      }
+
+
+
+
+
+
+
+
     }
 
-    function almValues(json){
-      var uris = json.results.bindings;
-
-      for(i=0 ; i<uris.length ; i++){
-        arrayWeb.push(uris[i].web.value);
-      }
-      console.log("array",arrayWeb.length)
-
-    }
-
-
-    // for(i=0 ; i<arrayWeb.length ; i++){
-    //   console.log("array",arrayWeb[i])
-    // }
-
-    var consulta2 =   prefixIeee +
-      "SELECT DISTINCT ?web WHERE {<http://ieee.rkbexplorer.com/id/publication-00008093> akt:has-web-address ?web.}"
-
-
-    $("#sparqlMetadata").text(consulta2);
-
-    var href = "http://ieeexplore.ieee.org/iel5/10881/34248/01633539.pdf"
-   // var remplazohref = href.replace("web", '');
-    console.log("href: ",href)
-
-///////////////////////model
-
-
-    d3sparql.model = function(json, config) {
-      config = config || {}
-      var head = json.head.vars
-      var data = json.results.bindings
-      var opts = {
-        "selector": config.selector || null
-      }
-      var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
-      var thead = table.append("thead")
-      var tbody = table.append("tbody")
-      thead.append("tr")
-        .selectAll("th")
-        .data(head)
-        .enter()
-        .append("th")
-        .text(function(col) { return col })
-      var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append("tr")
-      var cells = rows.selectAll("td")
-        .data(function(row) {
-          return head.map(function(col) {
-            return row[col].value
-          })
-        })
-        .enter()
-        .append("td")
-        .append("a").attr("href", href).attr("id","redireccion")
-        .text(function(val) { return val })
-      // default CSS
-      table.style({
-        "margin": "10px"
-      })
-      table.selectAll("th").style({
-        "background": "#eeeeee",
-        "text-transform": "capitalize",
-      })
-    }
 
 
 
