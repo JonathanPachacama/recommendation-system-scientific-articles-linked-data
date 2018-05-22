@@ -39,30 +39,87 @@
     ////////////////////////////////////////////////////////////////////////////////add Jonathan start
 
     function  web0(){
+      var endpoint = d3.select("#endpoint").property("value")
       var valueQuery = $("#btn"+0).text()
-      sparql = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
-      $("#sparqlMetadata").text(sparql);
-      var sparql = d3.select("#sparqlMetadata").property("value")
-      var endpoint = d3.select("#endpoint").property("value")
-      d3sparql.query(endpoint, sparql,almWeb0)
-    }
-    function  web2(){
-      var valueQuery = $("#btn"+2).text()
-      sparql = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
-      $("#sparqlMetadata").text(sparql);
-      var sparql = d3.select("#sparqlMetadata").property("value")
-      var endpoint = d3.select("#endpoint").property("value")
-      d3sparql.query(endpoint, sparql,almWeb2)
+
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for(i; i>dataAuthor.length;i++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i; i>dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+
     }
 
-    function  almWeb0(json){
-      var articsArr = json.results.bindings;
-      $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-    }
-    function  almWeb2(json){
-      var articsArr = json.results.bindings;
-      $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-    }
+
+
     //////////////////////////////////////////////////////////////////////////////////add Jonathan end
 
 
@@ -222,8 +279,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <textarea hidden id="sparqlMetadata" class="span9" rows=15>
-      </textarea>
+        <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+        <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
 
         <div id="resultMetadata"></div>
         <form action="" method="post">
@@ -234,49 +296,48 @@
                   <div class="form-group row">
                     <label class="col-2 col-form-label">titulo:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="titleIEEE" name="">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">relacionados:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="relateIEEE" name="">
+                      <input class="form-control" type="text"  value="" id="titleIEEE" name="titleIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Autores:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="authorIEEE" name="">
+                      <input class="form-control" type="text"  value="" id="authorIEEE" name="titleIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">fecha:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="dateIEEE" name="">
+                      <input class="form-control" type="text"  value="" id="dateIEEE" name="titleIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">abstrac:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="abstractIEEE" name="">
+                      <input class="form-control" type="text"  value="" id="abstractIEEE" name="titleIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Keyword:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="">
+                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="titleIEEE">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Revista:</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text"  value="" id="journalIEEE" name="journalIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Direccion Web:</label>
                     <div class="col-10">
-
-                      <a class="form-control" id="webIEEE"></a>
-                      <!--<input class="form-control" type="button"  value="" id="webIEEE" name=""/>-->
+                      <input class="form-control" type="button"  value="" id="webIEEE" name="webIEEE"/>
                     </div>
                   </div>
                 </div>
               </div>
+              Visitar Direccion Web: <a id="webAddress"></a>
             </div>
           </div>
         </form>
