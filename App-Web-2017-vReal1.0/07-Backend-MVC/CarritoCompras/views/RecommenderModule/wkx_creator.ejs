@@ -29,9 +29,7 @@
     function exec() {
       var endpoint = d3.select("#endpoint").property("value")
       var sparql = d3.select("#sparql").property("value")
-      // var sparqlMetadata = d3.select("#sparqlMetadata").property("value")   //añadido jonathan
       d3sparql.query(endpoint, sparql, render)
-      //d3sparql.query(endpoint, sparqlMetadata, render2) //añadido jonathan
     }
 
     function render(json) {
@@ -39,7 +37,6 @@
         "selector": "#result"
       }
       d3sparql.htmltable2(json, config)
-
     }
 
     //añadido jonathan  start
@@ -54,275 +51,60 @@
 
 
 
-
-
-
-    // for(i=0 ; i<20; i++) {
-    //   if (i % 2 != 1 || i == 0){
-    //
-    //   }
-    // }
-
+    // var sparqlMetadata = d3.select("#sparqlMetadata").property("value")   //añadido jonathan
+    //d3sparql.query(endpoint, sparqlMetadata, render2) //añadido jonathan
 
 
     function  web(){
 
 
 
-      var num = ["btn0","btn2","btn4","btn6","btn8","btn10","btn12","btn14","btn16","btn18"]
-      var IdButton = new Array ()
+      var num =  new Array ();
+      var allIdButton = new Array ();
 
+      //llenado array num
       for(i=0 ; i<20; i++) {
-        if (i % 2 != 1 || i == 0){
-          var allId = $("#btn"+i).attr("id")
-          IdButton.push(allId)
-        }
+        var numall = i
+        num.push(numall)
       }
-      console.log("IdButton",IdButton)
-      console.log("num",num)
+      //llenado array allIdButton
+      for(i=0 ; i<20; i++) {
+          var idButton = $("#btn"+i).attr("id");
+          var idButtonRemplazado = idButton.replace("btn", '');
+          var idButtonEntero = parseInt(idButtonRemplazado)
+          allIdButton.push(idButtonEntero)
+      }
 
 
-      if(num[0]= IdButton[0])
-      {
-        var valorConsulta = $("#btn"+0).text()
 
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
+var numero = 2;
+      if (numero == 7) {
 
-        $("#sparqlMetadata").text(sparqlRec);
+      var valorConsulta = $("#btn"+numero).text()
+      sparqlRec = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
+      $("#sparqlMetadata").text(sparqlRec);
+
         var sparqlRec = d3.select("#sparqlMetadata").property("value")
         var endpoint = d3.select("#endpoint").property("value")
         d3sparql.query(endpoint, sparqlRec,almArr)
 
-
-      function  almArr(json){
-        var articsArr = json.results.bindings;
-
-        console.log("articsArr",articsArr[0].web.value)
-        $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-      }
-
-      }
-
-
-      if(num[1]= IdButton[1])
-      {
-        var valorConsulta = $("#btn"+1).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
+      }else {
+        var sparqlRec = d3.select("#sparql").property("value")
         var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
+        d3sparql.query(endpoint, sparqlRec,almArr2)
       }
 
-      if(num[2]= IdButton[2])
-      {
-        var valorConsulta = $("#btn"+2).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[3]= IdButton[3])
-      {
-        var valorConsulta = $("#btn"+3).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[4]= IdButton[4])
-      {
-        var valorConsulta = $("#btn"+4).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[5]= IdButton[5])
-      {
-        var valorConsulta = $("#btn"+5).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[6]= IdButton[6])
-      {
-        var valorConsulta = $("#btn"+6).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[7]= IdButton[7])
-      {
-        var valorConsulta = $("#btn"+7).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[8]= IdButton[8])
-      {
-        var valorConsulta = $("#btn"+8).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-      if(num[9]= IdButton[9])
-      {
-        var valorConsulta = $("#btn"+9).text()
-
-        $("#sparqlMetadata").text(sparqlRec);
-        sparqlRec = prefixIeee +
-          "SELECT DISTINCT ?web WHERE {<" +valorConsulta+"> akt:has-web-address ?web.}"
-
-        $("#sparqlMetadata").text(sparqlRec);
-        var sparqlRec = d3.select("#sparqlMetadata").property("value")
-        var endpoint = d3.select("#endpoint").property("value")
-        d3sparql.query(endpoint, sparqlRec,almArr)
-
-
-        function  almArr(json){
-          var articsArr = json.results.bindings;
-
-          console.log("articsArr",articsArr[0].web.value)
-          $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
-        }
-
-      }
-
-
-
-
+    }
+
+    function  almArr(json){
+      var articsArr = json.results.bindings;
+      console.log("articsArr",articsArr[0].web.value)
+      $("#webIEEE").text(articsArr[0].web.value).attr("href",articsArr[0].web.value);
+    }
+
+    function  almArr2(json){
+      var articsArr = json.results.bindings;
+      console.log("articsArr",articsArr)
 
     }
 
@@ -707,11 +489,6 @@
         .data(data)
         .enter()
         .append("tr")
-
-
-
-      console.log("data let",data.length)
-
       var cells = rows.selectAll("td")
         .data(function(row) {
           return head.map(function(col) {
@@ -726,11 +503,6 @@
         .append("button")
         .text(function(val) {return val })
       // default CSS
-
-
-
-
-
 
       table.style({
         "margin": "10px"
@@ -755,26 +527,17 @@
         else
         {
           $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
-          $("tbody tr td lu li:eq("+i+") button")
+          $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
+
             .attr({
               "class": "btn btn-primary",
               "disabled":true
             })
         }
-
       }
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
 
 
 
