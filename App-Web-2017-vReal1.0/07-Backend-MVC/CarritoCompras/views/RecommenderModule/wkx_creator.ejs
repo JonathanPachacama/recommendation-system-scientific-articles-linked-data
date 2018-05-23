@@ -20,7 +20,7 @@
       "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n" +
       "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
       "PREFIX akts: <http://www.aktors.org/ontology/support#>\n" +
-      "PREFIX extension: <http://www.aktors.org/ontology/extension#>"
+      "PREFIX extension: <http://www.aktors.org/ontology/extension#>\n\n"
     //add Jonathan end
 
     function exec() {
@@ -41,10 +41,10 @@
     function  web0(){
       var endpoint = d3.select("#endpoint").property("value")
       var valueQuery = $("#btn"+0).text()
-
+//query sparql
       sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
       sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
-      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
       sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
       sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
       sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
@@ -53,7 +53,7 @@
         "?a akt:has-web-address ?webJournal.\n"+
         "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
       sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
-
+//add query sparql to textarea
       $("#sparqlTittle").text(sparqlTittle);
       $("#sparqlAuthor").text(sparqlAuthor);
       $("#sparqlDate").text(sparqlDate);
@@ -61,7 +61,7 @@
       $("#sparqlKeyword").text(sparqlKeyword);
       $("#sparqlJournal").text(sparqlJournal);
       $("#sparqlWeb").text(sparqlWeb);
-
+//add value of textarea to d3sparql
       var sparqlTittle = d3.select("#sparqlTittle").property("value")
       var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
       var sparqlDate = d3.select("#sparqlDate").property("value")
@@ -69,7 +69,7 @@
       var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
       var sparqlJournal = d3.select("#sparqlJournal").property("value")
       var sparqlWeb = d3.select("#sparqlWeb").property("value")
-
+//query d3sparql
       d3sparql.query(endpoint, sparqlTittle,almTittle)
       d3sparql.query(endpoint, sparqlAuthor,almAuthor)
       d3sparql.query(endpoint, sparqlDate,almDate)
@@ -77,7 +77,7 @@
       d3sparql.query(endpoint, sparqlKeyword,almKeyword)
       d3sparql.query(endpoint, sparqlJournal,almJournal)
       d3sparql.query(endpoint, sparqlWeb,almWeb)
-
+//result d3sparql
       function  almTittle(json){
         var dataTittle = json.results.bindings;
         $("#titleIEEE").val(dataTittle[0].title.value)
@@ -85,7 +85,7 @@
       function  almAuthor(json){
         var dataAuthor = json.results.bindings;
         var allAuthor = new Array()
-        for(i; i>dataAuthor.length;i++){
+        for( i = 0;i<dataAuthor.length;i ++){
           allAuthor.push(dataAuthor[i].nameAutor.value)
         }
         $("#authorIEEE").val(allAuthor)
@@ -101,7 +101,87 @@
       function  almKeyword(json){
         var dataKeyword = json.results.bindings;
         var allKeyword = new Array()
-        for(i; i>dataKeyword.length;i++){
+         for(i = 0; i<dataKeyword.length;i++){
+           allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web2(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+2).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
           allKeyword.push(dataKeyword[i].keyword.value)
         }
         $("#keywordIEEE").val(allKeyword)
@@ -109,16 +189,655 @@
       function  almJournal(json){
         var dataJournal = json.results.bindings;
         $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
       }
       function  almWeb(json){
         var dataWeb = json.results.bindings;
         $("#webIEEE").val(dataWeb[0].web.value);
         $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
       }
-
     }
-
-
+    function  web4(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+4).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web6(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+6).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web8(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+8).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web10(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+10).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web12(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+12).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web14(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+14).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web16(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+16).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
+    function  web18(){
+      var endpoint = d3.select("#endpoint").property("value")
+      var valueQuery = $("#btn"+18).text()
+//query sparql
+      sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
+      sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
+      sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
+      sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
+      sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+      sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
+        "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
+        "?a akt:has-title ?TittleJournal.\n"+
+        "?a akt:has-web-address ?webJournal.\n"+
+        "?a akt:has-date ?b.?b akts:year-of ?dateJournalYears}"
+      sparqlWeb = prefixIeee + "SELECT DISTINCT ?web WHERE {<" +valueQuery+"> akt:has-web-address ?web.}"
+//add query sparql to textarea
+      $("#sparqlTittle").text(sparqlTittle);
+      $("#sparqlAuthor").text(sparqlAuthor);
+      $("#sparqlDate").text(sparqlDate);
+      $("#sparqlAbstract").text(sparqlAbstract);
+      $("#sparqlKeyword").text(sparqlKeyword);
+      $("#sparqlJournal").text(sparqlJournal);
+      $("#sparqlWeb").text(sparqlWeb);
+//add value of textarea to d3sparql
+      var sparqlTittle = d3.select("#sparqlTittle").property("value")
+      var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
+      var sparqlDate = d3.select("#sparqlDate").property("value")
+      var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
+      var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+      var sparqlJournal = d3.select("#sparqlJournal").property("value")
+      var sparqlWeb = d3.select("#sparqlWeb").property("value")
+//query d3sparql
+      d3sparql.query(endpoint, sparqlTittle,almTittle)
+      d3sparql.query(endpoint, sparqlAuthor,almAuthor)
+      d3sparql.query(endpoint, sparqlDate,almDate)
+      d3sparql.query(endpoint, sparqlAbstract,almAbstract)
+      d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+      d3sparql.query(endpoint, sparqlJournal,almJournal)
+      d3sparql.query(endpoint, sparqlWeb,almWeb)
+//result d3sparql
+      function  almTittle(json){
+        var dataTittle = json.results.bindings;
+        $("#titleIEEE").val(dataTittle[0].title.value)
+      }
+      function  almAuthor(json){
+        var dataAuthor = json.results.bindings;
+        var allAuthor = new Array()
+        for( i = 0;i<dataAuthor.length;i ++){
+          allAuthor.push(dataAuthor[i].nameAutor.value)
+        }
+        $("#authorIEEE").val(allAuthor)
+      }
+      function  almDate(json){
+        var dataDate = json.results.bindings;
+        $("#dateIEEE").val(dataDate[0].date.value)
+      }
+      function  almAbstract(json){
+        var dataAbstract = json.results.bindings;
+        $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+      }
+      function  almKeyword(json){
+        var dataKeyword = json.results.bindings;
+        var allKeyword = new Array()
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
+        }
+        $("#keywordIEEE").val(allKeyword)
+      }
+      function  almJournal(json){
+        var dataJournal = json.results.bindings;
+        $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+        $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+        $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+      }
+      function  almWeb(json){
+        var dataWeb = json.results.bindings;
+        $("#webIEEE").val(dataWeb[0].web.value);
+        $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+      }
+    }
 
     //////////////////////////////////////////////////////////////////////////////////add Jonathan end
 
@@ -249,24 +968,15 @@
       <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
       <button class="btn btn-success" type="button" onclick="exec()">Query</button>
       <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
-      <button class="btn btn-success" type="button" onclick="web()"><i id="button" class="fas fa-chevron-up"></i></button>
+      <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
     </div>
   </form>
 
   <br>
-  <textarea id="sparql" class="span9" rows=15 cols="100">
-
-      </textarea>
+  <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
   <br><br>
 </div>
 <div id="result"></div>
-
-
-<div>
-  <input type="hidden" value="" name="test">
-</div>
-
-
 <!-- Button trigger modal -->
 <!-- Modal -->
 <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
@@ -286,7 +996,6 @@
         <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
         <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
         <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
-
         <div id="resultMetadata"></div>
         <form action="" method="post">
           <div class="row">
@@ -324,24 +1033,35 @@
                     </div>
                   </div>
                   <div class="form-group row">
+                    <label class="col-2 col-form-label">Direccion Web:</label>
+                    <div class="col-10">
+                      <input class="form-control" type="button"  value="" id="webIEEE" name="webIEEE"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <label class="col-2 col-form-label">Revista:</label>
                     <div class="col-10">
                       <input class="form-control" type="text"  value="" id="journalIEEE" name="journalIEEE">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-2 col-form-label">Direccion Web:</label>
+                    <label class="col-2 col-form-label">Año Revista:</label>
                     <div class="col-10">
-                      <input class="form-control" type="button"  value="" id="webIEEE" name="webIEEE"/>
+                      <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Web Revista:</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
                     </div>
                   </div>
                 </div>
               </div>
-              Visitar Direccion Web: <a id="webAddress"></a>
+              Visitar Direccion Web del recurso: <a id="webAddress"></a>
             </div>
           </div>
         </form>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -350,10 +1070,7 @@
     </div>
   </div>
 </div>
-
-
-
-
+<!-- end Modal -->
 <div id="resultApi">
   <form action="" method="post">
     <div class="container" style="background-color: black">
@@ -391,36 +1108,9 @@
     </div>
   </form>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-
   ///////////////////////////Jquery
   $(document).ready(function(){
-
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
     var texto = $(contenido).text();
@@ -440,29 +1130,14 @@
       $("#abstract").css({"color": "Silver"})
     }
 
-
     var titulo = $("#title").val();
-
-
-
     function dividirCadena (cadenaADividir,separador){
       var arrayDeCadena = cadenaADividir.split(separador);
-      console.log("la cadena original es:"+cadenaADividir);
-      console.log("El Separador es:"+separador);
-      console.log("El array tiene:"+arrayDeCadena.length);
-      for (var j=0;j<arrayDeCadena.length;j++){
-        console.log(arrayDeCadena[j]);
-
-      }
       //Autores
       let parametro1 = arrayDeCadena[0]
-
-
       var consulta1 =  prefixIeee + "SELECT DISTINCT ?titleUri ?title\n"+
         "WHERE { ?titleUri akt:has-title ?title. FILTER regex(str(?title), '"+parametro1+"', 'i')} Limit 10"
-
       $("#sparql").text(consulta1);
-
     };
     var cadenaVerso = titulo
     var patron = ", ";
@@ -473,9 +1148,7 @@
     dividirCadena(nuevaCadena,espacio);
     //dividirCadena(nuevaCadena,coma);
 
-
 ////////////tabla de resultados de la primera busqueda (d3sparql.htmltable2)
-
     d3sparql.htmltable2 = function(json, config) {
       config = config || {}
       var head = json.head.vars
@@ -518,8 +1191,6 @@
         "background": "#eeeeee",
         "text-transform": "capitalize",
       })
-
-
       for(i=0 ; i<data.length*2 ; i++) {
         if (i % 2 != 1 || i == 0){
           $("tbody tr td lu li:eq("+i+")").css("list-style","none")  //quita el punto de la lista
@@ -544,11 +1215,6 @@
         }
       }
     }
-
-
-
-
-
   });   //end jquery
   /////////////////////////angular
   var app = angular.module("appRecommender",[]);
@@ -576,10 +1242,8 @@
         console.log("la cadena original es:"+cadenaADividir);
         console.log("El Separador es:"+separador);
         console.log("El array tiene:"+arrayDeCadena.length);
-
         console.log("El array tiene:"+arrayDeCadena[0]);
         console.log("El array tiene:"+arrayDeCadena[1]);
-
         for (var j=0;j<arrayDeCadena.length;j++){
           console.log(arrayDeCadena[j]);
         }
