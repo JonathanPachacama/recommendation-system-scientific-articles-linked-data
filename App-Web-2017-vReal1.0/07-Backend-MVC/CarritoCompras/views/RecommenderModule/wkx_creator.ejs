@@ -80,7 +80,7 @@
 //result d3sparql
       function  almTittle(json){
         var dataTittle = json.results.bindings;
-        $("#titleIEEE").val(dataTittle[0].title.value)
+        $("#titleEEE").val(dataTittle[0].title.value)
       }
       function  almAuthor(json){
         var dataAuthor = json.results.bindings;
@@ -997,7 +997,8 @@
         <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
         <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
         <div id="resultMetadata"></div>
-        <form action="" method="post">
+
+          <form action='/Wkx_category/crearArticuloQuemado' method='post'>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -1005,43 +1006,47 @@
                   <div class="form-group row">
                     <label class="col-2 col-form-label">titulo:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="titleIEEE" name="titleIEEE">
+                      <input class="form-control" type="text"  value="" id="titleEEE" name="title">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Autores:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="authorIEEE" name="titleIEEE">
+                      <input class="form-control" type="text"  value="" id="authorIEEE" name="nombreAuthores">
+                      <input hidden type='text' name='apellidoAuthores' value='apellido2222'>
+                      <input hidden type='number' name='numero_autores' value='1'>
+
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">fecha:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="dateIEEE" name="titleIEEE">
+                      <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">abstrac:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="abstractIEEE" name="titleIEEE">
+                      <input class="form-control" type="text"  value="" id="abstractIEEE" name="abstract">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Keyword:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="titleIEEE">
+                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Direccion Web:</label>
                     <div class="col-10">
-                      <input class="form-control" type="button"  value="" id="webIEEE" name="webIEEE"/>
+                      <input class="form-control" type="button"  value="" id="webIEEE" name="link"/>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Revista:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalIEEE" name="journalIEEE">
+                      <input class="form-control" type="text"  value="" id="journalIEEE" name="editorial">
+                      <input hidden type='text' name='typejournal' value='journal'>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -1061,6 +1066,7 @@
               Visitar Direccion Web del recurso: <a id="webAddress"></a>
             </div>
           </div>
+            <button class='btn btn-outline-primary'>Synchronize with wikindx</button>
         </form>
       </div>
       <div class="modal-footer">
@@ -1108,6 +1114,66 @@
     </div>
   </form>
 </div>
+
+
+
+
+
+<!--test ingresar a wikindx-->
+<div>
+
+  <form action='/Wkx_category/crearArticuloQuemado' method='post'>
+    <input  type='text' name='title' value='tituloooo prueba'>
+    <!--<input hidden type='text' name='country' value='country pruebaaa '>-->
+    <!--<input hidden type='text' name='number' value='number pureba'>-->
+    <!--<input hidden type='text' name='volume' value='volume prueba'>-->
+    <!--<input hidden type='text' name='issns' value='issns prueba'>-->
+    <!--<input hidden type='text' name='language' value='language prueba'>-->
+    <input hidden type='text' name='year' value='2009'>
+    <input hidden type='text' name='journal' value='journal prueba'>
+    <input hidden type='text' name='typejournal' value='journal dato quemado'>
+    <input hidden type='text' name='editorial' value='editorial prueba'>
+    <input hidden type='text' name='abstract' value='abstract pruebaaaaaaaa'>
+    <input hidden type='text' name='keywords' value='keywords pruebaaa'>
+    <!--<input hidden type='text' name='doi' value='doi'>-->
+    <input hidden type='text' name='link' value='URlBase64'>
+    <input hidden type='text' id= 'author'name='authores' value='autores'>
+    <input hidden type='text' name='nombreAuthores' value='nombreA2222'>
+    <input hidden type='text' name='apellidoAuthores' value='apellido2222'>
+    <input hidden type='text' name='nombreAuthores1' value='nombreA12222'>
+    <input hidden type='text' name='apellidoAuthores1' value='apellido1222222 '>
+    <input hidden type='text' name='nombreAuthores2' value='nombreA22222'>
+    <input hidden type='text' name='apellidoAuthores2' value='apellido222222'>
+    <input hidden type='text' name='nombreAuthores3' value='nombreA3'>
+    <input hidden type='text' name='apellidoAuthores3' value='apellido3'>
+    <input hidden type='text' name='nombreAuthores4' value='nombreA4'>
+    <input hidden type='text' name='apellidoAuthores4' value='apellido4'>
+    <input hidden type='text' name='nombreAuthores5' value='nombreA5'>
+    <input hidden type='text' name='apellidoAuthores5' value='apellido5'>
+    <input hidden type='number' name='numero_autores' value='2'>
+    <!--<input hidden type='text' name='starpage' value='135'>-->
+    <!--<input hidden type='text' name='endpage' value='154'>-->
+    <input hidden type='text' name='category' value='cate pruebaa'>
+    <!--<input hidden type='text' name='pages' value='135 - 154'>-->
+    <button class='btn btn-outline-primary'>Synchronize with wikindx</button>
+    <br>
+    <br>
+  </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
   ///////////////////////////Jquery
   $(document).ready(function(){
