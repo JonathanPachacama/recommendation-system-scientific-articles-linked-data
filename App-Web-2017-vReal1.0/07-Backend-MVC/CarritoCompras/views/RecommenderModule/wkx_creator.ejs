@@ -89,6 +89,10 @@
           allAuthor.push(dataAuthor[i].nameAutor.value)
         }
         $("#authorIEEE").val(allAuthor)
+
+
+        var input = '<input type="number" name="numero_autores" value="'+dataAuthor.length+'">'
+          $("#numAuthors").append($(input))
       }
       function  almDate(json){
         var dataDate = json.results.bindings;
@@ -169,6 +173,8 @@
           allAuthor.push(dataAuthor[i].nameAutor.value)
         }
         $("#authorIEEE").val(allAuthor)
+
+        $("#numAuthors").append("input");
       }
       function  almDate(json){
         var dataDate = json.results.bindings;
@@ -1011,9 +1017,9 @@
                   </div>
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Autores:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="authorIEEE" name="nombreAuthores">
-                      <input hidden type='text' name='apellidoAuthores' value='apellido2222'>
+                    <div class="col-10" id="numAuthors">
+                      <input class="form-control" type="text"  value="" id="nameIEEE" name="nombreAuthores">
+                      <input hidden type='text' id="lastNameIEEE" name='apellidoAuthores' value='apellido2222'>
                       <input hidden type='number' name='numero_autores' value='1'>
 
                     </div>
