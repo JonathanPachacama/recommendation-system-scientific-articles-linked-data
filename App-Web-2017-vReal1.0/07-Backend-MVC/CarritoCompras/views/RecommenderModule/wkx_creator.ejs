@@ -489,9 +489,28 @@
     function dividirCadena (cadenaADividir,separador){
       var arrayDeCadena = cadenaADividir.split(separador);
       //Autores
+      var CadenaTitulo = new Array ()
+      for (var j=0;j<arrayDeCadena.length;j++){
+        if(j != (arrayDeCadena.length-1)){
+          console.log("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
+  // CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
+
+        }else{
+          console.log( "regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
+            // CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
+
+
+        }
+
+      }
+
+
+
       let parametro1 = arrayDeCadena[0]
       var consulta1 =  prefixIeee + "SELECT DISTINCT ?titleUri ?title\n"+
-        "WHERE { ?titleUri akt:has-title ?title. FILTER regex(str(?title), '"+parametro1+"', 'i')} Limit 10"
+        "WHERE { ?titleUri akt:has-title ?title. FILTER (\n" +
+      "regex(str(?title), '"+parametro1+"', 'i')\n"+
+        ")}"
       $("#sparql").text(consulta1);
     };
     var cadenaVerso = titulo
