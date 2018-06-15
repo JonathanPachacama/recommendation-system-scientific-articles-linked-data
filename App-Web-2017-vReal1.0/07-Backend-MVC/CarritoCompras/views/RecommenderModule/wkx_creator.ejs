@@ -466,6 +466,9 @@
 <script>
   ///////////////////////////Jquery
   $(document).ready(function(){
+
+
+    /////////////////////////////////////VIEW ///////////////////////////////////////////////////////////////////
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
     var texto = $(contenido).text();
@@ -485,46 +488,44 @@
       $("#abstract").css({"color": "Silver"})
     }
 
-    var titulo = $("#title").val();
-    function dividirCadena (cadenaADividir,separador){
-      var arrayDeCadena = cadenaADividir.split(separador);
 
-      console.log("arrayDeCadena.length", arrayDeCadena.length)
-      var CadenaTitulo = new Array ()
-      for (var j=0;j<arrayDeCadena.length;j++){
-        if(j != (arrayDeCadena.length-1)){
-          CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
+    ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
+    var title = $("#title").val();    //get value of title
+    var queryHeader = "SELECT DISTINCT ?titleUri ?title\n"+
+      "WHERE { ?titleUri akt:has-title ?title. FILTER (\n"        //header of query
+    var queryFooter = ")}"    //footer of query
+    var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
+    var arrayOfString  // string that contains the value of the title
+    var cont  = 0  //counter used in the while loop
+    var keywordsTitle = ""  // final result to include in the SPARQL query
+    var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
+
+    function splitString (StringToSplit,separator){
+
+      arrayOfString = StringToSplit.split(separator);
+      console.log("arrayOfString.length", arrayOfString.length)
+
+      // add words of title in function regex (SPARQL)
+      for (var j=0;j<arrayOfString.length;j++){
+        if(j != (arrayOfString.length-1)){
+          stringRegex.push("regex(str(?title), '"+arrayOfString[j]+"', 'i')||\n");
         }else{
-          CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
+          stringRegex.push("regex(str(?title), '"+arrayOfString[j]+"', 'i')\n");
         }
       }
-
-      var queryHeader = "SELECT DISTINCT ?titleUri ?title\n"+
-        "WHERE { ?titleUri akt:has-title ?title. FILTER (\n"
-
-      var cont  = 0
-      var result = ""
-      while ( cont < arrayDeCadena.length )
-      {
-        result += CadenaTitulo[cont];
+      // add results to variable keywordsTitle
+      while ( cont < arrayOfString.length ) {
+        keywordsTitle += stringRegex[cont];
         cont++
       }
-      var keywordsTittle = result
-      
-      var queryFooder = ")}"
 
-      $("#sparql").text(prefixIeee + queryHeader + keywordsTittle +queryFooder);
+      $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
     };
-    var cadenaVerso = titulo
-    var patron = ", ";
-    var nuevoValor = " ";
-    var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
-    var espacio = " ";
-    var coma = ",";
-    dividirCadena(nuevaCadena,espacio);
-    //dividirCadena(nuevaCadena,coma);
 
-////////////tabla de resultados de la primera busqueda (d3sparql.htmltable2)
+    splitString(title,spaceSeparator);
+
+
+//////////// RESULTS TABLE OF FIRTS QUERY (d3sparql.htmltable2) //////////////////////////////
     d3sparql.htmltable2 = function(json, config) {
       config = config || {}
       var head = json.head.vars
@@ -613,19 +614,19 @@
         var nombres = $scope.autoresSeleccionado[i].autor1
         console.log("autor es:"+nombres);
       }
-      function dividirCadena (cadenaADividir,separador){
-        var arrayDeCadena = cadenaADividir.split(separador);
-        console.log("la cadena original es:"+cadenaADividir);
-        console.log("El Separador es:"+separador);
-        console.log("El array tiene:"+arrayDeCadena.length);
-        console.log("El array tiene:"+arrayDeCadena[0]);
-        console.log("El array tiene:"+arrayDeCadena[1]);
-        for (var j=0;j<arrayDeCadena.length;j++){
-          console.log(arrayDeCadena[j]);
+      function splitString (StringToSplit,separator){
+        var arrayOfString = StringToSplit.split(separator);
+        console.log("la cadena original es:"+StringToSplit);
+        console.log("El Separador es:"+separator);
+        console.log("El array tiene:"+arrayOfString.length);
+        console.log("El array tiene:"+arrayOfString[0]);
+        console.log("El array tiene:"+arrayOfString[1]);
+        for (var j=0;j<arrayOfString.length;j++){
+          console.log(arrayOfString[j]);
         }
         //Autores
-        let name1 = arrayDeCadena[0]
-        let apellido1 = arrayDeCadena[1]
+        let name1 = arrayOfString[0]
+        let apellido1 = arrayOfString[1]
         let select2 = "SELECT+DISTINCT+%3FtitleUri+";
         let where2="WHERE+%7B%3FtitleUri+akt%3Ahas-title+%3Fp.+" +
           "filter+%28%3Fp%3D%22"+name1+"%22%29%7D";
@@ -646,10 +647,10 @@
       var patron = ", ";
       var nuevoValor = " ";
       var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
-      var espacio = " ";
+      var spaceSeparator = " ";
       //var coma = ",";
-      dividirCadena(nuevaCadena,espacio);
-      //dividirCadena(cadenaVerso,coma)
+      splitString(nuevaCadena,spaceSeparator);
+      //splitString(cadenaVerso,coma)
     };
   });
   /////////////////////////////// end angular
