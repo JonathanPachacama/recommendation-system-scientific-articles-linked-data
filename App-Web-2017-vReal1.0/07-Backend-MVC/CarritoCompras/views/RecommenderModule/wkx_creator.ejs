@@ -43,7 +43,7 @@
       console.log("idButton",idButton)
       var resIdBuuton = idButton.replace("btn", '');
 
-     var valueQuery = $("#btn"+resIdBuuton).text()
+      var valueQuery = $("#btn"+resIdBuuton).text()
       var endpoint = d3.select("#endpoint").property("value")
 
 //query sparql
@@ -95,7 +95,7 @@
         }
         $("#authorIEEE").val(allAuthor)
         var input = '<input type="number" name="numero_autores" value="'+dataAuthor.length+'">'
-          $("#numAuthors").append($(input))
+        $("#numAuthors").append($(input))
       }
       function  almDate(json){
         var dataDate = json.results.bindings;
@@ -108,8 +108,8 @@
       function  almKeyword(json){
         var dataKeyword = json.results.bindings;
         var allKeyword = new Array()
-         for(i = 0; i<dataKeyword.length;i++){
-           allKeyword.push(dataKeyword[i].keyword.value)
+        for(i = 0; i<dataKeyword.length;i++){
+          allKeyword.push(dataKeyword[i].keyword.value)
         }
         $("#keywordIEEE").val(allKeyword)
       }
@@ -286,7 +286,7 @@
         <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
         <div id="resultMetadata"></div>
 
-          <form action='/Wkx_category/crearArticuloQuemado' method='post'>
+        <form action='/Wkx_category/crearArticuloQuemado' method='post'>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -355,7 +355,7 @@
               Visitar Direccion Web del recurso: <a id="webAddress"></a>
             </div>
           </div>
-            <button class='btn btn-outline-primary'>Synchronize with wikindx</button>
+          <button class='btn btn-outline-primary'>Synchronize with wikindx</button>
         </form>
       </div>
       <div class="modal-footer">
@@ -488,30 +488,32 @@
     var titulo = $("#title").val();
     function dividirCadena (cadenaADividir,separador){
       var arrayDeCadena = cadenaADividir.split(separador);
-      //Autores
+
+      console.log("arrayDeCadena.length", arrayDeCadena.length)
       var CadenaTitulo = new Array ()
       for (var j=0;j<arrayDeCadena.length;j++){
         if(j != (arrayDeCadena.length-1)){
-          console.log("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
-  // CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
-
+          CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')||\n");
         }else{
-          console.log( "regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
-            // CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
-
-
+          CadenaTitulo.push("regex(str(?title), '"+arrayDeCadena[j]+"', 'i')\n");
         }
-
       }
 
+      var queryHeader = "SELECT DISTINCT ?titleUri ?title\n"+
+        "WHERE { ?titleUri akt:has-title ?title. FILTER (\n"
 
+      var cont  = 0
+      var result = ""
+      while ( cont < arrayDeCadena.length )
+      {
+        result += CadenaTitulo[cont];
+        cont++
+      }
+      var keywordsTittle = result
+      
+      var queryFooder = ")}"
 
-      let parametro1 = arrayDeCadena[0]
-      var consulta1 =  prefixIeee + "SELECT DISTINCT ?titleUri ?title\n"+
-        "WHERE { ?titleUri akt:has-title ?title. FILTER (\n" +
-      "regex(str(?title), '"+parametro1+"', 'i')\n"+
-        ")}"
-      $("#sparql").text(consulta1);
+      $("#sparql").text(prefixIeee + queryHeader + keywordsTittle +queryFooder);
     };
     var cadenaVerso = titulo
     var patron = ", ";
