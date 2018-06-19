@@ -18,7 +18,7 @@
       "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
       "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
       "PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n" +
-      "PREFIX akt:  <http://www.aktors.org/ontology/portal#>\n" +
+      "PREFIX iai: <http://www.iai.uni-sb.de/resist#>\n"+
       "PREFIX akts: <http://www.aktors.org/ontology/support#>\n" +
       "PREFIX extension: <http://www.aktors.org/ontology/extension#>\n\n"
     //add Jonathan end
@@ -43,6 +43,7 @@
       var resIdBuuton = idButton.replace("btn", '');
       var valueQueryTitle = $("#btn"+resIdBuuton).text()
 
+
       // query to find the URI of the title found
       var sparqlURI = prefixIeee + "SELECT DISTINCT ?titleUri WHERE { ?titleUri akt:has-title ?p. filter (?p='" +valueQueryTitle+"')}"
       var endpoint = d3.select("#endpoint").property("value")
@@ -52,13 +53,13 @@
         var dataURI = json.results.bindings;
         var valueQuery = dataURI[0].titleUri.value
         var endpoint = d3.select("#endpoint").property("value")
-
+        console.log("valueQuery",valueQuery)
         //query sparql
         sparqlTittle = prefixIeee + "SELECT DISTINCT ?title WHERE {<" +valueQuery+"> akt:has-title ?title}"
         sparqlAuthor = prefixIeee + "SELECT DISTINCT ?nameAutor WHERE {<" +valueQuery+"> akt:has-author ?a.?a akt:full-name ?nameAutor}"
         sparqlDate = prefixIeee + "SELECT DISTINCT ?date WHERE {<" +valueQuery+"> akt:has-date ?a.?a akts:has-pretty-name ?date}"
         sparqlAbstract = prefixIeee + "SELECT DISTINCT ?abstract WHERE {<" +valueQuery+"> extension:has-abstract ?abstract}"
-        sparqlKeyword = prefixIeee + "SELECT DISTINCT ?keyword WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword }"
+        sparqlKeyword1 = prefixIeee + "SELECT DISTINCT ?keyword1 WHERE {<" +valueQuery+"> akt:has-ieee-keyword ?keyword1 }"
         sparqlJournal = prefixIeee + "SELECT DISTINCT ?TittleJournal ?webJournal ?dateJournalYears \n" +
           "WHERE {<" +valueQuery+"> akt:paper-in-proceedings ?a.\n" +
           "?a akt:has-title ?TittleJournal.\n"+
@@ -70,7 +71,8 @@
         $("#sparqlAuthor").text(sparqlAuthor);
         $("#sparqlDate").text(sparqlDate);
         $("#sparqlAbstract").text(sparqlAbstract);
-        $("#sparqlKeyword").text(sparqlKeyword);
+        $("#sparqlKeyword").text(sparqlKeyword1);
+
         $("#sparqlJournal").text(sparqlJournal);
         $("#sparqlWeb").text(sparqlWeb);
         //add value of textarea to d3sparql
@@ -78,7 +80,7 @@
         var sparqlAuthor = d3.select("#sparqlAuthor").property("value")
         var sparqlDate = d3.select("#sparqlDate").property("value")
         var sparqlAbstract = d3.select("#sparqlAbstract").property("value")
-        var sparqlKeyword = d3.select("#sparqlKeyword").property("value")
+        var sparqlKeyword1 = d3.select("#sparqlKeyword").property("value")
         var sparqlJournal = d3.select("#sparqlJournal").property("value")
         var sparqlWeb = d3.select("#sparqlWeb").property("value")
         //query d3sparql
@@ -86,50 +88,139 @@
         d3sparql.query(endpoint, sparqlAuthor,almAuthor)
         d3sparql.query(endpoint, sparqlDate,almDate)
         d3sparql.query(endpoint, sparqlAbstract,almAbstract)
-        d3sparql.query(endpoint, sparqlKeyword,almKeyword)
+        d3sparql.query(endpoint, sparqlKeyword1,almKeyword1)
         d3sparql.query(endpoint, sparqlJournal,almJournal)
         d3sparql.query(endpoint, sparqlWeb,almWeb)
         //result d3sparql
         function  almTittle(json){
           var dataTittle = json.results.bindings;
-          $("#titleEEE").val(dataTittle[0].title.value)
+          if(Object.entries(dataTittle).length != 0 ){
+            $("#titleEEE").val(dataTittle[0].title.value)
+            console.log("Titulo: ",dataTittle[0].title.value);
+          }
+          else{
+            $("#titleEEE").val("");
+            $("#titleEEE").attr("placeholder","without title!, can you edit the title?")
+            $("#titleEEE").css({"font-style": "italic"})
+          }
         }
         function  almAuthor(json){
           var dataAuthor = json.results.bindings;
           var allAuthor = new Array()
-          for( i = 0;i<dataAuthor.length;i ++){
-            allAuthor.push(dataAuthor[i].nameAutor.value)
+
+          if(Object.entries(dataAuthor).length != 0 ){
+            for( i = 0;i<dataAuthor.length;i ++){
+              allAuthor.push(dataAuthor[i].nameAutor.value)
+              console.log("Autores: ",dataAuthor[i].nameAutor.value);
+            }
+            $("#authorIEEE").val(allAuthor)
+
+            // var input = '<input type="number" name="numero_autores" value="'+dataAuthor.length+'">'
+            // $("#numAuthors").append($(input))
+          }else {
+            $("#authorIEEE").val("");
+            $("#authorIEEE").attr("placeholder","without authors!, can you edit the authors?")
+            $("#authorIEEE").css({"font-style": "italic"})
+
           }
-          $("#authorIEEE").val(allAuthor)
-          var input = '<input type="number" name="numero_autores" value="'+dataAuthor.length+'">'
-          $("#numAuthors").append($(input))
         }
         function  almDate(json){
           var dataDate = json.results.bindings;
-          $("#dateIEEE").val(dataDate[0].date.value)
+          if(Object.entries(dataDate).length != 0 ){
+            $("#dateIEEE").val(dataDate[0].date.value)
+            console.log("Fecha: ",dataDate[0].date.value);
+          }else {
+            $("#dateIEEE").val("");
+            $("#dateIEEE").attr("placeholder","without date!, can you edit the date?")
+            $("#dateIEEE").css({"font-style": "italic"})
+          }
         }
         function  almAbstract(json){
           var dataAbstract = json.results.bindings;
-          $("#abstractIEEE").val(dataAbstract[0].abstract.value)
-        }
-        function  almKeyword(json){
-          var dataKeyword = json.results.bindings;
-          var allKeyword = new Array()
-          for(i = 0; i<dataKeyword.length;i++){
-            allKeyword.push(dataKeyword[i].keyword.value)
+
+          if(Object.entries(dataAbstract).length != 0 ){
+            $("#abstractIEEE").val(dataAbstract[0].abstract.value)
+            console.log("Abstract: ",dataAbstract[0].abstract.value);
+          }else {
+            $("#abstractIEEE").val("");
+            $("#abstractIEEE").attr("placeholder","without abstract!, can you edit the abstract?")
+            $("#abstractIEEE").css({"font-style": "italic"})
           }
-          $("#keywordIEEE").val(allKeyword)
+        }
+        function  almKeyword1(json){
+          var allKeyword = new Array()
+          var dataKeyword = json.results.bindings;
+          console.log("Palabras clave oakland: ", dataKeyword ); //query for ieee-publications-oakland.rdf (dataset IEEE)
+          if(Object.entries(dataKeyword).length != 0 )
+          {
+            for(i = 0; i<dataKeyword.length;i++){
+              allKeyword.push(dataKeyword[i].keyword1.value)
+              console.log("Palabras clave oakland: ",dataKeyword[i].keyword1.value);  //query for ieee-publications-oakland.rdf (dataset IEEE)
+            }
+            $("#keywordIEEE").val(allKeyword)
+          }
+          else {
+            sparqlKeyword2 = prefixIeee + "SELECT DISTINCT ?keyword2 WHERE {<" +valueQuery+"> iai:has-ieee-keyword ?keyword2 }"
+            $("#sparqlKeyword").text(sparqlKeyword2);
+            var sparqlKeyword2 = d3.select("#sparqlKeyword").property("value")
+            d3sparql.query(endpoint, sparqlKeyword2,almKeyword2)
+
+            function  almKeyword2(json){
+              var allKeyword2 = new Array()
+              var dataKeyword2 = json.results.bindings;
+              console.log("Palabras clave ftcs: ", dataKeyword2 ); //query for ieee-publications-ftcs.rdf (dataset IEEE)
+              if(Object.entries(dataKeyword2).length != 0 )
+              {
+                for(i = 0; i<dataKeyword2.length;i++){
+                  allKeyword2.push(dataKeyword2[i].keyword2.value)
+                  console.log("Palabras clave ftcs: ",dataKeyword2[i].keyword2.value); //query for ieee-publications-ftcs.rdf (dataset IEEE)
+                }
+                $("#keywordIEEE").val(allKeyword2)
+
+              }else{
+                $("#keywordIEEE").val("");
+                $("#keywordIEEE").attr("placeholder","without keywords!, can you edit the keywords? ")
+                $("#keywordIEEE").css({"font-style": "italic"})
+
+              }
+            }
+          }
         }
         function  almJournal(json){
           var dataJournal = json.results.bindings;
-          $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
-          $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
-          $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+          if(Object.entries(dataJournal).length != 0 ){
+            $("#journalIEEE").val(dataJournal[0].TittleJournal.value)
+            $("#journalDateIEEE").val(dataJournal[0].dateJournalYears.value)
+            $("#journalWebAddressIEEE").val(dataJournal[0].webJournal.value)
+            console.log("Titulo Journal: ",dataJournal[0].TittleJournal.value);
+            console.log("Fecha journal: ",dataJournal[0].dateJournalYears.value);
+            console.log("Web Journal: ",dataJournal[0].webJournal.value);
+          }else {
+            $("#journalIEEE").val("");
+            $("#journalDateIEEE").val("");
+            $("#journalWebAddressIEEE").val("");
+            $("#journalIEEE").attr("placeholder","without journal!, can you edit the journal?")
+            $("#journalDateIEEE").attr("placeholder","without journal Date!, can you edit the journal Date?")
+            $("#journalWebAddressIEEE").attr("placeholder","without journal web address!, can you edit the journal web address?")
+            $("#journalIEEE").css({"font-style": "italic"})
+            $("#journalDateIEEE").css({"font-style": "italic"})
+            $("#journalWebAddressIEEE").css({"font-style": "italic"})
+          }
         }
         function  almWeb(json){
           var dataWeb = json.results.bindings;
-          $("#webIEEE").val(dataWeb[0].web.value);
-          $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+          if(Object.entries(dataWeb).length != 0 ){
+            $("#webIEEE").val(dataWeb[0].web.value);
+            $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
+            console.log("Web: ",dataWeb[0].web.value);
+          }else {
+            $("#webIEEE").val("");
+            $("#webIEEE").attr("placeholder","without web!, can you edit the web?")
+            $("#webIEEE").css({"font-style": "italic"})
+            $("#webAddress").text("");
+
+          }
+
         }
 
       } // end function to result of sparqlURI
@@ -343,7 +434,7 @@
                   <div class="form-group row">
                     <label class="col-2 col-form-label">Direccion Web:</label>
                     <div class="col-10">
-                      <input class="form-control" type="button"  value="" id="webIEEE" name="link"/>
+                      <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -367,7 +458,7 @@
                   </div>
                 </div>
               </div>
-              Visitar Direccion Web del recurso: <a id="webAddress"></a>
+              <p id="webAddressLink"> Visitar Direccion Web del recurso: </p><a id="webAddress"></a>
             </div>
           </div>
           <button class='btn btn-outline-primary'>Synchronize with wikindx</button>
@@ -375,7 +466,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary" >Save</button>
       </div>
     </div>
   </div>
@@ -493,12 +584,14 @@
     var	a = $("#keyword").val()
     var	b = texto
     if(a == "undefined") {
-      $("#keyword").val("This article does not contain keyword")
+      $("#keyword").val("")
+      $("#keyword").attr("placeholder","This article does not contain keyword")
       $("#keyword").css({"font-style": "italic"})
       $("#keyword").css({"color": "Silver"})
     }
     if(b == "undefined") {
-      $("#abstract").val("This article does not contain abstract")
+      $("#abstract").val("")
+      $("#abstract").attr("placeholder","This article does not contain abstract")
       $("#abstract").css({"font-style": "italic"})
       $("#abstract").css({"color": "Silver"})
     }
