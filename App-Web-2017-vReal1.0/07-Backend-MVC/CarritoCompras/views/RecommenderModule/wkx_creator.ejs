@@ -1,6 +1,8 @@
 <html ng-app="appRecommender">
 
 <head>
+
+
   <script>
     var arrayURIS = new Array();
     var arrayValores = new Array();
@@ -202,13 +204,13 @@
           var dataAbstract = json.results.bindings;
 
           if(Object.entries(dataAbstract).length != 0 ){
-            $("#abstractIEEE").val(dataAbstract[0].abstract.value)
-            $("#abstractIEEE").css({"font-style": "normal"})
+            $(".abstractIEEE").val(dataAbstract[0].abstract.value)
+            $(".abstractIEEE").css({"font-style": "normal"})
             console.log("Abstract: ",dataAbstract[0].abstract.value);
           }else {
-            $("#abstractIEEE").val("");
-            $("#abstractIEEE").attr("placeholder","without abstract!, can you edit the abstract?")
-            $("#abstractIEEE").css({"font-style": "italic"})
+            $(".abstractIEEE").val("");
+            $(".abstractIEEE").attr("placeholder","without abstract!, can you edit the abstract?")
+            $(".abstractIEEE").css({"font-style": "italic"})
           }
         }
         function  almKeyword1(json){
@@ -381,15 +383,13 @@
   <div class="row">
     <label class="col-1 col-form-label">Abstract:</label>
     <div class="col-11">
-
-<textarea
-  id="abstract"
-  name="abstract"
-  rows="5" cols="124"
-  value="<%= abstract%>"
-  disabled
-><%= abstract%></textarea>
-
+      <textarea
+        id="abstract"
+        name="abstract"
+        rows="5" cols="124"
+        value="<%= abstract%>"
+        disabled
+      ><%= abstract%></textarea>
     </div>
   </div>
 </div>
@@ -443,10 +443,10 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
 
-      <form action='/Wkx_category/crearArticuloQuemado' method='post'>
+      <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
 
         <div class="modal-header">
-          <h5 class="modal-title" id="metadataACMTitle">Metadatos ACM</h5>
+          <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
           <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -487,7 +487,14 @@
                   <div class="form-group row">
                     <label class="col-2 col-form-label">abstrac:</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="abstractIEEE" name="abstract">
+                      <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                      <textarea
+                        class="abstractIEEE"
+                        id="textareaModal"
+                        value=""
+                        cols="45" rows="3"
+                      ></textarea>
+
                     </div>
                   </div>
                   <div class="form-group row">
@@ -527,6 +534,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="modal-footer">
           <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
           <button type="submit" class="btn btn-primary" >Save</button>
