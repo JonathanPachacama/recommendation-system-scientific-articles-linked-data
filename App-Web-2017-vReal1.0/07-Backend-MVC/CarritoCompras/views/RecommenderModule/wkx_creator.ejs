@@ -116,10 +116,7 @@
             for( i = 0;i<dataAuthor.length;i ++){
               allAuthor.push(dataAuthor[i].nameAutor.value)
               console.log("Autor: ",dataAuthor[i].nameAutor.value);
-
               var arrayNameAuthor = dataAuthor[i].nameAutor.value.split(" ");
-              console.log("arrayNameAuthor: ",arrayNameAuthor);
-              console.log("arrayNameAuthor.length: ",arrayNameAuthor.length);
               if(arrayNameAuthor.length == 4){
                 allNameAuthor.push(arrayNameAuthor[0]);
                 allLastNameAuthor.push(arrayNameAuthor[2]);
@@ -136,11 +133,7 @@
                 allNameAuthor.push(arrayNameAuthor[0])
                 allLastNameAuthor.push(null);
               }
-
             }
-            console.log("Autores: ",allAuthor.length);
-            console.log("allNameAuthor: ",allNameAuthor.length);
-            console.log("allLastNameAuthor: ",allLastNameAuthor.length);
             $("#authorIEEE").val(allAuthor)
             $("#authorIEEE").css({"font-style": "normal"})
 
@@ -149,42 +142,25 @@
               ///////////////////////////////////Add author to wikindx////////////////////////
               var iCnt = 0;
               var container = $(document.createElement('div'))  // Crear un elemento div añadiendo estilos CSS
-              if (iCnt <= 10) {
+              if (iCnt <= 20) {
                 iCnt = iCnt + 1;
                 // Añadir mero de autores.
-                $(container).append('<input type="number"  class="input"  id=tb'+ iCnt + ' '+
+                $(container).append('<input hidden type="number"  class="input"  id=tb'+ iCnt + ' '+
                   'name="numero_autores" value="'+dataAuthor.length+'"><br>');
-
-
-
                 for ( var i = 0; i< allAuthor.length ; i ++ ) {
-
-                  if ( i == 0){
-
-                    // añadir nombre de cada autor
-                    $(container).append('<input type="text" id= "nameIEEE" name=nombreAuthores value="'+allNameAuthor[i]+'">');
-                    // añadir apellido de cada autor
-                    $(container).append('<input type="text" id= "lastNameIEEE" name=apellidoAuthores value="'+allLastNameAuthor[i]+'">');
-
+                  if ( i == 0){ // añadir nombre y apellido de cada autor
+                    $(container).append('<input hidden type="text" id= "nameIEEE" name=nombreAuthores value="'+allNameAuthor[i]+'">');
+                    $(container).append('<input hidden type="text" id= "lastNameIEEE" name=apellidoAuthores value="'+allLastNameAuthor[i]+'">');
                   }
                   else {
-
-                    // añadir nombre de cada autor
-                    $(container).append('<input type="text" id= "nameIEEE" name=nombreAuthores'+i+' '+'value="'+allNameAuthor[i]+'">');
-                    // añadir apellido de cada autor
-                    $(container).append('<input type="text" id= "lastNameIEEE" name=apellidoAuthores'+i+' '+'value="'+allLastNameAuthor[i]+'">');
-
+                    $(container).append('<input hidden type="text" id= "nameIEEE" name=nombreAuthores'+i+' '+'value="'+allNameAuthor[i]+'">');
+                    $(container).append('<input hidden type="text" id= "lastNameIEEE" name=apellidoAuthores'+i+' '+'value="'+allLastNameAuthor[i]+'">');
                   }
-
-
                 }
-
-
-
                 $('#AuthorsWikindx').after(container);
               }
               else {      //se establece un limite para añadir elementos, 20 es el limite
-                $(container).append('<label>Limite Alcanzado</label>');
+                $(container).append('<label>Limite Alcanzado de Autores permitidos</label>');
               }
               //borrar informacion al dar click fuera del modal
               $("html").click(function() {
@@ -200,32 +176,15 @@
                 $(container).remove();
                 iCnt = 0;
               });
-
               ////////////////////////////////////// END Add author to wikindx///////////////////////////////
             }else{
-
-
               console.error('Error!!!, números de autores no condice => (allAuthor,allNameAuthor,allLastNameAuthor)');
             }
-
-
-
-
-
-
-
-
-
           }else {
             $("#authorIEEE").val("");
             $("#authorIEEE").attr("placeholder","without authors!, can you edit the authors?")
             $("#authorIEEE").css({"font-style": "italic"})
-
           }
-
-
-
-
         }
         function  almDate(json){
           var dataDate = json.results.bindings;
@@ -333,13 +292,9 @@
           }
 
         }
-
       } // end function to result of sparqlURI
     }
-
-
     //////////////////////////////////////////////////////////////////////////////////add Jonathan end
-
 
     function recom(){
 
@@ -489,6 +444,7 @@
     <div class="modal-content">
 
       <form action='/Wkx_category/crearArticuloQuemado' method='post'>
+
         <div class="modal-header">
           <h5 class="modal-title" id="metadataACMTitle">Metadatos ACM</h5>
           <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
@@ -504,8 +460,6 @@
           <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
           <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
           <div id="resultMetadata"></div>
-
-
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -521,7 +475,7 @@
                     <div class="col-10">
                       <input class="form-control" type="text"  value="" id="authorIEEE">
                     </div>
-                    <div class="col-10" id="AuthorsWikindx">
+                    <div hidden class="col-10" id="AuthorsWikindx">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -577,6 +531,7 @@
           <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
           <button type="submit" class="btn btn-primary" >Save</button>
         </div>
+
       </form>
     </div>
   </div>
@@ -620,70 +575,9 @@
   </form>
 </div>
 
-
-
-
-
-<!--test ingresar a wikindx-->
-<div>
-
-  <form action='/Wkx_category/crearArticuloQuemado' method='post'>
-    <input hidden type='text' name='title' value='tituloooo prueba'>
-    <!--<input hidden type='text' name='country' value='country pruebaaa '>-->
-    <!--<input hidden type='text' name='number' value='number pureba'>-->
-    <!--<input hidden type='text' name='volume' value='volume prueba'>-->
-    <!--<input hidden type='text' name='issns' value='issns prueba'>-->
-    <!--<input hidden type='text' name='language' value='language prueba'>-->
-    <input hidden type='text' name='year' value='2009'>
-    <input hidden type='text' name='journal' value='journal prueba'>
-    <input hidden type='text' name='typejournal' value='journal dato quemado'>
-    <input hidden type='text' name='editorial' value='editorial prueba'>
-    <input hidden type='text' name='abstract' value='abstract pruebaaaaaaaa'>
-    <input hidden type='text' name='keywords' value='keywords pruebaaa'>
-    <!--<input hidden type='text' name='doi' value='doi'>-->
-    <input hidden type='text' name='link' value='URlBase64'>
-    <input hidden type='text' id= 'author'name='authores' value='autores'>
-    <input hidden type='text' name='nombreAuthores' value='nombreA2222'>
-    <input hidden type='text' name='apellidoAuthores' value='apellido2222'>
-    <input hidden type='text' name='nombreAuthores1' value='nombreA12222'>
-    <input hidden type='text' name='apellidoAuthores1' value='apellido1222222 '>
-    <input hidden type='text' name='nombreAuthores2' value='nombreA22222'>
-    <input hidden type='text' name='apellidoAuthores2' value='apellido222222'>
-    <input hidden type='text' name='nombreAuthores3' value='nombreA3'>
-    <input hidden type='text' name='apellidoAuthores3' value='apellido3'>
-    <input hidden type='text' name='nombreAuthores4' value='nombreA4'>
-    <input hidden type='text' name='apellidoAuthores4' value='apellido4'>
-    <input hidden type='text' name='nombreAuthores5' value='nombreA5'>
-    <input hidden type='text' name='apellidoAuthores5' value='apellido5'>
-    <input hidden type='number' name='numero_autores' value='2'>
-    <!--<input hidden type='text' name='starpage' value='135'>-->
-    <!--<input hidden type='text' name='endpage' value='154'>-->
-    <input hidden type='text' name='category' value='cate pruebaa'>
-    <!--<input hidden type='text' name='pages' value='135 - 154'>-->
-    <button hidden class='btn btn-outline-primary'>Synchronize with wikindx</button>
-    <br>
-    <br>
-  </form>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
   ///////////////////////////Jquery
   $(document).ready(function(){
-
-
     /////////////////////////////////////VIEW ///////////////////////////////////////////////////////////////////
     //quitar las etiquetas innecesarias en la vista
     var contenido = abstract
@@ -705,8 +599,6 @@
       $("#abstract").css({"font-style": "italic"})
       $("#abstract").css({"color": "Silver"})
     }
-
-
 
     ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
     var title = $("#title").val();    //get value of title
