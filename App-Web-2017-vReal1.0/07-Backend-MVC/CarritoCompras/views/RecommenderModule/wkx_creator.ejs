@@ -149,6 +149,10 @@
                 // Añadir mero de autores.
                 $(container).append('<input hidden type="number"  class="input"  id=tb'+ iCnt + ' '+
                   'name="numero_autores" value="'+dataAuthor.length+'"><br>');
+
+                allAuthor.toString();
+                $(container).append('<input hidden type="text" id="author" name="authores" value="'+allAuthor+'"><br>');
+
                 for ( var i = 0; i< allAuthor.length ; i ++ ) {
                   if ( i == 0){ // añadir nombre y apellido de cada autor
                     $(container).append('<input hidden type="text" id= "nameIEEE" name=nombreAuthores value="'+allNameAuthor[i]+'">');
