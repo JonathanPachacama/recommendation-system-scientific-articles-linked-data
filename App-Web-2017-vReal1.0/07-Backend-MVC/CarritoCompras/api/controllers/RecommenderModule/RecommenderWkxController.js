@@ -1,58 +1,64 @@
 module.exports = {
-    test: function (req, res) {
-        return res.view('RecommenderModule/MainWikindx');
-    },
     recommenderWkx: function (req, res) {
-        Wkx_creator
+        Wkx_resource
             .find()
-            .exec(function (err, creatorsFound) {
+            .exec(function (err, resourceFound) {
             if (err)
                 return res.negotiate(err);
-            console.log("Article:", creatorsFound);
+            // console.log("Article:",resourceFound)
             return res.view('RecommenderModule/MainWikindx', {
-                creators: creatorsFound
+                resource: resourceFound
             });
         });
     },
     bringParametersCreator: function (req, res) {
         var parameters = req.allParams();
-        if (parameters.creatorId) {
-            Wkx_creator.findOne({
-                creatorId: parameters.creatorId
+        if (parameters.resourceId) {
+            Wkx_resource.findOne({
+                resourceId: parameters.resourceId
             })
-                .exec(function (err, creatorFound) {
+                .exec(function (err, resourceFound) {
                 if (err)
                     return res.serverError(err);
-                if (creatorFound) {
+                if (resourceFound) {
                     //Si encontro
-                    Wkx_creator.query('SELECT creatorId,creatorFirstname,creatorSurname,resourceId,resourceTitle,categoryId,categoryCategory,keywordId,keywordKeyword\n' +
+                    Wkx_resource.query('SELECT creatorId,creatorFirstname,creatorSurname,resourceId,resourceTitle,categoryId,categoryCategory,keywordId,keywordKeyword\n' +
                         'FROM wkx_resource,wkx_creator,wkx_resource_creator,wkx_category,wkx_resource_category,wkx_keyword,wkx_resource_keyword\n' +
                         'WHERE wkx_creator.creatorId=wkx_resource_creator.resourcecreatorId AND wkx_resource.resourceId=wkx_resource_creator.resourcecreatorResourceId\n' +
                         'AND(wkx_category.categoryId=wkx_resource_category.resourcecategoryCategoryId AND wkx_resource_category.resourcecategoryResourceId=wkx_resource.resourceId)\n' +
                         'AND (wkx_keyword.keywordId=wkx_resource_keyword.resourcekeywordKeywordId AND wkx_resource_keyword.resourcekeywordResourceId=wkx_resource.resourceId)\n' +
-                        'AND (wkx_creator.creatorId=?)', [creatorFound.creatorId], function (err, rawResult) {
+                        'AND (wkx_resource.resourceId=?)', [resourceFound.resourceId], function (err, rawResult) {
                         if (err) {
                             return res.serverError(err);
                         }
                         if (rawResult.length != 1 || rawResult.length == 1) {
                             sails.log("tamaño", rawResult.length);
+                            sails.log("valor", rawResult);
                             var query = [];
                             var iteracion = [];
                             var keyword_1 = [];
                             var category_1 = [];
+                            var firstname_1 = [];
+                            var surname_1 = [];
                             for (var i = 0; i < rawResult.length; i++) {
-                                if (rawResult[i].creatorId == creatorFound.creatorId) {
+                                if (rawResult[i].resourceId == resourceFound.resourceId) {
                                     iteracion.push(rawResult[i]);
                                     keyword_1.push(rawResult[i].keywordKeyword);
                                     category_1.push(rawResult[i].categoryCategory);
+                                    firstname_1.push(rawResult[i].creatorFirstname);
+                                    surname_1.push(rawResult[i].creatorSurname);
                                 }
                             }
                             query = iteracion;
                             sails.log("query ", query);
                             sails.log("keyword ", keyword_1);
                             sails.log("category ", category_1);
+                            sails.log("firstname ", firstname_1);
+                            sails.log("surname ", surname_1);
                             var outKeyword = [];
                             var outCategory = [];
+                            var outFirstname = [];
+                            var outSurname = [];
                             function eliminateDuplicatesKeyword(arr) {
                                 var i, len = arr.length, obj = {};
                                 for (i = 0; i < len; i++) {
@@ -73,22 +79,48 @@ module.exports = {
                                 }
                                 return outCategory;
                             }
+                            function eliminateDuplicatesFirstname(arr) {
+                                var i, len = arr.length, obj = {};
+                                for (i = 0; i < len; i++) {
+                                    obj[arr[i]] = 0;
+                                }
+                                for (i in obj) {
+                                    outFirstname.push(i);
+                                }
+                                return outFirstname;
+                            }
+                            function eliminateDuplicatesSurname(arr) {
+                                var i, len = arr.length, obj = {};
+                                for (i = 0; i < len; i++) {
+                                    obj[arr[i]] = 0;
+                                }
+                                for (i in obj) {
+                                    outSurname.push(i);
+                                }
+                                return outSurname;
+                            }
                             eliminateDuplicatesKeyword(keyword_1);
                             eliminateDuplicatesCategory(category_1);
+                            eliminateDuplicatesFirstname(firstname_1);
+                            eliminateDuplicatesSurname(surname_1);
                             keyword_1 = outKeyword;
                             category_1 = outCategory;
+                            firstname_1 = outFirstname;
+                            surname_1 = outSurname;
                             sails.log("keyword Sin duplicados ", keyword_1);
                             sails.log("category Sin duplicados ", category_1);
-                            Wkx_creator.query('SELECT "Title" as Type,resourceId AS Id,resourceTitle AS Value FROM wkx_resource WHERE resourceId = ? ' +
+                            sails.log("firstname Sin duplicados ", firstname_1);
+                            sails.log("surname Sin duplicados ", surname_1);
+                            Wkx_resource.query('SELECT "Title" as Type,resourceId AS Id,resourceTitle AS Value FROM wkx_resource WHERE resourceId = ? ' +
                                 'UNION ' +
                                 'SELECT "Abstract",resourcetextId,resourcetextAbstract FROM wkx_resource_text WHERE resourcetextId =?', [rawResult[0].resourceId, rawResult[0].resourceId], function (err, rawResult2) {
                                 if (err) {
                                     return res.serverError(err);
                                 }
-                                sails.log(rawResult2);
+                                sails.log("valor2: ", rawResult2);
                                 var abstract = rawResult2[1].Value;
                                 if (rawResult2[0].id == rawResult2[1].id) {
-                                    Wkx_creator.query('SELECT "Metadata" as Type, collectionId, publisherId, collectionTitle,publisherName,publisherLocation\n' +
+                                    Wkx_resource.query('SELECT "Metadata" as Type, collectionId, publisherId, collectionTitle,publisherName,publisherLocation\n' +
                                         'FROM wkx_collection,wkx_publisher,wkx_resource_misc\n' +
                                         'WHERE wkx_collection.collectionId=wkx_resource_misc.resourcemiscCollection \n' +
                                         'AND wkx_resource_misc.resourcemiscPublisher=wkx_publisher.publisherId\n' +
@@ -109,8 +141,10 @@ module.exports = {
                                             sails.log(locationPublisher);
                                             sails.log(journal);
                                             return res.view('RecommenderModule/wkx_creator', {
-                                                creator: creatorFound,
+                                                creator: resourceFound,
                                                 query: query[0],
+                                                firstname: firstname_1,
+                                                surname: surname_1,
                                                 keyword: keyword_1,
                                                 category: category_1,
                                                 abstract: abstract,

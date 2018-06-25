@@ -347,19 +347,11 @@
 <body ng-controller="Controller">
 <br>
 <div id="metadata">
-  <h1>Metadatos Sincronizados en Wikindx en relación al autor </h1>
-  <h2> <%= query.creatorId%>- <%= creator.creatorFirstname%> <%= creator.creatorSurname%>  </h2>
+  <h1>Metadatos Sincronizados en Wikindx en relación al titulo</h1>
+  <h2>  <%= query.resourceId%>- <%= query.resourceTitle%></h2>
+  <input hidden class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
   <br>
-  <div class="row">
-    <label class="col-1 col-form-label">Nombre:</label>
-    <div class="col-5">
-      <input class="form-control" type="text"  value="<%= query.creatorFirstname%>" disabled>
-    </div>
-    <label class="col-1 col-form-label">Apellido:</label>
-    <div class="col-5">
-      <input class="form-control" type="text"  value="<%= query.creatorSurname%>" disabled>
-    </div>
-  </div>
+
   <div class="row">
     <label class="col-1 col-form-label">Revista:</label>
     <div class="col-5">
@@ -371,9 +363,16 @@
     </div>
   </div>
   <div class="row">
-    <label class="col-1 col-form-label">Titulo:</label>
+    <label class="col-1 col-form-label">Autores:</label>
     <div class="col-11">
-      <input class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>
+      <% if(firstname.length == surname.length){ %>
+        <%for(var i=0; i<firstname.length; i++) {%>
+          <input class="form-control" id="title" type="text"  value="<%= i+1%>: <%= firstname[i]%> <%= surname[i]%>" disabled>
+        <% } %>
+      <% } else{ %>
+      <input class="form-control" id="title" type="text"  value="Nombres: <%= firstname%>     Apellidos: <%= surname%>" disabled>
+      <% } %>
+
     </div>
     <label class="col-1 col-form-label">Categoria:</label>
     <div class="col-11">
