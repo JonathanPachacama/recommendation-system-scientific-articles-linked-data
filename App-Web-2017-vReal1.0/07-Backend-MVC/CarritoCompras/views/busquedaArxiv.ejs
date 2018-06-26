@@ -1,25 +1,3 @@
-
-<!--Para recomendar desde la base local-->
-
-<!--&lt;!&ndash;(start) added for Recommender Module&ndash;&gt;-->
-
-<!--<h1> Article saved successfully!!! </h1>-->
-
-<!--<p>Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda</p>-->
-
-<!--<a href="/recommendations">-->
-  <!--<button type="button"  class="btn btn-primary">Recomendaciones</button>-->
-<!--</a>-->
-
-<!--&lt;!&ndash;(end) added for Recommender Module&ndash;&gt;-->
-
-
-<!--(start) added for Recommender Module-->
-
-
-
-
-
 <!--Para recomendar desde wikindx-->
 
 <html ng-app="appRecommender">
@@ -337,55 +315,50 @@
 </div>
 <br><br><br><br><br>
 <div class="row">
-  <div class="col-8">
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <h2>Articulo</h2>
-      </div>
-      <div class="col-4"></div>
-    </div>
-    <div class="row">
-      <div class="col-11">
+  <div class="col-sm-8">
+
+
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>Este es el articulo que guardaste.</p>
+      <hr>
+      <p class="mb-0">
         <input class="form-control" id="titleArticle" type="text"  value="<%= nuevoArticulo.title %>" disabled>
-      </div>
+        <br>
+        <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">
+          Recomendaciones
+        </button>
+        <textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>
+      </p>
     </div>
   </div>
-  <div class="col-4">
-    <div class="row"></div>
-    <div class="row">
-      <div id="query" style="margin:auto">
-        <form class="form-inline">
-          <div class="input-append">
-            <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-            <button class="btn btn-primary" type="button" onclick="exec()">Recomendaciones</button>
-          </div>
-        </form>
-        <br>
-        <textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>
-        <br><br>
+  <div class="col-sm-4">
+
+
+
+    <div class="card alert alert-warning mb-3" style="max-width: 18rem;">
+      <div class="card-header alert alert-danger">Recommender module</div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text">Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda.</p>
+        <a href="/recommendationsWkx">
+          <button type="button" class="btn btn-danger btn-lg">Ingresar</button>
+        </a>
       </div>
     </div>
+
   </div>
 </div>
 
-<div class="row">
-  <div class="col-4"></div>
-  <div class="col-6">
-    <div id="recommenderModule" class="col-4">
-      <p>Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda</p>
-      <a href="/recommendationsWkx">
-        <button type="button"  class="btn btn-success">Recommender module</button>
-      </a>
-    </div>
-  </div>
-  <div class="col-1"></div>
-</div>
+
+
 <br><br><br>
 <div class="row">
-  <div class="col-12">
+  <div class="col-sm-10">
     <div id="result"></div>
   </div>
+  <div class="col-sm-2"></div>
 </div>
 
 <!-- Button trigger modal -->
@@ -501,105 +474,103 @@
 <br><br><br><br><br>
 
 <script>
+  var app = angular.module("appRecommender",[]);
+  app.controller("Controller",function ($scope,$http) { //start angular
 
-  $(document).ready(function(){
-    ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
-    var title = $("#titleArticle").val();    //get value of title
-    var queryHeader = "SELECT DISTINCT ?TITULO \n"+
-      "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
-    var queryFooter = ")}"    //footer of query
-    var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
-    var arrayOfString  // string that contains the value of the title
-    var cont  = 0  //counter used in the while loop
-    var keywordsTitle = ""  // final result to include in the SPARQL query
-    var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
+    $(document).ready(function(){  //start jquery
+      ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
+      var title = $("#titleArticle").val();    //get value of title
+      var queryHeader = "SELECT DISTINCT ?TITULO \n"+
+        "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
+      var queryFooter = ")}"    //footer of query
+      var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
+      var arrayOfString  // string that contains the value of the title
+      var cont  = 0  //counter used in the while loop
+      var keywordsTitle = ""  // final result to include in the SPARQL query
+      var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
 
-    function splitString (StringToSplit,separator){
+      function splitString (StringToSplit,separator){
 
-      arrayOfString = StringToSplit.split(separator);
-      console.log("arrayOfString.length", arrayOfString.length)
+        arrayOfString = StringToSplit.split(separator);
+        console.log("arrayOfString.length", arrayOfString.length)
 
-      // add words of title in function regex (SPARQL)
-      for (var j=0;j<arrayOfString.length;j++){
-        if(j != (arrayOfString.length-1)){
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
-        }else{
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+        // add words of title in function regex (SPARQL)
+        for (var j=0;j<arrayOfString.length;j++){
+          if(j != (arrayOfString.length-1)){
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
+          }else{
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+          }
         }
-      }
-      // add results to variable keywordsTitle
-      while ( cont < arrayOfString.length ) {
-        keywordsTitle += stringRegex[cont];
-        cont++
-      }
+        // add results to variable keywordsTitle
+        while ( cont < arrayOfString.length ) {
+          keywordsTitle += stringRegex[cont];
+          cont++
+        }
 
-      $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
-    };
+        $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
+      };
 
-    splitString(title,spaceSeparator);
+      splitString(title,spaceSeparator);
 
 //////////// RESULTS TABLE OF FIRTS QUERY (d3sparql.htmltable2) //////////////////////////////
-    d3sparql.htmltable2 = function(json, config) {
-      config = config || {}
-      var head = json.head.vars
-      var data = json.results.bindings
-      var opts = {
-        "selector": config.selector || null
-      }
-      var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
-      var thead = table.append("thead")
-      var tbody = table.append("tbody")
-      thead.append("tr")
-        .selectAll("th")
-        .data(head)
-        .enter()
-        .append("th")
-        .text(function(col) { return col })
-      var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append("tr")
-      var cells = rows.selectAll("td")
-        .data(function(row) {
-          return head.map(function(col) {
-            return row[col].value
+      d3sparql.htmltable2 = function(json, config) {
+        config = config || {}
+        var head = json.head.vars
+        var data = json.results.bindings
+        var opts = {
+          "selector": config.selector || null
+        }
+        var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+        var thead = table.append("thead")
+        var tbody = table.append("tbody")
+        thead.append("tr")
+          .selectAll("th")
+          .data(head)
+          .enter()
+          .append("th")
+          .text(function(col) { return col })
+        var rows = tbody.selectAll("tr")
+          .data(data)
+          .enter()
+          .append("tr")
+        var cells = rows.selectAll("td")
+          .data(function(row) {
+            return head.map(function(col) {
+              return row[col].value
 
+            })
           })
+          .enter()
+          .append("td")
+          .append("lu")
+          .append("li")
+          .append("button")
+          .text(function(val) {return val })
+        // default CSS
+
+        table.style({
+          "margin": "10px"
         })
-        .enter()
-        .append("td")
-        .append("lu")
-        .append("li")
-        .append("button")
-        .text(function(val) {return val })
-      // default CSS
-
-      table.style({
-        "margin": "10px"
-      })
-      table.selectAll("th").style({
-        "background": "#eeeeee",
-        "text-transform": "capitalize",
-      })
-      for(i=0 ; i<data.length*2 ; i++) {
+        table.selectAll("th").style({
+          "background": "#eeeeee",
+          "text-transform": "capitalize",
+        })
+        for(i=0 ; i<data.length*2 ; i++) {
 
 
-        $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
-        $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
+          $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
+          $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
 
-          .attr({
-            "class": "btn btn-primary",
-            "data-toggle": "modal",
-            "data-target": "#metadataACM",
-            "onclick":"web(this)"
-          })
+            .attr({
+              "class": "btn btn-outline-success btn-lg btn-block",
+              "data-toggle": "modal",
+              "data-target": "#metadataACM",
+              "onclick":"web(this)"
+            })
+        }
       }
-    }
-
-  });   //end jquery
-
-  var app = angular.module("appRecommender",[]);
-  app.controller("Controller",function ($scope,$http) {
+    });   //end jquery
   }); //end angular
   /////////////////////////////// end angular
 </script>
