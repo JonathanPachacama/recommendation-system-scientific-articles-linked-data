@@ -286,17 +286,17 @@
           var dataWeb = json.results.bindings;
           if(Object.entries(dataWeb).length != 0 ){
             $("#webIEEE").val(dataWeb[0].web.value);
-            $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
             $("#webIEEE").css({"font-style": "normal"})
+            $("#webAddress").text("Full-text").attr({"href":dataWeb[0].web.value,"title":dataWeb[0].web.value});
+            $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
             console.log("Web: ",dataWeb[0].web.value);
           }else {
             $("#webIEEE").val("");
             $("#webIEEE").attr("placeholder","without web!, can you edit the web?")
             $("#webIEEE").css({"font-style": "italic"})
-            $("#webAddress").text("");
-
+            $("#webAddress").text("-").attr({"href":"#","title":" "});
+            $("#webAddressLink").text("Sin dirección web");
           }
-
         }
       } // end function to result of sparqlURI
     }
@@ -346,434 +346,331 @@
 </head>
 <body ng-controller="Controller">
 <br>
-<div id="metadata">
-  <h1>Metadatos Sincronizados en Wikindx en relación al titulo</h1>
-  <h2>  <%= query.resourceId%>- <%= query.resourceTitle%></h2>
-  <input hidden class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
-  <br>
 
-  <div class="row">
-    <label class="col-1 col-form-label">Revista:</label>
-    <div class="col-5">
-      <input class="form-control" type="text"  value="<%= journal%>" disabled>
+<div class="container-fluid">
+
+  <div id="metadata">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="alert alert-success" role="alert">
+          <h1>Metadatos Sincronizados en Wikindx en relación al titulo</h1>
+        </div>
+        <br><br>
+        <h2>  <%= query.resourceId%>- <%= query.resourceTitle%></h2>
+        <input hidden class="form-control" id="title" type="text"  value="<%= query.resourceTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
+        <br>
+      </div>
     </div>
-    <label class="col-1 col-form-label">Editor:</label>
-    <div class="col-5">
-      <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
-    </div>
-  </div>
-  <div class="row">
-    <label class="col-1 col-form-label">Autores:</label>
-    <div class="col-11">
-      <% if(firstname.length == surname.length){ %>
-        <%for(var i=0; i<firstname.length; i++) {%>
-          <input class="form-control" id="title" type="text"  value="<%= i+1%>: <%= firstname[i]%> <%= surname[i]%>" disabled>
+
+    <form>
+      <div class="form-group">
+        <label class="col-1 col-form-label">Autores:</label>
+        <% if(firstname.length == surname.length){ %>
+        <select class="form-control" id="exampleFormControlSelect1" style="background-color: #eceeef" >
+          <%for(var i=0; i<firstname.length; i++) {%>
+          <option >
+            <%= firstname[i]%> <%= surname[i]%>
+          </option>
+          <% } %>
+        </select>
+        <% } else{ %>
+        <input class="form-control" id="title" type="text"  value="<%= surname%>" disabled>
         <% } %>
-      <% } else{ %>
-      <input class="form-control" id="title" type="text"  value="Nombres: <%= firstname%>     Apellidos: <%= surname%>" disabled>
-      <% } %>
+      </div>
 
-    </div>
-    <label class="col-1 col-form-label">Categoria:</label>
-    <div class="col-11">
-      <input class="form-control" type="text"  value="<%= category%>" disabled>
-    </div>
-    <label class="col-1 col-form-label">Keywords:</label>
-    <div class="col-11">
-      <input class="form-control" type="text" id="keyword"  value="<%= keyword%>" disabled>
-    </div>
-  </div>
-  <div class="row">
-    <label class="col-1 col-form-label">Abstract:</label>
-    <div class="col-11">
-      <textarea
-        id="abstract"
-        name="abstract"
-        rows="5" cols="124"
-        value="<%= abstract%>"
-        disabled
-      ><%= abstract%></textarea>
-    </div>
-  </div>
-</div>
+      <div class="form-group">
+        <label for="validationDefault01">Revista:</label>
+        <input class="form-control" type="text"  value="<%= journal%>" disabled>
+      </div>
+      <div class="form-group">
+        <label for="validationDefault02">Editor:</label>
+        <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
+      </div>
+      <div class="form-group">
+        <label for="validationDefault02">Categoria:</label>
+        <input class="form-control" type="text"  value="<%= category%>" disabled>
+      </div>
+      <div class="form-group">
+        <label for="validationDefault02">Keywords:</label>
+        <input class="form-control" type="text"  id="keyword" value="<%= keyword%>" disabled>
+      </div>
 
-<div id="firstQuery">
-
-  <div class="form-group row">
-    <label class="col-md-8 col-form-label">Consulta para encontrar nombre de autores similares</label>
-    <div class="col-10">
-      <input type="text" data-ng-Model="nuevoAuthorIn.autor1"  name="f1t1" id="f1t1" >
-
-    </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Abstract:</label>
+        <textarea class="form-control"
+                  id="abstract"
+                  name="abstract"
+                  rows="7"
+                  value="<%= abstract%>"
+                  disabled><%= abstract%></textarea>
+      </div>
+    </form>
   </div>
 
-  <button class="btn btn-success" type="submit" ng-Click="addAuthor()">Busqueda</button>
+  <br><br><br>
+  <div id="query" style="margin:auto">
 
-  <br><br>
-  <ul>
-    <li ng-repeat="autor in autoresSeleccionado track by $index">
-      {{autor.autor1}}
-    </li>
-  </ul>
-</div>
+    <form class="form-inline">
+      <label>SPARQL endpoint:</label><br>
+      <div class="input-append">
+        <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+        <button class="btn btn-success" type="button" onclick="exec()">Query</button>
+        <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
+        <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+      </div>
+    </form>
 
-<div id="query" style="margin:auto">
-
-  <form class="form-inline">
-    <label>SPARQL endpoint:</label><br>
-    <div class="input-append">
-      <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-      <button class="btn btn-success" type="button" onclick="exec()">Query</button>
-      <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
-      <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
-    </div>
-  </form>
-
+    <br>
+    <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
+    <br><br>
+  </div>
   <br>
-  <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
-  <br><br>
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-    <div id="result"></div>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="result"></div>
+    </div>
   </div>
-</div>
+  <!-- Button trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
 
-<!-- Button trigger modal -->
-<!-- Modal -->
-<div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+        <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
 
-      <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
+          <div class="modal-header">
+            <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
+            <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+            <div id="resultMetadata"></div>
+            <div class="card">
+              <div class="fondo">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">titulo:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="titleEEE" name="title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Autores:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="authorIEEE">
+                  </div>
+                  <div hidden class="col-sm-10" id="AuthorsWikindx">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">fecha:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">abstrac:</label>
+                  <div class="col-sm-10">
+                    <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                    <textarea
+                      class="abstractIEEE form-control"
+                      id="textareaModal"
+                      value=""
+                      cols="45" rows="3"
+                    ></textarea>
 
-        <div class="modal-header">
-          <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
-          <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
-          <div id="resultMetadata"></div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="fondo">
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">titulo:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="titleEEE" name="title">
-                    </div>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Autores:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="authorIEEE">
-                    </div>
-                    <div hidden class="col-10" id="AuthorsWikindx">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Keyword:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">fecha:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Direccion Web:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">abstrac:</label>
-                    <div class="col-10">
-                      <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
-                      <textarea
-                        class="abstractIEEE"
-                        id="textareaModal"
-                        value=""
-                        cols="45" rows="3"
-                      ></textarea>
-
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
+                    <input hidden type='text' name='typejournal' value='journal'>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Keyword:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Año Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Direccion Web:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
-                      <input hidden type='text' name='typejournal' value='journal'>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Año Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Web Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Web Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
                   </div>
                 </div>
               </div>
-              <p id="webAddressLink"> Visitar Direccion Web del recurso: </p><a id="webAddress"></a>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="modal-footer">
-          <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
-          <button type="submit" class="btn btn-primary" >Save</button>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</div>
-<!-- end Modal -->
-<div id="resultApi">
-  <form action="" method="post">
-    <div class="container" style="background-color: black">
-      <div class="row">
-        <img class="img-cabecera"
-             src="https://www.acm.org/binaries/content/gallery/acm/ctas/fca_logo.jpg/fca_logo.jpg/acm%3Adesktopcta"
-             alt=""
-             width="100%">
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-4" ng-repeat="autor in autores;">
-
-          <div class="card">
-            <h1>Autor Relacionado</h1>
-            <img class="card-img-top"
-                 src="http://www.anlagensicherheit.net/mt-medizintechnik/wp-content/uploads/2013/02/Autor_Bild.jpg"
-                 alt="Card image cap"  height="200">
-            <div class="fondo">
-              <div class="form-group row">
-                <label class="col-2 col-form-label">Nombre:</label>
-                <div class="col-10">
-                  <input class="form-control" type="text"  value=" {{autor.titleUri.value}}" id="name_Value" name="name_Value">
+              <div class="col-sm-12">
+                <div class="alert alert-success" role="alert">
+                  <p id="webAddressLink"></p>
+                  <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-
-
+          <div class="modal-footer">
+            <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="submit" class="btn btn-primary" >Save</button>
+          </div>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
+  <!-- end Modal -->
+
 </div>
+
 
 <script>
-  ///////////////////////////Jquery
-  $(document).ready(function(){
-    /////////////////////////////////////VIEW ///////////////////////////////////////////////////////////////////
-    //quitar las etiquetas innecesarias en la vista
-    var contenido = abstract
-    var texto = $(contenido).text();
-    var res = texto.replace(/<[^>]*>?/g, '');
-    $("#abstract").text(res);
-    //modificar la salida de undefined
-    var	a = $("#keyword").val()
-    var	b = texto
-    if(a == "undefined") {
-      $("#keyword").val("")
-      $("#keyword").attr("placeholder","This article does not contain keyword")
-      $("#keyword").css({"font-style": "italic"})
-      $("#keyword").css({"color": "Silver"})
-    }
-    if(b == "undefined") {
-      $("#abstract").val("")
-      $("#abstract").attr("placeholder","This article does not contain abstract")
-      $("#abstract").css({"font-style": "italic"})
-      $("#abstract").css({"color": "Silver"})
-    }
+  var app = angular.module("appRecommender",[]);
+  app.controller("Controller",function ($scope,$http) {  /////////////////////////  start angular
 
-    ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
-    var title = $("#title").val();    //get value of title
-    var queryHeader = "SELECT DISTINCT ?TITULO \n"+
-      "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
-    var queryFooter = ")}"    //footer of query
-    var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
-    var arrayOfString  // string that contains the value of the title
-    var cont  = 0  //counter used in the while loop
-    var keywordsTitle = ""  // final result to include in the SPARQL query
-    var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
+    $(document).ready(function(){///////////////////////////start Jquery
+      /////////////////////////////////////VIEW ///////////////////////////////////////////////////////////////////
+      //quitar las etiquetas innecesarias en la vista
+      var contenido = abstract
+      var texto = $(contenido).text();
+      var res = texto.replace(/<[^>]*>?/g, '');
+      $("#abstract").text(res);
+      //modificar la salida de undefined
+      var	a = $("#keyword").val()
+      var	b = texto
+      if(a == "undefined") {
+        $("#keyword").val("")
+        $("#keyword").attr("placeholder","This article does not contain keyword")
+        $("#keyword").css({"font-style": "italic"})
+        $("#keyword").css({"color": "Silver"})
+      }
+      if(b == "undefined") {
+        $("#abstract").val("")
+        $("#abstract").attr("placeholder","This article does not contain abstract")
+        $("#abstract").css({"font-style": "italic"})
+        $("#abstract").css({"color": "Silver"})
+      }
 
-    function splitString (StringToSplit,separator){
+      ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
+      var title = $("#title").val();    //get value of title
+      var queryHeader = "SELECT DISTINCT ?TITULO \n"+
+        "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
+      var queryFooter = ")}"    //footer of query
+      var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
+      var arrayOfString  // string that contains the value of the title
+      var cont  = 0  //counter used in the while loop
+      var keywordsTitle = ""  // final result to include in the SPARQL query
+      var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
 
-      arrayOfString = StringToSplit.split(separator);
-      console.log("arrayOfString.length", arrayOfString.length)
+      function splitString (StringToSplit,separator){
 
-      // add words of title in function regex (SPARQL)
-      for (var j=0;j<arrayOfString.length;j++){
-        if(j != (arrayOfString.length-1)){
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
-        }else{
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+        arrayOfString = StringToSplit.split(separator);
+        console.log("arrayOfString.length", arrayOfString.length)
+
+        // add words of title in function regex (SPARQL)
+        for (var j=0;j<arrayOfString.length;j++){
+          if(j != (arrayOfString.length-1)){
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
+          }else{
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+          }
         }
-      }
-      // add results to variable keywordsTitle
-      while ( cont < arrayOfString.length ) {
-        keywordsTitle += stringRegex[cont];
-        cont++
-      }
+        // add results to variable keywordsTitle
+        while ( cont < arrayOfString.length ) {
+          keywordsTitle += stringRegex[cont];
+          cont++
+        }
 
-      $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
-    };
+        $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
+      };
 
-    splitString(title,spaceSeparator);
+      splitString(title,spaceSeparator);
 
 
 //////////// RESULTS TABLE OF FIRTS QUERY (d3sparql.htmltable2) //////////////////////////////
-    d3sparql.htmltable2 = function(json, config) {
-      config = config || {}
-      var head = json.head.vars
-      var data = json.results.bindings
-      var opts = {
-        "selector": config.selector || null
-      }
-      var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
-      var thead = table.append("thead")
-      var tbody = table.append("tbody")
-      thead.append("tr")
-        .selectAll("th")
-        .data(head)
-        .enter()
-        .append("th")
-        .text(function(col) { return col })
-      var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append("tr")
-      var cells = rows.selectAll("td")
-        .data(function(row) {
-          return head.map(function(col) {
-            return row[col].value
-
-          })
-        })
-        .enter()
-        .append("td")
-        .append("lu")
-        .append("li")
-        .append("button")
-        .text(function(val) {return val })
-      // default CSS
-
-      table.style({
-        "margin": "10px"
-      })
-      table.selectAll("th").style({
-        "background": "#eeeeee",
-        "text-transform": "capitalize",
-      })
-      for(i=0 ; i<data.length*2 ; i++) {
-
-
-        $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
-        $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
-
-          .attr({
-            "class": "btn btn-primary",
-            "data-toggle": "modal",
-            "data-target": "#metadataACM",
-            "onclick":"web(this)"
-          })
-
-
-        // if (i % 2 != 1 || i == 0){
-        // }
-        // else {
-        // }
-
-      }
-    }
-  });   //end jquery
-  /////////////////////////angular
-  var app = angular.module("appRecommender",[]);
-  app.controller("Controller",function ($scope,$http) {
-    //Prefijos Publicaciones ACM
-    let endPointAcm ="http://acm.rkbexplorer.com/sparql/?format=json&query=";
-    let id_Prefix = "PREFIX+id%3A+++%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
-    let rdf_Prefix = "PREFIX+rdf%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A";
-    let rdfs_Prefix = "PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A";
-    let akt_Prefix = "PREFIX+akt%3A++%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
-    let owl_Prefix = "PREFIX+owl%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
-    let akts_Prefix = "PREFIX+akts%3A+%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A%0D%0A%0D%0A";
-    $scope.nuevoAuthorIn = {};
-    $scope.autoresSeleccionado = [];
-    $scope.addAuthor = function () {
-      $scope.autoresSeleccionado.push($scope.nuevoAuthorIn);
-      $scope.nuevoAuthorIn ={};
-      console.log("autor es:"+$scope.autoresSeleccionado.length);
-      for(var i = 0;i<$scope.autoresSeleccionado.length;i ++){
-        var nombres = $scope.autoresSeleccionado[i].autor1
-        console.log("autor es:"+nombres);
-      }
-      function splitString (StringToSplit,separator){
-        var arrayOfString = StringToSplit.split(separator);
-        console.log("la cadena original es:"+StringToSplit);
-        console.log("El Separador es:"+separator);
-        console.log("El array tiene:"+arrayOfString.length);
-        console.log("El array tiene:"+arrayOfString[0]);
-        console.log("El array tiene:"+arrayOfString[1]);
-        for (var j=0;j<arrayOfString.length;j++){
-          console.log(arrayOfString[j]);
+      d3sparql.htmltable2 = function(json, config) {
+        config = config || {}
+        var head = json.head.vars
+        var data = json.results.bindings
+        var opts = {
+          "selector": config.selector || null
         }
-        //Autores
-        let name1 = arrayOfString[0]
-        let apellido1 = arrayOfString[1]
-        let select2 = "SELECT+DISTINCT+%3FtitleUri+";
-        let where2="WHERE+%7B%3FtitleUri+akt%3Ahas-title+%3Fp.+" +
-          "filter+%28%3Fp%3D%22"+name1+"%22%29%7D";
-        let limit2="limit+100";
-        var concatenacion2 = endPointAcm + id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix+select2+where2+limit2;
-        //Consumo Api con la consulta por autores
-        $http.get(concatenacion2)
-          .success(function (data){
-            console.log(data);
-            $scope.autores = data.results.bindings;
-            $scope.respuestaJson2= data;
-            console.log("la url es:" + concatenacion2);
+        var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+        var thead = table.append("thead")
+        var tbody = table.append("tbody")
+        thead.append("tr")
+          .selectAll("th")
+          .data(head)
+          .enter()
+          .append("th")
+          .text(function(col) { return col })
+        var rows = tbody.selectAll("tr")
+          .data(data)
+          .enter()
+          .append("tr")
+        var cells = rows.selectAll("td")
+          .data(function(row) {
+            return head.map(function(col) {
+              return row[col].value
+
+            })
           })
-          .error(function (err) {
-          });
-      };
-      var cadenaVerso = nombres
-      var patron = ", ";
-      var nuevoValor = " ";
-      var nuevaCadena = cadenaVerso.replace(patron,nuevoValor);
-      var spaceSeparator = " ";
-      //var coma = ",";
-      splitString(nuevaCadena,spaceSeparator);
-      //splitString(cadenaVerso,coma)
-    };
-  });
-  /////////////////////////////// end angular
+          .enter()
+          .append("td")
+          .append("lu")
+          .append("li")
+          .append("button")
+          .text(function(val) {return val })
+        // default CSS
+
+        table.style({
+          "margin": "10px"
+        })
+        table.selectAll("th").style({
+          "background": "#eeeeee",
+          "text-transform": "capitalize",
+        })
+        for(i=0 ; i<data.length*2 ; i++) {
+
+
+          $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
+          $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
+
+            .attr({
+              "class": "btn btn-outline-success btn-lg btn-block",
+              "data-toggle": "modal",
+              "data-target": "#metadataACM",
+              "onclick":"web(this)"
+            })
+
+
+          // if (i % 2 != 1 || i == 0){
+          // }
+          // else {
+          // }
+
+        }
+      }
+    });   //end jquery
+  });/////////////////////////////// end angular
 </script>
 <br>
 <br>

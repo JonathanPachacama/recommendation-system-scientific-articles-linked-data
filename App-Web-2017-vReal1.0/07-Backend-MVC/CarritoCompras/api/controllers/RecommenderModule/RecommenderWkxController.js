@@ -1,11 +1,20 @@
 module.exports = {
     recommenderWkx: function (req, res) {
+        var parametros = req.allParams();
+        // if(!parametros.busqueda){
+        //   parametros.busqueda ='';
+        // }
+        sails.log.info("Parametros", parametros);
         Wkx_resource
             .find()
+            .where({
+            resourceTitle: {
+                contains: parametros.busqueda
+            }
+        })
             .exec(function (err, resourceFound) {
             if (err)
                 return res.negotiate(err);
-            // console.log("Article:",resourceFound)
             return res.view('RecommenderModule/MainWikindx', {
                 resource: resourceFound
             });

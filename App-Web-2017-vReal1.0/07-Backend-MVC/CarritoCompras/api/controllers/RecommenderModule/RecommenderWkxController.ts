@@ -11,13 +11,24 @@ declare var Wkx_resource_misc;
 
 module.exports = {
 
+
   recommenderWkx:(req,res)=>{
 
+
+    let parametros = req.allParams();
+    // if(!parametros.busqueda){
+    //   parametros.busqueda ='';
+    // }
+    sails.log.info("Parametros",parametros);
     Wkx_resource
       .find()
+      .where({
+        resourceTitle:{
+          contains:parametros.busqueda
+        }
+      })
       .exec((err,resourceFound)=>{
         if(err) return res.negotiate(err);
-        // console.log("Article:",resourceFound)
 
         return res.view('RecommenderModule/MainWikindx',{
           resource:resourceFound

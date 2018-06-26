@@ -1,25 +1,3 @@
-
-<!--Para recomendar desde la base local-->
-
-<!--&lt;!&ndash;(start) added for Recommender Module&ndash;&gt;-->
-
-<!--<h1> Article saved successfully!!! </h1>-->
-
-<!--<p>Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda</p>-->
-
-<!--<a href="/recommendations">-->
-  <!--<button type="button"  class="btn btn-primary">Recomendaciones</button>-->
-<!--</a>-->
-
-<!--&lt;!&ndash;(end) added for Recommender Module&ndash;&gt;-->
-
-
-<!--(start) added for Recommender Module-->
-
-
-
-
-
 <!--Para recomendar desde wikindx-->
 
 <html ng-app="appRecommender">
@@ -308,17 +286,17 @@
           var dataWeb = json.results.bindings;
           if(Object.entries(dataWeb).length != 0 ){
             $("#webIEEE").val(dataWeb[0].web.value);
-            $("#webAddress").text(dataWeb[0].web.value).attr("href",dataWeb[0].web.value);
             $("#webIEEE").css({"font-style": "normal"})
+            $("#webAddress").text("Full-text").attr({"href":dataWeb[0].web.value,"title":dataWeb[0].web.value});
+            $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
             console.log("Web: ",dataWeb[0].web.value);
           }else {
             $("#webIEEE").val("");
             $("#webIEEE").attr("placeholder","without web!, can you edit the web?")
             $("#webIEEE").css({"font-style": "italic"})
-            $("#webAddress").text("");
-
+            $("#webAddress").text("-").attr({"href":"#","title":" "});
+            $("#webAddressLink").text("Sin dirección web");
           }
-
         }
       } // end function to result of sparqlURI
     }
@@ -327,279 +305,269 @@
 </head>
 
 <body ng-controller="Controller">
-
-<div class="row">
-  <div class="col-3"></div>
-  <div class="col-6">
-    <h1> Article saved successfully!!! </h1>
-  </div>
-  <div class="col-3"></div>
-</div>
-<br><br><br><br><br>
-<div class="row">
-  <div class="col-8">
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <h2>Articulo</h2>
-      </div>
-      <div class="col-4"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <h1> Article saved successfully!!! </h1>
     </div>
-    <div class="row">
-      <div class="col-11">
-        <input class="form-control" id="titleArticle" type="text"  value="<%= nuevoArticulo.title %>" disabled>
-      </div>
-    </div>
+    <div class="col-3"></div>
   </div>
-  <div class="col-4">
-    <div class="row"></div>
-    <div class="row">
-      <div id="query" style="margin:auto">
-        <form class="form-inline">
-          <div class="input-append">
-            <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-            <button class="btn btn-primary" type="button" onclick="exec()">Recomendaciones</button>
-          </div>
-        </form>
-        <br>
-        <textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>
-        <br><br>
-      </div>
-    </div>
-  </div>
-</div>
+  <br><br><br><br><br>
+  <div class="row">
+    <div class="col-sm-8">
 
-<div class="row">
-  <div class="col-4"></div>
-  <div class="col-6">
-    <div id="recommenderModule" class="col-4">
-      <p>Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda</p>
-      <a href="/recommendationsWkx">
-        <button type="button"  class="btn btn-success">Recommender module</button>
-      </a>
-    </div>
-  </div>
-  <div class="col-1"></div>
-</div>
-<br><br><br>
-<div class="row">
-  <div class="col-12">
-    <div id="result"></div>
-  </div>
-</div>
 
-<!-- Button trigger modal -->
-<!-- Modal -->
-<div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-
-      <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
-
-        <div class="modal-header">
-          <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
-          <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Este es el articulo que guardaste.</p>
+        <hr>
+        <p class="mb-0">
+          <input class="form-control" id="titleArticle" type="text"  value="<%= nuevoArticulo.title %>" disabled>
+          <br>
+          <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+          <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">
+            Recomendaciones
           </button>
-        </div>
-        <div class="modal-body">
-          <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
-          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
-          <div id="resultMetadata"></div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="fondo">
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">titulo:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="titleEEE" name="title">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Autores:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="authorIEEE">
-                    </div>
-                    <div hidden class="col-10" id="AuthorsWikindx">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">fecha:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">abstrac:</label>
-                    <div class="col-10">
-                      <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
-                      <textarea
-                        class="abstractIEEE"
-                        id="textareaModal"
-                        value=""
-                        cols="45" rows="3"
-                      ></textarea>
+          <textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4">
 
-                    </div>
+
+
+      <div class="card alert alert-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header alert alert-danger">Recommender module</div>
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">Ingresar al modulo de recomenación para encontrar articulos relacionados con su busqueda.</p>
+          <a href="/recommendationsWkx">
+            <button type="button" class="btn btn-danger btn-lg">Ingresar</button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <br><br><br>
+  <div class="row">
+    <div class="col-sm-10">
+      <div id="result"></div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <!-- Button trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
+            <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+            <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+            <div id="resultMetadata"></div>
+            <div class="card">
+              <div class="fondo">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">titulo:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="titleEEE" name="title">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Keyword:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Autores:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="authorIEEE">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Direccion Web:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
-                    </div>
+                  <div hidden class="col-sm-10" id="AuthorsWikindx">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
-                      <input hidden type='text' name='typejournal' value='journal'>
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">fecha:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Año Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">abstrac:</label>
+                  <div class="col-sm-10">
+                    <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                    <textarea
+                      class="abstractIEEE form-control"
+                      id="textareaModal"
+                      value=""
+                      cols="45" rows="3"
+                    ></textarea>
+
                   </div>
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label">Web Revista:</label>
-                    <div class="col-10">
-                      <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
-                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Keyword:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Direccion Web:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
+                    <input hidden type='text' name='typejournal' value='journal'>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Año Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Web Revista:</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
                   </div>
                 </div>
               </div>
-              <p id="webAddressLink"> Visitar Direccion Web del recurso: </p><a id="webAddress"></a>
+              <div class="col-sm-12">
+                <div class="alert alert-success" role="alert">
+                  <p id="webAddressLink"></p>
+                  <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-
-        <div class="modal-footer">
-          <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
-          <button type="submit" class="btn btn-primary" >Save</button>
-        </div>
-
-      </form>
+          <div class="modal-footer">
+            <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="submit" class="btn btn-primary" >Save</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+  <!-- end Modal -->
+  <br><br><br><br><br>
 </div>
-<!-- end Modal -->
 
-<br><br><br><br><br>
+
+
 
 <script>
+  var app = angular.module("appRecommender",[]);
+  app.controller("Controller",function ($scope,$http) { //start angular
 
-  $(document).ready(function(){
-    ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
-    var title = $("#titleArticle").val();    //get value of title
-    var queryHeader = "SELECT DISTINCT ?TITULO \n"+
-      "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
-    var queryFooter = ")}"    //footer of query
-    var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
-    var arrayOfString  // string that contains the value of the title
-    var cont  = 0  //counter used in the while loop
-    var keywordsTitle = ""  // final result to include in the SPARQL query
-    var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
+    $(document).ready(function(){  //start jquery
+      ///////////////////////// QUERY OF KEYWORDS TO TITLE //////////////////////////////
+      var title = $("#titleArticle").val();    //get value of title
+      var queryHeader = "SELECT DISTINCT ?TITULO \n"+
+        "WHERE { ?p akt:has-title ?TITULO. FILTER (\n"        //header of query
+      var queryFooter = ")}"    //footer of query
+      var stringRegex = new Array ()    // string that contains the value of function regex of SPARQL
+      var arrayOfString  // string that contains the value of the title
+      var cont  = 0  //counter used in the while loop
+      var keywordsTitle = ""  // final result to include in the SPARQL query
+      var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
 
-    function splitString (StringToSplit,separator){
+      function splitString (StringToSplit,separator){
 
-      arrayOfString = StringToSplit.split(separator);
-      console.log("arrayOfString.length", arrayOfString.length)
+        arrayOfString = StringToSplit.split(separator);
+        console.log("arrayOfString.length", arrayOfString.length)
 
-      // add words of title in function regex (SPARQL)
-      for (var j=0;j<arrayOfString.length;j++){
-        if(j != (arrayOfString.length-1)){
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
-        }else{
-          stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+        // add words of title in function regex (SPARQL)
+        for (var j=0;j<arrayOfString.length;j++){
+          if(j != (arrayOfString.length-1)){
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')||\n");
+          }else{
+            stringRegex.push("regex(str(?TITULO), '"+arrayOfString[j]+"', 'i')\n");
+          }
         }
-      }
-      // add results to variable keywordsTitle
-      while ( cont < arrayOfString.length ) {
-        keywordsTitle += stringRegex[cont];
-        cont++
-      }
+        // add results to variable keywordsTitle
+        while ( cont < arrayOfString.length ) {
+          keywordsTitle += stringRegex[cont];
+          cont++
+        }
 
-      $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
-    };
+        $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
+      };
 
-    splitString(title,spaceSeparator);
+      splitString(title,spaceSeparator);
 
 //////////// RESULTS TABLE OF FIRTS QUERY (d3sparql.htmltable2) //////////////////////////////
-    d3sparql.htmltable2 = function(json, config) {
-      config = config || {}
-      var head = json.head.vars
-      var data = json.results.bindings
-      var opts = {
-        "selector": config.selector || null
-      }
-      var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
-      var thead = table.append("thead")
-      var tbody = table.append("tbody")
-      thead.append("tr")
-        .selectAll("th")
-        .data(head)
-        .enter()
-        .append("th")
-        .text(function(col) { return col })
-      var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append("tr")
-      var cells = rows.selectAll("td")
-        .data(function(row) {
-          return head.map(function(col) {
-            return row[col].value
+      d3sparql.htmltable2 = function(json, config) {
+        config = config || {}
+        var head = json.head.vars
+        var data = json.results.bindings
+        var opts = {
+          "selector": config.selector || null
+        }
+        var table = d3sparql.select(opts.selector, "htmltable").append("table").attr("class", "table table-bordered")
+        var thead = table.append("thead")
+        var tbody = table.append("tbody")
+        thead.append("tr")
+          .selectAll("th")
+          .data(head)
+          .enter()
+          .append("th")
+          .text(function(col) { return col })
+        var rows = tbody.selectAll("tr")
+          .data(data)
+          .enter()
+          .append("tr")
+        var cells = rows.selectAll("td")
+          .data(function(row) {
+            return head.map(function(col) {
+              return row[col].value
 
+            })
           })
+          .enter()
+          .append("td")
+          .append("lu")
+          .append("li")
+          .append("button")
+          .text(function(val) {return val })
+        // default CSS
+
+        table.style({
+          "margin": "10px"
         })
-        .enter()
-        .append("td")
-        .append("lu")
-        .append("li")
-        .append("button")
-        .text(function(val) {return val })
-      // default CSS
-
-      table.style({
-        "margin": "10px"
-      })
-      table.selectAll("th").style({
-        "background": "#eeeeee",
-        "text-transform": "capitalize",
-      })
-      for(i=0 ; i<data.length*2 ; i++) {
+        table.selectAll("th").style({
+          "background": "#eeeeee",
+          "text-transform": "capitalize",
+        })
+        for(i=0 ; i<data.length*2 ; i++) {
 
 
-        $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
-        $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
+          $("tbody tr td lu li:eq("+i+")").css("list-style","none")//quita el punto de la lista
+          $("tbody tr td lu li:eq("+i+") button").attr("id","btn"+i)
 
-          .attr({
-            "class": "btn btn-primary",
-            "data-toggle": "modal",
-            "data-target": "#metadataACM",
-            "onclick":"web(this)"
-          })
+            .attr({
+              "class": "btn btn-outline-success btn-lg btn-block",
+              "data-toggle": "modal",
+              "data-target": "#metadataACM",
+              "onclick":"web(this)"
+            })
+        }
       }
-    }
-
-  });   //end jquery
-
-  var app = angular.module("appRecommender",[]);
-  app.controller("Controller",function ($scope,$http) {
+    });   //end jquery
   }); //end angular
   /////////////////////////////// end angular
 </script>
