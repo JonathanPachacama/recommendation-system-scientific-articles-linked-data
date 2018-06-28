@@ -362,7 +362,7 @@ module.exports = {
                                                                                         //return res.created('Nuevo articulo creado.');
                                                                                         //  return res.view('Biblioteca')
                                                                                         //(start) added for Recommender Module
-                                                                                        return res.view('busquedaArxiv', {
+                                                                                        return res.view('recommenderLinkedData', {
                                                                                             nuevoArticulo: nuevoArticulo
                                                                                         });
                                                                                         //(end) added for Recommender Module

@@ -149,7 +149,7 @@ module.exports = {
                                             sails.log(publisher);
                                             sails.log(locationPublisher);
                                             sails.log(journal);
-                                            return res.view('RecommenderModule/wkx_creator', {
+                                            return res.view('RecommenderModule/recommenderWkx', {
                                                 creator: resourceFound,
                                                 query: query[0],
                                                 firstname: firstname_1,

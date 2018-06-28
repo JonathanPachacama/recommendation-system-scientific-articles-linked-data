@@ -7,6 +7,7 @@ declare var Wkx_collection;
 declare var Wkx_creator;
 declare var Wkx_publisher;
 declare var Wkx_resource_misc;
+declare var Wkx_resource;
 
 
 module.exports = {
@@ -184,7 +185,7 @@ module.exports = {
                         sails.log(locationPublisher);
                         sails.log(journal);
 
-                        return res.view('RecommenderModule/wkx_creator',{
+                        return res.view('RecommenderModule/recommenderWkx',{
                           creator:resourceFound,
                           query:query[0],
                           firstname:firstname,
