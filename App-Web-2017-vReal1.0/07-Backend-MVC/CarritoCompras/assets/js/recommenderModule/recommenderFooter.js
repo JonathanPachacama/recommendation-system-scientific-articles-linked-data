@@ -9,7 +9,12 @@ $(document).ready(function(){///////////////////////////start Jquery
   var arrayOfString  // string that contains the value of the title
   var cont  = 0  //counter used in the while loop
   var keywordsTitle = ""  // final result to include in the SPARQL query
-  var spaceSeparator = " ";  //separator for the argument of the function StringToSplit()
+  var spaceSeparator = ",";  //separator for the argument of the function StringToSplit()
+
+
+
+
+
 
 
   function splitString (StringToSplit,separator){

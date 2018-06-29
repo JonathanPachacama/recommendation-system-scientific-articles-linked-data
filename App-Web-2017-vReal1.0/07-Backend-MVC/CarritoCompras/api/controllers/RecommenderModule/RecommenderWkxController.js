@@ -21,6 +21,11 @@ module.exports = {
         });
     },
     bringParametersCreator: function (req, res) {
+        var Tokenizer = require('tokenize-text'); // npm => tokenize-text
+        var tokenize = new Tokenizer();
+        var tokensWords = new Array;
+        // var tokensSinDuplicados = new Array;
+        // const uniqueValues = require('unique-values')
         var parameters = req.allParams();
         if (parameters.resourceId) {
             Wkx_resource.findOne({
@@ -41,29 +46,56 @@ module.exports = {
                             return res.serverError(err);
                         }
                         if (rawResult.length != 1 || rawResult.length == 1) {
-                            sails.log("tamaño", rawResult.length);
-                            sails.log("valor", rawResult);
+                            // sails.log("tamaño",rawResult.length);
+                            sails.log("valor:", rawResult[0].resourceTitle);
+                            var repeatedWords = tokenize.flow(
+                            // Tokenize as sections
+                            tokenize.sections(), 
+                            // For each sentence
+                            tokenize.flow(
+                            // Tokenize as words
+                            tokenize.words(), 
+                            //Filter words to extract only repeated ones
+                            tokenize.filter(function (word, current, prev) {
+                                return (/[a-zA-Z]/.test(word[0]));
+                            })));
+                            var tokens = repeatedWords(rawResult[0].resourceTitle);
+                            sails.log("tokens", tokens.length);
+                            for (var i = 0; i < tokens.length; i++) {
+                                sails.log("tokens: ", tokens[i].value);
+                                tokensWords.push(tokens[i].value);
+                            }
+                            // sails.log("tokens: ",tokensWords)
+                            // sails.log("tokensSinDuplicados",tokensSinDuplicados)
+                            // for (var i=0;i<tokensSinDuplicados.length;i++) {
+                            //
+                            //   sails.log("tokensSinDuplicados: ",tokensSinDuplicados[i].value)
+                            //   // tokensWords.push(tokens[i].value)
+                            // }
+                            tokensWords.sort();
+                            var tokensTitle = tokensWords.toString();
+                            sails.log("title: ", tokensTitle);
                             var query = [];
                             var iteracion = [];
                             var keyword_1 = [];
                             var category_1 = [];
                             var firstname_1 = [];
                             var surname_1 = [];
-                            for (var i = 0; i < rawResult.length; i++) {
-                                if (rawResult[i].resourceId == resourceFound.resourceId) {
-                                    iteracion.push(rawResult[i]);
-                                    keyword_1.push(rawResult[i].keywordKeyword);
-                                    category_1.push(rawResult[i].categoryCategory);
-                                    firstname_1.push(rawResult[i].creatorFirstname);
-                                    surname_1.push(rawResult[i].creatorSurname);
+                            for (var i_1 = 0; i_1 < rawResult.length; i_1++) {
+                                if (rawResult[i_1].resourceId == resourceFound.resourceId) {
+                                    iteracion.push(rawResult[i_1]);
+                                    keyword_1.push(rawResult[i_1].keywordKeyword);
+                                    category_1.push(rawResult[i_1].categoryCategory);
+                                    firstname_1.push(rawResult[i_1].creatorFirstname);
+                                    surname_1.push(rawResult[i_1].creatorSurname);
                                 }
                             }
                             query = iteracion;
-                            sails.log("query ", query);
-                            sails.log("keyword ", keyword_1);
-                            sails.log("category ", category_1);
-                            sails.log("firstname ", firstname_1);
-                            sails.log("surname ", surname_1);
+                            // sails.log("query ",query);
+                            // sails.log("keyword ",keyword);
+                            // sails.log("category ",category);
+                            // sails.log("firstname ",firstname);
+                            // sails.log("surname ",surname);
                             var outKeyword = [];
                             var outCategory = [];
                             var outFirstname = [];
@@ -116,17 +148,17 @@ module.exports = {
                             category_1 = outCategory;
                             firstname_1 = outFirstname;
                             surname_1 = outSurname;
-                            sails.log("keyword Sin duplicados ", keyword_1);
-                            sails.log("category Sin duplicados ", category_1);
-                            sails.log("firstname Sin duplicados ", firstname_1);
-                            sails.log("surname Sin duplicados ", surname_1);
+                            // sails.log("keyword Sin duplicados ",keyword);
+                            // sails.log("category Sin duplicados ",category);
+                            // sails.log("firstname Sin duplicados ",firstname);
+                            // sails.log("surname Sin duplicados ",surname);
                             Wkx_resource.query('SELECT "Title" as Type,resourceId AS Id,resourceTitle AS Value FROM wkx_resource WHERE resourceId = ? ' +
                                 'UNION ' +
                                 'SELECT "Abstract",resourcetextId,resourcetextAbstract FROM wkx_resource_text WHERE resourcetextId =?', [rawResult[0].resourceId, rawResult[0].resourceId], function (err, rawResult2) {
                                 if (err) {
                                     return res.serverError(err);
                                 }
-                                sails.log("valor2: ", rawResult2);
+                                // sails.log("valor2: ",rawResult2);
                                 var abstract = rawResult2[1].Value;
                                 if (rawResult2[0].id == rawResult2[1].id) {
                                     Wkx_resource.query('SELECT "Metadata" as Type, collectionId, publisherId, collectionTitle,publisherName,publisherLocation\n' +
@@ -141,14 +173,14 @@ module.exports = {
                                         if (err) {
                                             return res.serverError(err);
                                         }
-                                        sails.log(rawResult3);
+                                        // sails.log(rawResult3);
                                         if (rawResult3[0].collectionId == rawResult3[1].collectionId) {
                                             var publisher = rawResult3[0].publisherName;
                                             var locationPublisher = rawResult3[0].publisherLocation;
                                             var journal = rawResult3[0].collectionTitle;
-                                            sails.log(publisher);
-                                            sails.log(locationPublisher);
-                                            sails.log(journal);
+                                            // sails.log(publisher);
+                                            // sails.log(locationPublisher);
+                                            // sails.log(journal);
                                             return res.view('RecommenderModule/recommenderWkx', {
                                                 creator: resourceFound,
                                                 query: query[0],
@@ -159,7 +191,8 @@ module.exports = {
                                                 abstract: abstract,
                                                 journal: journal,
                                                 publisher: publisher,
-                                                locationPublisher: locationPublisher
+                                                locationPublisher: locationPublisher,
+                                                tokensTitle: tokensTitle
                                             });
                                         }
                                         else {
