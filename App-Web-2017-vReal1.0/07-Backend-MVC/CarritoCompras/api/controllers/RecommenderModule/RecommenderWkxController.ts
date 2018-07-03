@@ -18,9 +18,7 @@ module.exports = {
 
 
     let parametros = req.allParams();
-    if(!parametros.busqueda){
-      parametros.busqueda ='';
-    }
+
     sails.log.info("Parametros", parametros);
     Wkx_resource
       .find()
@@ -31,7 +29,6 @@ module.exports = {
       })
       .exec((err, resourceFound) => {
         if (err) return res.negotiate(err);
-
         return res.view('RecommenderModule/MainWikindx', {
           resource: resourceFound
         })
@@ -40,9 +37,9 @@ module.exports = {
 
   bringParametersCreator: (req, res) => {
 
-    var Tokenizer = require('tokenize-text'); // npm => tokenize-text
-    var tokenize = new Tokenizer();
-    var tokensWords = new Array;
+    let Tokenizer = require('tokenize-text'); // npm => tokenize-text
+    let tokenize = new Tokenizer();
+    let tokensWords = new Array;
 
     let parameters = req.allParams();
     if (parameters.resourceId) {
@@ -61,7 +58,7 @@ module.exports = {
                 // sails.log("tamaño",rawResult.length);
                 sails.log("valor:", rawResult[0].resourceTitle);
 
-                var repeatedWords = tokenize.flow(// Tokenize as sections
+                let repeatedWords = tokenize.flow(// Tokenize as sections
                   tokenize.sections(), // For each sentence
                   tokenize.flow(// Tokenize as words
                     tokenize.words(), //Filter words to extract only repeated ones
@@ -69,15 +66,15 @@ module.exports = {
                       return (/[a-zA-Z]/.test(word[0]));
                     }),));
 
-                var tokens = repeatedWords(rawResult[0].resourceTitle);
+                let tokens = repeatedWords(rawResult[0].resourceTitle);
                 sails.log("tokens", tokens.length);
-                for (var i = 0; i < tokens.length; i++) {
+                for (let i = 0; i < tokens.length; i++) {
                   sails.log("tokens: ", tokens[i].value);
                   tokensWords.push(tokens[i].value);
                 }
                 tokensWords.sort()
                 function eliminateDuplicates(arr) {
-                  var i,
+                  let i,
                     len=arr.length,
                     out=[],
                     obj={};
@@ -91,7 +88,7 @@ module.exports = {
                 }
                 let tokensTitle = eliminateDuplicates(tokensWords)
                 sails.log("title: ", tokensTitle)
-                var query = [];
+                let query = [];
                 let iteracion = [];
                 let keyword = []
                 let category = []
@@ -112,13 +109,13 @@ module.exports = {
                 // sails.log("category ",category);
                 // sails.log("firstname ",firstname);
                 // sails.log("surname ",surname);
-                var outKeyword = []
-                var outCategory = []
-                var outFirstname = []
-                var outSurname = [] = []
+                let outKeyword = []
+                let outCategory = []
+                let outFirstname = []
+                let outSurname = [] = []
 
                 function eliminateDuplicatesKeyword(arr) {
-                  var i, len = arr.length, obj = {};
+                  let i, len = arr.length, obj = {};
 
                   for (i = 0; i < len; i++) {
                     obj[arr[i]] = 0;
@@ -131,7 +128,7 @@ module.exports = {
                 }
 
                 function eliminateDuplicatesCategory(arr) {
-                  var i, len = arr.length, obj = {};
+                  let i, len = arr.length, obj = {};
 
                   for (i = 0; i < len; i++) {
                     obj[arr[i]] = 0;
@@ -144,7 +141,7 @@ module.exports = {
                 }
 
                 function eliminateDuplicatesFirstname(arr) {
-                  var i, len = arr.length, obj = {};
+                  let i, len = arr.length, obj = {};
 
                   for (i = 0; i < len; i++) {
                     obj[arr[i]] = 0;
@@ -157,7 +154,7 @@ module.exports = {
                 }
 
                 function eliminateDuplicatesSurname(arr) {
-                  var i, len = arr.length, obj = {};
+                  let i, len = arr.length, obj = {};
 
                   for (i = 0; i < len; i++) {
                     obj[arr[i]] = 0;

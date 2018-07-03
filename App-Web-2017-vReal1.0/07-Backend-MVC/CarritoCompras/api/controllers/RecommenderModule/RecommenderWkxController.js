@@ -1,9 +1,6 @@
 module.exports = {
     recommenderWkx: function (req, res) {
         var parametros = req.allParams();
-        if (!parametros.busqueda) {
-            parametros.busqueda = '';
-        }
         sails.log.info("Parametros", parametros);
         Wkx_resource
             .find()
@@ -67,40 +64,40 @@ module.exports = {
                             }
                             var tokensTitle_1 = eliminateDuplicates(tokensWords);
                             sails.log("title: ", tokensTitle_1);
-                            var query = [];
+                            var query_1 = [];
                             var iteracion = [];
                             var keyword_1 = [];
                             var category_1 = [];
                             var firstname_1 = [];
                             var surname_1 = [];
-                            for (var i_1 = 0; i_1 < rawResult.length; i_1++) {
-                                if (rawResult[i_1].resourceId == resourceFound.resourceId) {
-                                    iteracion.push(rawResult[i_1]);
-                                    keyword_1.push(rawResult[i_1].keywordKeyword);
-                                    category_1.push(rawResult[i_1].categoryCategory);
-                                    firstname_1.push(rawResult[i_1].creatorFirstname);
-                                    surname_1.push(rawResult[i_1].creatorSurname);
+                            for (var i = 0; i < rawResult.length; i++) {
+                                if (rawResult[i].resourceId == resourceFound.resourceId) {
+                                    iteracion.push(rawResult[i]);
+                                    keyword_1.push(rawResult[i].keywordKeyword);
+                                    category_1.push(rawResult[i].categoryCategory);
+                                    firstname_1.push(rawResult[i].creatorFirstname);
+                                    surname_1.push(rawResult[i].creatorSurname);
                                 }
                             }
-                            query = iteracion;
+                            query_1 = iteracion;
                             // sails.log("query ",query);
                             // sails.log("keyword ",keyword);
                             // sails.log("category ",category);
                             // sails.log("firstname ",firstname);
                             // sails.log("surname ",surname);
-                            var outKeyword = [];
-                            var outCategory = [];
-                            var outFirstname = [];
-                            var outSurname = [];
+                            var outKeyword_1 = [];
+                            var outCategory_1 = [];
+                            var outFirstname_1 = [];
+                            var outSurname_1 = [];
                             function eliminateDuplicatesKeyword(arr) {
                                 var i, len = arr.length, obj = {};
                                 for (i = 0; i < len; i++) {
                                     obj[arr[i]] = 0;
                                 }
                                 for (i in obj) {
-                                    outKeyword.push(i);
+                                    outKeyword_1.push(i);
                                 }
-                                return outKeyword;
+                                return outKeyword_1;
                             }
                             function eliminateDuplicatesCategory(arr) {
                                 var i, len = arr.length, obj = {};
@@ -108,9 +105,9 @@ module.exports = {
                                     obj[arr[i]] = 0;
                                 }
                                 for (i in obj) {
-                                    outCategory.push(i);
+                                    outCategory_1.push(i);
                                 }
-                                return outCategory;
+                                return outCategory_1;
                             }
                             function eliminateDuplicatesFirstname(arr) {
                                 var i, len = arr.length, obj = {};
@@ -118,9 +115,9 @@ module.exports = {
                                     obj[arr[i]] = 0;
                                 }
                                 for (i in obj) {
-                                    outFirstname.push(i);
+                                    outFirstname_1.push(i);
                                 }
-                                return outFirstname;
+                                return outFirstname_1;
                             }
                             function eliminateDuplicatesSurname(arr) {
                                 var i, len = arr.length, obj = {};
@@ -128,18 +125,18 @@ module.exports = {
                                     obj[arr[i]] = 0;
                                 }
                                 for (i in obj) {
-                                    outSurname.push(i);
+                                    outSurname_1.push(i);
                                 }
-                                return outSurname;
+                                return outSurname_1;
                             }
                             eliminateDuplicatesKeyword(keyword_1);
                             eliminateDuplicatesCategory(category_1);
                             eliminateDuplicatesFirstname(firstname_1);
                             eliminateDuplicatesSurname(surname_1);
-                            keyword_1 = outKeyword;
-                            category_1 = outCategory;
-                            firstname_1 = outFirstname;
-                            surname_1 = outSurname;
+                            keyword_1 = outKeyword_1;
+                            category_1 = outCategory_1;
+                            firstname_1 = outFirstname_1;
+                            surname_1 = outSurname_1;
                             // sails.log("keyword Sin duplicados ",keyword);
                             // sails.log("category Sin duplicados ",category);
                             // sails.log("firstname Sin duplicados ",firstname);
@@ -165,7 +162,7 @@ module.exports = {
                                             // sails.log(journal);
                                             return res.view('RecommenderModule/recommenderWkx', {
                                                 creator: resourceFound,
-                                                query: query[0],
+                                                query: query_1[0],
                                                 firstname: firstname_1,
                                                 surname: surname_1,
                                                 keyword: keyword_1,
