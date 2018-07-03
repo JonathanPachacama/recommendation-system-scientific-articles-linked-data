@@ -18,9 +18,15 @@ module.exports = {
         });
     },
     bringParametersCreator: function (req, res) {
-        var Tokenizer = require('tokenize-text'); // npm => tokenize-text
+        var Tokenizer = require('tokenize-text'); // npm =>npm install --save nltk-stopwords
+        var stopwords = require('nltk-stopwords'); // npm => npm install --save nltk-stopwords
+        var english = stopwords.load('english');
         var tokenize = new Tokenizer();
         var tokensWords = new Array;
+        var tokens;
+        var tokenizeWords;
+        var tokensEliminateDuplicates;
+        var tokensTitle;
         var parameters = req.allParams();
         if (parameters.resourceId) {
             Wkx_resource.findOne({
@@ -38,20 +44,20 @@ module.exports = {
                         if (rawResult.length != 1 || rawResult.length == 1) {
                             // sails.log("tamaño",rawResult.length);
                             sails.log("valor:", rawResult[0].resourceTitle);
-                            var repeatedWords = tokenize.flow(// Tokenize as sections
+                            //////////////////////////////// start information retrival ///////////////////////////////////////////////////
+                            tokenizeWords = tokenize.flow(// Tokenize as sections
                             tokenize.sections(), // For each sentence
                             tokenize.flow(// Tokenize as words
-                            tokenize.words(), //Filter words to extract only repeated ones
+                            tokenize.words(), //Filter words to extract only words without numbers
                             tokenize.filter(function (word, current, prev) {
                                 return (/[a-zA-Z]/.test(word[0]));
                             })));
-                            var tokens = repeatedWords(rawResult[0].resourceTitle);
-                            sails.log("tokens", tokens.length);
-                            for (var i = 0; i < tokens.length; i++) {
-                                sails.log("tokens: ", tokens[i].value);
-                                tokensWords.push(tokens[i].value);
+                            tokens = tokenizeWords(rawResult[0].resourceTitle); // tokens: stores the resulting tokens
+                            for (var i = 0; i < tokens.length; i++) { //
+                                // sails.log("tokens: ", tokens[i].value);
+                                tokensWords.push(tokens[i].value.toLowerCase()); //tokensWords: stores the value of each tokens
                             }
-                            tokensWords.sort();
+                            tokensWords.sort(); //  sort array tokensWords
                             function eliminateDuplicates(arr) {
                                 var i, len = arr.length, out = [], obj = {};
                                 for (i = 0; i < len; i++) {
@@ -62,8 +68,12 @@ module.exports = {
                                 }
                                 return out;
                             }
-                            var tokensTitle_1 = eliminateDuplicates(tokensWords);
-                            sails.log("title: ", tokensTitle_1);
+                            tokensEliminateDuplicates = eliminateDuplicates(tokensWords); // invoke function eliminateDuplicates()
+                            tokensTitle = stopwords.remove(tokensEliminateDuplicates, english); // remove stop-words
+                            sails.log("tokens", tokens.length);
+                            sails.log("tokensEliminateDuplicates: ", tokensEliminateDuplicates);
+                            sails.log("title-stop-words: ", tokensTitle);
+                            //////////////////////////////// end information retrival ///////////////////////////////////////////////////
                             var query_1 = [];
                             var iteracion = [];
                             var keyword_1 = [];
@@ -171,7 +181,7 @@ module.exports = {
                                                 journal: journal,
                                                 publisher: publisher,
                                                 locationPublisher: locationPublisher,
-                                                tokensTitle: tokensTitle_1
+                                                tokensTitle: tokensTitle
                                             });
                                         }
                                         else {

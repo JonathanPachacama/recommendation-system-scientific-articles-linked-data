@@ -22,7 +22,8 @@
         <p>Este es el artículo que se guardó.</p>
         <hr>
         <p class="mb-0">
-          <input class="form-control" id="title" type="text"  value="<%= nuevoArticulo.title %>" disabled>
+          <input class="form-control" type="text"  value="<%= nuevoArticulo.title %>" disabled>
+          <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>
           <br>
           <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
           <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">

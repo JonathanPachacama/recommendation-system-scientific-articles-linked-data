@@ -29,7 +29,13 @@ function render(json) {
   var config = {
     "selector": "#result"
   }
+
+  var Title = json.results.bindings;
+
+  console.log("Total Articulo: ",Title.length);
   d3sparql.htmltable2(json, config)
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////add Jonathan start
