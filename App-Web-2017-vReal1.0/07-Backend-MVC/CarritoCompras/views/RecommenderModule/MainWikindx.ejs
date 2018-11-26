@@ -1,55 +1,94 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
 
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
-    <h1>Articulos sincronizados a Wikindx</h1>
-    <p>Para mostrar los metadatos relacionado, escoja uno de los articulos guardados en wikindx:</p>
-  </div>
-  <div class="col-md-2"></div>
+  <section class="content-header">
+    <h1>
+      Articulos sincronizados a Wikindx
+      <small>Para mostrar los metadatos relacionado, escoja uno de los articulos guardados en wikindx:</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+      <li class="active">Here</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content container-fluid">
+
+
+    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+
+    <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Detalle </div>
+          <div class="panel-body">
+
+            <form action="/recommendationsWkx">
+              <div class="form-group row">
+                <label for="busqueda" class="col-4 col-form-label">
+                  Busque por Titulo del articulo
+                </label>
+                <div class="col-4">
+                  <input class="form-control" type="text" placeholder="Buscar por Titulo" id="busqueda"
+                         name="busqueda">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <button class="btn btn-success btn-block">Buscar</button>
+                </div>
+                <div class="col-md-3"></div>
+              </div>
+            </form>
+            <br><br>
+            <div class="row">
+              <% for(var i=0; i<resource.length; i++) {%>
+                <div class="card" style="width: 20rem;">
+                  <div class="card-block">
+                    <h4 class="card-title"><%= resource[i].resourceId %> <%= resource[i].resourceTitle %> </h4>
+                    <a href="/RecommenderModule/RecommenderWkx/bringParametersCreator?resourceId=<%= resource[i].resourceId %>">
+                      <button type="button"  class="btn btn-primary">recomendación</button>
+                    </a>
+
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+  </section>
+  <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
 
 
 
-<br><br><br><br>
-
-<form action="/recommendationsWkx">
-  <div class="form-group row">
-    <label for="busqueda" class="col-4 col-form-label">
-      Busque por Titulo del articulo
-    </label>
-    <div class="col-4">
-      <input class="form-control" type="text" placeholder="Buscar por Titulo" id="busqueda"
-             name="busqueda">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <button class="btn btn-success btn-block">Buscar</button>
-    </div>
-    <div class="col-md-3"></div>
-  </div>
-</form>
-
-<br><br><br><br>
 
 
-<div id="contenedor" class="row">
-  <% for(var i=0; i<resource.length; i++) {%>
-  <div class="card" style="width: 20rem;">
-    <div class="card-block">
-      <h4 class="card-title"><%= resource[i].resourceId %> <%= resource[i].resourceTitle %> </h4>
-      <a href="/RecommenderModule/RecommenderWkx/bringParametersCreator?resourceId=<%= resource[i].resourceId %>">
-        <button type="button"  class="btn btn-primary">recomendación</button>
-      </a>
-
-    </div>
-  </div>
-  <% } %>
-</div>
 
 
-<br>
-<br>
-<br>
+
+
+
+
+
+
+
+
+
+
 

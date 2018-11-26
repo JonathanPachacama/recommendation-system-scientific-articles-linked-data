@@ -1,0 +1,218 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <!-- Main content -->
+  <section class="content container-fluid">
+
+
+    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+
+    <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+
+    <html ng-app="appRecommender">
+    <head>
+      <script src="/js/recommenderModule/recommendeHeader.js"></script>
+
+    </head>
+    <body ng-controller="Controller">
+    <div class="container-fluid">
+      <div id="metadata">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert">
+              <h1>Metadatos Sincronizados en Wikindx en relación al titulo</h1>
+            </div>
+            <br><br>
+            <h2>  <%= query.resourceId%>- <%= query.resourceTitle%></h2>
+            <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
+            <br>
+          </div>
+        </div>
+        <form>
+          <div class="form-group">
+            <label class="col-1 col-form-label">Autores:</label>
+            <% if(firstname.length == surname.length){ %>
+            <select class="form-control" id="exampleFormControlSelect1" style="background-color: #eceeef" >
+              <%for(var i=0; i<firstname.length; i++) {%>
+                <option >
+                  <%= firstname[i]%> <%= surname[i]%>
+                </option>
+              <% } %>
+            </select>
+            <% } else{ %>
+              <input class="form-control" id="title" type="text"  value="<%= surname%>" disabled>
+            <% } %>
+          </div>
+          <div class="form-group">
+            <label for="validationDefault01">Revista:</label>
+            <input class="form-control" type="text"  value="<%= journal%>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="validationDefault02">Editor:</label>
+            <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
+          </div>
+          <div class="form-group">
+            <label for="validationDefault02">Categoria:</label>
+            <input class="form-control" type="text"  value="<%= category%>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="validationDefault02">Keywords:</label>
+            <input class="form-control" type="text"  id="keyword" value="<%= keyword%>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Abstract:</label>
+            <textarea class="form-control"
+                      id="abstract"
+                      name="abstract"
+                      rows="7"
+                      value="<%= abstract%>"
+                      disabled><%= abstract%></textarea>
+          </div>
+        </form>
+      </div>
+      <br><br><br>
+      <div id="query" style="margin:auto">
+        <form class="form-inline">
+          <label>SPARQL endpoint:</label><br>
+          <div class="input-append">
+            <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+            <button class="btn btn-success" type="button" onclick="exec()">Query</button>
+            <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
+            <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+          </div>
+        </form>
+        <br>
+        <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
+        <br><br>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="result"></div>
+        </div>
+      </div>
+      <!-- Button trigger modal -->
+      <!-- Modal -->
+      <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
+              <div class="modal-header">
+                <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
+                <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+                <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+                <div id="resultMetadata"></div>
+                <div class="card">
+                  <div class="fondo">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">titulo:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="titleEEE" name="title">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Autores:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="authorIEEE">
+                      </div>
+                      <div hidden class="col-sm-10" id="AuthorsWikindx">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">fecha:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">abstrac:</label>
+                      <div class="col-sm-10">
+                        <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                        <textarea
+                          class="abstractIEEE form-control"
+                          id="textareaModal"
+                          value=""
+                          cols="45" rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Keyword:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Direccion Web:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Revista:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
+                        <input hidden type='text' name='typejournal' value='journal'>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Año Revista:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Web Revista:</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="alert alert-success" role="alert">
+                      <p id="webAddressLink"></p>
+                      <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="submit" class="btn btn-primary" >Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end Modal -->
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <script src="/js/recommenderModule/recommenderWkxView.js"></script>
+    <script src="/js/recommenderModule/recommenderFooter.js"></script>
+
+    </body>
+    </html>
+
+
+    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

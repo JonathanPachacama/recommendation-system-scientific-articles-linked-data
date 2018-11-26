@@ -103,6 +103,45 @@ module.exports = {
             pages: parametros.pages,
             notas: parametros.notas
         };
+        //////////////////////////////// start information retrival ///////////////////////////////////////////////////
+        var Tokenizer = require('tokenize-text'); // npm =>npm install --save nltk-stopwords
+        var stopwords = require('nltk-stopwords'); // npm => npm install --save nltk-stopwords
+        var english = stopwords.load('english');
+        var tokenize = new Tokenizer();
+        var tokensWords = new Array;
+        var tokens;
+        var tokenizeWords;
+        var tokensEliminateDuplicates;
+        var tokensTitle;
+        tokenizeWords = tokenize.flow(// Tokenize as sections
+        tokenize.sections(), // For each sentence
+        tokenize.flow(// Tokenize as words
+        tokenize.words(), //Filter words to extract only words without numbers
+        tokenize.filter(function (word, current, prev) {
+            return (/[a-zA-Z]/.test(word[0]));
+        })));
+        tokens = tokenizeWords(nuevoArticulo.title); // tokens: stores the resulting tokens
+        for (var i = 0; i < tokens.length; i++) { //
+            // sails.log("tokens: ", tokens[i].value);
+            tokensWords.push(tokens[i].value.toLowerCase()); //tokensWords: stores the value of each tokens
+        }
+        tokensWords.sort(); //  sort array tokensWords
+        function eliminateDuplicates(arr) {
+            var i, len = arr.length, out = [], obj = {};
+            for (i = 0; i < len; i++) {
+                obj[arr[i]] = 0;
+            }
+            for (i in obj) {
+                out.push(i);
+            }
+            return out;
+        }
+        tokensEliminateDuplicates = eliminateDuplicates(tokensWords); // invoke function eliminateDuplicates()
+        tokensTitle = stopwords.remove(tokensEliminateDuplicates, english); // remove stop-words
+        sails.log("tokens", tokens.length);
+        sails.log("tokensEliminateDuplicates: ", tokensEliminateDuplicates);
+        sails.log("title-stop-words: ", tokensTitle);
+        //////////////////////////////// end information retrival ///////////////////////////////////////////////////
         Articulo.create(nuevoArticulo)
             .exec(function (error, articuloCreado) {
             if (error) {
@@ -362,8 +401,9 @@ module.exports = {
                                                                                         //return res.created('Nuevo articulo creado.');
                                                                                         //  return res.view('Biblioteca')
                                                                                         //(start) added for Recommender Module
-                                                                                        return res.view('busquedaArxiv', {
-                                                                                            nuevoArticulo: nuevoArticulo
+                                                                                        return res.view('recommenderLinkedData', {
+                                                                                            nuevoArticulo: nuevoArticulo,
+                                                                                            tokensTitle: tokensTitle
                                                                                         });
                                                                                         //(end) added for Recommender Module
                                                                                     }
