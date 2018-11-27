@@ -24,7 +24,7 @@ module.exports = {
     req.file('avatar') // this is the name of the file in your multipart form
       .upload({
         // optional
-      //  dirname: ['C:/Users/CEDIA/Desktop/Pasantia-Fernanda Escobar/webstorm/App-Web-2017-validaEntrdasPeroNoGuardaCompl/07-Backend-MVC/CarritoCompras/.tmp/uploads']
+      //  dirname: ['C:/Users/CEDIA/Desktop/Pasantia-Fernanda Escobar/webstorm/App-Web-2017-validaEntrdasPeroNoGuardaCompl/07-Backend-MVC/RecommenederSystem/.tmp/uploads']
       }, function(err, uploads) {
         // try to always handle errors
         if (err) { return res.serverError(err) }
