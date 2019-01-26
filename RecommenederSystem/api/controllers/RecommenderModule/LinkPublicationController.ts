@@ -6,6 +6,11 @@ declare var Articulo;
 
 module.exports = {
 
+  TEST:(req, res) =>{
+    return res.view('recommenderLinkedData', {
+
+    })
+  },
 
   result1:(req, res) =>{
     return res.view('RecommenderModule/byLink', {

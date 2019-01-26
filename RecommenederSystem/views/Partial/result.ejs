@@ -1,0 +1,35 @@
+<div class="row" >
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div id="resultAlgorithm">
+      <div class="card">
+        <h5 class="card-header text-center">TITULOS</h5>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-bordered table-responsive">
+                <tbody>
+                <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                  <th scope="row">{{$index+1}}</th>
+                  <td>
+                    {{articleTitle.tituloArticulo}}
+                  </td>
+
+                  <td>
+                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+
+</div>

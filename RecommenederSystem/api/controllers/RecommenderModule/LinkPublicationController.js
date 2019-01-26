@@ -1,4 +1,7 @@
 module.exports = {
+    TEST: function (req, res) {
+        return res.view('recommenderLinkedData', {});
+    },
     result1: function (req, res) {
         return res.view('RecommenderModule/byLink', {});
     },

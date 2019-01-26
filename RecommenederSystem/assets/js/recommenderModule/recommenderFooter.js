@@ -35,7 +35,7 @@ $(document).ready(function(){///////////////////////////start Jquery
       cont++
     }
 
-    $("#sparql").text(prefixIeee + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
+    $("#sparql").text(prefix + queryHeader + keywordsTitle +queryFooter); // send query to VIEW (#sparql)
   };
 
   splitString(title,spaceSeparator);
