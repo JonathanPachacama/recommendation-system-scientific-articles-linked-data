@@ -22,6 +22,7 @@
 var cssFilesToInject = [
   'styles/**/*.css',
   'Bootstrap/css/bootstrap.css',
+  '/theme/bower_component/bootstrap/dist/css/bootstrap.css',
 
     'lib/google-code-prettify/prettify.css',
     'lib/google-code-prettify/prettify-desert.css',
@@ -45,6 +46,8 @@ var jsFilesToInject = [
   // 'js/**/*.js',
   'js/*.js',
   'Bootstrap/js/bootstrap.js',
+  '/theme/bower_component/bootstrap/dist/css/bootstrap.js',
+
 
   'js/d3sparql.js',
   'lib/d3/d3.v3.min.js',

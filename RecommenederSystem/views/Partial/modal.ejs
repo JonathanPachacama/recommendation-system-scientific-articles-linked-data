@@ -1,0 +1,159 @@
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
+        <div class="modal-header">
+          <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close" align="right">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="metadataACMTitle" align="left">Metadatos</h4>
+        </div>
+        <div class="modal-body">
+          <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlCited" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlWhoCited" class="span9" rows=15></textarea>
+          <textarea hidden id="sparqlVolume" class="span9" rows=15></textarea>
+          <div id="resultMetadata"></div>
+          <div class="card">
+            <div class="fondo">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">titulo:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="titleEEE" name="title">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Autores:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="authorIEEE">
+                </div>
+                <div hidden class="col-sm-10" id="AuthorsWikindx">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">fecha:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">abstrac:</label>
+                <div class="col-sm-10">
+
+                  <textarea
+                    class="abstractIEEE form-control"
+                    id="textareaModal"
+                    value=""
+                    cols="45" rows="3"
+                  ></textarea>
+                  <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Keyword:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Direccion Web:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Revista:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
+                  <input hidden type='text' name='typejournal' value='journal'>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Año Revista:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Web Revista:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Volumen:</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="text"  value="" id="volume" name="volume">
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Citados:</label>
+                <div class="col-sm-10">
+
+                  <textarea
+                    class="form-control"
+                    id="cited"
+                    value=""
+                    cols="45" rows="3"
+                  ></textarea>
+
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Quien le cita:</label>
+                <div class="col-sm-10">
+
+                  <textarea
+                    class="form-control"
+                    id="whoCited"
+                    value=""
+                    cols="45" rows="3"
+                  ></textarea>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="alert alert-success" role="alert">
+                <p id="webAddressLink"></p>
+                <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
+          <button type="submit" class="btn btn-primary" >Save</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- end Modal -->
