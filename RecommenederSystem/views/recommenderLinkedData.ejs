@@ -14,12 +14,15 @@
 
 
 
-    <div class="card">
-      <h5 class="card-header">Recomendaciones</h5>
-      <div class="card-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Recomendaciones </div>
+          <div class="panel-body">
 
 
-        <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+
+          <!-- /-------------------------------------------------------------------------------------------------------------/ -->
 
         <!--------------------------
         | Your Page Content Here START|
@@ -29,6 +32,8 @@
 
         <!--(start) added for Recommender Module-->
         <!--To recommend from wikindx-->
+
+
 
         <html ng-app="appRecommender">
         <head>
@@ -42,23 +47,27 @@
               <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Well done!</h4>
                 <p>Este es el artículo que se guardó.</p>
-                <hr>
+                <br>
                 <p class="mb-0">
-                  <input class="form-control" type="text" id="fullTitle" value="<%= nuevoArticulo.title %>" disabled>
-                  <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>
-                  <br>
-                  <input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">-->
-                  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticles()">  <!---button WITH ALGORITHM-->
-                    Recomendaciones IEEE
-                  </button>
-                  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" >
-                    Recomendaciones DBLP
-                  </button>
-                  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" >
-                    Recomendaciones ACM
-                  </button>
-                  <textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>
+
+                  <!--2 input -->
+
+                <h2 id="fullTitle" value=""><%= nuevoArticulo.title %></h2>
+              
+
+                  <!--<br>-->
+                  <!--<input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >-->
+                  <!--&lt;!&ndash;<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">&ndash;&gt;-->
+                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesIEEE()">  &lt;!&ndash;-button WITH ALGORITHM&ndash;&gt;-->
+                    <!--Recomendaciones IEEE-->
+                  <!--</button>-->
+                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesDBLP()">-->
+                    <!--Recomendaciones DBLP-->
+                  <!--</button>-->
+                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesACM()">-->
+                    <!--Recomendaciones ACM-->
+                  <!--</button>-->
+                  <!--<textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>-->
                 </p>
               </div>
             </div>
@@ -86,35 +95,183 @@
           <!-- /.result WITHOUT ALGORITHM -->
 
           <!---result  WITH ALGORITHM-->
-          <div id="resultAlgorithm">
-            <div class="card">
-              <h5 class="card-header text-center">TITULOS</h5>
-              <div class="card-body">
 
-                <div class="row">
+          <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li id="ieeeNav" class="nav-item">
+                  <a class="nav-link"  ng-Click="listArticlesIEEE()">
+                    <button class="btn btn-primary" type="button">IEEE</button>
+                  </a>
+                </li>
+                <li id="acmNav" class="nav-item">
+                  <a  class="nav-link"  ng-Click="listArticlesACM()">
+                    <button class="btn btn-primary" type="button">ACM</button>
+                  </a>
+                </li>
+                <li  id="dblpNav"  class="nav-item">
+                  <a class="nav-link"  ng-Click="listArticlesDBLP()">
+                    <button class="btn btn-primary" type="button">DBLP</button>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+
+              <!-- recommender IEEE -->
+              <div ng-if="showIEEE">
+
+
+                <div class="row" >
                   <div class="col-md-12">
-                    <table class="table table-bordered table-responsive">
-                      <tbody>
-                      <tr ng-repeat="articleTitle in responseJsonLucene">
-
-                        <th scope="row">{{$index+1}}</th>
-                        <td>
-                          {{articleTitle.tituloArticulo}}
-                        </td>
-
-                        <td>
-                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
+                    <br><br>
+                    <h5 class="card-title">Recomendaciones de IEEE</h5>
+                    <p class="card-text">Contiene los resultados del repositorio de IEEE</p>
+                    <input hidden id="endpointDynamic" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+                    <br><br>
                   </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <div id="resultAlgorithm">
+                      <div class="card">
+                        <h5 class="card-header text-center">TITULOS</h5>
+                        <div class="card-body">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <table class="table table-bordered table-responsive">
+                                <tbody>
+                                <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                                  <th scope="row">{{$index+1}}</th>
+                                  <td>
+                                    {{articleTitle.tituloArticulo}}
+                                  </td>
+
+                                  <td>
+                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
                 </div>
 
               </div>
+              <!-- /.recommender IEEE -->
+
+              <!-- recommender ACM -->
+              <div ng-if="showACM">
+                <div class="row" >
+                  <div class="col-md-12">
+                    <br><br>
+                    <h5 class="card-title">Recomendaciones de ACM</h5>
+                    <p class="card-text">Contiene los resultados del repositorio de ACM</p>
+                    <input hidden id="endpointDynamic" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+                    <br><br>
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <div id="resultAlgorithm">
+                      <div class="card">
+                        <h5 class="card-header text-center">TITULOS</h5>
+                        <div class="card-body">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <table class="table table-bordered table-responsive">
+                                <tbody>
+                                <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                                  <th scope="row">{{$index+1}}</th>
+                                  <td>
+                                    {{articleTitle.tituloArticulo}}
+                                  </td>
+
+                                  <td>
+                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
+                </div>
+              </div>
+              <!-- /.recommender ACM -->
+
+              <!-- recommender DBLP -->
+              <div ng-if="showDBLP">
+                <div class="row" >
+                  <div class="col-md-12">
+                    <br><br>
+                    <h5 class="card-title">Recomendaciones de DBLP</h5>
+                    <p class="card-text">Contiene los resultados del repositorio de DBLP</p>
+                    <input hidden id="endpointDynamic" class="span5" value="http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
+                    <br><br>
+                  </div>
+                </div>
+                <div class="row" >
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <div id="resultAlgorithm">
+                      <div class="card">
+                        <h5 class="card-header text-center">TITULOS</h5>
+                        <div class="card-body">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <table class="table table-bordered table-responsive">
+                                <tbody>
+                                <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                                  <th scope="row">{{$index+1}}</th>
+                                  <td>
+                                    {{articleTitle.tituloArticulo}}
+                                  </td>
+
+                                  <td>
+                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1"></div>
+
+                </div>
+              </div>
+              <!-- /.recommender DBLP -->
+
             </div>
           </div>
           <!-- /.result WITH ALGORITHM -->
+
           <!-- Button trigger modal -->
           <!-- Modal -->
           <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
@@ -122,10 +279,10 @@
               <div class="modal-content">
                 <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
                   <div class="modal-header">
-                    <h5 class="modal-title" id="metadataACMTitle">Metadatos</h5>
-                    <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close" align="right">
                       <span aria-hidden="true">&times;</span>
                     </button>
+                    <h4 class="modal-title" id="metadataACMTitle" align="left">Metadatos</h4>
                   </div>
                   <div class="modal-body">
                     <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
@@ -135,6 +292,10 @@
                     <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
                     <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
                     <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+                    <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+                    <textarea hidden id="sparqlCited" class="span9" rows=15></textarea>
+                    <textarea hidden id="sparqlWhoCited" class="span9" rows=15></textarea>
+                    <textarea hidden id="sparqlVolume" class="span9" rows=15></textarea>
                     <div id="resultMetadata"></div>
                     <div class="card">
                       <div class="fondo">
@@ -161,14 +322,13 @@
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">abstrac:</label>
                           <div class="col-sm-10">
-                            <input hidden class="abstractIEEE form-control" type="text"  value="" name="abstract">
+                            <input hidden class="abstractIEEE" type="text"  value="" name="abstract">
                             <textarea
                               class="abstractIEEE form-control"
                               id="textareaModal"
                               value=""
                               cols="45" rows="3"
                             ></textarea>
-
                           </div>
                         </div>
                         <div class="form-group row">
@@ -202,6 +362,42 @@
                             <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
                           </div>
                         </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Volumen:</label>
+                          <div class="col-sm-10">
+                            <input class="form-control" type="text"  value="" id="volume" name="volume">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Citados:</label>
+                          <div class="col-sm-10">
+
+                  <textarea
+                    class="form-control"
+                    id="cited"
+                    value=""
+                    cols="45" rows="3"
+                  ></textarea>
+
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Quien le cita:</label>
+                          <div class="col-sm-10">
+
+                  <textarea
+                    class="form-control"
+                    id="whoCited"
+                    value=""
+                    cols="45" rows="3"
+                  ></textarea>
+
+                          </div>
+                        </div>
                       </div>
                       <div class="col-sm-12">
                         <div class="alert alert-success" role="alert">
@@ -217,17 +413,30 @@
                   </div>
                 </form>
               </div>
+              <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
           </div>
+          <!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
           <!-- end Modal -->
           <br><br><br><br><br>
+
         </div>
         <!--(end) added for Recommender Module-->
 
 
         <script src="/js/recommenderModule/recommenderLDView.js"></script>
-        <script src="/js/recommenderModule/recommenderFooter.js"></script>
-
 
         </body>
         </html>
@@ -238,8 +447,14 @@
         <!--------------------------
         | Your Page Content Here END|
         -------------------------->
+
+          </div>
+        </div>
+
       </div>
+      <!-- /.col-lg-12 -->
     </div>
+
 
     <!-- /-------------------------------------------------------------------------------------------------------------/ -->
   </section>

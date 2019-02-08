@@ -27,6 +27,8 @@ app.controller("Controller",function ($scope,$http) {  /////////////////////////
           $scope.showACM = false;
           $scope.showDBLP = false;
           $("#ieeeNav").attr("class","nav-item active");
+          $("#acmNav").attr("class","nav-item disabled");
+          $("#dblpNav").attr("class","nav-item disabled");
           $scope.responseJsonLucene = data;
           $scope.endPointDinamic = "http://acm.rkbexplorer.com/sparql/";
           console.log("la url es:" + urlSendIEEE);
@@ -47,7 +49,9 @@ app.controller("Controller",function ($scope,$http) {  /////////////////////////
           $scope.showIEEE = false;
           $scope.showACM = true;
           $scope.showDBLP = false;
-          $("#ieeeNav").attr("class","nav-item active");
+          $("#ieeeNav").attr("class","nav-item disabled");
+          $("#acmNav").attr("class","nav-item active");
+          $("#dblpNav").attr("class","nav-item disabled");
           $scope.responseJsonLucene = data;
           console.log("la url es:" + urlSendACM);
           console.log("numero de articulos:" + $scope.responseJsonLucene.length);
@@ -67,7 +71,9 @@ app.controller("Controller",function ($scope,$http) {  /////////////////////////
           $scope.showIEEE = false;
           $scope.showACM = false;
           $scope.showDBLP = true;
-          $("#eNav").attr("class","nav-item active");
+          $("#ieeeNav").attr("class","nav-item disabled");
+          $("#acmNav").attr("class","nav-item disabled");
+          $("#dblpNav").attr("class","nav-item active");
           $scope.responseJsonLucene = data;
           console.log("la url es:" + urlSendDBLP);
           console.log("numero de articulos:" + $scope.responseJsonLucene.length);
