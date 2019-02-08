@@ -1,6 +1,21 @@
 module.exports = {
     TEST: function (req, res) {
-        return res.view('recommenderLinkedData', {});
+        var parametros = req.allParams();
+        sails.log.info("Parametros", parametros);
+        Wkx_resource
+            .find()
+            .where({
+            resourceTitle: {
+                contains: parametros.busqueda
+            }
+        })
+            .exec(function (err, resourceFound) {
+            if (err)
+                return res.negotiate(err);
+            return res.json({
+                resource: resourceFound
+            });
+        });
     },
     result1: function (req, res) {
         return res.view('RecommenderModule/byLink', {});

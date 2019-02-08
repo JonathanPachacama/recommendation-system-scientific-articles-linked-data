@@ -120,7 +120,7 @@
                         <div class="col-md-12">
                           <br><br>
                           <h5 class="card-title">Recomendaciones de IEEE</h5>
-                          <p class="card-text">Contiene los resultados del repositorio de IEEE</p>
+                          <p class="card-text">Contiene {{size}}  resultados del repositorio de IEEE</p>
                           <input hidden id="endpointDynamic" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
@@ -137,7 +137,7 @@
                                   <div class="col-md-12">
                                     <table class="table table-bordered table-responsive">
                                       <tbody>
-                                      <tr ng-repeat="articleTitle in responseJsonLucene">
+                                      <tr ng-repeat="articleTitle in responseJsonLucene.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
 
                                         <th scope="row">{{$index+1}}</th>
                                         <td>
@@ -150,6 +150,36 @@
                                       </tr>
                                       </tbody>
                                     </table>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <ul uib-pagination
+                                            total-items="totalItems"
+                                            ng-model="currentPage"
+                                            ng-change="pageChanged()"
+                                            num-pages="smallnumPages"
+                                            max-size="maxSize"
+                                            class="pagination-sm"
+                                            boundary-links="true"
+                                            items-per-page="itemsPerPage"
+                                            force-ellipses="true">
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <div class="form-group">
+                                          <label>Escoger:</label>
+                                          <select class="form-control" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                                            <option value="10">ver 10 resultados</option>
+                                            <option value="20">ver 20 resultados</option>
+                                            <option value="50">ver 50 resultados</option>
+                                            <option value="100">ver 100 resultados</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-8"></div>
+                                    </div>
+                                    <hr />
                                   </div>
                                 </div>
 
@@ -170,7 +200,7 @@
                         <div class="col-md-12">
                           <br><br>
                           <h5 class="card-title">Recomendaciones de ACM</h5>
-                          <p class="card-text">Contiene los resultados del repositorio de ACM</p>
+                          <p class="card-text">Contiene {{size}}  resultados del repositorio de ACM</p>
                           <input hidden id="endpointDynamic" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
@@ -187,7 +217,7 @@
                                   <div class="col-md-12">
                                     <table class="table table-bordered table-responsive">
                                       <tbody>
-                                      <tr ng-repeat="articleTitle in responseJsonLucene">
+                                      <tr ng-repeat="articleTitle in responseJsonLucene.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
 
                                         <th scope="row">{{$index+1}}</th>
                                         <td>
@@ -200,6 +230,36 @@
                                       </tr>
                                       </tbody>
                                     </table>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <ul uib-pagination
+                                            total-items="totalItems"
+                                            ng-model="currentPage"
+                                            ng-change="pageChanged()"
+                                            num-pages="smallnumPages"
+                                            max-size="maxSize"
+                                            class="pagination-sm"
+                                            boundary-links="true"
+                                            items-per-page="itemsPerPage"
+                                            force-ellipses="true">
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <div class="form-group">
+                                          <label>Escoger:</label>
+                                          <select class="form-control" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                                            <option value="10">ver 10 resultados</option>
+                                            <option value="20">ver 20 resultados</option>
+                                            <option value="50">ver 50 resultados</option>
+                                            <option value="100">ver 100 resultados</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-8"></div>
+                                    </div>
+                                    <hr />
                                   </div>
                                 </div>
 
@@ -219,7 +279,7 @@
                         <div class="col-md-12">
                           <br><br>
                           <h5 class="card-title">Recomendaciones de DBLP</h5>
-                          <p class="card-text">Contiene los resultados del repositorio de DBLP</p>
+                          <p class="card-text">Contiene {{size}}  resultados del repositorio de DBLP</p>
                           <input hidden id="endpointDynamic" class="span5" value="http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
@@ -236,7 +296,7 @@
                                   <div class="col-md-12">
                                     <table class="table table-bordered table-responsive">
                                       <tbody>
-                                      <tr ng-repeat="articleTitle in responseJsonLucene">
+                                      <tr ng-repeat="articleTitle in responseJsonLucene.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
 
                                         <th scope="row">{{$index+1}}</th>
                                         <td>
@@ -249,6 +309,36 @@
                                       </tr>
                                       </tbody>
                                     </table>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <ul uib-pagination
+                                            total-items="totalItems"
+                                            ng-model="currentPage"
+                                            ng-change="pageChanged()"
+                                            num-pages="smallnumPages"
+                                            max-size="maxSize"
+                                            class="pagination-sm"
+                                            boundary-links="true"
+                                            items-per-page="itemsPerPage"
+                                            force-ellipses="true">
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <div class="form-group">
+                                          <label>Escoger:</label>
+                                          <select class="form-control" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                                            <option value="10">ver 10 resultados</option>
+                                            <option value="20">ver 20 resultados</option>
+                                            <option value="50">ver 50 resultados</option>
+                                            <option value="100">ver 100 resultados</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-8"></div>
+                                    </div>
+                                    <hr />
                                   </div>
                                 </div>
 
@@ -412,23 +502,11 @@
                   <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
-
-
-
-
-
-
-
-
-
-
-
                 <!-- end Modal -->
                 <br><br><br><br><br>
 
               </div>
               <!--(end) added for Recommender Module-->
-
             </div>
 
 

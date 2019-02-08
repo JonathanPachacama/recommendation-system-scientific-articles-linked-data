@@ -49,6 +49,7 @@ var jsFilesToInject = [
   'js/angular/main.js',
   'js/recommenderModule/recommendeHeader.js',
   'js/recommenderModule/recommenderWkxView.js',
+  '/ui-bootstrap/ui-bootstrap-custom-tpls-2.5.0.js',
   '/theme/bower_component/bootstrap/dist/css/bootstrap.js',
 
 

@@ -2,14 +2,28 @@ declare var module;
 declare var sails;
 declare var LinkPublication;
 declare var Articulo;
-
+declare var Wkx_resource;
 
 module.exports = {
 
   TEST:(req, res) =>{
-    return res.view('recommenderLinkedData', {
 
-    })
+    let parametros = req.allParams();
+
+    sails.log.info("Parametros", parametros);
+    Wkx_resource
+      .find()
+      .where({
+        resourceTitle: {
+          contains: parametros.busqueda
+        }
+      })
+      .exec((err, resourceFound) => {
+        if (err) return res.negotiate(err);
+        return res.json( {
+          resource: resourceFound
+        })
+      });
   },
 
   result1:(req, res) =>{

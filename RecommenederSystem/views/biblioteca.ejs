@@ -5,82 +5,92 @@
   <section class="content container-fluid">
 
 
-    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
-
-    <!--------------------------
-    | Your Page Content Here |
-    -------------------------->
-
-
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Recomendaciones </div>
+          <div class="panel-body">
 
 
+            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+
+
+            <form action="/biblioteca">
+              <div class="form-group row">
+                <label for="busqueda" class="col-4 col-form-label">
+                  Search by Keywords or Title
+                </label>
+                <div class="col-8">
+                  <input class="form-control" type="text" placeholder="Search in my library" id="biblioteca"
+                         name="biblioteca">
+                </div>
+              </div>
+              <button class="btn btn-success btn-block">Search</button>
+            </form>
+
+            <br>
+            <br>
+
+            <div class="row">
+              <% for(var i=0;i<articulos.length;i++){ %>
+              <div class="card" style="width: 20rem;">
+                <div class="card-block">
+                  <h6 class="card-title"><b><%=articulos[i].title%></b></h6>
+                  <p class="card-text"><h10><b>Authors:</b></h10><%=articulos[i].authores%></p>
+                </div>
+                <ul class="list-group list-group-flush" >
+                  <li class="list-group-item" ><h10><b>Category:</b></h10><%=articulos[i].category%></li>
+                  <li class="list-group-item"><h10><b>Languajes:</b></h10><%=articulos[i].language%></li>
+                  <li class="list-group-item"><h10><b>Year of publication:</b></h10><%=articulos[i].year%></li>
+                </ul>
+                <div class="card-block">
+                  <form action="/Articulo/eliminarArticulo" method="post">
+                    <input hidden
+                           type="text"
+                           value="<%=articulos[i].id%>"
+                           name="id">
+                    <button  type="submit"
+                             class="btn btn-outline-danger">Delete</button>
+
+                    <a href="/VerArticulo?id=<%=articulos[i].id%>">
+                      <button type="button" class="btn btn-primary">
+                        See
+                      </button>
+                    </a>
+                  </form>
+                </div>
+              </div>
+              <%}%>
+            </div>
+            <hr>
 
 
 
+            <a href="/MisArticulos">
+              <button type="button" class="btn btn-primary btn-lg btn-block">
+                View my posts
+              </button>
+            </a>
+            <br>
+            <br>
+            <br>
+            <hr>
 
+            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
 
+            <!--------------------------
+            | Your Page Content Here END|
+            -------------------------->
 
-    <form action="/biblioteca">
-  <div class="form-group row">
-    <label for="busqueda" class="col-4 col-form-label">
-      Search by Keywords or Title
-    </label>
-    <div class="col-8">
-      <input class="form-control" type="text" placeholder="Search in my library" id="biblioteca"
-             name="biblioteca">
+          </div>
+        </div>
+      </div>
+      <!-- /.col-lg-12 -->
     </div>
-  </div>
-  <button class="btn btn-success btn-block">Search</button>
-</form>
-
-<br>
-<br>
-
-<div class="row">
-<% for(var i=0;i<articulos.length;i++){ %>
-  <div class="card" style="width: 20rem;">
-    <div class="card-block">
-      <h6 class="card-title"><b><%=articulos[i].title%></b></h6>
-      <p class="card-text"><h10><b>Authors:</b></h10><%=articulos[i].authores%></p>
-    </div>
-    <ul class="list-group list-group-flush" >
-      <li class="list-group-item" ><h10><b>Category:</b></h10><%=articulos[i].category%></li>
-      <li class="list-group-item"><h10><b>Languajes:</b></h10><%=articulos[i].language%></li>
-      <li class="list-group-item"><h10><b>Year of publication:</b></h10><%=articulos[i].year%></li>
-    </ul>
-    <div class="card-block">
-      <form action="/Articulo/eliminarArticulo" method="post">
-        <input hidden
-               type="text"
-               value="<%=articulos[i].id%>"
-               name="id">
-        <button  type="submit"
-                 class="btn btn-outline-danger">Delete</button>
-
-        <a href="/VerArticulo?id=<%=articulos[i].id%>">
-          <button type="button" class="btn btn-primary">
-            See
-          </button>
-        </a>
-      </form>
-    </div>
-  </div>
-  <%}%>
-</div>
-<hr>
-
-
-
-<a href="/MisArticulos">
-  <button type="button" class="btn btn-primary btn-lg btn-block">
-    View my posts
-  </button>
-</a>
-<br>
-<br>
-<br>
-<hr>
-
 
 
 
