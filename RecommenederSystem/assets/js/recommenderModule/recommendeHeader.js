@@ -17,24 +17,24 @@ var prefix = "PREFIX acm: <http://acm.rkbexplorer.com/id/>\n"+
 //add Jonathan end
 
 var webACM = "https://dl.acm.org/citation.cfm?id="
-function exec() {
-  var endpoint = d3.select("#endpoint").property("value")
-  var sparql = d3.select("#sparql").property("value")
-  d3sparql.query(endpoint, sparql, render)
-}
+// function exec() {
+//   var endpoint = d3.select("#endpoint").property("value")
+//   var sparql = d3.select("#sparql").property("value")
+//   d3sparql.query(endpoint, sparql, render)
+// }
 
-function render(json) {
-  var config = {
-    "selector": "#result"
-  }
-
-  var Title = json.results.bindings;
-
-  console.log("Total Articulo: ",Title.length);
-  d3sparql.htmltable2(json, config)
-
-
-}
+// function render(json) {
+//   var config = {
+//     "selector": "#result"
+//   }
+//
+//   var Title = json.results.bindings;
+//
+//   console.log("Total Articulo: ",Title.length);
+//   d3sparql.htmltable2(json, config)
+//
+//
+// }
 
 ////////////////////////////////////////////////////////////////////////////////add Jonathan start
 

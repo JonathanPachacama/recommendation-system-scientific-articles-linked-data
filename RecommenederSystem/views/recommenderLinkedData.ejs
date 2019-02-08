@@ -22,357 +22,351 @@
 
 
 
-          <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
 
-        <!--------------------------
-        | Your Page Content Here START|
-        -------------------------->
-
-
-
-        <!--(start) added for Recommender Module-->
-        <!--To recommend from wikindx-->
+            <!--------------------------
+            | Your Page Content Here START|
+            -------------------------->
 
 
 
-        <html ng-app="appRecommender">
-        <head>
-          <script src="/js/recommenderModule/recommendeHeader.js"></script>
-        </head>
-        <body ng-controller="Controller">
-        <div class="container-fluid">
-          <br><br><br><br><br>
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Well done!</h4>
-                <p>Este es el artículo que se guardó.</p>
-                <br>
-                <p class="mb-0">
-
-                  <!--2 input -->
-
-                <h2 id="fullTitle" value=""><%= nuevoArticulo.title %></h2>
-              
-
-                  <!--<br>-->
-                  <!--<input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >-->
-                  <!--&lt;!&ndash;<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">&ndash;&gt;-->
-                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesIEEE()">  &lt;!&ndash;-button WITH ALGORITHM&ndash;&gt;-->
-                    <!--Recomendaciones IEEE-->
-                  <!--</button>-->
-                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesDBLP()">-->
-                    <!--Recomendaciones DBLP-->
-                  <!--</button>-->
-                  <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesACM()">-->
-                    <!--Recomendaciones ACM-->
-                  <!--</button>-->
-                  <!--<textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>-->
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card alert alert-warning mb-3" style="max-width: 18rem;">
-                <div class="card-header alert alert-danger">Recommender module</div>
-                <div class="card-body">
-                  <h5 class="card-title"></h5>
-                  <p class="card-text">Ingresar al módulo de recomendación para encontrar artículos relacionados con su búsqueda.</p>
-                  <a href="/recommendationsWkx">
-                    <button type="button" class="btn btn-danger btn-lg">Ingresar</button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br><br><br>
-          <!-- result WITHOUT ALGORITHM -->
-          <div class="row">
-            <div class="col-sm-10">
-              <div id="result"></div>
-            </div>
-            <div class="col-sm-2"></div>
-          </div>
-          <!-- /.result WITHOUT ALGORITHM -->
-
-          <!---result  WITH ALGORITHM-->
-
-          <div class="card text-center">
-            <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs">
-                <li id="ieeeNav" class="nav-item">
-                  <a class="nav-link"  ng-Click="listArticlesIEEE()">
-                    <button class="btn btn-primary" type="button">IEEE</button>
-                  </a>
-                </li>
-                <li id="acmNav" class="nav-item">
-                  <a  class="nav-link"  ng-Click="listArticlesACM()">
-                    <button class="btn btn-primary" type="button">ACM</button>
-                  </a>
-                </li>
-                <li  id="dblpNav"  class="nav-item">
-                  <a class="nav-link"  ng-Click="listArticlesDBLP()">
-                    <button class="btn btn-primary" type="button">DBLP</button>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="card-body">
-
-              <!-- recommender IEEE -->
-              <div ng-if="showIEEE">
+            <!--(start) added for Recommender Module-->
+            <!--To recommend from wikindx-->
 
 
-                <div class="row" >
-                  <div class="col-md-12">
-                    <br><br>
-                    <h5 class="card-title">Recomendaciones de IEEE</h5>
-                    <p class="card-text">Contiene los resultados del repositorio de IEEE</p>
-                    <input hidden id="endpointDynamic" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-                    <br><br>
+            <div ng-controller="recommenderController">
+              <div class="container-fluid">
+                <br><br><br><br><br>
+                <div class="row">
+                  <div class="col-sm-8">
+                    <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Well done!</h4>
+                      <p>Este es el artículo que se guardó.</p>
+                      <br>
+                      <p class="mb-0">
+
+                        <!--2 input -->
+
+                      <h2 id="fullTitle" value=""><%= nuevoArticulo.title %></h2>
+
+                      <!--<br>-->
+                      <!--<input hidden id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >-->
+                      <!--&lt;!&ndash;<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick="exec()">&ndash;&gt;-->
+                      <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesIEEE()">  &lt;!&ndash;-button WITH ALGORITHM&ndash;&gt;-->
+                      <!--Recomendaciones IEEE-->
+                      <!--</button>-->
+                      <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesDBLP()">-->
+                      <!--Recomendaciones DBLP-->
+                      <!--</button>-->
+                      <!--<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" ng-Click="listArticlesACM()">-->
+                      <!--Recomendaciones ACM-->
+                      <!--</button>-->
+                      <!--<textarea hidden id="sparql" class="span9" rows=15 cols="100"></textarea>-->
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div class="row" >
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
-                    <div id="resultAlgorithm">
-                      <div class="card">
-                        <h5 class="card-header text-center">TITULOS</h5>
-                        <div class="card-body">
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <table class="table table-bordered table-responsive">
-                                <tbody>
-                                <tr ng-repeat="articleTitle in responseJsonLucene">
-
-                                  <th scope="row">{{$index+1}}</th>
-                                  <td>
-                                    {{articleTitle.tituloArticulo}}
-                                  </td>
-
-                                  <td>
-                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-
-                        </div>
+                  <div class="col-sm-4">
+                    <div class="card alert alert-warning mb-3" style="max-width: 18rem;">
+                      <div class="card-header alert alert-danger">Recommender module</div>
+                      <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">Ingresar al módulo de recomendación para encontrar artículos relacionados con su búsqueda.</p>
+                        <a href="/recommendationsWkx">
+                          <button type="button" class="btn btn-danger btn-lg">Ingresar</button>
+                        </a>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-1"></div>
-
                 </div>
-
-              </div>
-              <!-- /.recommender IEEE -->
-
-              <!-- recommender ACM -->
-              <div ng-if="showACM">
-                <div class="row" >
-                  <div class="col-md-12">
-                    <br><br>
-                    <h5 class="card-title">Recomendaciones de ACM</h5>
-                    <p class="card-text">Contiene los resultados del repositorio de ACM</p>
-                    <input hidden id="endpointDynamic" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
-                    <br><br>
+                <br><br><br>
+                <!-- result WITHOUT ALGORITHM -->
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div id="result"></div>
                   </div>
+                  <div class="col-sm-2"></div>
                 </div>
-                <div class="row" >
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
-                    <div id="resultAlgorithm">
-                      <div class="card">
-                        <h5 class="card-header text-center">TITULOS</h5>
-                        <div class="card-body">
+                <!-- /.result WITHOUT ALGORITHM -->
 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <table class="table table-bordered table-responsive">
-                                <tbody>
-                                <tr ng-repeat="articleTitle in responseJsonLucene">
+                <!---result  WITH ALGORITHM-->
 
-                                  <th scope="row">{{$index+1}}</th>
-                                  <td>
-                                    {{articleTitle.tituloArticulo}}
-                                  </td>
+                <div class="card text-center">
+                  <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                      <li id="ieeeNav" class="nav-item">
+                        <a class="nav-link"  ng-Click="listArticlesIEEE()">
+                          <button class="btn btn-primary" type="button">IEEE</button>
+                        </a>
+                      </li>
+                      <li id="acmNav" class="nav-item">
+                        <a  class="nav-link"  ng-Click="listArticlesACM()">
+                          <button class="btn btn-primary" type="button">ACM</button>
+                        </a>
+                      </li>
+                      <li  id="dblpNav"  class="nav-item">
+                        <a class="nav-link"  ng-Click="listArticlesDBLP()">
+                          <button class="btn btn-primary" type="button">DBLP</button>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
 
-                                  <td>
-                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
+                    <!-- recommender IEEE -->
+                    <div ng-if="showIEEE">
 
+
+                      <div class="row" >
+                        <div class="col-md-12">
+                          <br><br>
+                          <h5 class="card-title">Recomendaciones de IEEE</h5>
+                          <p class="card-text">Contiene los resultados del repositorio de IEEE</p>
+                          <input hidden id="endpointDynamic" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <br><br>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-1"></div>
+                      <div class="row" >
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                          <div id="resultAlgorithm">
+                            <div class="card">
+                              <h5 class="card-header text-center">TITULOS</h5>
+                              <div class="card-body">
 
-                </div>
-              </div>
-              <!-- /.recommender ACM -->
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <table class="table table-bordered table-responsive">
+                                      <tbody>
+                                      <tr ng-repeat="articleTitle in responseJsonLucene">
 
-              <!-- recommender DBLP -->
-              <div ng-if="showDBLP">
-                <div class="row" >
-                  <div class="col-md-12">
-                    <br><br>
-                    <h5 class="card-title">Recomendaciones de DBLP</h5>
-                    <p class="card-text">Contiene los resultados del repositorio de DBLP</p>
-                    <input hidden id="endpointDynamic" class="span5" value="http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
-                    <br><br>
-                  </div>
-                </div>
-                <div class="row" >
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
-                    <div id="resultAlgorithm">
-                      <div class="card">
-                        <h5 class="card-header text-center">TITULOS</h5>
-                        <div class="card-body">
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>
+                                          {{articleTitle.tituloArticulo}}
+                                        </td>
 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <table class="table table-bordered table-responsive">
-                                <tbody>
-                                <tr ng-repeat="articleTitle in responseJsonLucene">
+                                        <td>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                        </td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
 
-                                  <th scope="row">{{$index+1}}</th>
-                                  <td>
-                                    {{articleTitle.tituloArticulo}}
-                                  </td>
-
-                                  <td>
-                                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
+                              </div>
                             </div>
                           </div>
+                        </div>
+                        <div class="col-md-1"></div>
 
+                      </div>
+
+                    </div>
+                    <!-- /.recommender IEEE -->
+
+                    <!-- recommender ACM -->
+                    <div ng-if="showACM">
+                      <div class="row" >
+                        <div class="col-md-12">
+                          <br><br>
+                          <h5 class="card-title">Recomendaciones de ACM</h5>
+                          <p class="card-text">Contiene los resultados del repositorio de ACM</p>
+                          <input hidden id="endpointDynamic" class="span5" value="http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <br><br>
                         </div>
                       </div>
+                      <div class="row" >
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                          <div id="resultAlgorithm">
+                            <div class="card">
+                              <h5 class="card-header text-center">TITULOS</h5>
+                              <div class="card-body">
+
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <table class="table table-bordered table-responsive">
+                                      <tbody>
+                                      <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>
+                                          {{articleTitle.tituloArticulo}}
+                                        </td>
+
+                                        <td>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                        </td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1"></div>
+
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-1"></div>
+                    <!-- /.recommender ACM -->
 
+                    <!-- recommender DBLP -->
+                    <div ng-if="showDBLP">
+                      <div class="row" >
+                        <div class="col-md-12">
+                          <br><br>
+                          <h5 class="card-title">Recomendaciones de DBLP</h5>
+                          <p class="card-text">Contiene los resultados del repositorio de DBLP</p>
+                          <input hidden id="endpointDynamic" class="span5" value="http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <br><br>
+                        </div>
+                      </div>
+                      <div class="row" >
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                          <div id="resultAlgorithm">
+                            <div class="card">
+                              <h5 class="card-header text-center">TITULOS</h5>
+                              <div class="card-body">
+
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <table class="table table-bordered table-responsive">
+                                      <tbody>
+                                      <tr ng-repeat="articleTitle in responseJsonLucene">
+
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>
+                                          {{articleTitle.tituloArticulo}}
+                                        </td>
+
+                                        <td>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                        </td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1"></div>
+
+                      </div>
+                    </div>
+                    <!-- /.recommender DBLP -->
+
+                  </div>
                 </div>
-              </div>
-              <!-- /.recommender DBLP -->
+                <!-- /.result WITH ALGORITHM -->
 
-            </div>
-          </div>
-          <!-- /.result WITH ALGORITHM -->
-
-          <!-- Button trigger modal -->
-          <!-- Modal -->
-          <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
-                  <div class="modal-header">
-                    <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close" align="right">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="metadataACMTitle" align="left">Metadatos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlCited" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlWhoCited" class="span9" rows=15></textarea>
-                    <textarea hidden id="sparqlVolume" class="span9" rows=15></textarea>
-                    <div id="resultMetadata"></div>
-                    <div class="card">
-                      <div class="fondo">
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">titulo:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="titleEEE" name="title">
-                          </div>
+                <!-- Button trigger modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="metadataACM" tabindex="-1" role="dialog" aria-labelledby="metadataACMTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <form class="formWikindx" action='/Wkx_category/crearArticuloQuemado' method='post'>
+                        <div class="modal-header">
+                          <button type="button" class="btRemoveAll close" data-dismiss="modal" aria-label="Close" align="right">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h4 class="modal-title" id="metadataACMTitle" align="left">Metadatos</h4>
                         </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Autores:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="authorIEEE">
-                          </div>
-                          <div hidden class="col-sm-10" id="AuthorsWikindx">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">fecha:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">abstrac:</label>
-                          <div class="col-sm-10">
-                            <input hidden class="abstractIEEE" type="text"  value="" name="abstract">
-                            <textarea
-                              class="abstractIEEE form-control"
-                              id="textareaModal"
-                              value=""
-                              cols="45" rows="3"
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Keyword:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Direccion Web:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Revista:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
-                            <input hidden type='text' name='typejournal' value='journal'>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Año Revista:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Web Revista:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Volumen:</label>
-                          <div class="col-sm-10">
-                            <input class="form-control" type="text"  value="" id="volume" name="volume">
-                          </div>
-                        </div>
+                        <div class="modal-body">
+                          <textarea hidden id="sparqlTittle" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlAuthor" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlDate" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlAbstract" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlKeyword" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlJournal" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlWeb" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlCited" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlWhoCited" class="span9" rows=15></textarea>
+                          <textarea hidden id="sparqlVolume" class="span9" rows=15></textarea>
+                          <div id="resultMetadata"></div>
+                          <div class="card">
+                            <div class="fondo">
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">titulo:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="titleEEE" name="title">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Autores:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="authorIEEE">
+                                </div>
+                                <div hidden class="col-sm-10" id="AuthorsWikindx">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">fecha:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="dateIEEE" name="year">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">abstrac:</label>
+                                <div class="col-sm-10">
+                                  <input hidden class="abstractIEEE" type="text"  value="" name="abstract">
+                                  <textarea
+                                    class="abstractIEEE form-control"
+                                    id="textareaModal"
+                                    value=""
+                                    cols="45" rows="3"
+                                  ></textarea>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Keyword:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="keywordIEEE" name="keywords">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Direccion Web:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="webIEEE" name="link"/>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Revista:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="journalIEEE" name="journal">
+                                  <input hidden type='text' name='typejournal' value='journal'>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Año Revista:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="journalDateIEEE" name="journalDateIEEE">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Web Revista:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="journalWebAddressIEEE" name="journalWebAddressIEEE">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Volumen:</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="text"  value="" id="volume" name="volume">
+                                </div>
+                              </div>
 
 
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Citados:</label>
-                          <div class="col-sm-10">
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Citados:</label>
+                                <div class="col-sm-10">
 
                   <textarea
                     class="form-control"
@@ -381,13 +375,13 @@
                     cols="45" rows="3"
                   ></textarea>
 
-                          </div>
-                        </div>
+                                </div>
+                              </div>
 
 
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Quien le cita:</label>
-                          <div class="col-sm-10">
+                              <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Quien le cita:</label>
+                                <div class="col-sm-10">
 
                   <textarea
                     class="form-control"
@@ -396,61 +390,56 @@
                     cols="45" rows="3"
                   ></textarea>
 
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="alert alert-success" role="alert">
+                                <p id="webAddressLink"></p>
+                                <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="alert alert-success" role="alert">
-                          <p id="webAddressLink"></p>
-                          <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+                        <div class="modal-footer">
+                          <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
+                          <button type="submit" class="btn btn-primary" >Save</button>
                         </div>
-                      </div>
+                      </form>
                     </div>
+                    <!-- /.modal-content -->
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btRemoveAll btn btn-secondary" data-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" >Save</button>
-                  </div>
-                </form>
+                  <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+                <!-- end Modal -->
+                <br><br><br><br><br>
+
               </div>
-              <!-- /.modal-content -->
+              <!--(end) added for Recommender Module-->
+
             </div>
-            <!-- /.modal-dialog -->
-          </div>
-          <!-- /.modal -->
 
 
+            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
 
-
-
-
-
-
-
-
-
-          <!-- end Modal -->
-          <br><br><br><br><br>
-
-        </div>
-        <!--(end) added for Recommender Module-->
-
-
-        <script src="/js/recommenderModule/recommenderLDView.js"></script>
-
-        </body>
-        </html>
-
-
-        <!-- /-------------------------------------------------------------------------------------------------------------/ -->
-
-        <!--------------------------
-        | Your Page Content Here END|
-        -------------------------->
+            <!--------------------------
+            | Your Page Content Here END|
+            -------------------------->
 
           </div>
         </div>
-
       </div>
       <!-- /.col-lg-12 -->
     </div>

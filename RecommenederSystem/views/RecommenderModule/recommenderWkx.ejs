@@ -29,103 +29,93 @@
             -------------------------->
 
 
-            <html ng-app="appRecommender">
-            <head>
-              <script src="/js/recommenderModule/recommendeHeader.js"></script>
-            </head>
-            <body ng-controller="Controller">
-            <div class="container-fluid">
-              <div id="metadata">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <br><br>
-                    <h2 id="fullTitle" value="<%= query.resourceTitle%>"><%= query.resourceTitle%></h2>
-                    <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
-                    <br>
+            <div ng-controller="recommenderController">
+              <div class="container-fluid">
+                <div id="metadata">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <br><br>
+                      <h2 id="fullTitle" value="<%= query.resourceTitle%>"><%= query.resourceTitle%></h2>
+                      <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
+                      <br>
+                    </div>
                   </div>
-                </div>
-                <form>
-                  <div class="form-group">
-                    <label class="col-1 col-form-label">Autores:</label>
-                    <% if(firstname.length == surname.length){ %>
-                    <select class="form-control" id="exampleFormControlSelect1" style="background-color: #eceeef" >
-                      <%for(var i=0; i<firstname.length; i++) {%>
-                        <option >
-                          <%= firstname[i]%> <%= surname[i]%>
-                        </option>
+                  <form>
+                    <div class="form-group">
+                      <label class="col-1 col-form-label">Autores:</label>
+                      <% if(firstname.length == surname.length){ %>
+                      <select class="form-control" id="exampleFormControlSelect1" style="background-color: #eceeef" >
+                        <%for(var i=0; i<firstname.length; i++) {%>
+                          <option >
+                            <%= firstname[i]%> <%= surname[i]%>
+                          </option>
+                        <% } %>
+                      </select>
+                      <% } else{ %>
+                        <input class="form-control" id="title" type="text"  value="<%= surname%>" disabled>
                       <% } %>
-                    </select>
-                    <% } else{ %>
-                      <input class="form-control" id="title" type="text"  value="<%= surname%>" disabled>
-                    <% } %>
-                  </div>
-                  <div class="form-group">
-                    <label for="validationDefault01">Revista:</label>
-                    <input class="form-control" type="text"  value="<%= journal%>" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label for="validationDefault02">Editor:</label>
-                    <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label for="validationDefault02">Categoria:</label>
-                    <input class="form-control" type="text"  value="<%= category%>" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label for="validationDefault02">Keywords:</label>
-                    <input class="form-control" type="text"  id="keyword" value="<%= keyword%>" disabled>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Abstract:</label>
-                    <textarea class="form-control"
-                              id="abstract"
-                              name="abstract"
-                              rows="7"
-                              value="<%= abstract%>"
-                              disabled><%= abstract%></textarea>
-                  </div>
-                </form>
-              </div>
-              <br><br><br>
-
-              <!---result  WITHOUT ALGORITHM-->
-              <div id="query" hidden style="margin:auto">
-                <form class="form-inline">
-                  <label>SPARQL endpoint:</label><br>
-                  <div class="input-append">
-                    <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-                    <button class="btn btn-success" type="button" onclick="exec()">Query</button>
-                    <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
-                    <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
-                  </div>
-                </form>
-                <br>
-                <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
-                <br><br>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-sm-10">
-                  <div id="result"></div>
+                    </div>
+                    <div class="form-group">
+                      <label for="validationDefault01">Revista:</label>
+                      <input class="form-control" type="text"  value="<%= journal%>" disabled>
+                    </div>
+                    <div class="form-group">
+                      <label for="validationDefault02">Editor:</label>
+                      <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
+                    </div>
+                    <div class="form-group">
+                      <label for="validationDefault02">Categoria:</label>
+                      <input class="form-control" type="text"  value="<%= category%>" disabled>
+                    </div>
+                    <div class="form-group">
+                      <label for="validationDefault02">Keywords:</label>
+                      <input class="form-control" type="text"  id="keyword" value="<%= keyword%>" disabled>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Abstract:</label>
+                      <textarea class="form-control"
+                                id="abstract"
+                                name="abstract"
+                                rows="7"
+                                value="<%= abstract%>"
+                                disabled><%= abstract%></textarea>
+                    </div>
+                  </form>
                 </div>
-                <div class="col-sm-2"></div>
+                <br><br><br>
+
+                <!---result  WITHOUT ALGORITHM-->
+                <div id="query" hidden style="margin:auto">
+                  <form class="form-inline">
+                    <label>SPARQL endpoint:</label><br>
+                    <div class="input-append">
+                      <input id="endpoint" class="span5" value="http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+                      <button class="btn btn-success" type="button" onclick="exec()">Query</button>
+                      <button hidden class="btn btn-success" type="button" onclick="recom()">Relacionados</button>
+                      <button class="btn btn-success" type="button" onclick="toggle()"><i id="button" class="fas fa-chevron-up"></i></button>
+                    </div>
+                  </form>
+                  <br>
+                  <textarea id="sparql" class="span9" rows=15 cols="100"></textarea>
+                  <br><br>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div id="result"></div>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <!-- /.result WITHOUT ALGORITHM -->
+
+                <!---result  WITH ALGORITHM-->
+
+                <%-partial ('../Partial/viewAlgorithm.ejs')%>
+                <!-- /.result WITH ALGORITHM -->
               </div>
-              <!-- /.result WITHOUT ALGORITHM -->
-
-              <!---result  WITH ALGORITHM-->
-
-              <%-partial ('../Partial/viewAlgorithm.ejs')%>
-              <!-- /.result WITH ALGORITHM -->
+              <%-partial ('../Partial/modal.ejs')%>
+              <br><br><br>
             </div>
-
-
-            <%-partial ('../Partial/modal.ejs')%>
-
-            <br><br><br>
-            <script src="/js/recommenderModule/recommenderWkxView.js"></script>
-            <script src="/js/recommenderModule/recommenderFooter.js"></script>
-            </body>
-            </html>
 
 
             <!--------------------------
