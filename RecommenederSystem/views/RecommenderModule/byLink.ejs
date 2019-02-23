@@ -2,118 +2,160 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <!-- Main content -->
-  <section class="content">
+  <section class="content container-fluid">
 
+
+    <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+
+    <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+
+
+
+    <html ng-app="appRecommender">
+<body ng-controller="Controller">
+<div id="containerMain" class="row">
+  <div id="TitleURI" class="row">
+    <div class="col-sm-12">
+      <h1>Resultados de enlaces encontrados en relacion al recurso <a href="http://acm.rkbexplorer.com/id/100233">http://acm.rkbexplorer.com/id/100233</a><br></h1>
+    </div>
+  </div>
+   <p>La ejecución de consultas SPARQL presenta algunos enlaces a la publicación seleccionada: http://acm.rkbexplorer.com/id/100233.
+    Se encuentran algunas propiedades como rdf: type, akt: has-title, akt: has-author, akt: addresses-generic-area-of-interest.
+   </p>
+  <br>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Query: </label>
+  </div>
+  <div class="col-10">
+    <textarea
+      class="form-control"
+      id="querySparql"
+      name="querySparql"
+      rows="5"
+      cols="80">
+    SELECT DISTINCT ?links ?o
+    WHERE {<http://acm.rkbexplorer.com/id/100233> ?links ?o}
+    Limit 20
+  </textarea>
+  </div>
+  <div class="container" style="background-color: black">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading"> Detalle articulo</div>
-          <div class="panel-body">
+      <img class="img-cabecera"
+           src="https://pict.acm.org/Pulzion17/images/ACM%20logo.png"
+           alt=""
+           width="100%"
+           height="400" >
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-4" ng-repeat="article in responseJson;" >
+        <div class="card">
+          <img class="card-img-top"
+               src="http://blog.ciat.cgiar.org/wp-content/uploads/magazines.jpg"
+               alt="Card image cap"  height="150">
 
-            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
-
-            <!--------------------------
-            | Your Page Content Here START |
-            -------------------------->
-
-            <div ng-controller="Controller">
-
-              <div id="containerMain" class="row">
-                <div id="TitleURI" class="row">
-                  <div class="col-sm-12">
-                    <h1>Resultados de enlaces encontrados en relacion al recurso <a href="http://acm.rkbexplorer.com/id/100233">http://acm.rkbexplorer.com/id/100233</a><br></h1>
-                  </div>
-                </div>
-                <p>La ejecución de consultas SPARQL presenta algunos enlaces a la publicación seleccionada: http://acm.rkbexplorer.com/id/100233.
-                  Se encuentran algunas propiedades como rdf: type, akt: has-title, akt: has-author, akt: addresses-generic-area-of-interest.
-                </p>
-                <br>
-                <div class="row">
-                  <label class="col-2 col-form-label">Query: </label>
-                </div>
+          <form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">
+            <div class="fondo">
+              <h3>Enlaces relacionados a la URI</h3>
+              <div class="form-group row">
+                <label class="col-2 col-form-label">Valor</label>
                 <div class="col-10">
-          <textarea
-            class="form-control"
-            id="querySparql"
-            name="querySparql"
-            rows="5"
-            cols="80">
-            SELECT DISTINCT ?links ?o
-            WHERE {<http://acm.rkbexplorer.com/id/100233> ?links ?o}
-            Limit 20
-          </textarea>
-                </div>
-                <div class="container" style="background-color: black">
-                  <div class="row">
-                    <img class="img-cabecera"
-                         src="https://pict.acm.org/Pulzion17/images/ACM%20logo.png"
-                         alt=""
-                         width="100%"
-                         height="400" >
-                  </div>
-                  <br>
-                  <div class="row">
-                    <div class="col-md-4" ng-repeat="article in responseJson;" >
-                      <div class="card">
-                        <img class="card-img-top"
-                             src="http://blog.ciat.cgiar.org/wp-content/uploads/magazines.jpg"
-                             alt="Card image cap"  height="150">
-
-                        <form action="/RecommenderModule/LinkPublication/createLinkToAPublication" method="post">
-                          <div class="fondo">
-                            <h3>Enlaces relacionados a la URI</h3>
-                            <div class="form-group row">
-                              <label class="col-2 col-form-label">Valor</label>
-                              <div class="col-10">
-                                <input class="form-control" type="text"  value="{{responseJson[$index].links.value}}" id="links_Value" name="links_Value">
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <label class="col-2 col-form-label">tipo</label>
-                              <div class="col-10">
-                                <input class="form-control" type="text"  value="{{responseJson[$index].links.type}}" id="link_Type" name="link_Type">
-                              </div>
-                            </div>
-                            <h3>Objetos relacionados a la URI</h3>
-                            <div class="form-group row">
-                              <label class="col-3 col-form-label">Propiedad</label>
-                              <div class="col-9">
-                                <input class="form-control" type="text" value="{{responseJson[$index].o.value}}" id="o_Value" name="o_Value">
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <label class="col-2 col-form-label">Tipo</label>
-                              <div class="col-10">
-                                <input class="form-control" type="text" value="{{responseJson[$index].o.type}}" id="o_Type" name="o_Type">
-                              </div>
-                            </div>
-                            <button class="btn btn-success" type="submit">Guardar</button>
-                          </div>
-                        </form>
-                        <br>
-                      </div><br>
-
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
-                  </div>
-                  <br>
+                  <input class="form-control" type="text"  value="{{responseJson[$index].links.value}}" id="links_Value" name="links_Value">
                 </div>
               </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label">tipo</label>
+                <div class="col-10">
+                  <input class="form-control" type="text"  value="{{responseJson[$index].links.type}}" id="link_Type" name="link_Type">
+                </div>
+              </div>
+              <h3>Objetos relacionados a la URI</h3>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Propiedad</label>
+                <div class="col-9">
+                  <input class="form-control" type="text" value="{{responseJson[$index].o.value}}" id="o_Value" name="o_Value">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label">Tipo</label>
+                <div class="col-10">
+                  <input class="form-control" type="text" value="{{responseJson[$index].o.type}}" id="o_Type" name="o_Type">
+                </div>
+              </div>
+              <button class="btn btn-success" type="submit">Guardar</button>
             </div>
-
-            <!--------------------------
-        | Your Page Content Here END|
-        -------------------------->
-
-            <!-- /-------------------------------------------------------------------------------------------------------------/ -->
-
-          </div>
-        </div>
+          </form>
+          <br>
+        </div><br>
 
       </div>
-      <!-- /.col-lg-12 -->
+      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>
     </div>
+    <br>
+  </div>
+</div>
+<script>
+
+
+  var app = angular.module("appRecommender",[]);
+  app.controller("Controller",function ($scope,$http) {
+
+    $scope.responseJson= [];
+
+    let endPointAcm ="http://acm.rkbexplorer.com/sparql/";
+    let queryParametersSparql = "?format=json&query=";
+    let apiAcm = endPointAcm + queryParametersSparql  //api de ACM con sus parametros
+
+    let id_Prefix = "PREFIX+id%3A%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F%3E%0D%0A";
+    let rdf_Prefix = "PREFIX+rdf%3A%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A";
+    let rdfs_Prefix = "PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A";
+    let akt_Prefix = "PREFIX+akt%3A%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fportal%23%3E%0D%0A";
+    let owl_Prefix = "PREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A";
+    let akts_Prefix = "PREFIX+akts%3A%3Chttp%3A%2F%2Fwww.aktors.org%2Fontology%2Fsupport%23%3E%0D%0A";
+
+    let prefix = id_Prefix+rdf_Prefix+rdfs_Prefix+akt_Prefix+owl_Prefix+akt_Prefix+akts_Prefix  //Prefijos Publicaciones ACM (Tomar en cuenta que akt_Prefix se repite para que funcione la consulta)
+
+    let select = "SELECT+DISTINCT+%3Flinks+%3Fo%0D%0A";
+    let where = "WHERE+%7B%3Chttp%3A%2F%2Facm.rkbexplorer.com%2Fid%2F100233%3E+%3Flinks+%3Fo%7D%0D%0A";
+    let limit = "Limit+20";
+    let querySparql = select+where+limit; //consulta Sparql
+
+    let concatenation = apiAcm+prefix+querySparql;
+
+    $http.get(concatenation)
+      .success(function (data){
+        console.log(data);
+        $scope.responseJson = data.results.bindings;
+        console.log("la url es:" + concatenation);
+        console.log("numero de articulos:" + $scope.responseJson.length);
+
+        for(let i = 0;i<$scope.responseJson.length;i ++){
+          let linksValue = $scope.responseJson[i].links.value
+          let linksType = $scope.responseJson[i].links.type
+          let oValue = $scope.responseJson[i].o.value
+          let oType = $scope.responseJson[i].o.type
+          console.log(i+1+": valor de links es:"+ linksValue);
+          console.log(i+1+": tipo de links es:"+ linksType);
+          console.log(i+1+": valor de o es:"+ oValue);
+          console.log(i+1+": tipo de o es:"+ oType);
+        }
+      })
+      .error(function (err) {
+      });
+
+  });
+</script>
+<br><br>
+</body>
+</html>
+
+
+
+
     <!-- /-------------------------------------------------------------------------------------------------------------/ -->
   </section>
   <!-- /.content -->
