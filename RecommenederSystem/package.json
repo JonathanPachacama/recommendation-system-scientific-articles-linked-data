@@ -31,7 +31,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "main": "app.js",
   "repository": {
@@ -39,5 +39,8 @@
     "url": "git://github.com/USRDEL/CarritoCompras.git"
   },
   "author": "USRDEL",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }
