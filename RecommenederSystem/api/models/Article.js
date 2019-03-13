@@ -56,11 +56,8 @@ module.exports = {
     art_notes:{
       type:"longtext"
     },
-    art_createfAt:{
-      type:"date"
-    },
-    art_updatedAt:{
-      type:"date"
-    }
+    createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
+
+    updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
   }
 };

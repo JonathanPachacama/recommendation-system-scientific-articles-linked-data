@@ -1,4 +1,4 @@
-
+var Passwords = require('machinepack-passwords');
 module.exports = {
   connection:'Mysqladapter',
   attributes:{
@@ -24,14 +24,15 @@ module.exports = {
     user_path_photo:{
       type:"string"
     },
-    user_photo:{
+    user_phone:{
       type:"string"
     },
     user_email:{
       type:"email"
     },
     user_password:{
-      type:"string"
+      type:"string",
+      required:true
     },
     user_token:{
       type:"string"
@@ -42,16 +43,59 @@ module.exports = {
     user_status_register:{
       type:"string"
     },
-    user_date_created:{
-      type:"date"
-    },
-    user_date_updated:{
-      type:"date"
-    },
     user_has_access:{
       type:"string"
-    }
+    },
+    createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
 
-  }
+    updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
+
+  },
+  //
+  // beforeCreate: function (usuario,cb) {
+  //   // sails.log.info("Usuario",usuario);
+  //   // usuario.nombre = "Joseee";
+  //   // usuario.password = "12345";
+  //   // cb();
+  //
+  //
+  //   //if (usuario.password) {
+  //   Passwords.encryptPassword({password: usuario.password}).exec({
+  //     error: function (err) {
+  //       cb("error en hash Password",err)
+  //     },
+  //     success: function (hashedPassword) {
+  //       usuario.password = hashedPassword;
+  //       cb()
+  //     },
+  //   });
+  //   //}else{
+  //   //cb();
+  //   //}
+  //
+  //
+  // },
+  //
+  // beforeUpdate: function (valorAActualizar,cb) {
+  //   if (valorAActualizar.password) {
+  //     Passwords.encryptPassword({
+  //       password: valorAActualizar.password
+  //     })
+  //       .exec(
+  //         {
+  //           error: function (err) {
+  //             cb("error en hash Password",err)
+  //           },
+  //           success: function (hashedPassword) {
+  //             valorAActualizar.password = hashedPassword;
+  //             cb()
+  //           },
+  //         });
+  //   }else{
+  //     cb();
+  //   }
+  //
+  //
+  // }
 
 };

@@ -16,6 +16,9 @@ module.exports = {
     },
     rol_active:{
       type:"string"
-    }
+    },
+    createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
+
+    updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
   }
 };

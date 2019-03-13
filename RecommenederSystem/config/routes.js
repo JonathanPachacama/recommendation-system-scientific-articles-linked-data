@@ -69,16 +69,22 @@ module.exports.routes = {
 
 
   'get /login' :{
-    view: 'Login/loginLayout',
-    locals:{layout:false}
+    view: 'Auth/login',
+    locals:{layout:'Auth/loginLayout'}
   },
+
+  'get /Auth' :{
+    view: 'Auth/register',
+    locals:{layout:'Auth/loginLayout'}
+  },
+
+  'POST /Auth':'AuthController.new_account',
 
   'get /' :{
-    view: 'Login/loginLayout',
-    locals:{layout:false}
+    view: 'Auth/login',
   },
 
-  'POST /login':'LoginController.validate',
+  'POST /login':'AuthController.validate',
 
 
   /***************************************************************************
