@@ -53,6 +53,27 @@ module.exports = {
       });
   },
 
+  recommenderWkxAPI: (req, res) => {
+    let parametros = req.allParams();
+
+    sails.log.info("Parametros", parametros);
+    Wkx_resource
+      .find()
+      .where({
+        resourceTitle: {
+          contains: parametros.busqueda
+        }
+      })
+      .exec((err, resourceFound) => {
+        if (err) return res.negotiate(err);
+        return res.json({
+          resource: resourceFound
+        })
+      });
+  },
+
+
+
   bringParametersCreator: (req, res) => {
 
 
@@ -498,6 +519,5 @@ module.exports = {
     } else {
       return res.redirect('/')
     }
-  }
 }
 
