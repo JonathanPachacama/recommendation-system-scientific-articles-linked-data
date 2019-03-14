@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
   //No necesitan seguridad (libres)
 
-  'get /': 'VistaController.biblioteca',
+  // 'get /': 'VistaController.biblioteca',
   '/perfil':{
     view:'UsuarioGestion/perfil'
   },
@@ -66,6 +66,25 @@ module.exports.routes = {
   'get /recommendationsWkx':
     'RecommenderModule/RecommenderWkxController.recommenderWkx',
   <!--(end) added for Recommender Module-->
+
+
+  'get /login' :{
+    view: 'Auth/login',
+    locals:{layout:'Auth/loginLayout'}
+  },
+
+  'get /Auth' :{
+    view: 'Auth/register',
+    locals:{layout:'Auth/loginLayout'}
+  },
+
+  'POST /Auth':'AuthController.new_account',
+
+  'get /' :{
+    view: 'Auth/login',
+  },
+
+  'POST /login':'AuthController.login',
 
 
   /***************************************************************************

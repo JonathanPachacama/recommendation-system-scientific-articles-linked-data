@@ -1,5 +1,152 @@
-<h1>Perfil</h1>
-<a href="http://www.Doaj.com">DOAJ</a>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Mi cuenta
+      <!--<small>Optional description</small>-->
+    </h1>
+    <!--<ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+      <li class="active">Here</li>
+    </ol>-->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Informaci&oacute;n </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                  <div class="panel-heading">Foto de Perfil</div>
+
+                  <div class="panel-body">
 
 
-<%- partial('../FotoUsuario/foto.ejs') %>
+                    <div class="row">
+
+                      <div class="col-lg-4 text-center">
+
+                        <div id="upload-demo" style="width:350px"></div>
+
+                      </div>
+
+                      <div class="col-lg-4" style="padding-top:30px;">
+
+                        <strong>Seleccionar Imagen:</strong>
+
+                        <br/>
+
+                        <input style="font-size: 12px;" type="file" id="upload">
+
+                        <br/>
+
+                        <button class="btn btn-success upload-result">Subir Imagen</button>
+
+                      </div>
+
+                      <div class="col-lg-4" style="">
+
+                        <div id="upload-demo-i" style="background:#e1e1e1;width:225px;padding:30px;height:225px;margin-top:30px">
+                          <!--<?php if($data_user[0]['path_photo'] == ''){ ?>-->
+                          <img width="175" src="/theme/dist/img/user-jp.jpg"  class="img-circle" />
+                          <!--<?php }else{ ?>-->
+                          <!--<img src="<?=base_url()?><?=$data_user[0]['path_photo'] ?>" />-->
+
+                          <!--<?php } ?>-->
+
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading"> Datos Personales </div>
+                  <div class="panel-body">
+                    <form role="form">
+
+                      <div class="form-group">
+                        <label>Nombre</label>
+                        <input id = "id" type="hidden" class="form-control" value="">
+                        <input id = "name" class="form-control" placeholder="Enter text" value="">
+                      </div>
+
+                      <div class="form-group">
+                        <label>E-mail</label>
+                        <input id = "email" class="form-control" placeholder="Enter text" value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Telefono</label>
+                        <input id = "phone" class="form-control" placeholder="Enter text" value="">
+                      </div>
+                      <!--<div class="form-group">
+                          <label>Movil</label>
+                          <input id = "movil" class="form-control" placeholder="Enter text" value="<?=$data_user[0]['celular'] ?>">
+                      </div>
+                      <div class="form-group">
+                          <label>Ciudad</label>
+                          <input id = "city" class="form-control" placeholder="Enter text" value="<?=$data_user[0]['city'] ?>">
+                      </div>
+                      <div class="form-group">
+                          <label>Direccion</label>
+                          <input id = "address" class="form-control" placeholder="Enter text" value="<?=$data_user[0]['address'] ?>">
+                      </div>-->
+                      <div class="form-group text-center">
+                        <button id = "guardar_profile" onclick="" class="btn btn-primary" type="button">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading"> Datos de acceso al sistema </div>
+                  <div class="panel-body">
+                    <form role="form">
+                      <div class="form-group">
+                        <label>Usuario</label>
+                        <input class="form-control" value="" placeholder="Enter text" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label>Contraseña nueva</label>
+                        <input id="pass1" type="password" class="form-control" placeholder="">
+                      </div>
+                      <div class="form-group">
+                        <label>Repetir contraseña nueva</label>
+                        <input id="pass2" type="password" class="form-control" placeholder="">
+                      </div>
+                      <div class="form-group text-center">
+                        <button id ="change_pass" onclick="" class="btn btn-primary" type="button">Cambiar contraseña</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

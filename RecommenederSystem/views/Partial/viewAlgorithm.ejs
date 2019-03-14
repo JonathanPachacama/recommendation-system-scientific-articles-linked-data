@@ -1,0 +1,75 @@
+<!---result  WITH ALGORITHM-->
+
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li id="ieeeNav" class="nav-item">
+        <a class="nav-link"  ng-Click="listArticlesIEEE()">
+          <button class="btn btn-primary" type="button">IEEE</button>
+        </a>
+      </li>
+      <li id="acmNav" class="nav-item">
+        <a  class="nav-link"  ng-Click="listArticlesACM()">
+          <button class="btn btn-primary" type="button">ACM</button>
+        </a>
+      </li>
+      <li  id="dblpNav"  class="nav-item">
+        <a class="nav-link"  ng-Click="listArticlesDBLP()">
+          <button class="btn btn-primary" type="button">DBLP</button>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+
+    <!-- recommender IEEE -->
+    <div ng-if="showIEEE">
+
+
+      <div class="row" >
+        <div class="col-md-12">
+          <br><br>
+          <h5 class="card-title">Recomendaciones de IEEE</h5>
+          <p class="card-text">Contiene {{size}} resultados del repositorio de IEEE</p>
+          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+          <br><br>
+        </div>
+      </div>
+      <%-partial ('../Partial/result.ejs')%>
+
+    </div>
+    <!-- /.recommender IEEE -->
+
+    <!-- recommender ACM -->
+    <div ng-if="showACM">
+      <div class="row" >
+        <div class="col-md-12">
+          <br><br>
+          <h5 class="card-title">Recomendaciones de ACM</h5>
+          <p class="card-text">Contiene {{size}} resultados del repositorio de ACM</p>
+          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+          <br><br>
+        </div>
+      </div>
+      <%-partial ('../Partial/result.ejs')%>
+    </div>
+    <!-- /.recommender ACM -->
+
+    <!-- recommender DBLP -->
+    <div ng-if="showDBLP">
+      <div class="row" >
+        <div class="col-md-12">
+          <br><br>
+          <h5 class="card-title">Recomendaciones de DBLP</h5>
+          <p class="card-text">Contiene {{size}} resultados del repositorio de DBLP</p>
+          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
+          <br><br>
+        </div>
+      </div>
+      <%-partial ('../Partial/result.ejs')%>
+    </div>
+    <!-- /.recommender DBLP -->
+
+  </div>
+</div>
+<!-- /.result WITH ALGORITHM -->

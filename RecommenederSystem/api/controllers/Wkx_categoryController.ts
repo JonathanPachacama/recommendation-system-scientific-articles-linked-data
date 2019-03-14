@@ -1,3 +1,4 @@
+declare var require;
 declare var module;
 declare var ResourceId;
 declare var PublisherId;

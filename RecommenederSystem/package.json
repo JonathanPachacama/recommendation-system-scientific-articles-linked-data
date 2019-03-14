@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "angular-ui-bootstrap": "^2.5.6",
     "ejs": "2.3.4",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
@@ -19,6 +20,8 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "jsonwebtoken": "^8.5.0",
+    "machinepack-passwords": "^2.3.0",
     "nltk-stopwords": "^1.0.3",
     "rc": "1.0.1",
     "sails": "~0.12.13",
@@ -30,7 +33,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "main": "app.js",
   "repository": {
@@ -38,5 +41,8 @@
     "url": "git://github.com/USRDEL/CarritoCompras.git"
   },
   "author": "USRDEL",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }

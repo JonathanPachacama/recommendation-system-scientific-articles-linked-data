@@ -21,7 +21,8 @@
 
 var cssFilesToInject = [
   'styles/**/*.css',
-  'Bootstrap/css/bootstrap.css',
+  // 'Bootstrap/css/bootstrap.css',
+  '/theme/bower_component/bootstrap/dist/css/bootstrap.css',
 
     'lib/google-code-prettify/prettify.css',
     'lib/google-code-prettify/prettify-desert.css',
@@ -45,6 +46,12 @@ var jsFilesToInject = [
   // 'js/**/*.js',
   'js/*.js',
   'Bootstrap/js/bootstrap.js',
+  'js/angular/main.js',
+  'js/recommenderModule/recommendeHeader.js',
+  'js/recommenderModule/recommenderWkxView.js',
+  '/ui-bootstrap/ui-bootstrap-custom-tpls-2.5.0.js',
+  '/theme/bower_component/bootstrap/dist/css/bootstrap.js',
+
 
   'js/d3sparql.js',
   'lib/d3/d3.v3.min.js',

@@ -42,5 +42,9 @@ module.exports.policies = {
     'welcome': 'flash',
     'crearMiArticulo': 'flash'
   },
-  newPolitica:['Metodos']
+  newPolitica:['Metodos'],
+
+  LoginController: {
+    success : ['sessionAuth']
+  },
 };

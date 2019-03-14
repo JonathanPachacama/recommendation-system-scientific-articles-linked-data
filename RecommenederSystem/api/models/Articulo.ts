@@ -1,6 +1,3 @@
-/**
- * Created by CEDIA on 24/07/2017.
- */
 declare var module:any;
 
 module.exports = {
