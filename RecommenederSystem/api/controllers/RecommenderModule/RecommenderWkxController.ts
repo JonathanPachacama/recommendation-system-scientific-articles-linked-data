@@ -52,28 +52,6 @@ module.exports = {
         })
       });
   },
-
-  recommenderWkxAPI: (req, res) => {
-    let parametros = req.allParams();
-
-    sails.log.info("Parametros", parametros);
-    Wkx_resource
-      .find()
-      .where({
-        resourceTitle: {
-          contains: parametros.busqueda
-        }
-      })
-      .exec((err, resourceFound) => {
-        if (err) return res.negotiate(err);
-        return res.json({
-          resource: resourceFound
-        })
-      });
-  },
-
-
-
   bringParametersCreator: (req, res) => {
 
 
@@ -125,11 +103,11 @@ module.exports = {
 
                 function eliminateDuplicates(arr) { //function for eliminates duplicate elements
                   let i,
-                    len=arr.length,
-                    out=[],
-                    obj={};
-                  for (i=0;i<len;i++) {
-                    obj[arr[i]]=0;
+                    len = arr.length,
+                    out = [],
+                    obj = {};
+                  for (i = 0; i < len; i++) {
+                    obj[arr[i]] = 0;
                   }
                   for (i in obj) {
                     out.push(i);
@@ -348,11 +326,11 @@ module.exports = {
 
                 function eliminateDuplicates(arr) { //function for eliminates duplicate elements
                   let i,
-                    len=arr.length,
-                    out=[],
-                    obj={};
-                  for (i=0;i<len;i++) {
-                    obj[arr[i]]=0;
+                    len = arr.length,
+                    out = [],
+                    obj = {};
+                  for (i = 0; i < len; i++) {
+                    obj[arr[i]] = 0;
                   }
                   for (i in obj) {
                     out.push(i);
@@ -519,5 +497,5 @@ module.exports = {
     } else {
       return res.redirect('/')
     }
+  }
 }
-
