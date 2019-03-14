@@ -1,6 +1,9 @@
 declare var module;
 declare var sails;
 declare var User;
+declare var require;
+var Passwords = require('machinepack-passwords');
+var jwt = require('jsonwebtoken');
 
 module.exports = {
 
@@ -58,44 +61,54 @@ module.exports = {
         }
       )
   },
-  validate : function(req,res){
+  login : function(req,res){
 
     var username = req.param('username');
     var password = req.param('password');
 
     if (username && password) {
       User.findOne({ user_username: username })
-        .exec(function (err, usuarioEncontrado) {
+        .exec(function (err, foundUser) {
           if (err)
             return res.negotiate(err);
-          if (!usuarioEncontrado) {
+          if (!foundUser) {
             return res.serverError('El usuario no existe');
           }
           else {
-            if (password == usuarioEncontrado.user_password) {
+            Passwords.checkPassword({
+              passwordAttempt: password,
+              encryptedPassword: foundUser.user_password,
+            })
+              .exec({
+                error: function (err) {
+                  return res.serverError(err);
+                },
+                incorrect: function () {
+                  return res.badRequest("Datos Invalidos")
+                },
+                success: function () {
+                  req.session.authenticated = true;
+                  console.log("Estas logeado");
 
-              req.session.authenticated = true;
-              console.log("Estas logeado");
-              res.redirect('/login/success');
-            }
-            else {
-              return res.serverError("Password Incorrecta");
-            }
-            // Passwords.checkPassword({
-            //   passwordAttempt: password,
-            //   encryptedPassword: usuarioEncontrado.password,
-            // })
-            //   .exec({
-            //     error: function (err) {
-            //       return res.serverError(err);
-            //     },
-            //     incorrect: function () {
-            //       return res.badRequest("Datos Invalidos")
-            //     },
-            //     success: function () {
-            //       return res.view('UsuarioGestion/perfil');
-            //     }
-            //   });
+                  // return the credential
+                  var token =jwt
+                    .sign(
+                      {
+                        exp:Math.floor(Date.now()/ 1000)+(60*60), // expires in one hour
+                        data:{
+                          user_id:foundUser.user_id,
+                          user_name:foundUser.user_name,
+                          user_last_name:foundUser.user_last_name,
+                          user_username:foundUser.user_username,
+                          user_email:foundUser.user_email
+                        }
+                      },
+                      'secret');  //secret word
+                  console.log("token",token);
+                  res.redirect('/login/success');
+
+                }
+              });
           }
         });
     }
@@ -104,118 +117,6 @@ module.exports = {
       return res.serverError("No envia correo y pass");
     }
   },
-
-
-  login:(req,res)=>{
-    var parametros = req.allParams();
-    if(parametros.correo&&parametros.password){
-      User.findOne({correo:parametros.correo})
-        .exec((err, usuarioEncontrado) => {
-          if (err)return res.negotiate(err,);
-          if (!usuarioEncontrado) {
-            return res.serverError('El usuario no existe')
-          }
-          else{
-
-            if(parametros.password==usuarioEncontrado.password){
-              console.log("Estas logeado");
-              return res.view('UsuarioGestion/perfil');
-            }else{
-              return res.serverError("Password Incorrecta")
-            }
-            // Passwords.checkPassword({
-            //   passwordAttempt: parametros.password,
-            //   encryptedPassword: usuarioEncontrado.password,
-            // })
-            //   .exec({
-            //     error: function (err) {
-            //       return res.serverError(err);
-            //     },
-            //     incorrect: function () {
-            //       return res.badRequest("Datos Invalidos")
-            //     },
-            //     success: function () {
-            //       return res.view('UsuarioGestion/perfil');
-            //     }
-            //   });
-
-          }
-
-        });
-    }
-    else{
-      sails.log('Usuario eliminado');
-      return res.serverError("No envia correo y pass")
-
-    }
-  },
-
-  // logIn:function (req,res) {
-  //   var parametros = req.allParams();
-  //
-  //   if(parametros.correo&&parametros.password){
-  //     Usuario
-  //       .findOne({
-  //         correo:parametros.correo
-  //       })
-  //       .exec(function (err,usuarioEncontrado) {
-  //
-  //         if(err) return res.serverError("Error",err);
-  //
-  //         if(!usuarioEncontrado){
-  //           return res.notFound("Usuario no Encontrado");
-  //         }else{
-  //           /*
-  //            if(parametros.password==usuarioEncontrado.password){
-  //            return res.ok("Estas logeado")
-  //            }else{
-  //            return res.badRequest("Password Incorrecta")
-  //            }
-  //            */
-  //
-  //           Passwords.checkPassword({
-  //             passwordAttempt: parametros.password,
-  //             encryptedPassword: usuarioEncontrado.password,
-  //           })
-  //             .exec({
-  //               error: function (err) {
-  //                 return res.serverError(err);
-  //               },
-  //               incorrect: function () {
-  //                 return res.badRequest("Datos Invalidos")
-  //               },
-  //               success: function () {
-  //                 //devolver la credencial
-  //                 var token =jwt
-  //                   .sign(
-  //                     {
-  //                       exp:Math.floor(Date.now()/ 1000)+(60*60), // aki va expirar en una hor
-  //                       data:{
-  //                         id:usuarioEncontrado.id,
-  //                         nombre:usuarioEncontrado.nombre,
-  //                         correo:usuarioEncontrado.correo
-  //                       }
-  //                     },
-  //                     'leninAmaACoreea');  //palabra secreta
-  //                 return res.ok(token);
-  //               }
-  //             });
-  //         }
-  //
-  //       });
-  //
-  //
-  //
-  //
-  //   }else{
-  //
-  //     return res.badRequest("No envia correo y pass");
-  //
-  //   }
-  //
-  //
-  // },
-
 
   success : function(req,res){
     return res.redirect('/');

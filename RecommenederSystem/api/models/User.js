@@ -46,56 +46,53 @@ module.exports = {
     user_has_access:{
       type:"string"
     },
-    createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
+    createdAt: {
+      type: 'string',
+      columnType: 'datetime',
+      autoCreatedAt: true, },
 
-    updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
+    updatedAt: {
+      type: 'string',
+      columnType: 'datetime',
+      autoUpdatedAt: true, },
 
   },
-  //
-  // beforeCreate: function (usuario,cb) {
-  //   // sails.log.info("Usuario",usuario);
-  //   // usuario.nombre = "Joseee";
-  //   // usuario.password = "12345";
-  //   // cb();
-  //
-  //
-  //   //if (usuario.password) {
-  //   Passwords.encryptPassword({password: usuario.password}).exec({
-  //     error: function (err) {
-  //       cb("error en hash Password",err)
-  //     },
-  //     success: function (hashedPassword) {
-  //       usuario.password = hashedPassword;
-  //       cb()
-  //     },
-  //   });
-  //   //}else{
-  //   //cb();
-  //   //}
-  //
-  //
-  // },
-  //
-  // beforeUpdate: function (valorAActualizar,cb) {
-  //   if (valorAActualizar.password) {
-  //     Passwords.encryptPassword({
-  //       password: valorAActualizar.password
-  //     })
-  //       .exec(
-  //         {
-  //           error: function (err) {
-  //             cb("error en hash Password",err)
-  //           },
-  //           success: function (hashedPassword) {
-  //             valorAActualizar.password = hashedPassword;
-  //             cb()
-  //           },
-  //         });
-  //   }else{
-  //     cb();
-  //   }
-  //
-  //
-  // }
 
+  beforeCreate: function (values, cb) {
+
+    if (values.user_password) {
+    Passwords.encryptPassword({password: values.user_password}).exec({
+      error: function (err) {
+        cb("error en hash Password",err)
+      },
+      success: function (hashedPassword) {
+        values.user_password = hashedPassword;
+        // sails.log.info("hashedPassword",hashedPassword);
+        cb()
+      },
+    });
+    }else{
+    cb();
+    }
+  },
+
+  beforeUpdate: function (valueToUpdate,cb) {
+    if (valueToUpdate.user_password) {
+      Passwords.encryptPassword({
+        password: valueToUpdate.user_password
+      })
+        .exec(
+          {
+            error: function (err) {
+              cb("error en hash Password",err)
+            },
+            success: function (hashedPassword) {
+              valueToUpdate.user_password = hashedPassword;
+              cb()
+            },
+          });
+    }else{
+      cb();
+    }
+  }
 };

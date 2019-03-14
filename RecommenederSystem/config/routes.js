@@ -84,7 +84,7 @@ module.exports.routes = {
     view: 'Auth/login',
   },
 
-  'POST /login':'AuthController.validate',
+  'POST /login':'AuthController.login',
 
 
   /***************************************************************************
