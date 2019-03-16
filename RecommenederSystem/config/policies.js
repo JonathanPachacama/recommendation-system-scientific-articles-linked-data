@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': 'sessionAuth',
 
   /***************************************************************************
   *                                                                          *
@@ -34,17 +34,22 @@ module.exports.policies = {
   * and its actions                                                          *
   *                                                                          *
   ***************************************************************************/
+
+  AuthController: {
+    // Apply 'isAdmin' to the 'foo' action.  'isLoggedIn' will NOT be applied!
+    'login': 'Metodo',
+    'new_account': 'Metodo'
+  }
+,
 	//policies.js
-  VistaController: {
-		vistaOculta : ['validarAno2016']
-	 },
+  // VistaController: {
+	// 	vistaOculta : ['validarAno2016']
+	//  },
   'Saludo': {
     'welcome': 'flash',
     'crearMiArticulo': 'flash'
   },
-  newPolitica:['Metodos'],
+  newPolitica:['Metodo'],
 
-  LoginController: {
-    success : ['sessionAuth']
-  },
+
 };

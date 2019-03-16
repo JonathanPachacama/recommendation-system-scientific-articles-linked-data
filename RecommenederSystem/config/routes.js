@@ -35,13 +35,16 @@ module.exports.routes = {
 
   // 'get /': 'VistaController.biblioteca',
   '/perfil':{
-    view:'UsuarioGestion/perfil'
+    view:'UsuarioGestion/perfil',
+    policy: 'sessionAuth'
   },
   '/busqueda':{
-    view:'busqueda'
+    view:'busqueda',
+    policy: 'sessionAuth'
   },
   '/MisArticulos':{
-    view:'MisArticulos'
+    view:'MisArticulos',
+    policy: 'sessionAuth'
   },
  // '/misArticulos': 'VistaController.misArticuloView',
   '/mibiblioteca': 'SaludoController.VerMisArticulos',
@@ -60,11 +63,20 @@ module.exports.routes = {
     'SaludoController.VerMiArticulo',
 
   <!--(start) added for Recommender Module-->
-  'get /recommendations':
-    'RecommenderModule/RecommenderController.articlesToRecommend',
 
-  'get /recommendationsWkx':
-    'RecommenderModule/RecommenderWkxController.recommenderWkx',
+
+  'GET /recommendations': {
+    policy: 'sessionAuth',
+    controller: "RecommenderModule/RecommenderController",
+    action: "articlesToRecommend"
+  },
+
+  'GET /recommendationsWkx': {
+    policy: 'sessionAuth',
+    controller: "RecommenderModule/RecommenderWkxController",
+    action: "recommenderWkx"
+  },
+
   <!--(end) added for Recommender Module-->
 
 
@@ -80,9 +92,11 @@ module.exports.routes = {
 
   'POST /Auth':'AuthController.new_account',
 
-  'get /' :{
-    view: 'Auth/login',
-  },
+  'get /' :[
+    { policy: 'sessionAuth' },
+    { view: 'UsuarioGestion/perfil' }
+  ],
+
 
   'POST /login':'AuthController.login',
 
