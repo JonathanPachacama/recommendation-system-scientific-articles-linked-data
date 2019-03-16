@@ -84,7 +84,7 @@ module.exports = {
                                 }
                             }, 'secret'); //secret word
                             console.log("token", token);
-                            res.redirect('/login/success');
+                            res.redirect('/perfil');
                         }
                     });
                 }

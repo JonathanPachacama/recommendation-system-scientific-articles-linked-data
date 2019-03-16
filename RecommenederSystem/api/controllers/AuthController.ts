@@ -44,20 +44,20 @@ module.exports = {
     User.create(new_user)
       .exec(
         (error,userCreated)=> {
-            if (error) {
-              req.flash = {
-                err: error
-              }
-              return res.view('Auth/register', {
-                flash_message:flash_message,
-                msj:msj,
-                layout: 'Auth/loginLayout'
-              });
+          if (error) {
+            req.flash = {
+              err: error
             }
-            else
-            {
-              res.redirect('/login');
-            }
+            return res.view('Auth/register', {
+              flash_message:flash_message,
+              msj:msj,
+              layout: 'Auth/loginLayout'
+            });
+          }
+          else
+          {
+            res.redirect('/login');
+          }
         }
       )
   },
@@ -105,7 +105,7 @@ module.exports = {
                       },
                       'secret');  //secret word
                   console.log("token",token);
-                  res.redirect('/login/success');
+                  res.redirect('/perfil');
 
                 }
               });
