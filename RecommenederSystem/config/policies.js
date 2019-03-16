@@ -38,6 +38,7 @@ module.exports.policies = {
   AuthController: {
     // Apply 'isAdmin' to the 'foo' action.  'isLoggedIn' will NOT be applied!
     'login': 'Metodo',
+
     'new_account': 'Metodo'
   }
 ,
