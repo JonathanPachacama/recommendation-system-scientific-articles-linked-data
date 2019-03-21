@@ -46,6 +46,18 @@ module.exports = {
         });
     },
     login: function (req, res) {
+        // var correo = req.param('correo');
+        // var password = req.param('password');
+        // var token = ApiAuthService.logIn(correo,password)
+        //
+        // if(token){
+        //   req.session.authenticated = true;
+        //   console.log("Estas logeado");
+        //   res.redirect('/perfil');
+        // }else{
+        //   console.log("no se logeo")
+        //   res.redirect('/login')
+        // }
         var username = req.param('username');
         var password = req.param('password');
         if (username && password) {
@@ -84,6 +96,8 @@ module.exports = {
                                 }
                             }, 'secret'); //secret word
                             console.log("token", token);
+                            var decodeToken = TokenService.decode(token);
+                            console.log("helloMessage", decodeToken);
                             res.redirect('/perfil');
                         }
                     });
