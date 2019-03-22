@@ -97,9 +97,10 @@ module.exports.routes = {
     { view: 'UsuarioGestion/perfil' }
   ],
 
-
-  'POST /login':'AuthController.login',
-
+  'POST /login': {
+    controller: "AuthController",
+    action: "login"
+  },
 
   /***************************************************************************
   *                                                                          *
