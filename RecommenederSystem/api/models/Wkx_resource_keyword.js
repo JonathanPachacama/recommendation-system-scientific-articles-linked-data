@@ -18,13 +18,7 @@ module.exports = {
     resourcekeywordResourceId:{
       model:'Wkx_resource'
     },
-    resourcekeywordQuoteId:{
-      type: "integer"
-    },
-    resourcekeywordParaphraseId:{
-      type: "integer"
-    },
-    resourcekeywordMusingId:{
+    resourcekeywordMetadataId:{
       type: "integer"
     },
     resourcekeywordKeywordId:{

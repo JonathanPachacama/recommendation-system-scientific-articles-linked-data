@@ -45,6 +45,9 @@ module.exports = {
     resourcemiscAddUserIdResource:{
       type: "integer"
     },
+    resourcemiscEditUserIdResource:{
+      type: "integer"
+    },
     resourcemiscAccesses:{
       type: "integer"
     },

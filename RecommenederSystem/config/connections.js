@@ -53,7 +53,7 @@ module.exports.connections = {
     host: 'localhost',
     user: 'Jonathan',
     password: '1234',
-    database: 'wikindx4',
+    database: 'wikindx5',
     port:3306
   },
 

@@ -19,6 +19,9 @@ module.exports = {
     keywordKeyword:{
       type:"longtext"
     },
+    keywordGlossary:{
+      type:"string"
+    },
     keyword_Keyword:{
       collection: 'Wkx_resource_keyword',
       via: 'resourcekeywordKeywordId'
