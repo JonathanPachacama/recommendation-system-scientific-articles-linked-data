@@ -20,6 +20,9 @@ module.exports = {
     },
     resourcecategoryCategoryId:{
       model:'Wkx_category'
+    },
+    resourcecategorySubcategoryId:{
+      type: "integer",
     }
   }
 };

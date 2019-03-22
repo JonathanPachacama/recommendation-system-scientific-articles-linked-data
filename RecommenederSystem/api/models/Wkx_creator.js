@@ -15,10 +15,12 @@ module.exports = {
       autoIncrement: true,
       primaryKey:true
     },
+    creatorSurname:{
+      type:"string"
+    },
     creatorFirstname:{
       type:"string"
     },
-
     creatorInitials:{
       type:"string"
     },
@@ -29,9 +31,7 @@ module.exports = {
       type:"integer",
 
     },
-    creatorSurname:{
-      type:"string"
-    },
+
     resourcecreatorCreator: {
       collection: 'Wkx_resource_creator',
       via: 'resourcecreatorCreatorId'

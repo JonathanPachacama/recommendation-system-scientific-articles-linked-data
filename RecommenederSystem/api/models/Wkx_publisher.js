@@ -15,11 +15,10 @@ module.exports = {
       autoIncrement: true,
       primaryKey:true
     },
-    publisherLocation:{
+    publisherName:{
       type:"string"
     },
-
-    publisherName:{
+    publisherLocation:{
       type:"string"
     },
     publisherType:{
