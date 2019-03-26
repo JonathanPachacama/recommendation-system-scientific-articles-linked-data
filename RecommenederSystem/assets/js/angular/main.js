@@ -279,7 +279,8 @@ angularApp.controller('mainWikindxController',
 
   .filter('startFromGrid', function() {
     return function(input, start) {
-      start = +start;
+      if (!input || !input.length) { return; }
+      start = +start; //parse to int
       return input.slice(start);
     }
   });

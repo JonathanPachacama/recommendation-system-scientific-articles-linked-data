@@ -19,15 +19,23 @@
     -------------------------->
 
     <div ng-controller="mainWikindxController">
+
+
       <div class="row">
         <div class="col-lg-12">
-
-
           <div class="box">
             <div class="box-header with-border">
 
-              <input style="width:88%" placeholder="Ingrese un parametro de busqueda" id="busqueda" name="busqueda" ng-model="busqueda" class="form-control"> <button  ng-click='buscarArticulo()' class="btn btn-primary" type="submit"><i class="fa fa-fw fa-search"></i> Buscar</button>
-              <!--<a href="<?=base_url()."enterprises/enterprises" ?>" class="btn btn-primary"> Limpiar </a>-->
+              <!--<input style="width:88%" placeholder="Ingrese un parametro de busqueda" id="busqueda" name="busqueda"  class="form-control"> <button  ng-click='buscarArticulo()' class="btn btn-primary" type="submit"><i class="fa fa-fw fa-search"></i> Buscar</button>-->
+              <!--&lt;!&ndash;<a href="<?=base_url()."enterprises/enterprises" ?>" class="btn btn-primary"> Limpiar </a>&ndash;&gt;-->
+
+              <form class="form-inline reset-margin">
+              <input style="width:88%" placeholder="Ingrese un parametro de busqueda" id ="busqueda" name="busqueda" class="form-control" ng-model="busqueda"> <button ng-click="buscarArticulo()" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Buscar</button>
+
+              <!--<a href="<?=base_url()."clients/clients" ?>" class="btn btn-primary"> Limpiar </a>-->
+
+              </form>
+
 
             </div>
             <!-- /.box-header -->
@@ -50,18 +58,24 @@
                   <td>{{article.resourceId }}</td>
                   <td>{{article.resourceTitle}}</td>
                   <td>
-                    <a hidden class="btn btn-default btn-xs" href="">
+                    <a hidden class="btn btn-default btn-xs" href="<%= MasterUrlService.base_wikindx()%>index.php?action=resource_RESOURCEFORM_CORE&type=edit&id={{article.resourceId }}" target="_blank">
                       <i class="fa fa-fw fa-edit"></i>
                     </a>
-                    <button hidden class="btn btn-danger btn-xs" type="button" onclick="">
-                      <i class="fa fa-fw fa-remove"></i>
-                    </button>
+                    <a hidden class="btn btn-default btn-xs" href="<%= MasterUrlService.base_wikindx()%>index.php?action=resource_RESOURCEVIEW_CORE&id={{article.resourceId }}" target="_blank">
+                      <i class="fa fa-fw fa-list-alt"></i>
+                    </a>
 
                     <a href="/RecommenderModule/RecommenderWkx/bringParametersCreator?resourceId={{article.resourceId }}">
-                      <button type="button"  ng-click='irRecomendacion' class="btn btn-primary">recomendación</button>
+                      <button type="button"  ng-click='irRecomendacion' class="btn btn-primary btn-xs"><i class="fa fa-fw fa-list-ul"></i></button>
                     </a>
 
+                    <a href="<%= MasterUrlService.base_wikindx()%>index.php?action=admin_DELETERESOURCE_CORE&function=deleteResourceConfirm&navigate=list&resource_id={{article.resourceId}}" target="_blank">
+                      <button hidden class="btn btn-danger btn-xs" type="button" onclick="">
+                        <i class="fa fa-fw fa-remove"></i>
+                      </button>
                     </a>
+
+
                   </td>
 
 
