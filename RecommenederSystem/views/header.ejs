@@ -210,10 +210,10 @@
       <li class="header">MENU PRINCIPAL</li>
       <!-- Optionally, you can add icons to the links -->
 
-      <li> <a href="/"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a> </li>
-      <li> <a href="/busqueda"><i class="fa fa-search fa-fw"></i> <span>Busqueda</span></a> </li>
-      <li> <a href="/biblioteca"><i class="fa fa-book fa-fw"></i> <span>Biblioteca</span></a> </li>
-      <li> <a href="/crearMisArticulos"><i class="fa fa-edit fa-fw"></i> <span>Crear mis articulos</span></a> </li>
+      <li> <a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a> </li>
+      <li> <a href="<%= MasterUrlService.base_url()%>busqueda"><i class="fa fa-search fa-fw"></i> <span>Busqueda</span></a> </li>
+      <li> <a href="<%= MasterUrlService.base_url()%>biblioteca"><i class="fa fa-book fa-fw"></i> <span>Biblioteca</span></a> </li>
+      <li> <a href="<%= MasterUrlService.base_url()%>crearMisArticulos"><i class="fa fa-edit fa-fw"></i> <span>Crear mis articulos</span></a> </li>
 
 
       <li class="treeview">
@@ -223,7 +223,7 @@
               </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/recommendationsWkx">Recomendación</a></li>
+          <li><a href="<%= MasterUrlService.base_url()%>recommendationsWkx">Recomendación</a></li>
         </ul>
       </li>
     </ul>

@@ -121,7 +121,7 @@
                           <br><br>
                           <h5 class="card-title">Recomendaciones de IEEE</h5>
                           <p class="card-text">Contiene {{size}}  resultados del repositorio de IEEE</p>
-                          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
                       </div>
@@ -145,7 +145,7 @@
                                         </td>
 
                                         <td>
-                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
                                         </td>
                                       </tr>
                                       </tbody>
@@ -201,7 +201,7 @@
                           <br><br>
                           <h5 class="card-title">Recomendaciones de ACM</h5>
                           <p class="card-text">Contiene {{size}}  resultados del repositorio de ACM</p>
-                          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
                       </div>
@@ -225,7 +225,7 @@
                                         </td>
 
                                         <td>
-                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
                                         </td>
                                       </tr>
                                       </tbody>
@@ -280,7 +280,7 @@
                           <br><br>
                           <h5 class="card-title">Recomendaciones de DBLP</h5>
                           <p class="card-text">Contiene {{size}}  resultados del repositorio de DBLP</p>
-                          <input hidden id="endpointDynamic" class="span5" value="https://thingproxy.freeboard.io/fetch/http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
+                          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
                           <br><br>
                         </div>
                       </div>
@@ -304,7 +304,7 @@
                                         </td>
 
                                         <td>
-                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">IR</button>
+                                          <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
                                         </td>
                                       </tr>
                                       </tbody>
@@ -452,41 +452,12 @@
                                   <input class="form-control" type="text"  value="" id="volume" name="volume">
                                 </div>
                               </div>
-
-
-                              <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Citados:</label>
-                                <div class="col-sm-10">
-
-                  <textarea
-                    class="form-control"
-                    id="cited"
-                    value=""
-                    cols="45" rows="3"
-                  ></textarea>
-
-                                </div>
-                              </div>
-
-
-                              <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Quien le cita:</label>
-                                <div class="col-sm-10">
-
-                  <textarea
-                    class="form-control"
-                    id="whoCited"
-                    value=""
-                    cols="45" rows="3"
-                  ></textarea>
-
-                                </div>
-                              </div>
                             </div>
+
                             <div class="col-sm-12">
                               <div class="alert alert-success" role="alert">
                                 <p id="webAddressLink"></p>
-                                <a  role="button" class="tooltip-test btn btn-info" id="webAddress"></a>
+                                <a  role="button" class="tooltip-test btn btn-info" id="webAddress" target="_blank"></a>
                               </div>
                             </div>
                           </div>

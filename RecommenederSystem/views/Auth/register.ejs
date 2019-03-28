@@ -1,6 +1,6 @@
 <div class="register-box">
   <div class="register-logo">
-    <a href="<%= sails.config.myconf.base_url %>"><img src="<%= sails.config.myconf.base_url %>images/logoenp.png"></a>
+    <a href="<%= MasterUrlService.base_url()%>"><img src="<%= MasterUrlService.base_url()%>images/logoenp.png"></a>
   </div>
 
   <div class="register-box-body">
@@ -48,7 +48,7 @@
       </div>
     </form>
 
-    <a href="<%= sails.config.myconf.base_url %>" class="text-center">Ya tengo una cuenta</a>
+    <a href="<%= MasterUrlService.base_url()%>" class="text-center">Ya tengo una cuenta</a>
   </div>
   <!-- /.form-box -->
 </div>

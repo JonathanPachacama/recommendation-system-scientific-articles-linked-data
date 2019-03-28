@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">
-          <div class="panel-heading"> Detalle articulo # <%= query.resourceId%> </div>
+          <div class="panel-heading"> Detalle articulo</div>
           <div class="panel-body">
 
             <!-- /-------------------------------------------------------------------------------------------------------------/ -->
@@ -35,13 +35,15 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <br><br>
-                      <h2 id="fullTitle" value="<%= query.resourceTitle%>"><%= query.resourceTitle%></h2>
-                      <input hidden class="form-control" id="title" type="text"  value="<%= tokensTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
-                      <br>
+                      <div class="form-group row">
+                        <h2 id="fullTitle" value="<%= query.resourceTitle%>"><%= query.resourceTitle%></h2>
+                        <input hidden  id="title" type="text"  value="<%= tokensTitle%>" disabled>  <!--input oculto contiene id="title" PARA LA PRIMERA CONSULTA-->
+                      </div>
+                      <br><br>
                     </div>
                   </div>
                   <form>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label class="col-1 col-form-label">Autores:</label>
                       <% if(firstname.length == surname.length){ %>
                       <select class="form-control" id="exampleFormControlSelect1" style="background-color: #eceeef" >
@@ -55,23 +57,23 @@
                         <input class="form-control" id="title" type="text"  value="<%= surname%>" disabled>
                       <% } %>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label for="validationDefault01">Revista:</label>
                       <input class="form-control" type="text"  value="<%= journal%>" disabled>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label for="validationDefault02">Editor:</label>
                       <input class="form-control" type="text"  value="<%= publisher%>(<%= locationPublisher%>)" disabled>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label for="validationDefault02">Categoria:</label>
                       <input class="form-control" type="text"  value="<%= category%>" disabled>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label for="validationDefault02">Keywords:</label>
                       <input class="form-control" type="text"  id="keyword" value="<%= keyword%>" disabled>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                       <label for="exampleFormControlTextarea1">Abstract:</label>
                       <textarea class="form-control"
                                 id="abstract"
