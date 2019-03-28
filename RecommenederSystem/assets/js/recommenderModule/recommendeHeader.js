@@ -376,7 +376,7 @@ function  web(button){
       if(Object.entries(dataWeb).length != 0 ){
         $("#webIEEE").val(dataWeb[0].web.value);
         $("#webIEEE").css({"font-style": "normal"})
-        $("#webAddress").text("Full-text").attr({"href":dataWeb[0].web.value,"title":dataWeb[0].web.value});
+        $("#webAddress").text("web").attr({"href":dataWeb[0].web.value,"title":dataWeb[0].web.value});
         $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
         console.log("Web: ",dataWeb[0].web.value);
       }else {
@@ -386,7 +386,7 @@ function  web(button){
           var webACMresult = webACM+sparqlWeb2
           $("#webIEEE").val(webACMresult);
           $("#webIEEE").css({"font-style": "normal"})
-          $("#webAddress").text("Full-text").attr({"href":webACMresult,"title":webACMresult});
+          $("#webAddress").text("web").attr({"href":webACMresult,"title":webACMresult});
           $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
           console.log("Web: ",webACMresult);
         }else{

@@ -55,7 +55,7 @@
 
                 <tr ng-repeat='article in articles | startFromGrid: currentPage * pageSize | limitTo: pageSize' >
 
-                  <td>{{article.resourceId }}</td>
+                  <td>{{$index+1}}</td>
                   <td>{{article.resourceTitle}}</td>
                   <td>
                     <a hidden class="btn btn-default btn-xs" href="<%= MasterUrlService.base_wikindx()%>index.php?action=resource_RESOURCEFORM_CORE&type=edit&id={{article.resourceId }}" target="_blank">

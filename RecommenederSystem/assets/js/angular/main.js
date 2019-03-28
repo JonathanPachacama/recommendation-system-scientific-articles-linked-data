@@ -331,9 +331,10 @@ angularApp.controller("Controller",function ($scope,$http) {
 
   let query = prefix+querySparql
 
-  let concatenation = apiAcm+encodeURIComponent(query);
 
-  $http.get("https://thingproxy.freeboard.io/fetch/"+concatenation)
+  let url_proxy = 'http://192.168.1.6:8083/fetch/'
+  let concatenation = url_proxy+apiAcm+encodeURIComponent(query);
+  $http.get(concatenation)
     .success(function (data){
       console.log(data);
       $scope.responseJson = data.results.bindings;
