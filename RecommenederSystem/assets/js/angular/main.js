@@ -1,19 +1,33 @@
 // Creación del módulo
+
+
 var angularApp = angular.module('appRecommenderLayout', ['ui.bootstrap']);
 
 
 angularApp.controller("layoutController",function ($scope,$http) {
-}).factory('url_config', function() {
-  var base_urlSails = 'http://localhost:1337'
-  var base_UrlWebServer = 'http://localhost:8080'
-  // var base_urlSails = 'http://192.168.1.6:1337'
-  // var base_UrlWebServer = 'http://192.168.1.6:8080'
+}).factory('urlService', function() {
+
+  // //url for tests localhost
+  // var base_urlSails = 'http://localhost:8081/'
+  // var base_UrlWebServer = 'http://localhost:8080/'
+
+  // // url for deployed
+  // var base_urlSails = '[DOMINIO]'
+  // var base_UrlWebServer = '[DOMINIO]'
+
+  //url for google cloud or different ip
+  var ipSails = '192.168.1.6'
+  var ipJava = '192.168.1.6'
+  var portSails = ':8081'
+  var portJava = ':8080'
+  var base_urlSails = 'http://'+ipSails+portSails+'/'
+  var base_UrlWebServer = 'http://'+ipJava+portJava+'/'
 
 
-  var urlLuceneIEEE = base_UrlWebServer+"/JavaAPI/api/articulos/getBusquedaIEEE/?Busqueda="
-  var urlLuceneACM = base_UrlWebServer+"/JavaAPI/api/articulos/getBusquedaACM/?Busqueda="
-  var urlLuceneDBLP = base_UrlWebServer+"/JavaAPI/api/articulos/getBusquedaDBLP/?Busqueda="
-  //http://localhost:1337/RecommenderModule/RecommenderWkx/bringParametersCreatorAPI?resourceId=2
+  var urlLuceneIEEE = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaIEEE/?Busqueda="
+  var urlLuceneACM = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaACM/?Busqueda="
+  var urlLuceneDBLP = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaDBLP/?Busqueda="
+
     return {
       base_urlSails : base_urlSails,
       base_UrlWebServer : base_UrlWebServer,
@@ -23,13 +37,13 @@ angularApp.controller("layoutController",function ($scope,$http) {
     };
 });
 
-angularApp.controller("recommenderController",function ($scope,$http, $log, url_config) {
+angularApp.controller("recommenderController",function ($scope,$http, $log, urlService) {
 
   // let TitleLucene = $("#title").val();    //get value of keywords of the title
   let fullTitle = $("#fullTitle").text();    //get value of full title
-  let urlSendIEEE = url_config.urlLuceneIEEE+fullTitle
-  let urlSendACM = url_config.urlLuceneACM+fullTitle
-  let urlSendDBLP = url_config.urlLuceneDBLP+fullTitle
+  let urlSendIEEE = urlService.urlLuceneIEEE+fullTitle
+  let urlSendACM = urlService.urlLuceneACM+fullTitle
+  let urlSendDBLP = urlService.urlLuceneDBLP+fullTitle
   $scope.showIEEE;
   $scope.showACM;
   $scope.showDBLP;
@@ -168,7 +182,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, url_
 
 
 angularApp.controller('mainWikindxController',
-    function($scope, url_config, $http) {
+    function($scope, urlService, $http) {
       $scope.currentPage = 0;
       $scope.pageSize = 10;
       $scope.pages = [];
@@ -182,7 +196,7 @@ angularApp.controller('mainWikindxController',
 
       $scope.buscarArticulo = function () {
 
-        var url = url_config.base_urlSails+'/RecommenderModule/recommenderWkx/recommenderWkxAPI?busqueda='+$scope.busqueda
+        var url = urlService.base_urlSails+'RecommenderModule/recommenderWkx/recommenderWkxAPI?busqueda='+$scope.busqueda
 
         console.log('url',url);
         $http.get(url)
@@ -228,7 +242,7 @@ angularApp.controller('mainWikindxController',
 
       $scope.irRecomendacion = function () {
 
-        var url = url_config.base_urlSails+'RecommenderWkx/bringParametersCreatorAPI?resourceId='+$scope.resourceId
+        var url = urlService.base_urlSails+'RecommenderWkx/bringParametersCreatorAPI?resourceId='+$scope.resourceId
 
 
         console.log('url',url);

@@ -1,14 +1,35 @@
 module.exports = {
 
   base_url: function (options) {
-    // var url = 'http://localhost:1337/'
-    var url = '/'
+
+    // url for tests
+    // var url = '/'
+
+
+    // // url for deployed
+    // var url = '[DOMINIO]'
+    //
+
+    //url for google cloud
+    var ip = '192.168.1.6'
+    var port = ':8081'
+    var url = 'http://'+ip+port+'/'
+
     return url;
   },
 
   base_wikindx: function (options) {
-    var url = 'http://localhost:80/wikindx5/'
-    // var url = '/'
+
+    // url for tests and google cloud
+    var ip = '192.168.1.6'
+    // var ip = 'localhost'
+    var port = ':80'
+    var url = 'http://'+ip+port+'/wikindx5/'
+
+    // // url for deployed
+    // var domain = '[DOMINIO]'
+    // var url = domain+'/wikindx5/'
+
     return url;
   },
   image_url: function (options) {
