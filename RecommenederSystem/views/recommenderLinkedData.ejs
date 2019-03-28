@@ -94,17 +94,17 @@
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                       <li id="ieeeNav" class="nav-item">
-                        <a class="nav-link"  ng-Click="listArticlesIEEE()">
+                        <a class="nav-link"  ng-Click="listArticlesIEEE()" ng-init="url='<%= MasterUrlService.base_java()%>'">
                           <button class="btn btn-primary" type="button">IEEE</button>
                         </a>
                       </li>
                       <li id="acmNav" class="nav-item">
-                        <a  class="nav-link"  ng-Click="listArticlesACM()">
+                        <a  class="nav-link"  ng-Click="listArticlesACM()" ng-init="url='<%= MasterUrlService.base_java()%>'">
                           <button class="btn btn-primary" type="button">ACM</button>
                         </a>
                       </li>
                       <li  id="dblpNav"  class="nav-item">
-                        <a class="nav-link"  ng-Click="listArticlesDBLP()">
+                        <a class="nav-link"  ng-Click="listArticlesDBLP()" ng-init="url='<%= MasterUrlService.base_java()%>'">
                           <button class="btn btn-primary" type="button">DBLP</button>
                         </a>
                       </li>

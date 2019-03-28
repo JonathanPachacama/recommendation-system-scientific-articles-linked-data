@@ -1,202 +1,26 @@
 // Creación del módulo
-
-
 var angularApp = angular.module('appRecommenderLayout', ['ui.bootstrap']);
-
-
-angularApp.controller("layoutController",function ($scope,$http) {
+angularApp.controller("layoutController",function () {
 }).factory('urlService', function() {
-
-  // //url for tests localhost
-  // var base_urlSails = 'http://localhost:8081/'
-  // var base_UrlWebServer = 'http://localhost:8080/'
-
-  // // url for deployed
-  // var base_urlSails = '[DOMINIO]'
-  // var base_UrlWebServer = '[DOMINIO]'
-
-  //url for google cloud or different ip
-  var ipSails = '192.168.1.6'
-  var ipJava = '192.168.1.6'
-  var portSails = ':8081'
-  var portJava = ':8080'
-  var base_urlSails = 'http://'+ipSails+portSails+'/'
-  var base_UrlWebServer = 'http://'+ipJava+portJava+'/'
-
-
-  var urlLuceneIEEE = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaIEEE/?Busqueda="
-  var urlLuceneACM = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaACM/?Busqueda="
-  var urlLuceneDBLP = base_UrlWebServer+"JavaAPI/api/articulos/getBusquedaDBLP/?Busqueda="
-
     return {
-      base_urlSails : base_urlSails,
-      base_UrlWebServer : base_UrlWebServer,
-      urlLuceneIEEE : urlLuceneIEEE,
-      urlLuceneACM : urlLuceneACM,
-      urlLuceneDBLP : urlLuceneDBLP,
+      url:{},
     };
 });
-
-angularApp.controller("recommenderController",function ($scope,$http, $log, urlService) {
-
-  // let TitleLucene = $("#title").val();    //get value of keywords of the title
-  let fullTitle = $("#fullTitle").text();    //get value of full title
-  let urlSendIEEE = urlService.urlLuceneIEEE+fullTitle
-  let urlSendACM = urlService.urlLuceneACM+fullTitle
-  let urlSendDBLP = urlService.urlLuceneDBLP+fullTitle
-  $scope.showIEEE;
-  $scope.showACM;
-  $scope.showDBLP;
-
-  $scope.listArticlesIEEE = function () {
-    $http.get(urlSendIEEE)
-      .success(function (data) {
-        $scope.showIEEE = true;
-        $scope.showACM = false;
-        $scope.showDBLP = false;
-        $("#ieeeNav").attr("class","nav-item active");
-        $("#acmNav").attr("class","nav-item disabled");
-        $("#dblpNav").attr("class","nav-item disabled");
-        $scope.responseJsonLucene = data;
-        console.log("la url es:" +  urlSendIEEE);
-        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
-        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
-          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
-          let score = $scope.responseJsonLucene[i].score
-          // console.log(i + 1 + ": Titulo:" + TitleLucene);
-          // console.log(i + 1 + ": Score:" + score);
-        }
-// start uib-pagination
-        $scope.size = data.length;
-        console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
-        $scope.totalItems = $scope.size;
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.viewby;
-        $scope.setPage = function (pageNo) {
-          $scope.currentPage = pageNo;
-        };
-        $scope.pageChanged = function() {
-          $log.log('Page changed to: ' + $scope.currentPage);
-        };
-        $scope.maxSize = 5;
-        $scope.bigTotalItems = 175;
-        $scope.bigCurrentPage = 1;
-        $scope.setItemsPerPage = function(num) {
-          $scope.itemsPerPage = num;
-          $scope.currentPage = 1; //reset to first page
-        }
-        // end uib-pagination
-
-      })
-      .error(function (err) {
-      });
-  }
-  $scope.listArticlesACM  = function () {
-    $http.get(urlSendACM)
-      .success(function (data) {
-        $scope.showIEEE = false;
-        $scope.showACM = true;
-        $scope.showDBLP = false;
-        $("#ieeeNav").attr("class","nav-item disabled");
-        $("#acmNav").attr("class","nav-item active");
-        $("#dblpNav").attr("class","nav-item disabled");
-        $scope.responseJsonLucene = data;
-        console.log("la url es:" + urlSendACM);
-        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
-        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
-          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
-          let score = $scope.responseJsonLucene[i].score
-          // console.log(i + 1 + ": Titulo:" + TitleLucene);
-          // console.log(i + 1 + ": Score:" + score);
-        }
-        // start uib-pagination
-        $scope.size = data.length;
-        console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
-        $scope.totalItems = $scope.size;
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.viewby;
-        $scope.setPage = function (pageNo) {
-          $scope.currentPage = pageNo;
-        };
-        $scope.pageChanged = function() {
-          $log.log('Page changed to: ' + $scope.currentPage);
-        };
-        $scope.maxSize = 5;
-        $scope.bigTotalItems = 175;
-        $scope.bigCurrentPage = 1;
-        $scope.setItemsPerPage = function(num) {
-          $scope.itemsPerPage = num;
-          $scope.currentPage = 1; //reset to first page
-        }
-        // end uib-pagination
-      })
-      .error(function (err) {
-      });
-  }
-  $scope.listArticlesDBLP = function () {
-    $http.get(urlSendDBLP)
-      .success(function (data) {
-        $scope.showIEEE = false;
-        $scope.showACM = false;
-        $scope.showDBLP = true;
-        $("#ieeeNav").attr("class","nav-item disabled");
-        $("#acmNav").attr("class","nav-item disabled");
-        $("#dblpNav").attr("class","nav-item active");
-        $scope.responseJsonLucene = data;
-        console.log("la url es:" + urlSendDBLP);
-        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
-        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
-          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
-          let score = $scope.responseJsonLucene[i].score
-          // console.log(i + 1 + ": Titulo:" + TitleLucene);
-          // console.log(i + 1 + ": Score:" + score);
-        }
-        // start uib-pagination
-        $scope.size = data.length;
-        console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
-        $scope.totalItems = $scope.size;
-        $scope.currentPage = 1;
-        $scope.itemsPerPage = $scope.viewby;
-        $scope.setPage = function (pageNo) {
-          $scope.currentPage = pageNo;
-        };
-        $scope.pageChanged = function() {
-          $log.log('Page changed to: ' + $scope.currentPage);
-        };
-        $scope.maxSize = 5;
-        $scope.bigTotalItems = 175;
-        $scope.bigCurrentPage = 1;
-        $scope.setItemsPerPage = function(num) {
-          $scope.itemsPerPage = num;
-          $scope.currentPage = 1; //reset to first page
-        }
-        // end uib-pagination
-      })
-      .error(function (err) {
-      });
-  }
-});
-
 
 angularApp.controller('mainWikindxController',
     function($scope, urlService, $http) {
       $scope.currentPage = 0;
       $scope.pageSize = 10;
       $scope.pages = [];
-
-
-
       $scope.articles = [];
-
       $scope.busqueda = "";
       $scope.resourceId;
 
       $scope.buscarArticulo = function () {
 
-        var url = urlService.base_urlSails+'RecommenderModule/recommenderWkx/recommenderWkxAPI?busqueda='+$scope.busqueda
+        urlService.url.sails = $scope.url;
+        console.log('urlService.url.sails',urlService.url.sails);
+        var url = urlService.url.sails+'RecommenderModule/recommenderWkx/recommenderWkxAPI?busqueda='+$scope.busqueda
 
         console.log('url',url);
         $http.get(url)
@@ -242,9 +66,7 @@ angularApp.controller('mainWikindxController',
 
       $scope.irRecomendacion = function () {
 
-        var url = urlService.base_urlSails+'RecommenderWkx/bringParametersCreatorAPI?resourceId='+$scope.resourceId
-
-
+        var url = urlService.url.sails+'RecommenderWkx/bringParametersCreatorAPI?resourceId='+$scope.resourceId
         console.log('url',url);
         $http.get(url)
           .success(function (data) {
@@ -286,18 +108,166 @@ angularApp.controller('mainWikindxController',
           $scope.currentPage = index - 1;
         };
       }
-
-
     }
-  )
-
-  .filter('startFromGrid', function() {
+  ).filter('startFromGrid', function() {
     return function(input, start) {
       if (!input || !input.length) { return; }
       start = +start; //parse to int
       return input.slice(start);
     }
   });
+
+angularApp.controller("recommenderController",function ($scope,$http, $log, urlService) {
+
+  // let TitleLucene = $("#title").val();    //get value of keywords of the title
+  let fullTitle = $("#fullTitle").text();    //get value of full title
+  $scope.showIEEE;
+  $scope.showACM;
+  $scope.showDBLP;
+
+  $scope.listArticlesIEEE = function () {
+    urlService.url.java = $scope.url;
+    console.log('urlService.url.java',urlService.url.java);
+    let urlSendIEEE = urlService.url.java+"JavaAPI/api/articulos/getBusquedaIEEE/?Busqueda="+fullTitle
+    $http.get(urlSendIEEE)
+      .success(function (data) {
+        $scope.showIEEE = true;
+        $scope.showACM = false;
+        $scope.showDBLP = false;
+        $("#ieeeNav").attr("class","nav-item active");
+        $("#acmNav").attr("class","nav-item disabled");
+        $("#dblpNav").attr("class","nav-item disabled");
+        $scope.responseJsonLucene = data;
+        console.log("la url es:" +  urlSendIEEE);
+        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
+        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
+          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
+          let score = $scope.responseJsonLucene[i].score
+          // console.log(i + 1 + ": Titulo:" + TitleLucene);
+          // console.log(i + 1 + ": Score:" + score);
+        }
+// start uib-pagination
+        $scope.size = data.length;
+        console.log("Número de resultados: ",$scope.size);
+        $scope.viewby = 20;
+        $scope.totalItems = $scope.size;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.viewby;
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
+        $scope.pageChanged = function() {
+          $log.log('Page changed to: ' + $scope.currentPage);
+        };
+        $scope.maxSize = 5;
+        $scope.bigTotalItems = 175;
+        $scope.bigCurrentPage = 1;
+        $scope.setItemsPerPage = function(num) {
+          $scope.itemsPerPage = num;
+          $scope.currentPage = 1; //reset to first page
+        }
+        // end uib-pagination
+
+      })
+      .error(function (err) {
+      });
+  }
+  $scope.listArticlesACM  = function () {
+
+    urlService.url.java = $scope.url;
+    console.log('urlService.url.java',urlService.url.java);
+    let urlSendACM = urlService.url.java+"JavaAPI/api/articulos/getBusquedaACM/?Busqueda="+fullTitle
+
+    $http.get(urlSendACM)
+      .success(function (data) {
+        $scope.showIEEE = false;
+        $scope.showACM = true;
+        $scope.showDBLP = false;
+        $("#ieeeNav").attr("class","nav-item disabled");
+        $("#acmNav").attr("class","nav-item active");
+        $("#dblpNav").attr("class","nav-item disabled");
+        $scope.responseJsonLucene = data;
+        console.log("la url es:" + urlSendACM);
+        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
+        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
+          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
+          let score = $scope.responseJsonLucene[i].score
+          // console.log(i + 1 + ": Titulo:" + TitleLucene);
+          // console.log(i + 1 + ": Score:" + score);
+        }
+        // start uib-pagination
+        $scope.size = data.length;
+        console.log("Número de resultados: ",$scope.size);
+        $scope.viewby = 20;
+        $scope.totalItems = $scope.size;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.viewby;
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
+        $scope.pageChanged = function() {
+          $log.log('Page changed to: ' + $scope.currentPage);
+        };
+        $scope.maxSize = 5;
+        $scope.bigTotalItems = 175;
+        $scope.bigCurrentPage = 1;
+        $scope.setItemsPerPage = function(num) {
+          $scope.itemsPerPage = num;
+          $scope.currentPage = 1; //reset to first page
+        }
+        // end uib-pagination
+      })
+      .error(function (err) {
+      });
+  }
+  $scope.listArticlesDBLP = function () {
+
+    urlService.url.java = $scope.url;
+    console.log('urlService.url.java',urlService.url.java);
+    let urlSendDBLP = urlService.url.java+"JavaAPI/api/articulos/getBusquedaDBLP/?Busqueda="+fullTitle
+    $http.get(urlSendDBLP)
+      .success(function (data) {
+        $scope.showIEEE = false;
+        $scope.showACM = false;
+        $scope.showDBLP = true;
+        $("#ieeeNav").attr("class","nav-item disabled");
+        $("#acmNav").attr("class","nav-item disabled");
+        $("#dblpNav").attr("class","nav-item active");
+        $scope.responseJsonLucene = data;
+        console.log("la url es:" + urlSendDBLP);
+        console.log("numero de articulos:" + $scope.responseJsonLucene.length);
+        for (let i = 0; i < $scope.responseJsonLucene.length; i++) {
+          let TitleLucene = $scope.responseJsonLucene[i].tituloArticulo
+          let score = $scope.responseJsonLucene[i].score
+          // console.log(i + 1 + ": Titulo:" + TitleLucene);
+          // console.log(i + 1 + ": Score:" + score);
+        }
+        // start uib-pagination
+        $scope.size = data.length;
+        console.log("Número de resultados: ",$scope.size);
+        $scope.viewby = 20;
+        $scope.totalItems = $scope.size;
+        $scope.currentPage = 1;
+        $scope.itemsPerPage = $scope.viewby;
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
+        $scope.pageChanged = function() {
+          $log.log('Page changed to: ' + $scope.currentPage);
+        };
+        $scope.maxSize = 5;
+        $scope.bigTotalItems = 175;
+        $scope.bigCurrentPage = 1;
+        $scope.setItemsPerPage = function(num) {
+          $scope.itemsPerPage = num;
+          $scope.currentPage = 1; //reset to first page
+        }
+        // end uib-pagination
+      })
+      .error(function (err) {
+      });
+  }
+});
 
 angularApp.controller("Controller",function ($scope,$http) {
 
@@ -317,9 +287,6 @@ angularApp.controller("Controller",function ($scope,$http) {
     "PREFIX unlocode: <http://unlocode.rkbexplorer.com/id/>\n" +
     "PREFIX class: <http://acm.rkbexplorer.com/ontologies/acm#>\n"+
     "PREFIX extension: <http://www.aktors.org/ontology/extension#>\n\n"
-
-
-
   var querySparql = "SELECT DISTINCT ?links ?o\n" +
     "WHERE {<http://acm.rkbexplorer.com/id/100233> ?links ?o}\n" +
     "Limit 20"

@@ -28,15 +28,22 @@
 
               <!--<input style="width:88%" placeholder="Ingrese un parametro de busqueda" id="busqueda" name="busqueda"  class="form-control"> <button  ng-click='buscarArticulo()' class="btn btn-primary" type="submit"><i class="fa fa-fw fa-search"></i> Buscar</button>-->
               <!--&lt;!&ndash;<a href="<?=base_url()."enterprises/enterprises" ?>" class="btn btn-primary"> Limpiar </a>&ndash;&gt;-->
-
               <form class="form-inline reset-margin">
-              <input style="width:88%" placeholder="Ingrese un parametro de busqueda" id ="busqueda" name="busqueda" class="form-control" ng-model="busqueda"> <button ng-click="buscarArticulo()" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Buscar</button>
-
+              <input
+                style="width:88%"
+                placeholder="Ingrese un parametro de busqueda"
+                id ="busqueda"
+                name="busqueda"
+                class="form-control"
+                ng-model="busqueda">
+                <button
+                  ng-click="buscarArticulo()"
+                  class="btn btn-primary"
+                  ng-init="url='<%= MasterUrlService.base_url()%>'">
+                  <i class="fa fa-fw fa-search"></i> Buscar
+                </button>
               <!--<a href="<?=base_url()."clients/clients" ?>" class="btn btn-primary"> Limpiar </a>-->
-
               </form>
-
-
             </div>
             <!-- /.box-header -->
             <div class="box-body">
