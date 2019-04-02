@@ -1,75 +1,206 @@
 <!---result  WITH ALGORITHM-->
+<div class="row">
+  <div class="col-12">
 
-<div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li id="ieeeNav" class="nav-item">
-        <a class="nav-link"  ng-Click="listArticlesIEEE()" ng-init="url='<%= MasterUrlService.base_java()%>'">
-          <button class="btn btn-primary" type="button">IEEE</button>
-        </a>
-      </li>
-      <li id="acmNav" class="nav-item">
-        <a  class="nav-link"  ng-Click="listArticlesACM()" ng-init="url='<%= MasterUrlService.base_java()%>'">
-          <button class="btn btn-primary" type="button">ACM</button>
-        </a>
-      </li>
-      <li  id="dblpNav"  class="nav-item">
-        <a class="nav-link"  ng-Click="listArticlesDBLP()" ng-init="url='<%= MasterUrlService.base_java()%>'">
-          <button class="btn btn-primary" type="button">DBLP</button>
-        </a>
-      </li>
-    </ul>
+    <!-- Custom Tabs -->
+    <div class="card text-center col-xs">
+      <div class="card-header p-2">
+        <ul class="nav nav-pills ml-auto p-2">
+          <li class="nav-item"><a class="nav-link active" href="#ieee" data-toggle="tab" ng-Click="listArticlesIEEE()" ng-init="url='<%= MasterUrlService.base_java()%>'">IEEE</a></li>
+          <li class="nav-item"><a class="nav-link" href="#acm" data-toggle="tab" ng-Click="listArticlesACM()" ng-init="url='<%= MasterUrlService.base_java()%>'">ACM</a></li>
+          <li class="nav-item"><a class="nav-link" href="#dblp" data-toggle="tab" ng-Click="listArticlesDBLP()" ng-init="url='<%= MasterUrlService.base_java()%>'">DBLP</a></li>
+        </ul>
+      </div><!-- /.card-header -->
+      <div class="card-body">
+        <div class="tab-content">
+
+          <!-- recommender IEEE -->
+          <div ng-if="showIEEE">
+            <div class="tab-pane" id="ieee">
+              <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
+              <div class="row" >
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-12">
+                  <!-- small card -->
+                  <div class="small-box bg-info">
+                    <div class="inner">
+                      <h3>IEEE</h3>
+                      <p>ieee.rkbexplorer.com</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="http://ieee.rkbexplorer.com/sparql/" class="small-box-footer" target="_blank">
+                      More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+              </div>
+              <div class="row" >
+                <div class="col-md-3 col-sm-3 col-6">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info"><i class="fa fa-files-o"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">resultados</span>
+                      <span class="info-box-number">{{size}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+              </div>
+
+
+              <!--- view result -->
+              <%-partial ('../Partial/result.ejs')%>
+              <!-- /.view result -->
+
+
+
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.recommender IEEE -->
+
+          <!-- recommender ACM -->
+          <div ng-if="showACM">
+            <div class="tab-pane" id="acm">
+              <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
+              <div class="row" >
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-12">
+                  <!-- small card -->
+                  <div class="small-box bg-success">
+                    <div class="inner">
+                      <h3>ACM</h3>
+                      <p>acm.rkbexplorer.com</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="http://acm.rkbexplorer.com/sparql/" class="small-box-footer" target="_blank">
+                      More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+              </div>
+              <div class="row" >
+                <div class="col-md-3 col-sm-3 col-6">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-files-o"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">resultados</span>
+                      <span class="info-box-number">{{size}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+              </div>
+              <!--- view result -->
+              <%-partial ('../Partial/result.ejs')%>
+              <!-- /.view result -->
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.recommender ACM -->
+
+          <!-- recommender DBLP -->
+          <div ng-if="showDBLP">
+            <div class="tab-pane" id="dblp">
+              <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
+              <div class="row" >
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-12">
+                  <!-- small card -->
+                  <div class="small-box bg-warning">
+                    <div class="inner">
+                      <h3>DBLP</h3>
+                      <p>dblp.rkbexplorer.com</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="http://dblp.rkbexplorer.com/sparql/" class="small-box-footer" target="_blank">
+                      More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6"></div>
+                <!-- ./col -->
+              </div>
+              <div class="row" >
+                <div class="col-md-3 col-sm-3 col-6">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-warning"><i class="fa fa-files-o"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">resultados</span>
+                      <span class="info-box-number">{{size}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-3 col-6"></div>
+                <!-- /.col -->
+              </div>
+              <!--- view result -->
+              <%-partial ('../Partial/result.ejs')%>
+              <!-- /.view result -->
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.recommender DBLP -->
+
+
+
+        </div>
+        <!-- /.tab-content -->
+      </div><!-- /.card-body -->
+    </div>
+    <!-- ./card -->
+    <!-- END CUSTOM TABS -->
+
+
+
   </div>
-  <div class="card-body">
-
-    <!-- recommender IEEE -->
-    <div ng-if="showIEEE">
+  <!-- /.col -->
 
 
-      <div class="row" >
-        <div class="col-md-12">
-          <br><br>
-          <h5 class="card-title">Recomendaciones de IEEE</h5>
-          <p class="card-text">Contiene {{size}} resultados del repositorio de IEEE</p>
-          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://ieee.rkbexplorer.com/sparql/" type="text"  size=30 >
-          <br><br>
-        </div>
-      </div>
-      <%-partial ('../Partial/result.ejs')%>
 
-    </div>
-    <!-- /.recommender IEEE -->
-
-    <!-- recommender ACM -->
-    <div ng-if="showACM">
-      <div class="row" >
-        <div class="col-md-12">
-          <br><br>
-          <h5 class="card-title">Recomendaciones de ACM</h5>
-          <p class="card-text">Contiene {{size}} resultados del repositorio de ACM</p>
-          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://acm.rkbexplorer.com/sparql/" type="text"  size=30 >
-          <br><br>
-        </div>
-      </div>
-      <%-partial ('../Partial/result.ejs')%>
-    </div>
-    <!-- /.recommender ACM -->
-
-    <!-- recommender DBLP -->
-    <div ng-if="showDBLP">
-      <div class="row" >
-        <div class="col-md-12">
-          <br><br>
-          <h5 class="card-title">Recomendaciones de DBLP</h5>
-          <p class="card-text">Contiene {{size}} resultados del repositorio de DBLP</p>
-          <input hidden id="endpointDynamic" class="span5" value="<%= MasterUrlService.base_proxy()%>http://dblp.rkbexplorer.com/sparql/" type="text"  size=30 >
-          <br><br>
-        </div>
-      </div>
-      <%-partial ('../Partial/result.ejs')%>
-    </div>
-    <!-- /.recommender DBLP -->
-
-  </div>
 </div>
+<!-- /.row -->
 <!-- /.result WITH ALGORITHM -->
+
+
+
+

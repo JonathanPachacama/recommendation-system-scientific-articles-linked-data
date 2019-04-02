@@ -38,7 +38,9 @@ var jsFilesToInject = [
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
-  'js/dependencies/jquery/jquery.min.js',
+  '/theme/plugins/jquery/jquery.min.js',
+  '/theme/plugins/datatables/jquery.dataTables.min.js',
+  '/theme/plugins/datatables/dataTables.bootstrap4.min.js',
   'js/customValidate.js',
 
   // All of the rest of your client-side js files

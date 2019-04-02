@@ -1,65 +1,76 @@
 <div class="row" >
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
+  <!--<div class="col-md-1"></div>-->
+  <div class="col-12">
     <div id="resultAlgorithm">
       <div class="card">
-        <h5 class="card-header text-center">TITULOS</h5>
-        <div class="card-body">
-
+        <div class="card-header">
           <div class="row">
-            <div class="col-md-12">
-              <table class="table table-bordered table-responsive">
-                <tbody>
-                <tr ng-repeat="articleTitle in responseJsonLucene.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-
-                  <th scope="row">{{$index+1}}</th>
-                  <td>
-                    {{articleTitle.tituloArticulo}}
-                  </td>
-
-                  <td>
-                    <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="row">
-                <div class="col-md-12">
-                  <ul uib-pagination
-                      total-items="totalItems"
-                      ng-model="currentPage"
-                      ng-change="pageChanged()"
-                      num-pages="smallnumPages"
-                      max-size="maxSize"
-                      class="pagination-sm"
-                      boundary-links="true"
-                      items-per-page="itemsPerPage"
-                      force-ellipses="true">
-                  </ul>
+            <div class="col-md-9">
+              <h3 class="card-title float-sm-left" >
+                <i class="ion ion-document"></i>
+                TITULOS
+              </h3>
+            </div>
+            <div class="col-md-3">
+              <div class="card-tools">
+                <div class="input-group input-group-sm">
+                  <label for="">Mostrar:</label>
+                  <select class="form-control" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                    <option selected="selected" value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                  <label for="">articulos</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Escoger:</label>
-                    <select class="form-control" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
-                      <option value="10">ver 10 resultados</option>
-                      <option value="20">ver 20 resultados</option>
-                      <option value="50">ver 50 resultados</option>
-                      <option value="100">ver 100 resultados</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-8"></div>
-              </div>
-              <hr />
             </div>
           </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover">
+            <tbody>
+            <tr ng-repeat="articleTitle in responseJsonLucene.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
 
+              <th scope="row">{{$index+1}}</th>
+              <td>
+                {{articleTitle.tituloArticulo}}
+              </td>
+              <td>
+                <button id="btn{{$index}}" type="button" value="{{articleTitle.tituloArticulo}}" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+          <ul uib-pagination
+              total-items="totalItems"
+              ng-model="currentPage"
+              ng-change="pageChanged()"
+              num-pages="smallnumPages"
+              max-size="maxSize"
+              class="pagination-sm float-sm-right"
+              boundary-links="true"
+              items-per-page="itemsPerPage"
+              force-ellipses="true">
+          </ul>
         </div>
       </div>
+      <!-- /.card -->
     </div>
   </div>
-  <div class="col-md-1"></div>
-
+  <!--<div class="col-md-1"></div>-->
 </div>
+
+
+
+
+
+
+
+
+
+

@@ -125,7 +125,7 @@ module.exports = {
                   console.log("token",token);
                   var decodeToken = TokenService.decode(token);
                   console.log("helloMessage",decodeToken);
-                  res.redirect('/perfil');
+                  res.redirect('/');
 
                 }
               });

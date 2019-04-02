@@ -94,7 +94,7 @@ module.exports.routes = {
 
   'get /' :[
     { policy: 'sessionAuth' },
-    { view: 'UsuarioGestion/perfil' }
+    { view: 'dashboard' }
   ],
 
   'POST /login': {

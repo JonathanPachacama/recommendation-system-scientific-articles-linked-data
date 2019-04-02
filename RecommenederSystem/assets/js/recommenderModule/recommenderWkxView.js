@@ -22,5 +22,17 @@ $(document).ready(function(){///////////////////////////start Jquery
     $("#abstract").css({"font-style": "italic"})
     $("#abstract").css({"color": "Silver"})
   }
+
+  $('#reload').click(function() {
+    window.location.reload();
+  });
+
+
+  $("scroll-top").click(function(){
+    alert($("div").scrollTop() + " px");
+  });
+
+
+
 });   //end jquery
 
