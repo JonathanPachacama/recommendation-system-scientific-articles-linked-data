@@ -149,7 +149,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
 // start uib-pagination
         $scope.size = data.length;
         console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
+        $scope.viewby = 10;
         $scope.totalItems = $scope.size;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -198,7 +198,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
         // start uib-pagination
         $scope.size = data.length;
         console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
+        $scope.viewby = 10;
         $scope.totalItems = $scope.size;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
@@ -245,7 +245,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
         // start uib-pagination
         $scope.size = data.length;
         console.log("Número de resultados: ",$scope.size);
-        $scope.viewby = 20;
+        $scope.viewby = 10;
         $scope.totalItems = $scope.size;
         $scope.currentPage = 1;
         $scope.itemsPerPage = $scope.viewby;
