@@ -1,6 +1,13 @@
 var Passwords = require('machinepack-passwords');
 var jwt = require('jsonwebtoken');
 module.exports = {
+    index: function (req, res) {
+        var msj = '';
+        return res.view('Auth/login', {
+            msj: msj,
+            layout: 'Auth/loginLayout'
+        });
+    },
     Auth: function (req, res) {
         var flash_message = true;
         var msj = 'Usuario Registrado';
@@ -63,7 +70,12 @@ module.exports = {
                 if (err)
                     return res.negotiate(err);
                 if (!foundUser) {
-                    return res.serverError('El usuario no existe');
+                    // return res.serverError('El usuario no existe');
+                    var msj = 'El usuario no existe';
+                    return res.view('Auth/login', {
+                        msj: msj,
+                        layout: 'Auth/loginLayout'
+                    });
                 }
                 else {
                     Passwords.checkPassword({
@@ -75,7 +87,12 @@ module.exports = {
                             return res.serverError(err);
                         },
                         incorrect: function () {
-                            return res.serverError('Contraseña incorrecta');
+                            // return res.serverError('Contraseña incorrecta');
+                            var msj = 'Contraseña incorrecta';
+                            return res.view('Auth/login', {
+                                msj: msj,
+                                layout: 'Auth/loginLayout'
+                            });
                         },
                         success: function () {
                             req.session.authenticated = true;

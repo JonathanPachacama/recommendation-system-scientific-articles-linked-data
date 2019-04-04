@@ -6,10 +6,10 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sistema de Recomendación</p>
-      <form action="" method="post" id="sign-up-form" class="form-signin">
-        <!--<div class="alert-danger animated text-center" role="alert" style="background-color: #fff;">-->
-
-        <!--</div>-->
+      <form action="<%= MasterUrlService.base_url()%>Auth/login" method="post" id="sign-up-form" class="form-signin">
+        <div class="alert-danger animated text-center" role="alert" style="display:<%= display = ((msj.length) > 0)?"block":"none" %>;background-color: #fff;">
+          <%=  msj %>
+        </div>
 
         <div class="form-group has-feedback">
           <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>

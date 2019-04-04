@@ -81,8 +81,8 @@ module.exports.routes = {
 
 
   'get /login' :{
-    view: 'Auth/login',
-    locals:{layout:'Auth/loginLayout'}
+    controller: "AuthController",
+    action: "index"
   },
 
   'get /Auth' :{
@@ -97,10 +97,6 @@ module.exports.routes = {
     { view: 'dashboard' }
   ],
 
-  'POST /login': {
-    controller: "AuthController",
-    action: "login"
-  },
 
   /***************************************************************************
   *                                                                          *
