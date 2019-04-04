@@ -88,7 +88,12 @@ module.exports = {
           if (err)
             return res.negotiate(err);
           if (!foundUser) {
-            return res.serverError('El usuario no existe');
+            // return res.serverError('El usuario no existe');
+            var msj = 'El usuario no existe'
+            return res.view('Auth/error',{
+              msj:msj,
+              layout: 'Auth/loginLayout'
+            });
           }
           else {
             Passwords.checkPassword({
@@ -100,7 +105,12 @@ module.exports = {
                   return res.serverError(err);
                 },
                 incorrect: function () {
-                  return res.serverError('Contraseña incorrecta');
+                  // return res.serverError('Contraseña incorrecta');
+                  var msj = 'Contraseña incorrecta'
+                  return res.view('Auth/error',{
+                    msj:msj,
+                    layout: 'Auth/loginLayout'
+                  });
                 },
                 success: function () {
                   req.session.authenticated = true;
