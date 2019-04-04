@@ -50,14 +50,12 @@ module.exports = {
       .exec(
         (error,userCreated)=> {
           if (error) {
-            req.flash = {
-              err: error
-            }
-            return res.view('Auth/register', {
-              flash_message:flash_message,
-              msj:msj,
-              layout: 'Auth/loginLayout'
-            });
+            // return res.view('Auth/register', {
+            //   msj:msj,
+            //   layout: 'Auth/loginLayout'
+            // });
+
+            return res.negotiate(error);
           }
           else
           {
@@ -102,7 +100,7 @@ module.exports = {
                   return res.serverError(err);
                 },
                 incorrect: function () {
-                  return res.badRequest("Datos Invalidos")
+                  return res.serverError('Contraseña incorrecta');
                 },
                 success: function () {
                   req.session.authenticated = true;
