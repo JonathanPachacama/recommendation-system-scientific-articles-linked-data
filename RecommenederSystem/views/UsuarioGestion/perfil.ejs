@@ -41,13 +41,13 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
-                     src="<%= MasterUrlService.base_url()+MasterUrlService.image_url()%>"
+                     src="<%= MasterUrlService.base_url()+req.session.me.path_photo%>"
                      alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center"><%= UserService.username_profile()%></h3>
+              <h3 class="profile-username text-center"><%= req.session.me.name%> <%=req.session.me.last_name%></h3>
 
-              <p class="text-muted text-center"><%= UserService.role()%></p>
+              <p class="text-muted text-center"><%= req.session.me.rol%></p>
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
