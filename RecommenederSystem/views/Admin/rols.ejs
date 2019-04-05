@@ -1,0 +1,45 @@
+<div class="register-box">
+  <div class="register-logo">
+    <a href="<%= MasterUrlService.base_url()%>"><img src="<%= MasterUrlService.base_url()%>images/logoenp.png"></a>
+  </div>
+  <% for(var i=0; i<rol.length; i++) {%>
+    <div class="card">
+      <div class="card-header">
+        <h5 class="m-0">Rol</h5>
+      </div>
+      <div class="card-body">
+        <h6 class="card-title"><%= rol[i].rol_id%> - <%= rol[i].rol_name%></h6>
+        <p class="card-text">Descripcion: <%= rol[i].rol_description%></p>
+        <p class="card-text">Activación: <%= rol[i].rol_active%></p>
+        <form action="<%= MasterUrlService.base_url()%>Admin/delete_rol" method="post">
+          <input hidden value="Admin" name="key" >
+          <input hidden
+                 type="text"
+                 value="<%=rol[i].rol_id%>"
+                 name="rol_id">
+          <div class="row">
+            <div class="col-md-6">
+              <button  type="submit" class="btn btn-outline-danger">Eliminar</button>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+              <a href="<%= MasterUrlService.base_url()%>Admin/edit?&key=Admin&rol_id=<%= rol[i].rol_id %>">
+                <button type="button"  class="btn btn-primary">Editar</button>
+              </a>
+            </div>
+            <!-- /.col -->
+          </div>
+          <a href="<%= MasterUrlService.base_url()%>Admin/index?key=Admin" class="text-center">nuevo rol</a>
+        </form>
+      </div>
+    </div>
+  <% } %>
+</div>
+<!-- /.register-box -->
+
+
+
+
+
+
+

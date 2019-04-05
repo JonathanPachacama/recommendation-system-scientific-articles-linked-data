@@ -6,7 +6,10 @@ module.exports = {
       type:"integer",
       autoIncrement: true,
       primaryKey:true,
-      model:'User'
+    },
+    user_rolId:{
+      collection: 'User',
+      via: 'user_rol_id'
     },
     rol_name:{
       type:"string"
@@ -17,8 +20,14 @@ module.exports = {
     rol_active:{
       type:"string"
     },
-    createdAt: { type: 'string', columnType: 'datetime', autoCreatedAt: true, },
+    createdAt: {
+      type: 'string',
+      columnType: 'datetime',
+      autoCreatedAt: true, },
 
-    updatedAt: { type: 'string', columnType: 'datetime', autoUpdatedAt: true, },
+    updatedAt: {
+      type: 'string',
+      columnType: 'datetime',
+      autoUpdatedAt: true, },
   }
 };

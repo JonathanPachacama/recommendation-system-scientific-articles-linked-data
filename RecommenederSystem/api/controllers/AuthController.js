@@ -11,34 +11,54 @@ module.exports = {
         });
     },
     new_account: function (req, res) {
-        var flash_message = true;
-        var msj = 'Usuario Registrado';
+        // let flash_message = true
+        // let msj = 'Usuario Registrado'
         var parametros = req.allParams();
-        var new_user = {
+        var user_table = {
+            user_rol_id: 2,
             user_name: parametros.user_name,
             user_last_name: parametros.user_last_name,
-            user_path_photo: parametros.photo,
-            user_phone: parametros.phone,
             user_email: parametros.user_email,
             user_password: parametros.user_password,
-            user_token: parametros.token,
-            user_username: parametros.user_username,
-            user_status_register: 1,
-            user_date_created: new Date('Y-m-d H:i:s'),
-            user_date_updated: new Date('Y-m-d H:i:s'),
-            user_has_access: 1,
+            user_profile_completed: 0,
+            user_username: parametros.user_username
         };
-        User.create(new_user)
+        User.create(user_table)
             .exec(function (error, userCreated) {
             if (error) {
-                // return res.view('Auth/register', {
-                //   msj:msj,
-                //   layout: 'Auth/loginLayout'
-                // });
+                var msj = ' ERROR';
+                return res.view('Auth/register', {
+                    msj: msj,
+                    layout: 'Auth/loginLayout'
+                });
                 return res.negotiate(error);
             }
             else {
-                res.redirect('/login');
+                var profile_table = {
+                    pro_user_id: userCreated.user_id,
+                    pro_art_id: userCreated.user_id,
+                    pro_path_photo: 'theme/dist/img/user-avatar.jpg',
+                    pro_phone: parametros.user,
+                    pro_has_access: 1,
+                    user_date_created: new Date('Y-m-d H:i:s'),
+                    user_date_updated: new Date('Y-m-d H:i:s'),
+                };
+                Profile.create(profile_table)
+                    .exec(function (error, profileCreated) {
+                    if (error) {
+                        var msj = ' ERROR';
+                        return res.view('Auth/register', {
+                            msj: msj,
+                            layout: 'Auth/loginLayout'
+                        });
+                        return res.negotiate(error);
+                    }
+                    else {
+                        console.log(userCreated);
+                        console.log(profileCreated);
+                        res.redirect('/login');
+                    }
+                });
             }
         });
     },
@@ -89,7 +109,16 @@ module.exports = {
                         },
                         success: function () {
                             req.session.authenticated = true;
-                            console.log("Estas logeado");
+                            req.session.me = {
+                                id: foundUser.user_id,
+                                rol: foundUser.user_rol_id,
+                                name: foundUser.user_name,
+                                last_name: foundUser.user_last_name,
+                                email: foundUser.user_email,
+                                perfil: foundUser.user_profile_completed,
+                                username: foundUser.user_username
+                            };
+                            console.log("req.session.me", req.session.me);
                             // return the credential
                             var token = jwt
                                 .sign({
