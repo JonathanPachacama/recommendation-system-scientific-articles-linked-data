@@ -51,62 +51,59 @@
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Followers</b> <a class="float-right">1,322</a>
+                  <b>Articulos Guardados</b> <a class="float-right"><span class="badge badge-success">0</span></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Following</b> <a class="float-right">543</a>
+                  <b>Articulos Wikindx</b> <a class="float-right"><span class="badge badge-danger">0</span></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Friends</b> <a class="float-right">13,287</a>
+                  <b>Articulos creados</b> <a class="float-right"><span class="badge badge-primary">0</span></a>
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <a href="<%= MasterUrlService.base_url()%>biblioteca" class="btn btn-primary btn-block"><b>Biblioteca</b></a>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
 
-          <!-- About Me Box -->
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">About Me</h3>
+          <div style="display:<%= display = ((req.session.all.pro_completed) != 0)?"block":"none"%>">
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">About Me</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fa fa-book mr-1"></i> Educación</strong>
+
+                <p class="text-muted">
+                  <%= req.session.all.pro_education%>
+
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-map-marker mr-1"></i> Ubicación</strong>
+
+                <p class="text-muted"><%= req.session.all.pro_address%>,<%= req.session.all.pro_city%></p>
+
+                <hr>
+
+                <strong><i class="fa fa-phone mr-1"></i> Teléfono</strong>
+
+                <p class="text-muted"><%= req.session.all.pro_phone%></p>
+
+                <hr>
+
+                <strong><i class="fa fa-file-text-o mr-1"></i> Sobre mi</strong>
+
+                <p class="text-muted"><%= req.session.all.pro_aboutMe%></p>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <strong><i class="fa fa-book mr-1"></i> Education</strong>
-
-              <p class="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
-              </p>
-
-              <hr>
-
-              <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
-
-              <p class="text-muted">Malibu, California</p>
-
-              <hr>
-
-              <strong><i class="fa fa-pencil mr-1"></i> Skills</strong>
-
-              <p class="text-muted">
-                <span class="tag tag-danger">UI Design</span>
-                <span class="tag tag-success">Coding</span>
-                <span class="tag tag-info">Javascript</span>
-                <span class="tag tag-warning">PHP</span>
-                <span class="tag tag-primary">Node.js</span>
-              </p>
-
-              <hr>
-
-              <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
-
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-            </div>
-            <!-- /.card-body -->
+            <!-- /.card -->
           </div>
-          <!-- /.card -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
@@ -124,28 +121,31 @@
             <div class="card-body">
               <div class="tab-content">
 
-
                 <div class="active tab-pane" id="settings">
-                  <form class="form-horizontal">
+                  <form action="<%= MasterUrlService.base_url()%>Auth/edit_profile" method="post" class="form-horizontal">
+                    <input hidden=""
+                           type="text"
+                           value="<%= req.session.all.pro_id%>"
+                           name="pro_id">
                     <div class="form-group">
-                      <label for="inputName" class="col-sm-2 control-label">Formacíon Académica</label>
+                      <label for="inputName" class="col-sm-2 control-label">Formación Académica</label>
 
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pro_education" id="pro_education" placeholder="Mi Formación...">
+                        <input type="text" class="form-control" name="pro_education" id="pro_education" value="" placeholder="Mi Formación..." autofocus required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Ciudad</label>
 
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pro_city" id="pro_city" placeholder="Mi Ciudad">
+                        <input type="text" class="form-control" name="pro_city" id="pro_city" placeholder="Mi Ciudad" autofocus required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="inputName2" class="col-sm-2 control-label">Dirección</label>
 
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pro_address" id="pro_address" placeholder="Mi Dirección">
+                        <input type="text" class="form-control" name="pro_address" id="pro_address" placeholder="Mi Dirección" autofocus required>
                       </div>
                     </div>
 
@@ -153,7 +153,7 @@
                       <label for="inputSkills" class="col-sm-2 control-label">telefono</label>
 
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pro_phone" id="pro_phone" placeholder="Mi telefono">
+                        <input type="text" class="form-control" name="pro_phone" id="pro_phone" placeholder="Mi telefono" autofocus required>
                       </div>
                     </div>
 
@@ -161,7 +161,7 @@
                       <label for="inputExperience" class="col-sm-2 control-label">Información</label>
 
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="pro_aboutMe" id="pro_aboutMe" placeholder="Acerca de mi..."></textarea>
+                        <textarea class="form-control" name="pro_aboutMe" id="pro_aboutMe" placeholder="Acerca de mi..." autofocus required></textarea>
                       </div>
                     </div>
 
@@ -177,54 +177,65 @@
                 <div class="tab-pane" id="system">
                   <div class="row">
                     <div class="col-lg-6">
-                      <div class="panel panel-default">
-                        <div class="panel-heading"> Datos Personales </div>
-                        <div class="panel-body">
-                          <form role="form">
-
+                      <div class="card">
+                        <div class="card-header p-2">
+                          <h3 class="card-title"> Datos Personales </h3>
+                        </div>
+                        <div class="card-body">
+                          <form role="form" action="<%= MasterUrlService.base_url()%>Auth/edit_user" method="post" >
+                            <input hidden
+                                   type="text"
+                                   id="user_id"
+                                   value="<%= req.session.all.user_id%>"
+                                   name="user_id">
                             <div class="form-group">
                               <label>Nombre</label>
-                              <input id = "id" type="hidden" class="form-control" value="">
-                              <input id = "name" class="form-control" placeholder="Enter text" value="">
+                              <input id = "user_name" name="user_name" class="form-control" value="<%= req.session.all.user_name%>" autofocus required>
                             </div>
 
                             <div class="form-group">
                               <label>Apellido</label>
-                              <input id = "phone" class="form-control" placeholder="Enter text" value="">
+                              <input id = "user_last_name" name="user_last_name" class="form-control" value="<%= req.session.all.user_last_name%>" autofocus required>
                             </div>
 
                             <div class="form-group">
                               <label>E-mail</label>
-                              <input id = "email" class="form-control" placeholder="Enter text" value="">
+                              <input id = "user_email" name="user_email" class="form-control" type="email" value="<%= req.session.all.user_email%>" autofocus required>
                             </div>
 
 
                             <div class="form-group text-center">
-                              <button id = "guardar_profile" onclick="" class="btn btn-primary" type="button">Guardar</button>
+                              <button class="btn btn-primary" type="submit">Guardar</button>
                             </div>
                           </form>
                         </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div class="panel panel-default">
-                        <div class="panel-heading"> Datos de acceso al sistema </div>
-                        <div class="panel-body">
-                          <form role="form">
+                      <div class="card">
+                        <div class="card-header p-2">
+                          <h3 class="card-title"> Datos de acceso al sistema </h3>
+                        </div>
+                        <div class="card-body">
+                          <form role="form" action="<%= MasterUrlService.base_url()%>Auth/change_password" method="post">
+                            <input hidden
+                                   type="text"
+                                   value="<%= req.session.all.user_id%>"
+                                   name="user_id">
                             <div class="form-group">
                               <label>Usuario</label>
-                              <input class="form-control" value="" placeholder="Enter text" disabled>
+                              <input class="form-control" value="<%= req.session.all.user_username%>" placeholder="Enter text" disabled>
                             </div>
                             <div class="form-group">
                               <label>Contraseña nueva</label>
-                              <input id="pass1" type="password" class="form-control" placeholder="">
+                              <input id="new_password" type="password" name="new_password" class="form-control" placeholder="" autofocus required>
                             </div>
                             <div class="form-group">
                               <label>Repetir contraseña nueva</label>
-                              <input id="pass2" type="password" class="form-control" placeholder="">
+                              <input id="repit_password" name="repit_password" type="password" class="form-control" placeholder="" autofocus required>
                             </div>
                             <div class="form-group text-center">
-                              <button id ="change_pass" onclick="" class="btn btn-primary" type="button">Cambiar contraseña</button>
+                              <button class="btn btn-primary" type="submit">Cambiar contraseña</button>
                             </div>
 
                           </form>
@@ -238,71 +249,51 @@
                 <div class="tab-pane" id="foto">
                   <div class="row">
                     <div class="col-lg-12">
-                      <div class="panel panel-default">
-                        <div class="panel-heading"> Informaci&oacute;n </div>
-                        <div class="panel-body">
+                      <div class="card">
+                        <div class="card-header p-2">
+                          <h3 class="card-title"> Foto de Perfil </h3>
+                        </div>
+
+                        <div class="card-body">
+
+
                           <div class="row">
-                            <div class="col-lg-12">
-                              <div class="panel panel-default">
 
-                                <div class="panel-heading">Foto de Perfil</div>
-
-                                <div class="panel-body">
-
-
-                                  <div class="row">
-
-                                    <div class="col-lg-4 text-center">
-
-                                      <div id="upload-demo" style="width:350px"></div>
-
-                                    </div>
-
-                                    <div class="col-lg-4" style="padding-top:30px;">
-
-                                      <strong>Seleccionar Imagen:</strong>
-
-                                      <br/>
-
-                                      <input style="font-size: 12px;" type="file" id="upload">
-
-                                      <br/>
-
-                                      <button class="btn btn-success upload-result">Subir Imagen</button>
-
-                                    </div>
-
-                                    <div class="col-lg-4" style="">
-
-                                      <!--<div id="upload-demo-i" style="background:#e1e1e1;width:225px;padding:30px;height:225px;margin-top:30px">-->
-                                      <!--<?php if($data_user[0]['path_photo'] == ''){ ?>-->
-                                      <!--<img width="175" src="<?=base_url()?>uploads/profiles/default-avatar.png" />-->
-                                      <!--<?php }else{ ?>-->
-                                      <!--<img src="<?=base_url()?><?=$data_user[0]['path_photo'] ?>" />-->
-
-                                      <!--<?php } ?>-->
-
-
-                                      <!--</div>-->
-
-                                    </div>
-
-                                  </div>
-
-
-                                </div>
-
-                              </div>
+                            <div class="col-lg-4 text-center">
+                              <div id="upload-demo" style="width:350px"></div>
                             </div>
+
+                            <div class="col-lg-4" style="padding-top:30px;">
+                              <strong>Seleccionar Imagen:</strong>
+                              <br/>
+                              <input style="font-size: 12px;" type="file" id="upload">
+                              <br/>
+                              <button class="btn btn-success upload-result">Subir Imagen</button>
+                            </div>
+
+                            <div class="col-lg-4" style="">
+
+                              <!--<div id="upload-demo-i" style="background:#e1e1e1;width:225px;padding:30px;height:225px;margin-top:30px">-->
+                              <!--<?php if($data_user[0]['path_photo'] == ''){ ?>-->
+                              <!--<img width="175" src="<?=base_url()?>uploads/profiles/default-avatar.png" />-->
+                              <!--<?php }else{ ?>-->
+                              <!--<img src="<?=base_url()?><?=$data_user[0]['path_photo'] ?>" />-->
+
+                              <!--<?php } ?>-->
+
+
+                              <!--</div>-->
+
+                            </div>
+
                           </div>
 
-                        </div>
-                      </div>
 
+                        </div>
+
+                      </div>
                     </div>
-                    <!-- /.col-lg-12 -->
                   </div>
-                  <!-- /.row -->
                 </div>
                 <!-- /.tab-pane -->
 

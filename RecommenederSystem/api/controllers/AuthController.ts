@@ -5,6 +5,7 @@ declare var Profile;
 declare var require;
 declare var TokenService;
 declare var ApiAuthService;
+declare var UserService;
 var Passwords = require('machinepack-passwords');
 var jwt = require('jsonwebtoken');
 
@@ -90,6 +91,110 @@ module.exports = {
         }
       )
   },
+
+
+  edit_profile:function(req,res){
+
+    let parametros = req.allParams();
+    if(parametros.pro_education&&
+      parametros.pro_city&&
+      parametros.pro_address&&
+      parametros.pro_phone&&
+      parametros.pro_aboutMe&&
+      parametros.pro_id){
+      Profile.update({
+        pro_id:parametros.pro_id
+      },{
+        pro_completed:1,
+        pro_education:parametros.pro_education,
+        pro_city:parametros.pro_city,
+        pro_address:parametros.pro_address,
+        pro_phone:parametros.pro_phone,
+        pro_aboutMe:parametros.pro_aboutMe
+      })
+        .exec((err,profileEdit)=>{
+          if(err) return res.serverError(err);
+          if(profileEdit){
+            //Si encontro
+            res.redirect('/perfil');
+          }else{
+            //No encontro
+            // return res.notFound()
+            res.redirect('/');
+          }
+        })
+    }else{
+      res.redirect('/');
+    }
+  },
+  edit_user:function(req,res){
+
+    let parametros = req.allParams();
+    if(parametros.user_name&&
+      parametros.user_last_name&&
+      parametros.user_email&&
+      parametros.user_id){
+      User.update({
+        user_id:parametros.user_id
+      },{
+        user_name:parametros.user_name,
+        user_last_name:parametros.user_last_name,
+        user_email:parametros.user_email,
+      })
+        .exec((err,userEdit)=>{
+          if(err) return res.serverError(err);
+          if(userEdit){
+            //Si encontro
+            res.redirect('/perfil');
+          }else{
+            //No encontro
+            // return res.notFound()
+            res.redirect('/');
+          }
+        })
+    }else{
+      res.redirect('/');
+    }
+  },
+  change_password:function(req,res){
+
+    let pass1 = req.param('new_password');
+    let pass2 = req.param('repit_password');
+    let parametros = req.allParams();
+
+    if(pass1 != pass2){
+      let msj = "Las contraseñas no coinciden. Intente nuevamente";
+      console.log(msj)
+      res.redirect('/');
+    }
+    else{
+
+      if(parametros.new_password&&
+        parametros.user_id){
+        User.update({
+          user_id:parametros.user_id
+        },{
+          user_password:parametros.new_password,
+        })
+          .exec((err,passUpdate)=>{
+            if(err) return res.serverError(err);
+            if(passUpdate){
+              //Si encontro
+              res.redirect('/perfil');
+            }else{
+              //No encontro
+              // return res.notFound()
+              res.redirect('/');
+            }
+          })
+      }else{
+        res.redirect('/');
+      }
+    }
+
+
+  },
+
   login : function(req,res){
 
     // var correo = req.param('correo');
@@ -171,7 +276,7 @@ module.exports = {
 
 
                       console.log("req.session.me",req.session.me);
-                      console.log("req.session.me",req.session.me.user_name);
+                      console.log("req.session.me",req.session.me.username);
                       console.log("req.session.all1",req.session.all);
                       console.log("req.session.all2",req.session.all.user_username);
 
@@ -225,4 +330,7 @@ module.exports = {
       return res.redirect('/login');;
     });
   }
+
+
+
 };
