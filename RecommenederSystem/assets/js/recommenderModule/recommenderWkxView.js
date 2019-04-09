@@ -32,7 +32,21 @@ $(document).ready(function(){///////////////////////////start Jquery
     alert($("div").scrollTop() + " px");
   });
 
-
+  $("#navBusqueda").click(function(){
+    $("#navBusqueda").attr("class","nav-link active show")
+    $("#navBiblioteca").attr("class","nav-link")
+    $("#navMisArticulos").attr("class","nav-link")
+  });
+  $("#navBiblioteca").click(function(){
+    $("#navBusqueda").attr("class","nav-link")
+    $("#navBiblioteca").attr("class","nav-link active show")
+    $("#navMisArticulos").attr("class","nav-link")
+  });
+  $("#navMisArticulos").click(function(){
+    $("#navBusqueda").attr("class","nav-link")
+    $("#navBiblioteca").attr("class","nav-link")
+    $("#navMisArticulos").attr("class","nav-link active show")
+  });
 
 });   //end jquery
 

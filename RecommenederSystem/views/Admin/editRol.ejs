@@ -1,0 +1,47 @@
+<div class="register-box">
+  <div class="register-logo">
+    <a href="<%= MasterUrlService.base_url()%>"><img src="<%= MasterUrlService.base_url()%>images/logoenp.png"></a>
+  </div>
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Editando  <%= rol.rol_name%></p>
+
+      <form action="<%= MasterUrlService.base_url()%>Admin/update_role" method="post">
+        <input hidden value="Admin" name="key" >
+        <input hidden class="form-control"
+               type="text"
+               id="id"
+               name="rol_id"
+               value="<%=rol.rol_id%>">
+        <div class="form-group has-feedback">
+          <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
+          <input type="text" class="form-control" placeholder="Nombre rol" name="rol_name" value="<%= rol.rol_name%>" autofocus required style="padding-left: 30px!important;">
+        </div>
+        <div class="form-group has-feedback">
+          <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
+          <input type="text" class="form-control" placeholder="Descripcion rol" name="rol_description" value="<%= rol.rol_description%>" autofocus required style="padding-left: 30px!important;">
+        </div>
+        <div class="form-group has-feedback">
+          <i class="fa fa-sign-in form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
+          <input type="text" class="form-control" placeholder="Activacion" name="rol_active" value="<%= rol.rol_active%>" autofocus required style="padding-left: 35px!important;">
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Editar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <a href="<%= MasterUrlService.base_url()%>Admin/view?key=Admin" class="text-center">roles</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+
+</div>
+<!-- /.register-box -->
+
+

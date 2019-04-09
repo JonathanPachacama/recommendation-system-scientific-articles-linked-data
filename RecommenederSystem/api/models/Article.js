@@ -6,7 +6,10 @@ module.exports = {
       type:"integer",
       autoIncrement: true,
       primaryKey:true,
-      model:'User'
+    },
+    user_artId:{
+      collection: 'Profile_article',
+      via: 'pa_art_id'
     },
     art_title:{
       type:"string"

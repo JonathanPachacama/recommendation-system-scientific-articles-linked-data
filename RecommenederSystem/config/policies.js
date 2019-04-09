@@ -34,14 +34,20 @@ module.exports.policies = {
   * and its actions                                                          *
   *                                                                          *
   ***************************************************************************/
-
+  AdminController: {
+    index:'isAdmin',
+    edit:'isAdmin',
+    view:'isAdmin',
+    create_rol:'isAdmin',
+    update_role:'isAdmin',
+    delete_rol:'isAdmin',
+  },
   AuthController: {
     // Apply 'isAdmin' to the 'foo' action.  'isLoggedIn' will NOT be applied!
     'login': 'Metodo',
 
     'new_account': 'Metodo'
-  }
-,
+  },
 	//policies.js
   // VistaController: {
 	// 	vistaOculta : ['validarAno2016']

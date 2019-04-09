@@ -37,13 +37,13 @@
         <a href="#" class="dropdown-item" data-toggle="dropdown">
           <!-- Menu Toggle Button start -->
           <div class="media">
-            <img src="<%= MasterUrlService.base_url()+MasterUrlService.image_url()%>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+            <img src="<%= MasterUrlService.base_url()+req.session.me.path_photo%>" alt="User Avatar" class="img-size-50 mr-3 img-circle"  style="width:50px;;height:50px">
             <div class="media-body">
               <h3 class="dropdown-item-title">
-                <%= UserService.username_profile()%>
+                <%= req.session.me.name%> <%=req.session.me.last_name%>
                 <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
               </h3>
-              <p class="text-sm"><%= UserService.role()%></p>
+              <p class="text-sm"><%= req.session.me.rol%></p>
               <p class="text-sm text-muted"><i class="fa fa-university mr-1"></i> Escuela Politécnica Nacional</p>
             </div>
           </div>
@@ -75,10 +75,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<%= MasterUrlService.base_url()+MasterUrlService.image_url()%>" class="img-circle elevation-2" alt="User Image">
+        <img src="<%= MasterUrlService.base_url()+req.session.me.path_photo%>" class="img-circle elevation-2" alt="User Image" style="width:2.1rem;height:2.1rem">
       </div>
       <div class="info">
-        <a href="<%= MasterUrlService.base_url()%>perfil" class="d-block"><%= UserService.username_profile()%></a>
+        <a href="<%= MasterUrlService.base_url()%>perfil" class="d-block"><%= req.session.me.name%> <%=req.session.me.last_name%></a>
       </div>
     </div>
 
@@ -97,19 +97,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>busqueda" class="nav-link active">
+              <a href="<%= MasterUrlService.base_url()%>busqueda" id="navBusqueda" class="nav-link">
                 <i class="fa fa-search nav-icon"></i>
                 <p>Busqueda</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>biblioteca" class="nav-link">
+              <a href="<%= MasterUrlService.base_url()%>biblioteca" id="navBiblioteca" class="nav-link">
                 <i class="fa fa-book nav-icon"></i>
                 <p>Biblioteca</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>crearMisArticulos" class="nav-link">
+              <a href="<%= MasterUrlService.base_url()%>crearMisArticulos" id="navMisArticulos" class="nav-link">
                 <i class="fa fa-edit nav-icon"></i>
                 <p>Crear mis articulos</p>
               </a>

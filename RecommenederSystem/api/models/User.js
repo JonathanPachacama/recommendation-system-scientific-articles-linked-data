@@ -7,13 +7,12 @@ module.exports = {
       autoIncrement: true,
       primaryKey:true
     },
-    art_id:{
-      collection: 'Article',
-      via: 'art_id'
+    user_rol_id:{
+      model:"Rol_users",
     },
-    rol_id:{
-      collection: 'Rol_users',
-      via: 'rol_id'
+    perfil_userId:{
+      collection: 'Profile',
+      via: 'pro_user_id'
     },
     user_name:{
       type:"string"
@@ -21,11 +20,8 @@ module.exports = {
     user_last_name:{
       type:"string"
     },
-    user_path_photo:{
-      type:"string"
-    },
-    user_phone:{
-      type:"string"
+    user_username:{
+      type:"string",
     },
     user_email:{
       type:"email"
@@ -34,27 +30,19 @@ module.exports = {
       type:"string",
       required:true
     },
-    user_token:{
-      type:"string"
-    },
-    user_username:{
-      type:"string"
-    },
-    user_status_register:{
-      type:"string"
-    },
     user_has_access:{
-      type:"string"
+      type:'string',
     },
     createdAt: {
       type: 'string',
       columnType: 'datetime',
-      autoCreatedAt: true, },
-
+      autoCreatedAt: true,
+    },
     updatedAt: {
       type: 'string',
       columnType: 'datetime',
-      autoUpdatedAt: true, },
+      autoUpdatedAt: true,
+    },
 
   },
 
