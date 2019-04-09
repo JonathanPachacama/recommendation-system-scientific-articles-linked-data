@@ -26,6 +26,10 @@ var cssFilesToInject = [
 
     'lib/google-code-prettify/prettify.css',
     'lib/google-code-prettify/prettify-desert.css',
+    '/styles/fileinput.css',
+    '/styles/busy_indicator.css',
+    '/styles/croppie.css',
+    '/styles/MisEstilos.css'
 ];
 
 
@@ -58,6 +62,7 @@ var jsFilesToInject = [
   'js/d3sparql.js',
   'lib/d3/d3.v3.min.js',
   'lib/google-code-prettify/prettify.js',
+  '/js/fileinput.js'
 ];
 
 

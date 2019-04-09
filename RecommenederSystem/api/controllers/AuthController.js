@@ -71,7 +71,7 @@ module.exports = {
             parametros.pro_aboutMe &&
             parametros.pro_id) {
             Profile.update({
-                pro_id: parametros.pro_id
+                pro_user_id: parametros.pro_id
             }, {
                 pro_completed: 1,
                 pro_education: parametros.pro_education,
@@ -282,7 +282,55 @@ module.exports = {
     logout: function (req, res) {
         req.session.destroy(function (err) {
             return res.redirect('/login');
-            ;
         });
-    }
+    },
+    upload: function (req, res) {
+        // e.g.
+        // 0 => infinite
+        // 240000 => 4 minutes (240,000 miliseconds)
+        // etc.
+        //
+        // Node defaults to 2 minutes.
+        res.setTimeout(0);
+        req.file('image')
+            .upload({
+            // // You can apply a file upload limit (in bytes)
+            // maxBytes: 2000000,
+            dirname: require('path').resolve(sails.config.appPath, 'assets/uploads/profiles'),
+            // saveAs: function (__newFileStream, cb) {
+            //   cb(null, req.session.me.name + require('path').extname(__newFileStream.filename+'.jpg'));
+            // },
+            saveAs: req.session.me.name + require('path').extname(req.session.me.name + '.jpg')
+        }, function whenDone(err, uploadedFiles) {
+            if (err) {
+                // return res.serverError(err);
+                return res.negotiate(err);
+            }
+            if (uploadedFiles.length === 0) {
+                return res.badRequest('No file was uploaded');
+            }
+            Profile.update({ pro_user_id: req.session.me.usuarioId }, {
+                pro_path_photo: require('util').format('uploads/profiles/%s.jpg', req.session.me.name),
+            })
+                .exec(function (err) {
+                if (err)
+                    return res.negotiate(err);
+                if (uploadedFiles) {
+                    var image = {
+                        files: uploadedFiles,
+                        textParams: req.allParams(),
+                        message: uploadedFiles.length + ' file(s) uploaded successfully!',
+                        avatarFd: uploadedFiles[0].fd,
+                        filename: uploadedFiles[0].filename,
+                    };
+                    console.log('imagen', image);
+                    return res.redirect('/perfil');
+                }
+                else {
+                    //No encontro
+                    return res.redirect('/');
+                }
+            });
+        });
+    },
 };

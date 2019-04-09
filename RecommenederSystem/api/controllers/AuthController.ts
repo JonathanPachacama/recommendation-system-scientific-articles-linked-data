@@ -6,6 +6,9 @@ declare var require;
 declare var TokenService;
 declare var ApiAuthService;
 declare var UserService;
+declare var PerfilService;
+declare var MasterUrlService
+
 var Passwords = require('machinepack-passwords');
 var jwt = require('jsonwebtoken');
 
@@ -92,7 +95,6 @@ module.exports = {
       )
   },
 
-
   edit_profile:function(req,res){
 
     let parametros = req.allParams();
@@ -103,7 +105,7 @@ module.exports = {
       parametros.pro_aboutMe&&
       parametros.pro_id){
       Profile.update({
-        pro_id:parametros.pro_id
+        pro_user_id:parametros.pro_id
       },{
         pro_completed:1,
         pro_education:parametros.pro_education,
@@ -127,6 +129,7 @@ module.exports = {
       res.redirect('/');
     }
   },
+
   edit_user:function(req,res){
 
     let parametros = req.allParams();
@@ -156,6 +159,7 @@ module.exports = {
       res.redirect('/');
     }
   },
+
   change_password:function(req,res){
 
     let pass1 = req.param('new_password');
@@ -325,12 +329,68 @@ module.exports = {
 
     return res.view('error', {layout : false});
   },
+
   logout: function(req, res) {
     req.session.destroy(function(err) {
-      return res.redirect('/login');;
+      return res.redirect('/login');
     });
-  }
+  },
 
+  upload: function (req, res) {
 
+    // e.g.
+    // 0 => infinite
+    // 240000 => 4 minutes (240,000 miliseconds)
+    // etc.
+    //
+    // Node defaults to 2 minutes.
+    res.setTimeout(0);
+    req.file('image')
+      .upload({
+        // // You can apply a file upload limit (in bytes)
+        // maxBytes: 2000000,
+        dirname: require('path').resolve(sails.config.appPath, 'assets/uploads/profiles'),
+        // saveAs: function (__newFileStream, cb) {
+        //   cb(null, req.session.me.name + require('path').extname(__newFileStream.filename+'.jpg'));
+        // },
+        saveAs: req.session.me.name +require('path').extname(req.session.me.name+'.jpg')
 
+      }, function whenDone(err, uploadedFiles) {
+
+        if (err) {
+          // return res.serverError(err);
+          return res.negotiate(err);
+        }
+
+        if (uploadedFiles.length === 0){
+          return res.badRequest('No file was uploaded');
+        }
+
+        Profile.update( {pro_user_id:req.session.me.usuarioId},{
+          pro_path_photo: require('util').format('uploads/profiles/%s.jpg', req.session.me.name),  // Generate a unique URL where the avatar can be downloaded.
+        })
+          .exec(function (err){
+            if (err) return res.negotiate(err);
+
+            if (uploadedFiles) {
+
+              var image = {
+                files: uploadedFiles,
+                textParams: req.allParams(),
+                message: uploadedFiles.length + ' file(s) uploaded successfully!',
+
+                avatarFd:uploadedFiles[0].fd, // Grab the first file and use it's `fd` (file descriptor)
+                filename: uploadedFiles[0].filename,
+              }
+              console.log('imagen',image)
+
+              return  res.redirect('/perfil');
+            }
+            else {
+              //No encontro
+              return res.redirect('/');
+            }
+          });
+      });
+  },
 };
