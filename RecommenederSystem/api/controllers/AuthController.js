@@ -11,8 +11,6 @@ module.exports = {
         });
     },
     new_account: function (req, res) {
-        // let flash_message = true
-        // let msj = 'Usuario Registrado'
         var parametros = req.allParams();
         var user_table = {
             user_rol_id: 2,
@@ -24,14 +22,16 @@ module.exports = {
             user_username: parametros.user_username
         };
         User.create(user_table)
-            .exec(function (error, userCreated) {
-            if (error) {
-                var msj = ' ERROR';
+            .exec(function (err, userCreated) {
+            if (err) {
+                sails.log('Error', err);
+                var msj = 'No se registrado el usuario';
+                var flash_message = false;
                 return res.view('Auth/register', {
                     msj: msj,
+                    flash_message: flash_message,
                     layout: 'Auth/loginLayout'
                 });
-                return res.negotiate(error);
             }
             else {
                 var profile_table = {
@@ -44,19 +44,28 @@ module.exports = {
                     user_date_updated: new Date('Y-m-d H:i:s'),
                 };
                 Profile.create(profile_table)
-                    .exec(function (error, profileCreated) {
-                    if (error) {
-                        var msj = ' ERROR';
+                    .exec(function (err, profileCreated) {
+                    if (err) {
+                        // return res.negotiate(error);
+                        sails.log('Error', err);
+                        var msj = 'No se registrado el Usuario';
+                        var flash_message = false;
                         return res.view('Auth/register', {
                             msj: msj,
+                            flash_message: flash_message,
                             layout: 'Auth/loginLayout'
                         });
-                        return res.negotiate(error);
                     }
                     else {
-                        console.log(userCreated);
-                        console.log(profileCreated);
-                        res.redirect('/login');
+                        // console.log(userCreated);
+                        // console.log(profileCreated);
+                        var msj = 'Usuario Registrado';
+                        var flash_message = true;
+                        return res.view('Auth/register', {
+                            msj: msj,
+                            flash_message: flash_message,
+                            layout: 'Auth/loginLayout'
+                        });
                     }
                 });
             }
@@ -180,15 +189,28 @@ module.exports = {
         // }
         var username = req.param('username');
         var password = req.param('password');
+        var queryLogin = 'select user.*,rol_users.rol_name as rol, profile.*\n' +
+            'from user, rol_users, profile\n' +
+            'WHERE rol_users.rol_id = user.user_rol_id\n' +
+            'AND user.user_id = profile.pro_user_id\n' +
+            'AND user.user_username = ?\n' + //foundUser.user_username
+            'AND user.user_password = ?\n' + //foundUser.user_password
+            'AND user.user_has_access = ?\n' + //1
+            'limit 1';
         if (username && password) {
             User.findOne({ user_username: username })
                 .exec(function (err, foundUser) {
-                if (err)
-                    return res.negotiate(err);
+                if (err) {
+                    sails.log('Error', err);
+                    return res.view('500', {
+                        // data:err,
+                        layout: '500'
+                    });
+                }
                 if (!foundUser) {
                     // return res.serverError('El usuario no existe');
                     var msj = 'El usuario no existe';
-                    return res.view('Auth/error', {
+                    return res.view('Auth/login', {
                         msj: msj,
                         layout: 'Auth/loginLayout'
                     });
@@ -200,31 +222,31 @@ module.exports = {
                     })
                         .exec({
                         error: function (err) {
-                            return res.serverError(err);
+                            sails.log('Error', err);
+                            return res.view('500', {
+                                // data:err,
+                                layout: '500'
+                            });
                         },
                         incorrect: function () {
                             // return res.serverError('Contraseña incorrecta');
                             var msj = 'Contraseña incorrecta';
-                            return res.view('Auth/error', {
+                            return res.view('Auth/login', {
                                 msj: msj,
                                 layout: 'Auth/loginLayout'
                             });
                         },
                         success: function () {
-                            var query = 'select user.*,rol_users.rol_name as rol, profile.*\n' +
-                                'from user, rol_users, profile\n' +
-                                'WHERE rol_users.rol_id = user.user_rol_id\n' +
-                                'AND user.user_id = profile.pro_user_id\n' +
-                                'AND user.user_username = ?\n' +
-                                'AND user.user_password = ?\n' +
-                                'AND user.user_has_access = ?\n' +
-                                'limit 1';
-                            User.query(query, [foundUser.user_username, foundUser.user_password, '1'], function (err, User_Session) {
+                            User.query(queryLogin, [foundUser.user_username, foundUser.user_password, '1'], function (err, User_Session) {
                                 if (err) {
-                                    return res.serverError(err);
+                                    sails.log('Error', err);
+                                    return res.view('500', {
+                                        // data:err,
+                                        layout: '500'
+                                    });
                                 }
-                                sails.log('result', User_Session);
-                                sails.log('result tamaño', User_Session.length);
+                                // sails.log('result',User_Session);
+                                // sails.log('result tamaño',User_Session.length);
                                 if (User_Session.length == 1) {
                                     req.session.authenticated = true;
                                     req.session.all = User_Session[0];
@@ -238,10 +260,10 @@ module.exports = {
                                         email: User_Session[0].user_email,
                                         path_photo: User_Session[0].pro_path_photo,
                                     };
-                                    console.log("req.session.me", req.session.me);
-                                    console.log("req.session.me", req.session.me.username);
-                                    console.log("req.session.all1", req.session.all);
-                                    console.log("req.session.all2", req.session.all.user_username);
+                                    // console.log("req.session.me",req.session.me);
+                                    // console.log("req.session.me",req.session.me.username);
+                                    // console.log("req.session.all1",req.session.all);
+                                    // console.log("req.session.all2",req.session.all.user_username);
                                     // return the credential
                                     var token = jwt
                                         .sign({
@@ -257,10 +279,14 @@ module.exports = {
                                     console.log("token", token);
                                     var decodeToken = TokenService.decode(token);
                                     console.log("helloMessage", decodeToken);
-                                    res.redirect('/');
+                                    res.redirect('Auth/success');
                                 }
                                 else {
-                                    res.redirect('/');
+                                    // res.redirect('/');
+                                    return res.view('500', {
+                                        data: 'No se encontró el perfil del Usuario',
+                                        layout: '500'
+                                    });
                                 }
                             });
                         }
@@ -269,15 +295,22 @@ module.exports = {
             });
         }
         else {
-            sails.log('Usuario eliminado');
-            return res.serverError("No envia correo y pass");
+            var msj = 'No envía usuario y contraseña';
+            return res.view('Auth/login', {
+                msj: msj,
+                layout: 'Auth/loginLayout'
+            });
         }
     },
     success: function (req, res) {
         return res.redirect('/');
     },
     error: function (req, res) {
-        return res.view('error', { layout: false });
+        var msj = 'Algo Salio mal...';
+        return res.view('Auth/login', {
+            msj: msj,
+            layout: 'Auth/loginLayout'
+        });
     },
     logout: function (req, res) {
         req.session.destroy(function (err) {

@@ -1,4 +1,11 @@
 {
   "Welcome": "Bienvenido",
-  "A brand new app.": "Una nueva aplicación."
+  "A brand new app.": "Una nueva aplicación.",
+  "Oops! Something went wrong.":"¡Uy! Algo salió mal.",
+  "We will work on fixing that right away. Meanwhile, you may":"Vamos a trabajar en arreglar eso de inmediato. Mientras tanto, puede ",
+  "return to homepage":"regresar a la página principal",
+  "If the problem persists, please":"Si el problema persiste, por favor.",
+  "contact the system administrator":"póngase en contacto con el administrador del sistema",
+  "and inform them of the time that the error occured, and anything you might have done that may have caused the error.":"e infórmeles de la hora en que ocurrió el error, y de cualquier cosa que haya hecho que pueda haber causado el error."
+
 }

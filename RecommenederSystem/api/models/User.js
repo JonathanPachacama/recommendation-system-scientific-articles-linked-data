@@ -14,21 +14,25 @@ module.exports = {
       collection: 'Profile',
       via: 'pro_user_id'
     },
+    user_username:{
+      type:"string",
+      unique: true,
+      required: true
+    },
+    user_password:{
+      type:"string",
+      required:true
+    },
+    user_email:{
+      type:"email",
+      unique: true,
+      required: true
+    },
     user_name:{
       type:"string"
     },
     user_last_name:{
       type:"string"
-    },
-    user_username:{
-      type:"string",
-    },
-    user_email:{
-      type:"email"
-    },
-    user_password:{
-      type:"string",
-      required:true
     },
     user_has_access:{
       type:'string',

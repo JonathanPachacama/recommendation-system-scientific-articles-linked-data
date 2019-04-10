@@ -1,4 +1,10 @@
 {
 	"Welcome": "Welcome",
-	"A brand new app.": "A brand new app."
+	"A brand new app.": "A brand new app.",
+  "Oops! Something went wrong.":"Oops! Something went wrong.",
+  "We will work on fixing that right away. Meanwhile, you may":"We will work on fixing that right away. Meanwhile, you may ",
+  "return to homepage":"return to homepage",
+  "If the problem persists, please":"If the problem persists, please",
+  "contact the system administrator":"contact the system administrator",
+  "and inform them of the time that the error occured, and anything you might have done that may have caused the error.":"and inform them of the time that the error occured, and anything you might have done that may have caused the error."
 }

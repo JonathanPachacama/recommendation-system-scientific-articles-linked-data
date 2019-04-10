@@ -41,6 +41,7 @@ module.exports.policies = {
     create_rol:'isAdmin',
     update_role:'isAdmin',
     delete_rol:'isAdmin',
+    update_password:'isAdmin'
   },
   AuthController: {
     // Apply 'isAdmin' to the 'foo' action.  'isLoggedIn' will NOT be applied!

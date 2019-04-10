@@ -5,43 +5,49 @@
   <div class="card">
     <div class="card-body register-card-body">
       <p class="login-box-msg">Registrar cuenta nueva</p>
-
       <form action="<%= MasterUrlService.base_url()%>Auth/new_account" method="post">
-        <div class="alert-danger animated text-center" role="alert" style="background-color: #fff;">
-
+        <% if(typeof flash_message  != 'undefined') {%>
+        <% if(flash_message){ %>
+        <div class="alert-success animated text-center" role="alert" style="background-color: #fff;">
+          <%=msj%>
+          <br>
         </div>
-
+        <% }else {%>
+        <%-partial ('../Partial/errorAuth.ejs')%>
+          <br>
+        <% }%>
+        <% }%>
         <div class="form-group has-feedback">
           <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
-          <input type="text" class="form-control" placeholder="Nombre" name="user_name" autofocus required style="padding-left: 30px!important;">
+          <input type="text" class="form-control" placeholder="Nombre" name="user_name" autofocus  style="padding-left: 30px!important;">
 
         </div>
         <div class="form-group has-feedback">
           <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
-          <input type="text" class="form-control" placeholder="Apellido" name="user_last_name" autofocus required style="padding-left: 30px!important;">
+          <input type="text" class="form-control" placeholder="Apellido" name="user_last_name" autofocus  style="padding-left: 30px!important;">
 
         </div>
         <div class="form-group has-feedback">
           <i class="fa fa-envelope form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
-          <input type="email" class="form-control" placeholder="Email" name="user_email" autofocus required style="padding-left: 35px!important;">
+          <input type="email" class="form-control" placeholder="Email" name="user_email" autofocus  style="padding-left: 35px!important;">
 
         </div>
         <div class="form-group has-feedback">
           <i class="fa fa-sign-in form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
-          <input type="text" class="form-control" placeholder="Usuario" name="user_username" autofocus required style="padding-left: 30px!important;">
+          <input type="text" class="form-control" placeholder="Usuario" name="user_username" autofocus  style="padding-left: 30px!important;">
         </div>
         <div class="form-group has-feedback">
           <i class="fa fa-lock form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
-          <input type="password" class="form-control" placeholder="Password" name="user_password" autofocus required style="padding-left: 30px!important;">
+          <input type="password" class="form-control" placeholder="Password" name="user_password" autofocus  style="padding-left: 30px!important;">
 
         </div>
 
         <div class="row">
           <div class="col-8">
             <!--<div class="checkbox icheck">-->
-              <!--<label>-->
-                <!--<input type="checkbox"> I agree to the <a href="#">terms</a>-->
-              <!--</label>-->
+            <!--<label>-->
+            <!--<input type="checkbox"> I agree to the <a href="#">terms</a>-->
+            <!--</label>-->
             <!--</div>-->
           </div>
           <!-- /.col -->
