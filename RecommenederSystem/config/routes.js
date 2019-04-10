@@ -82,12 +82,18 @@ module.exports.routes = {
 
   'get /login' :{
     view: 'Auth/login',
-    locals:{layout:'Auth/loginLayout'}
+    locals: {
+      layout:'Auth/loginLayout',
+      msj: '',
+    }
   },
 
   'get /Auth' :{
     view: 'Auth/register',
-    locals:{layout:'Auth/loginLayout'}
+    locals: {
+      layout:'Auth/loginLayout',
+      msj: '',
+    }
   },
 
   'POST /Auth':'AuthController.new_account',

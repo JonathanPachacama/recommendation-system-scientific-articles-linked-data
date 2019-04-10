@@ -1,6 +1,7 @@
 declare var module;
 declare var sails;
 declare var Rol_users;
+declare var User;
 declare var require;
 module.exports = {
 
@@ -111,4 +112,33 @@ module.exports = {
       return res.badRequest();
     }
   },
+
+  update_password:(req,res)=>{
+
+    let parametros = req.allParams();
+    if(parametros.user_password&&
+      parametros.user_username&&
+      parametros.user_id){
+      User.update({
+        user_id:parametros.user_id
+      },{
+        user_password:parametros.user_password,
+        user_username:parametros.user_username
+      })
+        .exec((err,passEdit)=>{
+          if(err) return res.serverError(err);
+          if(passEdit){
+            //Si Edito
+            return res.ok(passEdit)
+          }else{
+            //No Edito
+            return res.notFound()
+          }
+        })
+    }else{
+      return res.badRequest()
+    }
+  },
+
+
 };

@@ -106,4 +106,32 @@ module.exports = {
             return res.badRequest();
         }
     },
+    update_password: function (req, res) {
+        var parametros = req.allParams();
+        if (parametros.user_password &&
+            parametros.user_username &&
+            parametros.user_id) {
+            User.update({
+                user_id: parametros.user_id
+            }, {
+                user_password: parametros.user_password,
+                user_username: parametros.user_username
+            })
+                .exec(function (err, passEdit) {
+                if (err)
+                    return res.serverError(err);
+                if (passEdit) {
+                    //Si Edito
+                    return res.ok(passEdit);
+                }
+                else {
+                    //No Edito
+                    return res.notFound();
+                }
+            });
+        }
+        else {
+            return res.badRequest();
+        }
+    },
 };
