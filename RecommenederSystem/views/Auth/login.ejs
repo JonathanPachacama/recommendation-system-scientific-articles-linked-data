@@ -1,3 +1,5 @@
+<%display = ((msj.length) > 0)?"block":"none"%>
+
 <div class="login-box">
   <div class="login-logo">
     <a href="<%= MasterUrlService.base_url()%>"><img src="<%= MasterUrlService.base_url()%>images/logoenp.png"></a>
@@ -7,7 +9,10 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sistema de Recomendación</p>
       <form action="" method="post" id="sign-up-form" class="form-signin">
-        <%-partial ('../Partial/errorAuth.ejs')%>
+        <div class="alert-danger animated text-center" role="alert" style="display:<%=display%>;background-color: #fff;">
+          <%=  msj %>
+        </div>
+        <br>
         <div class="form-group has-feedback">
           <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
           <input type="text" class="form-control" placeholder="Usuario" name="username" autofocus  style="padding-left: 30px!important;">

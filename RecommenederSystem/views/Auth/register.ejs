@@ -1,3 +1,5 @@
+<%display = ((msj.length) > 0)?"block":"none"%>
+
 <div class="register-box">
   <div class="register-logo">
     <a href="<%= MasterUrlService.base_url()%>"><img src="<%= MasterUrlService.base_url()%>images/logoenp.png"></a>
@@ -7,16 +9,22 @@
       <p class="login-box-msg">Registrar cuenta nueva</p>
       <form action="<%= MasterUrlService.base_url()%>Auth/new_account" method="post">
         <% if(typeof flash_message  != 'undefined') {%>
-        <% if(flash_message){ %>
-        <div class="alert-success animated text-center" role="alert" style="background-color: #fff;">
-          <%=msj%>
+          <% if(flash_message){ %>
+
+          <% flash.get('success').forEach(function (msj) { %>
+            <div style="color:green;">
+              <%= msj %>
+            </div>
+          <% }) %>
+
+          <% }else{%>
+          <div class="alert-danger animated text-center" role="alert" style="display:<%=display%>;background-color: #fff;">
+            <%=  msj %>
+          </div>
           <br>
-        </div>
-        <% }else {%>
-        <%-partial ('../Partial/errorAuth.ejs')%>
-          <br>
+          <% }%>
         <% }%>
-        <% }%>
+
         <div class="form-group has-feedback">
           <i class="fa fa-user form-control-feedback" style="position: absolute;padding: 10px;margin-left: 5px;height: 40px;display: flex;align-items: center;"></i>
           <input type="text" class="form-control" placeholder="Nombre" name="user_name" autofocus  style="padding-left: 30px!important;">

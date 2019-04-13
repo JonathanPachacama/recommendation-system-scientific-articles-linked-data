@@ -1,5 +1,6 @@
 var Passwords = require('machinepack-passwords');
 var jwt = require('jsonwebtoken');
+var message = require('sails-custom-validation-messages');
 module.exports = {
     Auth: function (req, res) {
         var flash_message = true;
@@ -18,20 +19,48 @@ module.exports = {
             user_last_name: parametros.user_last_name,
             user_email: parametros.user_email,
             user_password: parametros.user_password,
-            user_has_access: 1,
             user_username: parametros.user_username
         };
         User.create(user_table)
             .exec(function (err, userCreated) {
             if (err) {
-                sails.log('Error', err);
-                var msj = 'No se registrado el usuario';
-                var flash_message = false;
-                return res.view('Auth/register', {
-                    msj: msj,
-                    flash_message: flash_message,
-                    layout: 'Auth/loginLayout'
-                });
+                if (err.invalidAttributes) {
+                    err = message(User, err);
+                    var msj = [];
+                    var Error = err.invalidAttributes;
+                    if (Error.user_email || Error.user_username || Error.user_password || Error.user_name || Error.user_last_name) {
+                        var email = Error.user_email;
+                        var username = Error.user_username;
+                        var password = Error.user_password;
+                        var name = Error.user_name;
+                        var lastname = Error.user_last_name;
+                        var msjEmail = User.validationMessages.user_email;
+                        var msjUsername = User.validationMessages.user_username;
+                        var msjName = User.validationMessages.user_name;
+                        var msjLastname = User.validationMessages.user_last_name;
+                        var msjPassword = User.validationMessages.user_password;
+                    }
+                    msj.push(FlashService.menssage(email, msjEmail));
+                    msj.push(FlashService.menssage(username, msjUsername));
+                    msj.push(FlashService.menssage(password, msjPassword));
+                    msj.push(FlashService.menssage(name, msjName));
+                    msj.push(FlashService.menssage(lastname, msjLastname));
+                    var result = msj.filter(function (word) { return word.length > 0; });
+                    var flash_message = false;
+                    // console.log(Error)
+                    return res.view('Auth/register', {
+                        msj: result,
+                        flash_message: flash_message,
+                        layout: 'Auth/loginLayout'
+                    });
+                }
+                else {
+                    sails.log('Error', err);
+                    return res.view('500', {
+                        // data:err,
+                        layout: '500'
+                    });
+                }
             }
             else {
                 var profile_table = {
@@ -59,7 +88,7 @@ module.exports = {
                     else {
                         // console.log(userCreated);
                         // console.log(profileCreated);
-                        var msj = 'Usuario Registrado';
+                        msj = req.addFlash('success', 'Usuario Registrado');
                         var flash_message = true;
                         return res.view('Auth/register', {
                             msj: msj,
@@ -237,7 +266,7 @@ module.exports = {
                             });
                         },
                         success: function () {
-                            User.query(queryLogin, [foundUser.user_username, foundUser.user_password, '1'], function (err, User_Session) {
+                            User.query(queryLogin, [foundUser.user_username, foundUser.user_password, 'approved'], function (err, User_Session) {
                                 if (err) {
                                     sails.log('Error', err);
                                     return res.view('500', {
