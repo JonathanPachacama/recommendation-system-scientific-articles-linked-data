@@ -40,11 +40,11 @@ module.exports = {
                         var msjLastname = User.validationMessages.user_last_name;
                         var msjPassword = User.validationMessages.user_password;
                     }
-                    msj.push(UserService.menssage(email, msjEmail));
-                    msj.push(UserService.menssage(username, msjUsername));
-                    msj.push(UserService.menssage(password, msjPassword));
-                    msj.push(UserService.menssage(name, msjName));
-                    msj.push(UserService.menssage(lastname, msjLastname));
+                    msj.push(FlashService.menssage(email, msjEmail));
+                    msj.push(FlashService.menssage(username, msjUsername));
+                    msj.push(FlashService.menssage(password, msjPassword));
+                    msj.push(FlashService.menssage(name, msjName));
+                    msj.push(FlashService.menssage(lastname, msjLastname));
                     var result = msj.filter(function (word) { return word.length > 0; });
                     var flash_message = false;
                     // console.log(Error)
@@ -88,7 +88,7 @@ module.exports = {
                     else {
                         // console.log(userCreated);
                         // console.log(profileCreated);
-                        var msj = 'Usuario Registrado';
+                        msj = req.addFlash('success', 'Usuario Registrado');
                         var flash_message = true;
                         return res.view('Auth/register', {
                             msj: msj,

@@ -10,10 +10,13 @@
       <form action="<%= MasterUrlService.base_url()%>Auth/new_account" method="post">
         <% if(typeof flash_message  != 'undefined') {%>
           <% if(flash_message){ %>
-          <div class="alert-success animated text-center" role="alert" style="background-color: #fff;">
-            <%=msj%>
-          </div>
-          <br>
+
+          <% flash.get('success').forEach(function (msj) { %>
+            <div style="color:green;">
+              <%= msj %>
+            </div>
+          <% }) %>
+
           <% }else{%>
           <div class="alert-danger animated text-center" role="alert" style="display:<%=display%>;background-color: #fff;">
             <%=  msj %>
