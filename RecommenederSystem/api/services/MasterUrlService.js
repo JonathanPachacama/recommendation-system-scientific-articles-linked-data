@@ -28,8 +28,7 @@ module.exports = {
 
     // url for google cloud
     var ip = IpService.ip()
-    var port = ':8080'
-    // var port = ':80'
+    var port = ':80'
     var url = 'http://'+ip+port+'/wikindx5/'
 
     return url;
