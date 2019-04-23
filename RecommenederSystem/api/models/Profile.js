@@ -8,6 +8,7 @@ module.exports = {
     },
     pro_user_id:{
       model:"User",
+      unique: true,
     },
     pro_profileId:{
       collection: 'Profile_article',
@@ -38,11 +39,13 @@ module.exports = {
       type: 'string',
       columnType: 'datetime',
       autoCreatedAt: true,
+      columnName: 'pro_created'
     },
     updatedAt: {
       type: 'string',
       columnType: 'datetime',
       autoUpdatedAt: true,
+      columnName: 'pro_updated'
     },
   }
 };

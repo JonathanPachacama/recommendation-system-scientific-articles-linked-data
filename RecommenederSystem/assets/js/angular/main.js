@@ -2,8 +2,11 @@
 var angularApp = angular.module('appRecommenderLayout', ['ui.bootstrap']);
 angularApp.controller("layoutController",function () {
 }).factory('urlService', function() {
+  // var pathServer = 'JavaAPIRecom/api/articulos/'
+  var pathServer = 'JavaAPI/api/articulos/'
     return {
       url:{},
+      pathServer: pathServer
     };
 });
 
@@ -128,7 +131,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
   $scope.listArticlesIEEE = function () {
     urlService.url.java = $scope.url;
     console.log('urlService.url.java',urlService.url.java);
-    let urlSendIEEE = urlService.url.java+"JavaAPI/api/articulos/getBusquedaIEEE/?Busqueda="+fullTitle
+    let urlSendIEEE = urlService.url.java+urlService.pathServer+"getBusquedaIEEE/?Busqueda="+fullTitle
     $http.get(urlSendIEEE)
       .success(function (data) {
         $scope.showIEEE = true;
@@ -176,7 +179,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
 
     urlService.url.java = $scope.url;
     console.log('urlService.url.java',urlService.url.java);
-    let urlSendACM = urlService.url.java+"JavaAPI/api/articulos/getBusquedaACM/?Busqueda="+fullTitle
+    let urlSendACM = urlService.url.java+urlService.pathServer+"getBusquedaACM/?Busqueda="+fullTitle
 
     $http.get(urlSendACM)
       .success(function (data) {
@@ -224,7 +227,7 @@ angularApp.controller("recommenderController",function ($scope,$http, $log, urlS
 
     urlService.url.java = $scope.url;
     console.log('urlService.url.java',urlService.url.java);
-    let urlSendDBLP = urlService.url.java+"JavaAPI/api/articulos/getBusquedaDBLP/?Busqueda="+fullTitle
+    let urlSendDBLP = urlService.url.java+urlService.pathServer+"getBusquedaDBLP/?Busqueda="+fullTitle
     $http.get(urlSendDBLP)
       .success(function (data) {
         $scope.showIEEE = false;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2019 a las 17:05:38
+-- Tiempo de generación: 23-04-2019 a las 20:39:59
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -166,8 +166,8 @@ CREATE TABLE `profile` (
   `pro_address` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `pro_phone` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `pro_aboutMe` longtext COLLATE utf8_spanish_ci,
-  `createdAt` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `updatedAt` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
+  `pro_created` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `pro_updated` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -275,7 +275,8 @@ ALTER TABLE `mifiles`
 -- Indices de la tabla `profile`
 --
 ALTER TABLE `profile`
-  ADD PRIMARY KEY (`pro_id`);
+  ADD PRIMARY KEY (`pro_id`),
+  ADD UNIQUE KEY `pro_user_id` (`pro_user_id`);
 
 --
 -- Indices de la tabla `profile_article`
