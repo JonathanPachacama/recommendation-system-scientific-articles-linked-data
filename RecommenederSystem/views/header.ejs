@@ -10,20 +10,20 @@
       <a href="<%= MasterUrlService.base_url()%>" class="nav-link">Home</a>
     </li>
     <!--<li class="nav-item d-none d-sm-inline-block">-->
-      <!--<a href="#" class="nav-link">Contact</a>-->
+    <!--<a href="#" class="nav-link">Contact</a>-->
     <!--</li>-->
   </ul>
 
   <!--&lt;!&ndash; SEARCH FORM &ndash;&gt;-->
   <!--<form class="form-inline ml-3">-->
-    <!--<div class="input-group input-group-sm">-->
-      <!--<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">-->
-      <!--<div class="input-group-append">-->
-        <!--<button class="btn btn-navbar" type="submit">-->
-          <!--<i class="fa fa-search"></i>-->
-        <!--</button>-->
-      <!--</div>-->
-    <!--</div>-->
+  <!--<div class="input-group input-group-sm">-->
+  <!--<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">-->
+  <!--<div class="input-group-append">-->
+  <!--<button class="btn btn-navbar" type="submit">-->
+  <!--<i class="fa fa-search"></i>-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
   <!--</form>-->
 
   <!-- Right navbar links -->
@@ -87,35 +87,93 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview menu-open">
-          <a href="<%= MasterUrlService.base_url()%>" class="nav-link active">
+        <li class="nav-item has-treeview">
+          <a href="#" id="navStarter" class="nav-link">
             <i class="nav-icon fa fa-dashboard"></i>
             <p>
               Starter Pages
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<%= MasterUrlService.base_url()%>" id="navHome" class="nav-link">
+              <i class="fa fa-home nav-icon"></i>
+              <p>Homepage</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= MasterUrlService.base_url()%>AnadirArticulos" class="nav-link">
+              <i class="fa fa-edit nav-icon"></i>
+              <p>Añadir artículos</p>
+            </a>
+          </li>
+        </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" id="navBusqueda" class="nav-link">
+            <i class="nav-icon fa fa-search"></i>
+            <p>
+              Busqueda
+              <i class="right fa fa-angle-left"></i>
+            </p>
+          </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>busqueda" id="navBusqueda" class="nav-link">
-                <i class="fa fa-search nav-icon"></i>
-                <p>Busqueda</p>
+              <a href="<%= MasterUrlService.base_url()%>busqueda" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>DOAJ</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>biblioteca" id="navBiblioteca" class="nav-link">
-                <i class="fa fa-book nav-icon"></i>
-                <p>Biblioteca</p>
+              <a href="<%= MasterUrlService.base_url()%>busquedaSpringer" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Springer</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<%= MasterUrlService.base_url()%>crearMisArticulos" id="navMisArticulos" class="nav-link">
-                <i class="fa fa-edit nav-icon"></i>
-                <p>Crear mis articulos</p>
+              <a href="<%= MasterUrlService.base_url()%>busquedaArxiv" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Arxiv</p>
               </a>
             </li>
           </ul>
         </li>
+
+
+
+        <li class="nav-item has-treeview">
+          <a href="#" id="navBiblioteca" class="nav-link">
+            <i class="nav-icon fa fa-book"></i>
+            <p>
+              Biblioteca
+              <i class="right fa fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<%= MasterUrlService.base_url()%>bibliotecaUser" id="navBiblioteca" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Mi Biblioteca</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<%= MasterUrlService.base_url()%>mibiblioteca" id="navBiblioteca" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Añadidos por mí</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+
+
+
+
+
+
         <li class="nav-item">
           <a href="<%= MasterUrlService.base_url()%>recommendationsWkx" class="nav-link active">
             <i class="nav-icon fa fa-th"></i>

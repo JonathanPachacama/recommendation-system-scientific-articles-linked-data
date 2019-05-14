@@ -21,6 +21,8 @@ declare var Wkx_resource_text;
 declare var Wkx_resource_year;
 declare var numero_authors;
 declare var CreatorSurname1;
+declare var busqueda;
+
 
 // /Saludo/crearUsuarioQuemado
 
@@ -97,7 +99,7 @@ module.exports = {
     numero_authors=parametros.numero_autores;
     sails.log.info("Parametros",numero_authors);
     let nuevoKeyword = {
-      keywordKeyword:parametros.keywords,
+      keywordKeyword:parametros.busqueda,
     };
     let nuevoPublisher = {
       publisherLocation:parametros.country,
@@ -126,7 +128,7 @@ module.exports = {
       resourceNoSort:parametros.tit,
       resourceTransNoSort:parametros.tit,
       resourceIsbn:parametros.tit,
-      resourceBibtexKey:parametros.apellido+parametros.year,
+      resourceBibtexKey:parametros.apellidoAuthores+parametros.year,
       resourceDoi:parametros.doi
 
 
@@ -151,7 +153,10 @@ module.exports = {
       authores:parametros.authores,
       category:parametros.category,
       pages: parametros. pages,
-      notas:parametros.notas
+      notas:parametros.notas,
+      fkIdUser:parametros.fkIdUser,
+      busqueda:parametros.busqueda,
+      doi:parametros.doi
 
 
     };
@@ -219,9 +224,7 @@ module.exports = {
           if(error){
             return res.serverError(error);
           }else{
-            //return res.ok(articuloCreado);
-            //return res.created('Nuevo articulo creado.');
-            //return res.view('busquedaArxiv')
+            busqueda=articuloCreado.busqueda
           }
         }
       )
@@ -447,8 +450,8 @@ module.exports = {
                                                 Wkx_resource_keyword.create({
                                                   resourcekeywordResourceId:ResourceId,
                                                   resourcekeywordQuoteId:articuloCreado.key,
-                                                  resourcekeywordParaphraseId:articuloCreado.key,
-                                                  resourcekeywordMusingId:articuloCreado.key,
+                                                  //resourcekeywordParaphraseId:articuloCreado.key,
+                                                  //resourcekeywordMusingId:articuloCreado.key,
                                                   resourcekeywordKeywordId:articuloCreado.keywordId
                                                 }).exec(
                                                   (error,articuloCreado)=>{
@@ -490,10 +493,7 @@ module.exports = {
                                                                       if(error){
                                                                         return res.serverError(error);
                                                                       }else{
-                                                                        //return res.ok(articuloCreado);
-                                                                        //return res.created('Nuevo articulo creado.');
-                                                                        //  return res.view('Biblioteca')
-
+                                                                        res.cookie('busqueda',busqueda)
 
                                                                         //(start) added for Recommender Module
                                                                         return res.view('recommenderLinkedData',{

@@ -36,6 +36,9 @@ module.exports = {
     issns:{
       type:"string"
     },
+    doi:{
+      type:"string"
+    },
     language:{
       type:"string"
     },
@@ -45,7 +48,7 @@ module.exports = {
 
     link:
       {
-        type: "string"
+        type: "longtext"
 
       },
     authors:
@@ -67,6 +70,9 @@ module.exports = {
     Mifile: {
       collection: 'MiFile',
       via: 'fkIdMiArticulo'
+    },
+    fkIdUser:{
+      model:'User'
     }
   }
 

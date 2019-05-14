@@ -40,66 +40,100 @@
       | Your Page Content Here START|
       -------------------------->
 
-      <form action="/biblioteca">
-        <div class="form-group row">
-          <label for="busqueda" class="col-4 col-form-label">
-            Search by Keywords or Title
-          </label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Search in my library" id="biblioteca"
-                   name="biblioteca">
-          </div>
-        </div>
-        <button class="btn btn-success btn-block">Search</button>
-      </form>
-
-      <br>
-      <br>
-
       <div class="row">
-        <% for(var i=0;i<articulos.length;i++){ %>
-        <div class="card" style="width: 20rem;">
-          <div class="card-block">
-            <h6 class="card-title"><b><%=articulos[i].title%></b></h6>
-            <p class="card-text"><h10><b>Authors:</b></h10><%=articulos[i].authores%></p>
-          </div>
-          <ul class="list-group list-group-flush" >
-            <li class="list-group-item" ><h10><b>Category:</b></h10><%=articulos[i].category%></li>
-            <li class="list-group-item"><h10><b>Languajes:</b></h10><%=articulos[i].language%></li>
-            <li class="list-group-item"><h10><b>Year of publication:</b></h10><%=articulos[i].year%></li>
-          </ul>
-          <div class="card-block">
-            <form action="/Articulo/eliminarArticulo" method="post">
-              <input hidden
-                     type="text"
-                     value="<%=articulos[i].id%>"
-                     name="id">
-              <button  type="submit"
-                       class="btn btn-outline-danger">Delete</button>
-
-              <a href="/VerArticulo?id=<%=articulos[i].id%>">
-                <button type="button" class="btn btn-primary">
-                  See
+        <div class="col-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header no-border">
+              <font color="#449d44"> <h3 class="card-title"> Bienvenido <%= req.session.me.name%> <%=req.session.me.last_name%></h3></font>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
                 </button>
-              </a>
-            </form>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="card-body">
+
+
+                <!--CODIGO FER-->
+
+                <input hidden
+                       id="idUsuario"
+                       name="idUsuario"
+                       value="<%=req.session.me.usuarioId%>">
+
+
+
+                <form action="/biblioteca">
+                  <div class="form-group row">
+                    <label for="busqueda" class="col-4 col-form-label">
+                      <h5> Buscar dentro de mi biblioteca</h5>
+                    </label>
+                    <div class="col-6">
+                      <input hidden
+                             class="form-control"
+                             type="text"
+                             id="idUsuario"
+                             name="idUsuario"
+                             value="<%=User.user_id%>">
+                      <input class="form-control" type="text" placeholder="Buscar en mi biblioteca" id="biblioteca"
+                             name="biblioteca">
+                    </div>
+
+                    <div class="col-2">
+                      <button class="btn btn-success">Buscar</button>
+                    </div>
+                  </div>
+
+                </form>
+
+                <br>
+                <br>
+                <div class="row">
+                  <% if(articulos.length ==0){ %>
+                    <div class='col-10'>
+                      <p ALIGN='justify'> <font color="#CEE3F6"> <h4> Aún no haz guardado artículos en tu biblioteca ve a  <a href="/busqueda">Búsqueda </a> y comienza a hacerlo</h4></font></p>
+                    </div>
+                  <%}%>
+                  <% for(var i=0;i<articulos.length;i++){ %>
+                  <div class="card" style="width: 80rem;">
+                    <div class="card-block">
+
+                      <h5 class="card-title"><b><a href="<%=articulos[i].link%>"><%=articulos[i].title%></a></b></h5>
+                      <p class="card-text"><h6><%=articulos[i].authores%>, "<%=articulos[i].title%>", <i><%=articulos[i].journal%></i>, vol.<%=articulos[i].volume%>, no.<%=articulos[i].number%>, pp.<%=articulos[i].pages%>, <%=articulos[i].year%></h6></p>
+                    </div>
+
+                    <div class="card-block">
+                      <form action="/Articulo/eliminarArticulo" method="post">
+                        <input hidden
+                               type="text"
+                               value="<%=articulos[i].id%>"
+                               name="id">
+                        <button  type="submit"
+                                 class="btn btn-outline-danger">Borrar</button>
+
+                        <a href="/VerArticulo?id=<%=articulos[i].id%>">
+                          <button type="button" class="btn btn-primary">
+                            Ver
+                          </button>
+                        </a>
+                      </form>
+                    </div>
+                  </div>
+                  <%}%>
+                </div>
+                <!--./CODIGO FER-->
+
+
+
+              </div><!-- /.card-body -->
+              <div class="card-footer"></div>
+            </div>
           </div>
         </div>
-        <%}%>
       </div>
-      <hr>
+      <!--/.card-->
 
-
-
-      <a href="/MisArticulos">
-        <button type="button" class="btn btn-primary btn-lg btn-block">
-          View my posts
-        </button>
-      </a>
-      <br>
-      <br>
-      <br>
-      <hr>
 
       <!--------------------------
       | Your Page Content Here END|

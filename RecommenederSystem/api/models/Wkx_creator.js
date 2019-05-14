@@ -31,7 +31,6 @@ module.exports = {
       type:"integer",
 
     },
-
     resourcecreatorCreator: {
       collection: 'Wkx_resource_creator',
       via: 'resourcecreatorCreatorId'
@@ -39,4 +38,3 @@ module.exports = {
 
   }
 };
-

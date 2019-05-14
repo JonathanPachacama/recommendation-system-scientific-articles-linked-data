@@ -1,0 +1,1087 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Springer</h1>
+        </div>
+        <div class="col-sm-4">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item active"> Springer</li>
+          </ol>
+        </div>
+        <div class="col-sm-2">
+          <ol class="breadcrumb pull-right">
+            <li>
+              <div class="">
+                <button class="btn btn-secondary"
+                        id="reload">
+                  Recargar
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+      <!--------------------------
+      | Your Page Content Here START|
+      -------------------------->
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header no-border">
+              <h3 class="card-title">Buscador</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="card-body">
+
+
+
+
+                <!--CODIGO FER-->
+                <input hidden
+                       class="form-control"
+                       type="text"
+                       id="idUsuario"
+                       name="idUsuario"
+                       value="<%=req.cookies.User%>">
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+
+                  <div id='oculto' style='display:none;'>
+                    <form id="formRadio" name="categoria">
+                      <input type="button" class="btn btn-info" value="-" onclick="ocultar()">
+                      <br>
+                      <div class="row">
+
+                        <div class="col-md-4"> <input type="radio" name="category" value="Agriculture"> Agricultura<hr></div>
+                        <div class="col-md-4"><input type="radio" name="category" value="Engineering (General). Civil engineering (General)">Ingenieria en general<hr></div>
+                        <div class="col-md-4"> <input type="radio" name="category" value="Education"> Educacion<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="Fine Arts"> Artes<hr></div>
+                        <div class="col-lg-4"> <input type="radio" name="category" value="General Works"> publicaciones en general<hr></div>
+                        <div class="col-lg-4"> <input type="radio" name="category" value="Geography"> Geografia<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="History (General) and history of Europe"> Historia general e historia de Europa<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="History America"> Historia de america<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="Language and Literature"> Lenguaje y literatura<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="Law"> leyes<hr></div>
+                        <div class="col-lg-4"> <input type="radio" name="category" value="Medicine"> Medicina<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="Military Science">Ciencias militares<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="Music and books on Music"> Música y libros sobre música<hr></div>
+                        <div class="col-lg-4"> <input type="radio" name="category" value="Naval Science"> Ciencia Naval<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="Philosophy"> Filosofia<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="Political science"> Ciencias Politicas<hr></div>
+                        <div class="col-lg-4"> <input type="radio" name="category" value="Science"> Ciencia<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="Social Sciences"> Ciencias sociales<hr></div>
+
+                        <div class="col-lg-4"><input type="radio" name="category" value="Systems engineering">Ingenieria en sistemas<hr></div>
+                        <div class="col-lg-4"><input type="radio" name="category" value="Technology (General)">Tecnologia en general<hr></div>
+
+                      </div>
+
+                    </form>
+                  </div>
+                </head>
+                <body>
+                <input type="button" class="btn btn-info" id="catego" value="Ver categorias" onclick="mostrar()" disabled>
+                <div class="container-fluid" >
+
+                  <div class="row" id="articulos">
+                    <input type="text" class="form-control my-2" name="q" placeholder="Buscar en Springer" id="homepage-search-input">
+                    <Select id = "DropDown1">
+                      <Option value =""> Todo </Option>
+                      <Option value = "title:"> Título </Option>
+                      <Option value = "keyword:"> Keywords </Option>
+                    </Select>
+
+                    <br>
+                    <br>
+
+                    <button type="button" class="btn btn-primary" onclick="javascript:limpiar();spiner();callWebService2()">Busqueda SPRINGER</button>
+                    <!--  <button type="button"  class="btn btn-success"  onclick="javascript:limpiar();spiner();callWebService1()">VER RECOMENDACIONES</button>-->
+
+                    <br>
+                    <br>
+                    <hr>
+                    <hr>
+
+                  </div>
+                </div>
+                <script type="text/javascript">
+                  function mostrar(){
+                    document.getElementById('oculto').style.display = 'block';
+                    document.getElementById('catego').style.display = 'none';
+                  }
+
+                  function viewMoreData(){
+                    document.getElementById('oculto2').style.display = 'block';
+                    document.getElementById('vewMore').style.display = 'none';
+                  }
+                  function spiner(){
+                    $("#resultado_json").append("<i class='fa fa-spinner fa-spin' style='font-size:24px'></i>");
+                  }
+                </script>
+                <script type="text/javascript">
+                  function ocultar(){
+                    document.getElementById('oculto').style.display = 'none';
+                    document.getElementById('catego').style.display = 'block';
+                  }
+                </script>
+
+                <p id="pRespuesta"></p>
+                <div id="resultado_json"></div>
+                <div id="resultado_json2"></div>
+
+
+
+
+                <div class="container-fluid">
+
+
+                  <script type="text/javascript">
+
+                    function limpiar(){
+                      var imprimir = '';
+                      imprimir.innerHTML='';
+                      $("#resultado_json").empty();
+
+                    }
+                    // Procesar resultados del webservice
+
+                    function webServiceResult1(data) {
+                      $("#resultado_json").append("<i class='fa fa-spinner fa-spin' style='font-size:24px'></i>");
+                      var busqueda = document.getElementById("homepage-search-input").value;
+                      tamanodeDatos= data.records.length;
+                      console.log("tamanodeDatos", tamanodeDatos);
+                      if (tamanodeDatos == 0) {
+                        alert('No existen articulos relacionados con esa palabra!');
+                      }
+                      $("#resultado_json").empty();
+                      var hoy = new Date();
+                      var dd = hoy.getDate();
+                      var mm = hoy.getMonth()+1; //hoy es 0!
+                      var yyyy = hoy.getFullYear();
+
+                      if(dd<10) {
+                        dd='0'+dd
+                      }
+
+                      if(mm<10) {
+                        mm='0'+mm
+                      }
+
+                      hoy = dd+'/'+mm+'/'+yyyy;
+                      staus=data.status
+                      console.log("staus", staus);
+                      if (staus == "Not found") {
+                        alert('No existen articulos relacionados con esa palabra!');
+                      }else{}
+
+                      for (var i = 0; i < data.records.length; i++) {
+                        title = data.records[i].title;
+                        number = data.records[i].number;
+                        volume = data.records[i].volume;
+                        issns = data.records[i].issn;
+                        journal = data.records[i].publicationName;
+                        editorial = data.records[i].publisher;
+                        starpage = data.records[i].startingPage;
+                        endpage = data.records[i].endingPage;
+                        year= data.records[i].publicationDate;
+                        pages = starpage +"-"+ endpage;
+                        abstract = data.records[i].abstract;
+                        doi= data.records[i].doi;
+                        keywords = busqueda;
+                        cate='General';
+                        language = 'EN';
+                        country = 'EU';
+                        fkIdUser=parseInt(document.getElementById("idUsuario").value);
+                        var busqueda = document.getElementById("homepage-search-input").value;
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[0] !== 'undefined') {
+
+                            var autorHtml = data.records[i].creators[0].creator;
+                            var autores = autorHtml;
+                            var authorb = autores.charAt(0);
+                            textoAuthorDividido = autorHtml.split(" ");
+                            numeroPalabras = textoAuthorDividido.length;
+                            if (numeroPalabras >= 4) {
+                              nameAuthor = autores.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //output es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output1 = textoAuthorDividido[textoAuthorDividido.length - 2];
+                              var output12 = textoAuthorDividido[textoAuthorDividido.length - 1];
+                              var apellido = output1 + ' ' + output12;
+
+
+                            }
+                            else {
+                              nameAuthor = autores.split(/\s+/, 1);
+                              //var output = autores.split(/\s+/).pop();
+                              var apellido  = textoAuthorDividido[textoAuthorDividido.length - 1];
+
+
+                            }
+                            var nombreA0 = (nameAuthor.join(" "));
+                            var nombreA = nombreA0;
+
+                            var authorbibliograpyIEEE = authorb + ' ' + apellido;
+                            var authorsb = authorbibliograpyIEEE;
+                            var nombreAuthores=[nombreA];
+                            var apellidoAuthores=[apellido];
+                            var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA;
+                            var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'.';
+                          }
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[1] !== 'undefined') {
+                            var autor1 = data.records[i].creators[1].creator;
+                            var autores = autorHtml + '; ' + autor1;
+                            var authorb1 = autor1.charAt(0);
+                            var textoAuthorDividido1 = autor1.split(" ");
+                            var numeroPalabras1 = textoAuthorDividido1.length;
+
+
+                            if (numeroPalabras1 >= 4) {
+                              nameAuthor1 = autor1.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //apellido1 es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output21 = textoAuthorDividido1[textoAuthorDividido1.length - 2];
+                              var output22 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+                              apellido1 = output21 + ' ' + output22;
+
+                            }
+                            else {
+                              nameAuthor1 = autor1.split(/\s+/, 1);
+                              //var output = autores.split(/\s+/).pop();
+                              apellido1 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+
+                            }
+                            nombreA1 = (nameAuthor1.join(" "));
+                            var authorbibliograpyIEEE1 = authorb1 + ' ' + apellido1;
+                            var authorsb = authorbibliograpyIEEE + ' ' + 'y ' + ' ' + authorbibliograpyIEEE1;
+                            var nombreAuthores=[nombreA,nombreA1];
+                            var apellidoAuthores=[apellido,apellido1];
+                            var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA+' '+apellido1.toUpperCase()+', '+nombreA1;
+                            var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'. '+apellido1+', '+nombreA1.charAt(0)+'.';
+
+                          }
+
+                          else {
+                            var autor1 = '';
+                            var authorb1 = '';
+                            var output1 = '';
+                            var authorbibliograpyIEEE1 = '';
+                            var nombreA1 = '';
+                            var apellido1 = '';
+
+
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[2] !== 'undefined') {
+                            var autor2 = data.records[i].creators[2].creator;
+                            var autores = autorHtml + '; ' + autor1 + '; ' + autor2;
+                            var authorb2 = autor2.charAt(0);
+                            var textoAuthorDividido2 = autor2.split(" ");
+                            var numeroPalabras2 = textoAuthorDividido2.length;
+
+
+                            if (numeroPalabras2 >= 4) {
+                              nameAuthor2 = autor2.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //apellido2 es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output31 = textoAuthorDividido2[textoAuthorDividido2.length - 2];
+                              var output32 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+                              apellido2 = output31 + ' ' + output32;
+
+                            }
+                            else {
+                              nameAuthor2 = autor2.split(/\s+/, 1);
+                              //var output = autores.split(/\s+/).pop();
+                              apellido2 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+
+                            }
+                            nombreA2 = (nameAuthor2.join(" "));
+                            var authorbibliograpyIEEE2 = authorb2 + ' ' + apellido2;
+                            var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE2;
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2];
+                            var apellidoAuthores=[apellido,apellido1,apellido2];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+' '+nombreA +'  '+apellido1.toUpperCase()+' '+nombreA1 +' '+apellido2.toUpperCase()+' '+nombreA2;
+                            var apellidoAuthoreshardvard= apellido+', '+nombreA.charAt(0)+'.'+apellido1+', '+nombreA1.charAt(0)+'.'+apellido2+' '+nombreA2.charAt(0)+'.';
+                          }
+                          else {
+                            var autor2 = ' ';
+                            var authorb2 = '';
+                            var output2 = '';
+                            var authorbibliograpyIEEE2 = '';
+                            var nombreA2 = '';
+                            var apellido2 = '';
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[3] !== 'undefined') {
+                            var autor3 = data.records[i].creators[3].creator;
+                            var autores = autorHtml + '; ' + autor1 + '; ' + autor2 + '; ' + autor3;
+                            var authorb3 = autor3.charAt(0);
+                            var textoAuthorDividido3 = autor3.split(" ");
+                            var numeroPalabras3 = textoAuthorDividido3.length;
+
+                            if (numeroPalabras3 >= 4) {
+                              nameAuthor3 = autor3.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //apellido2 es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output41 = textoAuthorDividido3[textoAuthorDividido3.length - 2];
+                              var output42 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+                              apellido3 = output41 + ' ' + output42;
+
+                            }
+                            else {
+                              nameAuthor3 = autor3.split(/\s+/, 1);
+                              //var output = autores.split(/\s+/).pop();
+                              apellido3 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+
+                            }
+                            nombreA3 = (nameAuthor3.join(" "));
+                            var authorbibliograpyIEEE3 = authorb3 + ' ' + apellido3;
+                            var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ', ' + ' ' + authorbibliograpyIEEE2 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE3;
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3];
+                            var apellidoAuthores=[apellido,apellido1,apellido2,apellido3];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+', '+nombreA +' et al';
+                            var apellidoAuthoreshardvard= apellido+', '+authorb+'., et al.';
+                          }
+                          else {
+                            var autor3 = ' ';
+                            var authorb3 = '';
+                            var output3 = '';
+                            var authorbibliograpyIEEE3 = '';
+                            var nombreA3 = '';
+                            var apellido3 = '';
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[4] !== 'undefined') {
+                            var autor4 = data.records[i].creators[4].creator;
+                            var autores = autorHtml + '; ' + autor1 + '; ' + autor2 + '; ' + autor3 + '; ' + autor4;
+                            var authorb4 = autor4.charAt(0);
+                            var textoAuthorDividido4 = autor4.split(" ");
+                            var numeroPalabras4 = textoAuthorDividido4.length;
+
+                            if (numeroPalabras4 >= 4) {
+                              nameAuthor4 = autor4.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //apellido2 es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output51 = textoAuthorDividido4[textoAuthorDividido4.length - 2];
+                              var output52 = textoAuthorDividido4[textoAuthorDividido4.length - 1];
+                              apellido4 = output51 + ' ' + output52;
+
+                            }
+                            else {
+                              nameAuthor4 = autor4.split(/\s+/, 1);
+                              //var output = autores.split(/\s+/).pop();
+                              apellido4 = textoAuthorDividido4[textoAuthorDividido4.length - 1];
+
+                            }
+                            nombreA4 = (nameAuthor4.join(" "));
+                            var authorbibliograpyIEEE4 = authorb4 + ' ' + apellido4;
+                            var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ',' + ' ' + authorbibliograpyIEEE2 + ',' + ' ' + authorbibliograpyIEEE3 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE4;
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3,nombreA4];
+                            var apellidoAuthores=[apellido,apellido1,apellido2,apellido3,apellido4];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+' '+nombreA +' et al.';
+                            var apellidoAuthoreshardvard= apellido+' '+authorb+'., et al';
+                          }
+                          else {
+                            var autor4 = ' ';
+                            var authorb4 = '';
+                            var output4 = '';
+                            var authorbibliograpyIEEE4 = '';
+                            var nombreA4 = '';
+                            var apellido4 = '';
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.records[i].creators[5] !== 'undefined') {
+                            var autor5 = data.records[i].creators[5].creator;
+                            var autores = autorHtml + '; ' + autor1 + '; ' + autor2 + '; ' + autor3 + '; ' + autor4 + '; ' + autor5;
+                            var authorb5 = autor5.charAt(0);
+                            var textoAuthorDividido5 = autor5.split(" ");
+                            var numeroPalabras5 = textoAuthorDividido5.length;
+
+
+                            if (numeroPalabras5 >= 4) {
+                              nameAuthor5 = autor5.split(/\s+/, 2);
+                              //var output = autores.split(/\s+/).pop();
+                              //apellido2 es el apellido del autor
+                              //nombreA es el nombre del autor
+                              var output61 = textoAuthorDividido5[textoAuthorDividido5.length - 2];
+                              var output62 = textoAuthorDividido5[textoAuthorDividido5.length - 1];
+                              apellido5 = output61 + ' ' + output62;
+
+                            }
+                            else {
+
+                              nameAuthor5 = autor5.split(/\s+/, 1);
+                              var nombreA5 = (nameAuthor5.join(" "));
+                              var authorbibliograpyIEEE5 = authorb5 + ' ' + apellido5;
+                              var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ',' + ' ' + authorbibliograpyIEEE2 + ',' + ' ' + authorbibliograpyIEEE3 + ',' + ' ' + authorbibliograpyIEEE4 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE5;
+                            }
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3,nombreA4,nombreA5];
+                            var apellidoAuthores=[apellido,apellido1,apellido2,apellido3,apellido4,apellido5];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+', '+nombreA +' et al.';
+                            var apellidoAuthoreshardvard= apellido+', '+authorb+'., et al';
+                          }
+                          else {
+                            var autor5 = ' ';
+                            var authorb5 = '';
+                            var output5 = '';
+                            var authorbibliograpyIEEE5 = '';
+                            var nameAuthor5 = '';
+                            var apellido5 = '';
+                          }
+
+                        }
+                        tamAut=nombreAuthores.length;
+                        tamAutap=apellidoAuthores.length;
+                        console.log("autores", authorsb,tamAut,tamAutap);
+                        console.log("autoreswkd:", nombreA + " "+apellido+ " "+ nombreA1 +  " "+apellido1+  " "+nombreA2 +  " "+apellido2+ " "+ nombreA3 + " "+ apellido3+ " "+ nombreA4 + " "+ apellido4+  " "+nombreA5 +  " "+apellido5);
+
+
+                        for (var j = 0; j < 10; j++) {
+                          if (data.records[i].url[j] !== 'undefined') {
+
+                            var urlHtml = devolverHtmlUrl(data.records[i].url[0].value);
+                            var url = data.records[i].url[0].value;
+                          }
+                        }
+
+
+                        var imprimir = "<div class='container my-2'> " +
+                          "<div class='card'> <div class='card'>" +
+                          "<div>" +
+                          "<h4><b></h4></b><br>" +"<a target='_blank' href=" +url+"><h4><b>" + title  +"</b></h4></a>"+
+                          "<font color='#01549b'><h4><b> Journal:</b></h4></font><h4><b>" + journal + "</h4></b><br>"+
+
+                          "<button type='button' class='btn btn-outline-info' data-toggle='collapse' data-target='#demo"+i+"'>Leer más...</button>"+
+                          "<div id='demo"+i+"' class='collapse in'>"+
+                          "<font color='#01549b'><h4><b> Resumen:</b></h4></font>" + "<h4><b><p align='justify'>" + abstract + "</h4></b></p>" +
+                          "<font color='#01549b'><h4><b> Keywords:</b></h4></font><h4><b>" + keywords + "</h4></b><br>" +
+                          "<font color='#01549b'><h4><b> Editorial:</b></h4></font><h4><b>" + editorial + "</h4></b><br>" +
+                          //"<font color='#01549b'><h4><b> Category:</b></h4></font><h4><b>"+cate + "</h4></b><br>" +
+                          "<font color='#01549b'><h4><b> Autores: </b></h4></font><h4><b>" + autorHtml + "</h4><br><h4><b>" +
+                          autor1 + "</h4></b><br><h4><b>" + autor2 + "</h4></b><br><h4><b>" + autor3 + "</h4></b><br><h4><b>" + autor4 + "</h4></b><br><h4><b>" + autor5 + "</h4></b><br>" +
+                          // "<div class='row'></b>" +
+
+                          "<div class='col-md-2'><font color='#01549b'><h4><b> Número: </b></h4></font> </div>" +
+                          "<div class='col-md-6'><h4><b>" + number + "</h4></b></div>" +
+                          "<div class='col-md-4'> </div>" +
+
+
+                          "<div class='col-md-2'><font color='#01549b'><h4><b> Volumen: </b></h4></font> </div>" +
+                          "<div class='col-md-6'><h4><b>" + volume + "</h4></b></div>" +
+                          "<div class='col-md-4'> </div>" +
+
+
+                          "<div class='col-md-2'><font color='#01549b'><h4><b> Issns: </b></h4></font> </div>" +
+                          "<div class='col-md-6'><h4><b>" + issns + "</h4></b></div>" +
+                          "<div class='col-md-4'> </div>" +
+
+
+                          "<div class='col-md-2'><font color='#01549b'><h4><b> Año de publicación: </b></h4></font> </div>" +
+                          "<div class='col-md-6'><h4><b>" + year + "</h4></b></div>" +
+                          "<div class='col-md-4'> </div>" +
+
+
+                          "<div class='col-md-2'><font color='#01549b'><h4><b> Páginas: </b></h4></font> </div>" +
+                          "<div class='col-md-6'><h4><b>" + pages + "</h4></b></div>" +
+                          "<div class='col-md-4'> </div>" +
+
+                          <!-- Button trigger modal -->
+                          "<button type='button' class='btn btn-primary mb-2' data-toggle='modal' data-target='#exampleModal"+i+"'> Bibliografía </button>"+
+
+                          <!-- Modal -->
+                          "<div class='modal fade' id='exampleModal"+i+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel"+i+"' aria-hidden='true'>"+
+                          "<div class='modal-dialog modal-lg' role='document'>"+
+                          "<div class='modal-content'>"+
+                          "<div class='modal-header'>"+
+                          "<h5 class='modal-title' id='exampleModalLabel"+i+"'>Bibliografía</h5>"+
+                          "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>"+
+                          "<span aria-hidden='true'>&times;</span>"+
+                          "</button>"+
+                          "</div>"+
+                          "<div class='modal-body'>"+
+
+                          "<label for='apa' class='col-2 col-form-label'><h5>APA</h5></label>"+
+                          "<div class='col-12'>"+
+                          "<p ALIGN='justify'>"+ apellidoAuthoreshardvard + ".("+year+ ")."+title +".<i> "+journal+" </i>,<i>"+ volume+ "</i>( "+number+" ),"+pages +". Recuperado de "+'<a target="_blank" href="'+ url +'">'+url+'</a>'+"</p>"+
+                          "</div> " +
+
+                          "<label for='ieee' class='col-2 col-form-label'><h5>IEEE</h5></label>"+
+                          "<div class='col-12'>"+
+                          "<p ALIGN='justify'>" + authorsb + ',' + title + ', ' + "<i>" + journal + "</i>" + ', vol.' + volume + ', no.' + number + ', pp.' + pages + ',' + ' ' +  year + "</p>" +
+
+                          "</div>" +
+                          "<label for='iso' class='col-2 col-form-label'><h5>ISO 690</h5></label>"+
+                          "<div class='col-12'>"+
+                          "<p ALIGN='justify'>" + apellidoAuthoresISO + '(' + year.substr(-20,4) + '), "' + title + '".En: '+"<i>" + journal + "</i>[en línea]." +editorial+ '. V.' + volume + ', no.' + number + ', pp.' + pages + "[consulta:"+hoy+"].Disponible en: "+'<a target="_blank" href="'+ url +'">'+url+'</a>'+ "</p>" +
+
+                          "</div>" +
+                          "<label for='harvard' class='col-2 col-form-label'><h5>Harvard</h5></label>"+
+                          "<div class='col-12'>"+
+                          "<p ALIGN='justify'>" + apellidoAuthoreshardvard + '(' + year.substr(-20,4) + '), "' + title  +'"'+".<i>" +journal + "</i>,"+volume+ "("+number+"),pp."+pages+ ".Disponible en: "+'<a target="_blank" href="'+ url +'">'+url+'</a>'+"[Consultado:"+hoy+"]</p>"+
+                          "</div>"+
+                          "<div class='modal-footer'>"+
+                          "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"+
+                          "</div></div>"+
+                          "</div> " +
+                          "</div> " +
+
+                          "</div> " +
+                          ////////////////////////////////////////////////////////////
+
+                          "<form action='/GuardarArticulo/crearArticuloQuemado' method='post'>" +
+                          "<input hidden type='text' name='title' value='" + title + "'>" +
+                          "<input hidden type='text' name='country' value='" + country + "'>" +
+                          "<input hidden type='text' name='number' value='" + number + "'>" +
+                          "<input hidden type='text' name='volume' value='" + volume + "'>" +
+                          "<input hidden type='text' name='issns' value='" + issns + "'>" +
+                          "<input hidden type='text' name='language' value='" + language + "'>" +
+                          "<input hidden type='text' name='year' value='" + year + "'>" +
+                          "<input hidden type='text' name='journal' value='" + journal + "'>" +
+                          "<input hidden type='text' name='editorial' value='" + editorial + "'>" +
+                          "<input hidden type='text' name='abstract' value='" + abstract + "'>" +
+                          "<input hidden type='text' name='keywords' value='" + keywords + "'>" +
+                          "<input hidden type='text' name='doi' value='" + doi + "'>" +
+                          "<input hidden type='text' name='link' value='" + url + "'>" +
+                          "<input hidden type='text' name='authores' value='" + autores + "'>" +
+                          "<input hidden type='text' name='busqueda' value='" + busqueda + "'>" +
+                          "<input hidden type='text' name='nombreAuthores' value='" + nombreA + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores' value='" + apellido + "'>" +
+                          "<input hidden type='text' name='nombreAuthores1' value='" + nombreA1 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores1' value='" + apellido1 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores2' value='" + nombreA2 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores2' value='" + apellido2 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores3' value='" + nombreA3 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores3' value='" + apellido3 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores4' value='" + nombreA4 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores4' value='" + apellido4 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores5' value='" + nombreA5 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores5' value='" + apellido5 + "'>" +
+                          "<input hidden type='text' name='fkIdUser' value='" + parseInt(fkIdUser) + "'>" +
+                          "<input hidden type='number' name='numero_autores' value='" + tamAut + "'>" +
+                          "<input hidden type='text' name='category' value='" + cate + "'>" +
+                          "<input hidden type='text' name='pages' value='" + pages + "'>" +
+
+                          "<button class='btn btn-outline-success'>Guardar en mi biblioteca</button>" +
+
+                          "</div> " +
+                          "</form>"+ "<br><br>"+
+                          "</div> "
+
+                        $("#resultado_json2").append()
+                        $("#resultado_json").append($(imprimir));
+
+                      }
+
+                    }
+
+                    function devolverHtmlUrl(arregloUrl){
+                      console.log("Arreglo Url: ",arregloUrl)
+
+                      htmlURL = '<a href= '+arregloUrl+'> ver PDF </a>'
+
+                      htmlURL = htmlURL +  '</ul>'
+                      console.log("HTML URL",htmlURL)
+                      return htmlURL
+                    }
+                    // Llamada al webservice
+                    function callWebService2()
+                    {
+                      var busquedaspring1 = document.getElementById("homepage-search-input").value;//Obtenemos la palabra o frace a buscar
+                      var busquedaspring = busquedaspring1.replace(/\s/g,"+AND+");
+                      if(busquedaspring==''){
+                        alert('Debes ingresar una plabra !');
+                      }else {
+                        var par1 = "http://api.springer.com/openaccess/json?api_key=1658039d51219dac5ea8a55ca7058953&q=";//link del API RestFull
+                        var selected = document.getElementById ("DropDown1").value;
+                        var par2 = "&s=1&p=30";//definimos cuantos resultados queremos obtener
+                        mm = busquedaspring;
+                        console.log("Este es el valor del cookie:", mm);
+                        var concatenacion1 = par1+selected + busquedaspring + par2;// concatenamos para obtener la ruta completa del APiRestFull
+                        console.log("la url es:" + concatenacion1);
+
+                        try {
+
+                          $.ajax({
+                            url: concatenacion1, // url de la ruta del APiRestFull
+                            type: "get", // es una solicitud de tipo GET
+                            async: true,
+                            contentType: "text/json; charset=utf-8",
+                            dataType: "json", //especificamos que vamos a utilizar un archivo JSON
+                            success: function (msg) {
+                              webServiceResult1(msg)
+                            },
+                            error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+                              alert("Error leyendo datos.");
+                            }
+                          });
+                        }
+
+                        catch (err) {
+                          alert(err);
+                        }
+                      }
+
+                    }
+                  </script>
+                </div>
+
+
+                <!- -------------BUSQUEDA DE MR DLIB--------------->
+
+                <div id="resultado_json">
+                  <script type="text/javascript">
+
+                    function webServiceResult2(data) {
+                      var busqueda = document.getElementById("homepage-search-input").value;
+
+                      $("#resultado_json").empty();
+                      var hoy = new Date();
+                      var dd = hoy.getDate();
+                      var mm = hoy.getMonth()+1; //hoy es 0!
+                      var yyyy = hoy.getFullYear();
+
+                      if(dd<10) {
+                        dd='0'+dd
+                      }
+
+                      if(mm<10) {
+                        mm='0'+mm
+                      }
+
+                      hoy = dd+'/'+mm+'/'+yyyy;
+
+                      for (i = 0; i <+data.data.length; i++) {
+
+                        title = data.data[i].title;
+                        number = '';
+                        volume = '';
+                        issns = '';
+                        journal = '';
+                        editorial =''
+                        doi='';
+                        publisher = data.data[i].publisher; //poner un if
+                        year = data.data[i].datePublished; //poner un if
+                        starpage = '';
+                        endpage = '';
+                        pages = '';
+                        keywords = busqueda;
+                        cate= data.data[i].topics[0]; //poner un if
+                        abstract= data.data[i].description;
+                        language = 'EN/ES';
+                        country = '';
+                        var url = data.data[i].downloadUrl;
+                        fkIdUser=parseInt(document.getElementById("idUsuario").value);
+                        var busqueda = document.getElementById("homepage-search-input").value;
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.data[i].authors[0] !== 'undefined') {
+
+                            var autorHtml = data.data[i].authors[0];
+                            var autores = autorHtml;
+                            var authorb = autores.charAt(0);
+                            textoAuthorDividido = autorHtml.split(" ");
+                            numeroPalabras = textoAuthorDividido.length;
+                            if (numeroPalabras >= 4) {
+                              nameAuthor = autores.split(/\s+/, 2);
+//var output = autores.split(/\s+/).pop();
+//output es el apellido del autor
+//nombreA es el nombre del autor
+                              var output1 = textoAuthorDividido[textoAuthorDividido.length - 2];
+                              var output12 = textoAuthorDividido[textoAuthorDividido.length - 1];
+                              var apellido = output1 + ' ' + output12;
+
+
+                            }
+                            else {
+                              nameAuthor = autores.split(/\s+/, 1);
+//var output = autores.split(/\s+/).pop();
+                              var apellido  = textoAuthorDividido[textoAuthorDividido.length - 1];
+
+
+                            }
+                            var nombreA0 = (nameAuthor.join(" "));
+                            var nombreA = nombreA0;
+
+                            var authorbibliograpyIEEE = authorb + ' ' + apellido;
+                            var authorsb = authorbibliograpyIEEE;
+                            var nombreAuthores=[nombreA];
+                            var apellidoAuthores=[apellido];
+                            var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA;
+                            var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'.';
+                          }
+                          console.log("author1", nombreA + apellido);
+
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.data[i].authors[1] !== 'undefined') {
+                            var autor1 = data.data[i].authors[1];
+                            var autores = autorHtml + '; '+ autor1;
+                            var authorb1 = autor1.charAt(0);
+                            var textoAuthorDividido1 = autor1.split(" ");
+                            var numeroPalabras1 = textoAuthorDividido1.length;
+
+
+                            if (numeroPalabras1 >= 4) {
+                              nameAuthor1 = autor1.split(/\s+/, 2);
+//var output = autores.split(/\s+/).pop();
+//apellido1 es el apellido del autor
+//nombreA es el nombre del autor
+                              var output21 = textoAuthorDividido1[textoAuthorDividido1.length - 2];
+                              var output22 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+                              apellido1 = output21 + ' ' + output22;
+
+                            }
+                            else {
+                              nameAuthor1 = autor1.split(/\s+/, 1);
+//var output = autores.split(/\s+/).pop();
+                              apellido1 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+
+                            }
+                            nombreA1 = (nameAuthor1.join(" "));
+                            var authorbibliograpyIEEE1 = authorb1 + ' ' + apellido1;
+                            var authorsb = authorbibliograpyIEEE + ' ' + 'y ' + ' ' + authorbibliograpyIEEE1;
+                            var nombreAuthores=[nombreA,nombreA1];
+                            var apellidoAuthores=[apellido,apellido1];
+                            var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA+' '+apellido1.toUpperCase()+', '+nombreA1;
+                            var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'. '+apellido1+', '+nombreA1.charAt(0)+'.';
+
+                          }
+
+                          else {
+                            var autor1 = '';
+                            var authorb1 = '';
+                            var output1 = '';
+                            var authorbibliograpyIEEE1 = '';
+                            var nombreA1 = '';
+                            var apellido1 = '';
+
+
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.data[i].authors[2] !== 'undefined') {
+                            var autor2 = data.data[i].authors[2];
+                            var autores = autorHtml + '; ' + autor1 + '; '+ autor2;
+                            var authorb2 = autor2.charAt(0);
+                            var textoAuthorDividido2 = autor2.split(" ");
+                            var numeroPalabras2 = textoAuthorDividido2.length;
+
+
+                            if (numeroPalabras2 >= 4) {
+                              nameAuthor2 = autor2.split(/\s+/, 2);
+//var output = autores.split(/\s+/).pop();
+//apellido2 es el apellido del autor
+//nombreA es el nombre del autor
+                              var output31 = textoAuthorDividido2[textoAuthorDividido2.length - 2];
+                              var output32 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+                              apellido2 = output31 + ' ' + output32;
+
+                            }
+                            else {
+                              nameAuthor2 = autor2.split(/\s+/, 1);
+//var output = autores.split(/\s+/).pop();
+                              apellido2 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+
+                            }
+                            nombreA2 = (nameAuthor2.join(" "));
+                            var authorbibliograpyIEEE2 = authorb2 + ' ' + apellido2;
+                            var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE2;
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2];
+                            var apellidoAuthores=[apellido,apellido1,apellido2];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+' '+nombreA +'  '+apellido1.toUpperCase()+' '+nombreA1 +' '+apellido2.toUpperCase()+' '+nombreA2;
+                            var apellidoAuthoreshardvard= apellido+', '+nombreA.charAt(0)+'.'+apellido1+', '+nombreA1.charAt(0)+'.'+apellido2+' '+nombreA2.charAt(0)+'.';
+                          }
+                          else {
+                            var autor2 = ' ';
+                            var authorb2 = '';
+                            var output2 = '';
+                            var authorbibliograpyIEEE2 = '';
+                            var nombreA2 = '';
+                            var apellido2 = '';
+                          }
+
+                        }
+
+                        for (var j = 0; j < 10; j++) {
+                          if (typeof data.data[i].authors[3] !== 'undefined') {
+                            var autor3 = data.data[i].authors[1];
+                            var autores = autorHtml + '; ' + autor1 + '; ' + autor2 + '; ' + autor3;
+                            var authorb3 = autor3.charAt(0);
+                            var textoAuthorDividido3 = autor3.split(" ");
+                            var numeroPalabras3 = textoAuthorDividido3.length;
+
+                            if (numeroPalabras3 >= 4) {
+                              nameAuthor3 = autor3.split(/\s+/, 2);
+//var output = autores.split(/\s+/).pop();
+//apellido2 es el apellido del autor
+//nombreA es el nombre del autor
+                              var output41 = textoAuthorDividido3[textoAuthorDividido3.length - 2];
+                              var output42 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+                              apellido3 = output41 + ' ' + output42;
+
+                            }
+                            else {
+                              nameAuthor3 = autor3.split(/\s+/, 1);
+//var output = autores.split(/\s+/).pop();
+                              apellido3 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+
+                            }
+                            nombreA3 = (nameAuthor3.join(" "));
+                            var authorbibliograpyIEEE3 = authorb3 + ' ' + apellido3;
+                            var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ', ' + ' ' + authorbibliograpyIEEE2 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE3;
+                            var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3];
+                            var apellidoAuthores=[apellido,apellido1,apellido2,apellido3];
+                            var apellidoAuthoresISO= apellido.toUpperCase()+', '+nombreA +' et al';
+                            var apellidoAuthoreshardvard= apellido+', '+authorb+'., et al.';
+                          }
+                          else {
+                            var autor3 = ' ';
+                            var authorb3 = '';
+                            var output3 = '';
+                            var authorbibliograpyIEEE3 = '';
+                            var nombreA3 = '';
+                            var apellido3 = '';
+                          }
+
+
+
+                        }
+                        tamAut=nombreAuthores.length;
+                        tamAutap=apellidoAuthores.length;
+                        console.log("autores", authorsb,tamAut,tamAutap);
+                        console.log("autoreswkd:", nombreA + " "+apellido+ " "+ nombreA1 +  " "+apellido1+  " "+nombreA2 +  " "+apellido2+ " "+ nombreA3 + " "+ apellido3);
+
+
+                        for (var j = 0; j < 10; j++) {
+                          if (data.data[i].downloadUrl[j] !== 'undefined') {
+
+                            var urlHtml = devolverHtmlUrl(data.data[i].downloadUrl[0].value);
+//var url = data.data[i].downloadUrl[0].value;
+                          }
+                        }
+
+
+                        var imprimir =
+                          "<div style='width: 1000px;' class='card my-2'>" +
+                          "<div >" +
+                          "<b></b><br>" +"<a target='_blank' href=" +url+"><h4><b>" + title  +"</b></h4></a>"+
+                          "<font color='#01549b'><h4><b> Editor:</b></h4></font><h4><b>" + publisher + "</b></h4><br>" +
+                          "<button type='button' class='btn btn-outline-info' data-toggle='collapse' data-target='#demo"+i+"'>Leer más...</button>"+
+                          "<div id='demo"+i+"' class='collapse in'>"+
+                          "<font color='#01549b'><h4><b> Resumen:</b></h4></font>" + "<h4><b><p align='justify'>" + abstract + "</h4></b></p>" +
+                          // "<font color='#01549b'><h4><b> Keywords:</b></h4></font><h4><b>" + keywords + "</h4></b><br>" +
+                          //"<font color='#01549b'><h4><b> Category:</b></h4></font><h4><b>"+cate + "</h4></b><br>" +
+                          "<font color='#01549b'><h4><b> Autores: </b></h4></font><h4><b>" + autorHtml + "</h4><br><h4><b>" +
+                          autor1 + "</h4></b><br><h4><b>" + autor2 + "</h4></b><br><h4><b>" + autor3 + "</h4></b><br><h4><b>" +
+                          // "<div class='row'></b>" +
+
+
+                          <!-- Button trigger modal -->
+                          "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal"+i+"'> Bibliografía </button>"+
+
+                          <!-- Modal -->
+                          "<div class='modal fade' id='exampleModal"+i+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel"+i+"' aria-hidden='true'>"+
+                          "<div class='modal-dialog modal-lg' role='document'>"+
+                          "<div class='modal-content'>"+
+                          "<div class='modal-header'>"+
+                          "<h5 class='modal-title' id='exampleModalLabel"+i+"'>Bibliografía</h5>"+
+                          "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>"+
+                          "<span aria-hidden='true'>&times;</span>"+
+                          "</button>"+
+                          "</div>"+
+                          "<div class='modal-body'>"+
+
+                          "<label for='apa' class='col-2 col-form-label'><h4>APA</h4></label>"+
+                          "<div class='col-10'>"+
+                          "<p ALIGN='justify'>"+ apellidoAuthoreshardvard + ".("+year+ ")."+title +".<i> "+journal+" </i>,<i>"+ volume+ "</i>( "+number+" ),"+pages +". Recuperado de "+'<a href="'+ url +'">'+url+'</a>'+"</p>"+
+                          "</div> " +
+
+                          "<label for='ieee' class='col-2 col-form-label'><h4>IEEE</h4></label>"+
+                          "<div class='col-10'>"+
+                          "<p ALIGN='justify'>" + authorsb + ',' + title + ', ' + "<i>" + journal + "</i>" + ', vol.' + volume + ', no.' + number + ', pp.' + pages + ',' + ' ' +  year + "</h5></p>" +
+
+                          "</div>" +
+                          "<label for='iso' class='col-2 col-form-label'><h4>ISO</h4></label>"+
+                          "<div class='col-10'>"+
+                          "<p ALIGN='justify'>" + apellidoAuthoresISO + '(' + year.substr(-20,4) + '), "' + title + '".En: '+"<i>" + journal + "</i>[en línea]." + '. V.' + volume + ', no.' + number + ', pp.' + pages + "[consulta:"+hoy+"].Disponible en: "+'<a href="'+ url +'">'+url+'</a>'+ "</p>" +
+
+                          "</div>" +
+                          "<label for='harvard' class='col-2 col-form-label'><h4>Harvard</h4></label>"+
+                          "<div class='col-10'>"+
+                          "<p ALIGN='justify'>" + apellidoAuthoreshardvard + '(' + year.substr(-20,4) + '), "' + title  +'"'+".<i>" +journal + "</i>,"+volume+ "("+number+"),pp."+pages+ ".Disponible en: "+'<a href="'+ url +'">'+url+'</a>'+"[Consultado:"+hoy+"]</p>"+
+                          "</div>"+
+                          "<div class='modal-footer'>"+
+                          "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"+
+                          "</div></div>"+
+                          "</div> " +
+                          "</div> " +
+                          "</div> " +
+
+                          ////////////////////////////////////////////////////////////
+
+                          "<form action='/GuardarArticulo/crearArticuloQuemado' method='post'>" +
+                          "<input hidden type='text' name='title' value='" + title + "'>" +
+                          "<input hidden type='text' name='country' value='" + country + "'>" +
+                          "<input hidden type='text' name='number' value='" + number + "'>" +
+                          "<input hidden type='text' name='volume' value='" + volume + "'>" +
+                          "<input hidden type='text' name='issns' value='" + issns + "'>" +
+                          "<input hidden type='text' name='language' value='" + language + "'>" +
+                          "<input hidden type='text' name='year' value='" + year + "'>" +
+                          "<input hidden type='text' name='journal' value='" + journal + "'>" +
+                          "<input hidden type='text' name='editorial' value='" + editorial + "'>" +
+                          "<input hidden type='text' name='abstract' value='" + abstract + "'>" +
+                          "<input hidden type='text' name='keywords' value='" + keywords + "'>" +
+                          "<input hidden type='text' name='doi' value='" + doi + "'>" +
+                          "<input hidden type='text' name='link' value='" + url + "'>" +
+                          "<input hidden type='text' name='busqueda' value='" + busqueda + "'>" +
+                          "<input hidden type='text' name='authores' value='" + autores + "'>" +
+                          "<input hidden type='text' name='nombreAuthores' value='" + nombreA + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores' value='" + apellido + "'>" +
+                          "<input hidden type='text' name='nombreAuthores1' value='" + nombreA1 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores1' value='" + apellido1 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores2' value='" + nombreA2 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores2' value='" + apellido2 + "'>" +
+                          "<input hidden type='text' name='nombreAuthores3' value='" + nombreA3 + "'>" +
+                          "<input hidden type='text' name='apellidoAuthores3' value='" + apellido3 + "'>" +
+                          "<input hidden type='text' name='fkIdUser' value='" + parseInt(fkIdUser) + "'>" +
+                          "<input hidden type='number' name='numero_autores' value='" + tamAut + "'>" +
+                          "<input hidden type='text' name='category' value='" + cate + "'>" +
+                          "<input hidden type='text' name='pages' value='" + pages + "'>" +
+
+                          "<button class='btn btn-outline-success'>Guardar en mi biblioteca</button>" +
+
+                          "</div> " +
+                          "</form>"+ "<br><br>"+
+                          "</div> "
+
+
+                        $("#resultado_json").append($(imprimir));
+
+                        /* title = $("#resultado_json").append("Titulo: " + data.records[i].title + "<br>");
+                         number= $("#resultado_json").append("Numero: " + data.records[i].number + "<br>");*/
+
+                      }
+
+                    }
+
+
+                    function devolverHtmlUrl(arregloUrl){
+                      console.log("Arreglo Url: ",arregloUrl)
+
+                      htmlURL = '<a href= '+arregloUrl+'> ver PDF </a>'
+
+                      htmlURL = htmlURL +  '</ul>'
+                      console.log("HTML URL",htmlURL)
+                      return htmlURL
+                    }
+
+                    // Llamada al webservice
+                    function callWebService1()
+                    {
+                      var busqueda1 = document.getElementById("homepage-search-input").value;
+                      var busqueda = busqueda1.replace(/\s/g,"%20");
+                      var var1= "https://core.ac.uk/api-v2/articles/search/";
+                      var var2= "?page=1&pageSize=10&metadata=true&fulltext=false&citations=false&similar=false&duplicate=false&urls=false&faithfulMetadata=false&apiKey=7scnV9e3mTBKqirNjPlUO8whkZC1bxaA";
+                      mm= busqueda;
+                      console.log("Este es el valor del cookie:",mm);
+                      var concatenacion= var1+busqueda+var2;
+                      console.log("la url es:"+concatenacion);
+                      try {
+
+
+                        $.ajax({
+                            url: concatenacion,
+                            //url: "&jsoncallback=?",
+                            type: 'GET',//tipo de petición
+                            dataType: 'json', //tipo de datos
+                            //jsonpCallback: 'envoltorio',  //nombre de la funcion que envuelve la respuesta
+                            error: function(xhr, status, error) {
+                              alert("error");
+                            },
+                            success: function(msg) { webServiceResult2(msg) }
+                          }
+                        );
+                      }
+
+                      catch (err)
+                      {
+                        alert(err);
+                      }
+                    }
+
+
+                  </script>
+                </div>
+
+
+                </body>
+                </html>
+                <!--./CODIGO FER-->
+
+
+
+              </div><!-- /.card-body -->
+              <div class="card-footer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.card-->
+
+      <!--------------------------
+      | Your Page Content Here END|
+      -------------------------->
+      <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

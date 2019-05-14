@@ -9,7 +9,8 @@ module.exports = {
     },
     editanota: function (req, res) {
         var parametros = req.allParams();
-        if (parametros.title &&
+        if (parametros.idMiArticulo &&
+            parametros.title &&
             parametros.country &&
             parametros.number &&
             parametros.volume &&
@@ -18,16 +19,15 @@ module.exports = {
             parametros.editorial &&
             parametros.abstract &&
             parametros.issns &&
+            parametros.doi &&
             parametros.language &&
             parametros.keywords &&
-            parametros.link &&
             parametros.authors &&
             parametros.category &&
             parametros.pages &&
-            parametros.notas &&
-            parametros.id) {
+            parametros.notas) {
             MiArticulo.update({
-                id: parametros.id
+                id: parametros.idMiArticulo
             }, {
                 title: parametros.title,
                 country: parametros.country,
@@ -38,10 +38,11 @@ module.exports = {
                 editorial: parametros.editorial,
                 abstract: parametros.abstract,
                 issns: parametros.issns,
+                doi: parametros.doi,
                 language: parametros.language,
                 keywords: parametros.keywords,
-                link: parametros.link,
                 authors: parametros.authors,
+                category: parametros.category,
                 pages: parametros.pages,
                 notas: parametros.notas
             })
@@ -50,7 +51,7 @@ module.exports = {
                     return res.serverError(err);
                 if (Editado) {
                     //Si encontro
-                    return res.redirect("/");
+                    return res.redirect('/VerMisArticulo?id=' + parametros.idMiArticulo);
                 }
                 else {
                     //No encontro
@@ -61,5 +62,52 @@ module.exports = {
         else {
             return res.badRequest();
         }
-    }
+    },
+    viewMiFile: function (req, res) {
+        MiFile.find().exec(function (err, MiFile) {
+            if (err)
+                return res.negotiate(err);
+            sails.log.info("file", MiFile);
+            return res.view('VerMisArticulos', {
+                MiFile: MiFile
+            });
+        });
+    },
+    ///parece no ser necesario///
+    VerMiFile: function (req, res) {
+        var parametros = req.allParams();
+        if (parametros.id) {
+            MiArticulo.findOne({
+                id: parametros.id
+            })
+                .exec(function (err, articuloEditado) {
+                if (err)
+                    return res.serverError(err);
+                if (articuloEditado) {
+                    //Si encontro
+                    MiFile.findOne({ fkIdMiArticulo: parametros.id }).exec(function (error, MiFile) {
+                        if (error) {
+                            return res.serverError(error);
+                        }
+                        if (!MiFile) {
+                            return res.view('VerMisArticulos', {
+                                MiFile: articuloEditado
+                            });
+                        }
+                        return res.view('VerMisArticulos', {
+                            MiArticulo: articuloEditado,
+                            MiFile: MiFile
+                        });
+                    });
+                }
+                else {
+                    //No encontro
+                    return res.view('MisArticulos');
+                }
+            });
+        }
+        else {
+            return res.view('MisArticulos');
+        }
+    },
 };

@@ -43,6 +43,10 @@ module.exports = {
       defaultsTo:'approved',
       required: true
     },
+    user_articulos: {
+      collection: 'Articulo',
+      via: 'fkIdUser'
+    },
     createdAt: {
       type: 'string',
       columnType: 'datetime',
