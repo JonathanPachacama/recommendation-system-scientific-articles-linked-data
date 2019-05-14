@@ -2,8 +2,8 @@
 var angularApp = angular.module('appRecommenderLayout', ['ui.bootstrap']);
 angularApp.controller("layoutController",function () {
 }).factory('urlService', function() {
-  // var pathServer = 'JavaAPIRecom/api/articulos/'
-  var pathServer = 'JavaAPI/api/articulos/'
+  var pathServer = 'JavaAPIRecom/api/articulos/'
+  // var pathServer = 'JavaAPI/api/articulos/'
     return {
       url:{},
       pathServer: pathServer
