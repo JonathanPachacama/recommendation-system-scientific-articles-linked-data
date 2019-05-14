@@ -11,7 +11,9 @@
         <div class="col-sm-4">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item active"><a href="<%= MasterUrlService.base_url()%>bibliotecaUser"> Biblioteca</a></li>
             <li class="breadcrumb-item active"> Editar</li>
+
           </ol>
         </div>
         <div class="col-sm-2">
@@ -37,246 +39,259 @@
       <!--------------------------
       | Your Page Content Here START|
       -------------------------->
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header no-border">
+              <font color="#01549b"> <h3 class="card-title"> Estas editando:</h3></font>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="card-body">
+
+                <!--CODIGO FER-->
+                <font color="#449d44"> <h3> <%= articulos.title %></h3></font>
+
+                <form action="/editarArticulo" method="post">
+
+                  <input hidden
+                         class="form-control"
+                         type="text"
+                         id="idArticulo"
+                         name="idArticulo"
+                         value="<%= articulos.id %>">
+
+                  <div class="form-group row">
+                    <label for="title" class="col-2 col-form-label"><h5><b>Título</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             readonly
+                             placeholder="Ingrese el título del artículo"
+                             id="title"
+                             name="title"
+                             value="<%= articulos.title %>"
+
+                             required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="country" class="col-2 col-form-label"><h5><b>País</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el país proveniente del artículo"
+                             id="country"
+                             name="country"
+                             value="<%= articulos.country %>"
+                      >
 
 
-      <h3>You are editing:</h3>
-      <h3> <%= articulos.title %></h3>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="number" class="col-2 col-form-label"><h5><b>Número</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el volumen del artículo"
+                             id="number"
+                             name="number"
+                             value="<%= articulos.number %>"
+                             required
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="volume" class="col-2 col-form-label"><h5><b>Volumen</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el volumen del artículo"
+                             id="volume"
+                             name="volume"
+                             value="<%= articulos.volume %>"
+                             required
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="year" class="col-2 col-form-label"><h5><b>Año de publicación</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el año de publicación del artículo"
+                             id="year"
+                             name="year"
+                             value="<%= articulos.year %>"
+                             required
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="journal" class="col-2 col-form-label"><h5><b>Journal</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el nombre del journal al que pertenece el artículo"
+                             id="journal"
+                             name="journal"
+                             value="<%= articulos.journal %>"
+                             required
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="editorial" class="col-2 col-form-label"><h5><b>Editorial</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el nombre del editorial al que pertenece el artículo"
+                             id="editorial"
+                             name="editorial"
+                             value="<%= articulos.editorial %>"
+
+                      >
+                    </div>
+                  </div>
 
 
 
-      <form action="/Articulo/editanota" method="post">
-
-
-        <input hidden
-               class="form-control"
-               type="text"
-               id="id"
-               name="id"
-               value="<%= articulos.id %>">
-
-        <div class="form-group row">
-          <label for="title" class="col-2 col-form-label"><h5><b>Title</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="title"
-                   name="title"
-                   value="<%= articulos.title %>"
-
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="country" class="col-2 col-form-label"><h5><b>Country</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="country"
-                   name="country"
-                   value="<%= articulos.country %>"
-
-            >
-
-
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="number" class="col-2 col-form-label"><h5><b>Number</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="number"
-                   name="number"
-                   value="<%= articulos.number %>"
-
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="volume" class="col-2 col-form-label"><h5><b>Volume</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="volume"
-                   name="volume"
-                   value="<%= articulos.volume %>"
-
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="year" class="col-2 col-form-label"><h5><b>Year</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="year"
-                   name="year"
-                   value="<%= articulos.year %>"
-
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="journal" class="col-2 col-form-label"><h5><b>Journal</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="journal"
-                   name="journal"
-                   value="<%= articulos.journal %>"
-
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="editorial" class="col-2 col-form-label"><h5><b>Editorial</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="editorial"
-                   name="editorial"
-                   value="<%= articulos.editorial %>"
-
-            >
-          </div>
-        </div>
-
-
-
-        <div class="form-group row">
-          <label for="abstract" class="col-2 col-form-label"><h5><b>Abstract</b></h5></label>
-          <div class="col-10">
+                  <div class="form-group row">
+                    <label for="abstract" class="col-2 col-form-label"><h5><b>Resumen</b></h5></label>
+                    <div class="col-10">
       <textarea
-        readonly
         id="abstract"
         name="abstract"
         rows="5" cols="110"
         value="<%= articulos.abstract %>"
 
       >"<%= articulos.abstract %>"</textarea>
-          </div>
-        </div>
+                    </div>
+                  </div>
 
-        <div class="form-group row">
-          <label for="issns" class="col-2 col-form-label"><h5><b>ISSNS</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="issns"
-                   name="issns"
-                   value="<%= articulos.issns %>"
+                  <div class="form-group row">
+                    <label for="issns" class="col-2 col-form-label"><h5><b>ISSNS</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el doi del artículo"
+                             id="issns"
+                             name="issns"
+                             value="<%= articulos.issns %>"
 
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="language" class="col-2 col-form-label"><h5><b>Language</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="language"
-                   name="language"
-                   value="<%= articulos.language %>"
+                      >
+                    </div>
+                  </div>
 
-            >
-          </div>
-        </div>
+                  <div class="form-group row">
+                    <label for="doi" class="col-2 col-form-label"><h5><b>Doi</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el issns del artículo"
+                             id="doi"
+                             name="doi"
+                             value="<%= articulos.doi %>"
 
-        <div class="form-group row">
-          <label for="keywords" class="col-2 col-form-label"><h5><b>Keywords</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="keywords"
-                   name="keywords"
-                   value="<%= articulos.keywords %>"
+                      >
+                    </div>
+                  </div>
 
-            >
-          </div>
-        </div>
+                  <div class="form-group row">
+                    <label for="language" class="col-2 col-form-label"><h5><b>Lenguage</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese el lenguaje en que esta escrito el artículo"
+                             id="language"
+                             name="language"
+                             value="<%= articulos.language %>"
 
-        <div class="form-group row">
-          <label for="link" class="col-2 col-form-label"><h5><b>Link</b></h5></label>
-          <div class="col-10">
-            <a href="<%= articulos.link %>">Full text</a>
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="keywords" class="col-2 col-form-label"><h5><b>Keywords</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             readonly
+                             placeholder="Ingrese las palabras clave del artículo"
+                             id="keywords"
+                             name="keywords"
+                             value="<%= articulos.keywords %>"
+
+                      >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="link" class="col-2 col-form-label"><h5><b>Link</b></h5></label>
+                    <div class="col-10">
+                      <a target="_blank" href="<%= articulos.link %>">Full text</a>
+                      <input hidden type='text' id="link" name='link' value="<%= articulos.link %>">
 
 
-          </div>
-        </div>
+                    </div>
+                  </div>
 
-        <div class="form-group row">
-          <label for="author" class="col-2 col-form-label"><h5><b>Authors</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="author"
-                   name="author"
-                   value="<%= articulos.authores %>"
+                  <div class="form-group row">
+                    <label for="author" class="col-2 col-form-label"><h5><b>Authors</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             readonly
+                             placeholder="Nombre de los autores"
+                             id="author"
+                             name="author"
+                             value="<%= articulos.authores %>"
 
-            >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="category" class="col-2 col-form-label"><h5><b>Category</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="category"
-                   name="category"
-                   value="<%= articulos.category %>"
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="category" class="col-2 col-form-label"><h5><b>Category</b></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese la categoria a la que pertenece el artículo"
+                             id="category"
+                             name="category"
+                             value="<%= articulos.category %>"
 
-            >
-          </div>
-        </div>
+                      >
+                    </div>
+                  </div>
 
-        <div class="form-group row">
-          <label for="pages" class="col-2 col-form-label"><h5><p>Pages</p></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="pages"
-                   name="pages"
-                   value="<%= articulos.pages %>"
+                  <div class="form-group row">
+                    <label for="pages" class="col-2 col-form-label"><h5><p><b>Pages</b></p></h5></label>
+                    <div class="col-10">
+                      <input class="form-control"
+                             type="text"
+                             placeholder="Ingrese las páginas donde se encuentra el artículo"
+                             id="pages"
+                             name="pages"
+                             value="<%= articulos.pages %>"
+                             required
+                      >
+                    </div>
+                  </div>
 
-            >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="notas" class="col-2 col-form-label"><h5><b>Notes</b></h5></label>
-          <div class="col-10">
+                  <div class="form-group row">
+                    <label for="notas" class="col-2 col-form-label"><h5><b>Notes</b></h5></label>
+                    <div class="col-10">
       <textarea
 
         id="notas"
@@ -284,100 +299,398 @@
         rows="5" cols="110"
         value="<%= articulos.notas %>"
 
-      >"<%= articulos.notas %>"</textarea>
-          </div>
-        </div>
+      ><%= articulos.notas %></textarea>
+                    </div>
+                  </div>
+                  <button class="btn btn-outline-success">Guardar </button>
+                </form>
 
+                <br>
+                <br>
+                <% for(var i=0;i<File.length;i++){ %>
 
+                <div class="form-group row" >
+                  <label for="pages" class="col-2 col-form-label"><h5><b>Archivos:</b></h5></label>
+                  <div class="col-5">
+                    <div class="card" style="width: 50rem;">
+                      <div class="card-block">
+                        <h6 class="card-title"><b><%=File[i].filename%></b></h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="card-block">
+                      <form action="/File/eliminarFile" method="post">
+                        <input hidden
+                               class="form-control"
+                               type="text"
+                               id="idArticulo"
+                               name="idArticulo"
+                               value="<%= articulos.id %>">
+                        <input hidden
+                               type="text"
+                               value="<%=File[i].id%>"
+                               name="id">
+                        <button  type="submit"
+                                 class="btn btn-outline-danger ">Borrar</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="card-block">
+                      <form action="/filedownloader" method="get">
+                        <input hidden
+                               type="text"
+                               value="<%=File[i].id%>"
+                               name="id">
+                        <button  type="submit"
+                                 class="btn btn-outline-success">Descargar</button>
 
-        <div class="form-group row">
-          <label for="pages" class="col-2 col-form-label"><h5><b>Files</b></h5></label>
-          <div class="col-10">
-            <input class="form-control"
-                   type="text"
-                   readonly
-                   placeholder="Ingrese sus nombres"
-                   id="pages"
-                   name="pages"
-                   value="<%= articulos.files %>"
-
-            >
-          </div>
-        </div>
-
-        <button
-          class="btn btn-outline-success">Guardar </button>
-      </form>
-
-      <br>
-      <br>
-
-      <div class="container">
-        <form action="http://localhost:1337/file/upload" enctype="multipart/form-data" method="post">
-          <input hidden
-                 class="form-control"
-                 type="text"
-                 id="id"
-                 name="id"
-                 value="<%= articulos.id %>">
-
-
-
-          <!--<input type="text" name="title"><br>-->
-          <label for="avatar"><b>Choose attachments to upload</b></label><br>
-          <input type="file" id="avatar" name="avatar" multiple="multiple"><br>
-
-          <input type="submit" value="Upload" class="btn btn-primary">
-        </form>
-      </div>
-      <br>
-      <br>
-      <div class="container">
-        <h2>Generar Bibliografia</h2>
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver Bibliografia</button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Bibliografia</h4>
-              </div>
-              <div class="modal-body">
-                <label for="apa" class="col-2 col-form-label"><h5>APA</h5></label>
-                <p ALIGN='justify'> <%= articulos.authores %>. (<%= articulos.year %>).<%= articulos.title %>.<i> <%= articulos.journal %> </i>,<i> <%= articulos.volume %> </i>( <%= articulos.number %> ),<%= articulos.pages %></p>
-
-                <label for="ieee" class="col-2 col-form-label"><h5>IEEE</h5></label>
-                <div class="col-10">
-                  <p ALIGN='justify' ><%= articulos.authores %>,"<%= articulos.title %>",<i> <%= articulos.journal %> </i>, vol.<%= articulos.volume %>, no. <%= articulos.number %>, pp.<%= articulos.pages %>pp.<%= articulos.pages %>,<%= articulos.year %> </p>
-
+                      </form>
+                    </div>
+                  </div>
                 </div>
-                <label for="harvard" class="col-2 col-form-label"><h5>ISO</h5></label>
-                <div class="col-10">
-                  <p ALIGN='justify'><%= articulos.authores %>,<%= articulos.year %>,<%= articulos.title %>.<i><u> <%= articulos.journal %> </u></i>,[Fecha de consulta: <script>
-                      var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-                      var f=new Date();
-                      document.write(f.getDate() + " " + meses[f.getMonth()] + " " + f.getFullYear());
-                    </script> ],pp.<%= articulos.pages %>.Disponible en:  <a href="<%= articulos.link %>"><%= articulos.link %></a></p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
+                <%}%>
 
+                <br>
+                <hr>
+
+                <div class="container">
+                  <form action="<%= MasterUrlService.base_url()%>file/upload" enctype="multipart/form-data" method="post">
+                    <input hidden
+                           class="form-control"
+                           type="text"
+                           id="idArticulo"
+                           name="idArticulo"
+                           value="<%= articulos.id %>">
+
+
+                    <!--<input type="text" name="title"><br>-->
+                    <label for="avatar"><font color='#01549b'><h4><b>Escoger artículos para subir</b></h4></font></label><br>
+
+                    <input onchange="ValidateSize(this)" type="file" id="avatar" name="avatar" multiple="multiple" required><br>
+                    <button style='display:none;' type="submit" id="upload" class="btn btn-primary my-2">Subir</button>
+                  </form>
+                </div>
+
+                <script type="text/javascript">
+
+                  function ValidateSize(file) {
+                    var FileSize = file.files[0].size / 1024 / 1024; // in MB
+                    if (FileSize > 2) {
+                      alert('El archivo excede 2 MB escoge otro');
+                      // $(file).val(''); //for clearing with Jquery
+                    } else {
+                      document.getElementById('upload').style.display = 'block';
+                    }
+                  }
+
+                  var hoy = new Date();
+                  var dd = hoy.getDate();
+                  var mm = hoy.getMonth()+1; //hoy es 0!
+                  var yyyy = hoy.getFullYear();
+
+                  if(dd<10) {
+                    dd='0'+dd
+                  }
+
+                  if(mm<10) {
+                    mm='0'+mm
+                  }
+
+                  hoy = dd+'/'+mm+'/'+yyyy;
+
+
+                  var title = document.getElementById('title').value;
+                  var country= document.getElementById('country').value;
+                  var number= document.getElementById('number').value;
+                  var volume= document.getElementById('volume').value;
+                  var year= document.getElementById('year').value;
+                  var journal= document.getElementById('journal').value;
+                  var editorial= document.getElementById('editorial').value;
+                  var issns= document.getElementById('issns').value;
+                  var link= document.getElementById('link').value;
+                  var category= document.getElementById('category').value;
+                  var pages= document.getElementById('pages').value;
+
+
+
+                  // var Archivo = document.getElementById('file').value;
+                  var author= document.getElementById('author').value;
+                  var textoAuthorDividido = author.split("; ");
+                  var numeroPalabras = textoAuthorDividido.length;
+                  console.log("numeroPalabras",numeroPalabras);
+
+                  if (numeroPalabras >= 1) {
+                    var autor = textoAuthorDividido[0];
+                    var autores=autor;
+                    var authorb = autores.charAt(0);
+                    var textoAuthorDividido0 = autores.split(" ");
+                    var numeroPalabras1 = textoAuthorDividido0.length;
+                    if (numeroPalabras1 >= 4) {
+                      nameAuthor = autores.split(/\s+/, 2);
+//var output = autores.split(/\s+/).pop();
+//output es el apellido del autor
+//nombreA es el nombre del autor
+                      var output1 = textoAuthorDividido0[textoAuthorDividido0.length - 2];
+                      var output12 = textoAuthorDividido0[textoAuthorDividido0.length - 1];
+                      var apellido = output1 + ' ' + output12;
+
+                    }
+                    else {
+                      nameAuthor = autores.split(/\s+/, 1);
+//var output = autores.split(/\s+/).pop();
+                      var apellido  = textoAuthorDividido0[textoAuthorDividido0.length - 1];
+
+
+                    }
+                    var nombreA0 = (nameAuthor.join(" "));
+                    var nombreA = nombreA0;
+
+                    var authorbibliograpyIEEE = authorb + ' ' + apellido;
+                    var authorsb = authorbibliograpyIEEE;
+                    var nombreAuthores=[nombreA];
+                    var apellidoAuthores=[apellido];
+                    var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA;
+                    var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'.';
+                  }
+                  console.log("author1", nombreA + ' '+apellido);
+
+
+                  if (numeroPalabras >= 2) {
+
+                    var autor1 = textoAuthorDividido[1];
+                    var autores = autor + '; ' + autor1;
+                    var authorb1 = autor1.charAt(0);
+                    var textoAuthorDividido1 = autor1.split(" ");
+                    var numeroPalabras1 = textoAuthorDividido1.length;
+
+
+                    if (numeroPalabras1 >= 4) {
+                      nameAuthor1 = autor1.split(/\s+/, 2);
+                      //var output = autores.split(/\s+/).pop();
+                      //apellido1 es el apellido del autor
+                      //nombreA es el nombre del autor
+                      var output21 = textoAuthorDividido1[textoAuthorDividido1.length - 2];
+                      var output22 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+                      apellido1 = output21 + ' ' + output22;
+
+                    }
+                    else {
+                      nameAuthor1 = autor1.split(/\s+/, 1);
+                      //var output = autores.split(/\s+/).pop();
+                      apellido1 = textoAuthorDividido1[textoAuthorDividido1.length - 1];
+
+                    }
+                    nombreA1 = (nameAuthor1.join(" "));
+                    var authorbibliograpyIEEE1 = authorb1 + ' ' + apellido1;
+                    var authorsb = authorbibliograpyIEEE + ' ' + 'y ' + ' ' + authorbibliograpyIEEE1;
+                    var nombreAuthores=[nombreA,nombreA1];
+                    var apellidoAuthores=[apellido,apellido1];
+                    var apellidoAuthoresISO=apellido.toUpperCase()+', '+nombreA+' '+apellido1.toUpperCase()+', '+nombreA1;
+                    var apellidoAuthoreshardvard=apellido+', '+nombreA.charAt(0)+'. '+apellido1+', '+nombreA1.charAt(0)+'.';
+
+                  }
+
+                  else {
+                    var autor1 = '';
+                    var authorb1 = '';
+                    var output1 = '';
+                    var authorbibliograpyIEEE1 = '';
+                    var nombreA1 = '';
+                    var apellido1 = '';
+
+
+                  }
+
+                  if (numeroPalabras >= 3) {
+
+                    var autor2 = textoAuthorDividido[2];
+                    var autores = autor + '; ' + autor1 + '; ' + autor2;
+                    var authorb2 = autor2.charAt(0);
+                    var textoAuthorDividido2 = autor2.split(" ");
+                    var numeroPalabras2 = textoAuthorDividido2.length;
+
+
+                    if (numeroPalabras2 >= 4) {
+                      nameAuthor2 = autor2.split(/\s+/, 2);
+                      //var output = autores.split(/\s+/).pop();
+                      //apellido2 es el apellido del autor
+                      //nombreA es el nombre del autor
+                      var output31 = textoAuthorDividido2[textoAuthorDividido2.length - 2];
+                      var output32 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+                      apellido2 = output31 + ' ' + output32;
+
+                    }
+                    else {
+                      nameAuthor2 = autor2.split(/\s+/, 1);
+                      //var output = autores.split(/\s+/).pop();
+                      apellido2 = textoAuthorDividido2[textoAuthorDividido2.length - 1];
+
+                    }
+                    nombreA2 = (nameAuthor2.join(" "));
+                    var authorbibliograpyIEEE2 = authorb2 + ' ' + apellido2;
+                    var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE2;
+                    var nombreAuthores=[nombreA,nombreA1,nombreA2];
+                    var apellidoAuthores=[apellido,apellido1,apellido2];
+                    var apellidoAuthoresISO= apellido.toUpperCase()+' '+nombreA +'  '+apellido1.toUpperCase()+' '+nombreA1 +' '+apellido2.toUpperCase()+' '+nombreA2;
+                    var apellidoAuthoreshardvard= apellido+', '+nombreA.charAt(0)+'.'+apellido1+', '+nombreA1.charAt(0)+'.'+apellido2+' '+nombreA2.charAt(0)+'.';
+                  }
+                  else {
+                    var autor2 = ' ';
+                    var authorb2 = '';
+                    var output2 = '';
+                    var authorbibliograpyIEEE2 = '';
+                    var nombreA2 = '';
+                    var apellido2 = '';
+                  }
+
+                  if (numeroPalabras >= 4) {
+                    var autor3 = textoAuthorDividido[3];
+                    var autores = autor + '; ' + autor1 + '; ' + autor2 + '; ' + autor3;
+                    var authorb3 = autor3.charAt(0);
+                    var textoAuthorDividido3 = autor3.split(" ");
+                    var numeroPalabras3 = textoAuthorDividido3.length;
+
+                    if (numeroPalabras3 >= 4) {
+                      nameAuthor3 = autor3.split(/\s+/, 2);
+                      //var output = autores.split(/\s+/).pop();
+                      //apellido2 es el apellido del autor
+                      //nombreA es el nombre del autor
+                      var output41 = textoAuthorDividido3[textoAuthorDividido3.length - 2];
+                      var output42 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+                      apellido3 = output41 + ' ' + output42;
+
+                    }
+                    else {
+                      nameAuthor3 = autor3.split(/\s+/, 1);
+                      //var output = autores.split(/\s+/).pop();
+                      apellido3 = textoAuthorDividido3[textoAuthorDividido3.length - 1];
+
+                    }
+                    nombreA3 = (nameAuthor3.join(" "));
+                    var authorbibliograpyIEEE3 = authorb3 + ' ' + apellido3;
+                    var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ', ' + ' ' + authorbibliograpyIEEE2 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE3;
+                    var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3];
+                    var apellidoAuthores=[apellido,apellido1,apellido2,apellido3];
+                    var apellidoAuthoresISO= apellido.toUpperCase()+', '+nombreA +' et al';
+                    var apellidoAuthoreshardvard= apellido+', '+authorb+'., et al.';
+                  }
+                  else {
+                    var autor3 = ' ';
+                    var authorb3 = '';
+                    var output3 = '';
+                    var authorbibliograpyIEEE3 = '';
+                    var nombreA3 = '';
+                    var apellido3 = '';
+                  }
+
+                  if (numeroPalabras >= 5) {
+
+                    var autor4 = textoAuthorDividido[4];
+                    var autores = autor + '; ' + autor1 + '; ' + autor2 + '; ' + autor3 + '; ' + autor4;
+                    var authorb4 = autor4.charAt(0);
+                    var textoAuthorDividido4 = autor4.split(" ");
+                    var numeroPalabras4 = textoAuthorDividido4.length;
+
+                    if (numeroPalabras4 >= 4) {
+                      nameAuthor4 = autor4.split(/\s+/, 2);
+                      //var output = autores.split(/\s+/).pop();
+                      //apellido2 es el apellido del autor
+                      //nombreA es el nombre del autor
+                      var output51 = textoAuthorDividido4[textoAuthorDividido4.length - 2];
+                      var output52 = textoAuthorDividido4[textoAuthorDividido4.length - 1];
+                      apellido4 = output51 + ' ' + output52;
+
+                    }
+                    else {
+                      nameAuthor4 = autor4.split(/\s+/, 1);
+                      //var output = autores.split(/\s+/).pop();
+                      apellido4 = textoAuthorDividido4[textoAuthorDividido4.length - 1];
+
+                    }
+                    nombreA4 = (nameAuthor4.join(" "));
+                    var authorbibliograpyIEEE4 = authorb4 + ' ' + apellido4;
+                    var authorsb = authorbibliograpyIEEE + ' ' + ',' + ' ' + authorbibliograpyIEEE1 + ',' + ' ' + authorbibliograpyIEEE2 + ',' + ' ' + authorbibliograpyIEEE3 + ' ' + 'y ' + ' ' + authorbibliograpyIEEE4;
+                    var nombreAuthores=[nombreA,nombreA1,nombreA2,nombreA3,nombreA4];
+                    var apellidoAuthores=[apellido,apellido1,apellido2,apellido3,apellido4];
+                    var apellidoAuthoresISO= apellido.toUpperCase()+' '+nombreA +' et al.';
+                    var apellidoAuthoreshardvard= apellido+' '+authorb+'., et al';
+                  }
+                  else {
+                    var autor4 = ' ';
+                    var authorb4 = '';
+                    var output4 = '';
+                    var authorbibliograpyIEEE4 = '';
+                    var nombreA4 = '';
+                    var apellido4 = '';
+                  }
+
+
+                  console.log("autoreswkd:",authorsb);
+
+                </script>
+
+                <hr>
+
+                <div class="container">
+                  <h2>Generar Bibliografia</h2>
+                  <!-- Trigger the modal with a button -->
+                  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ver Bibliografia</button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+
+                          <h4 class="modal-title">Bibliografía</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <label for="apa" class="col-2 col-form-label"><h5>APA</h5></label>
+                          <div class='col-12'>
+                            <p ALIGN='justify'> <script>document.write(apellidoAuthoreshardvard +"("+year.substr(-20,4)+")."+ title+".<i>"+ journal+"</i>,<i>" + volume +"</i>(" +number +"),"+pages +". Recuperado de "+'<a target="_blank" href="'+ link +'">'+link+'</a>') </script> </p>
+                          </div>
+
+                          <label for="ieee" class="col-2 col-form-label"><h5>IEEE</h5></label>
+                          <div class="col-12">
+
+                            <p ALIGN='justify' ><script>document.write(authorsb+ ', "' + title + '," ' + "<i>" + journal + "</i>" + '., vol.' + volume + ', no.' + number + ', pp.' + pages + ',' + ' ' +  year)</script>  </p>
+
+                          </div>
+                          <label for="harvard" class="col-2 col-form-label"><h5>ISO 690</h5></label>
+                          <div class="col-12">
+                            <p ALIGN='justify'><script>document.write(apellidoAuthoresISO + '(' + year.substr(-20,4) + '), "' + title + '". En: '+"<i>" + journal + "</i> [en línea]. " +editorial+ '. V.' + volume + ', no.' + number + ', pp.' + pages + " [consulta:"+hoy+"].Disponible en: "+'<a target="_blank" href="'+ link +'">'+link+'</a>')</script></p>
+                          </div>
+                          <label for="harvard" class="col-2 col-form-label"><h5>Harvard</h5></label>
+                          <div class="col-12">
+                            <p ALIGN='justify'><script>document.write(apellidoAuthoreshardvard + '(' + year.substr(-20,4) + ') "' + title  +' "'+", <i>" +journal + " </i>,"+volume+ "("+number+"), pp."+pages+ ". Disponible en: "+'<a target="_blank" href="'+ link +'">'+link+'</a>'+"<br>[Consultado:"+hoy+"]")</script> </p>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <!--./CODIGO FER-->
+
+              </div><!-- /.card-body -->
+              <div class="card-footer"></div>
             </div>
           </div>
-
         </div>
       </div>
-
-      <br>
-      <br>
-      <br>
+      <!--/.card-->
 
       <!--------------------------
       | Your Page Content Here END|

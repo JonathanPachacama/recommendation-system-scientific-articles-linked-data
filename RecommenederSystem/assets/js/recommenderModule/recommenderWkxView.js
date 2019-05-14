@@ -32,20 +32,32 @@ $(document).ready(function(){///////////////////////////start Jquery
     alert($("div").scrollTop() + " px");
   });
 
+  $("#navStarter").click(function(){
+    $("#navStarter").attr("class","nav-link active show")
+    $("#navBusqueda").attr("class","nav-link")
+    $("#navBiblioteca").attr("class","nav-link")
+    $("#navMisArticulos").attr("class","nav-link")
+  });
+
   $("#navBusqueda").click(function(){
+    $("#navStarter").attr("class","nav-link")
     $("#navBusqueda").attr("class","nav-link active show")
     $("#navBiblioteca").attr("class","nav-link")
     $("#navMisArticulos").attr("class","nav-link")
   });
   $("#navBiblioteca").click(function(){
+    $("#navStarter").attr("class","nav-link")
     $("#navBusqueda").attr("class","nav-link")
     $("#navBiblioteca").attr("class","nav-link active show")
     $("#navMisArticulos").attr("class","nav-link")
   });
-  $("#navMisArticulos").click(function(){
+
+
+  $("#navHome").click(function(){
+    $("#navStarter").attr("class","nav-link")
     $("#navBusqueda").attr("class","nav-link")
     $("#navBiblioteca").attr("class","nav-link")
-    $("#navMisArticulos").attr("class","nav-link active show")
+    $("#navHome").attr("class","nav-link active show")
   });
 
 });   //end jquery

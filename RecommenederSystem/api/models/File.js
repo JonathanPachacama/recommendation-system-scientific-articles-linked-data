@@ -18,8 +18,8 @@ module.exports = {
       required: true
     },
 
-      fkIdArticulo:{
-        model:'Articulo'
+    fkIdArticulo:{
+      model:'Articulo'
     }
   }
 };

@@ -6,6 +6,17 @@
  */
 
 module.exports = {
+  index: function (req,res){
+
+    res.writeHead(200, {'content-type': 'text/html'});
+    res.end(
+      '<form action="http://localhost:1337/mifile/upload" enctype="multipart/form-data" method="post">'+
+      '<input type="text" name="title"><br>'+
+      '<input type="file" name="avatar" multiple="multiple"><br>'+
+      '<input type="submit" value="Upload">'+
+      '</form>'
+    )
+  },
   upload: function  (req, res) {
     var parametros = req.allParams();
     sails.log.info("Parametros", parametros);
@@ -27,41 +38,76 @@ module.exports = {
 
           path: uploads[0].fd,
           filename: uploads[0].filename,
-          fkIdMiArticulo:parametros.id
+          fkIdMiArticulo:parametros.idMiArticulo
         }).exec(function(err, file) {
           if (err) { return res.serverError(err) }
           // if it was successful return the registry in the response
-          return res.json(file)
+          return res.redirect('/VerMisArticulo?id=' + parametros.idMiArticulo)
         })
       })
   },
+
   download: function(req, res) {
-    var mifileID = req.param('id')
+    var params = req.allParams();
+    sails.log.info("Parametros", params);
+    //var fileID = req.param('id')
     // gets the id either in urlencode, body or url query
-    MiFile
-      .findOne({ id: mifileID })
-      .exec(function(err, file){
-        if (err) { return res.serverError(err) }
-        if (!file) { return res.notFound() }
-        // we use the res.download function to download the file
-        // and send a ok response
-        res.download(file.path, function (err) {
+    if (req.method == "GET" && params.id) {
+      MiFile.findOne({id: params.id})
+        .exec(function (err, file) {
           if (err) {
             return res.serverError(err)
-          } else {
-            return res.ok()
           }
-        })
-      })
-  },
-  verArchivo:function  (req, res) {
+          if (!file) {
+            return res.badRequest(
+              'There is no file attached to this article .'
+            );
+          }
+          // we use the res.download function to download the file
+          // and send a ok response
 
-    MiFile.find().exec(function (err, miarticulo) {
-      if (err)
-        return res.negotiate(err);
-      sails.log.info("MiArticulo", miarticulo);
-      res.attachment('tmp/uploads/15c26377-1310-4778-9926-322b1c8a34f7.pdf');
-    });
-  }
+          res.download(file.path, function (err) {
+            if (err) {
+              return res.serverError(err)
+            } else {
+              return res.ok()
+            }
+          })
+        })
+    }
+  },
+
+  BusquedaFile: function (req, res) {
+    var parametros = req.allParams();
+    if (req.method == "GET" && parametros.idMiArticulo) {
+      MiFile.findOne({fkIdMiArticulo:parametros.idMiArticulo }).exec(function (err, MiFile) {
+        if (err){
+          return res.negotiate(err);
+        }else
+          sails.log.info("File", MiFile);
+        return res.ok(MiFile)
+        //return res.redirect('/VerArticulo?id=' + parametros.id)
+
+      });
+    }else{
+      return res.negotiate(err);
+    }
+  },
+  eliminarMiFile: function (req, res) {
+    var params = req.allParams();
+    sails.log.info("Parametros", params);
+    if (req.method == "POST" && params.id) {
+      MiFile.destroy({
+        id: params.id
+      }).exec(function (err, articuloBorrado) {
+        if (err)
+          return res.serverError(err);
+        return res.redirect('/VerMisArticulo?id=' + params.idMiArticulo);
+      });
+    }
+    else {
+      return res.badRequest();
+    }
+  },
 };
 

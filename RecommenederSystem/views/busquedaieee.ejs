@@ -1,0 +1,140 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>DOAJ</h1>
+        </div>
+        <div class="col-sm-4">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item active"> DOAJ</li>
+          </ol>
+        </div>
+        <div class="col-sm-2">
+          <ol class="breadcrumb pull-right">
+            <li>
+              <div class="">
+                <button class="btn btn-secondary"
+                        id="reload">
+                  Recargar
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+      <!--------------------------
+      | Your Page Content Here START|
+      -------------------------->
+
+
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      </head>
+      <body>
+
+      <input type="text" name="q" placeholder="Search DOAJ" id="homepage-search-input">
+      <i class="icon-search orange">
+
+      </i>
+
+      <button type="button" onclick="javascript:callWebService();">Llamar a WS</button>
+
+      <div id="resultado_json"></div>
+      <script type="text/javascript">
+        // Procesar resultados del webservice
+
+        function webServiceResult(data) {
+          for (i = 0; i <+data.articles.length; i++) {
+            $("#resultado_json").empty();
+            title = data.articles[0].title;
+            console.log("skdos",title);
+
+            $("#resultado_json").append("Titulo: " + title + "<br>");
+            //  for (j = 0; j <data.results[j].bibjson.author.length; j++) {
+            //$("#resultado_json").append("Autor:" + data.res[0].bibjson.author[0].name + "<br>");
+            // }
+            /*var categoria=  $("#resultado_json").append("Categoria: "+data.results[0].bibjson.subject[0].term+"<br>");
+             $("#resultado_json").append("Pais de publicacion: "+data.results[0].bibjson.journal.country+"<br>");
+             $("#resultado_json").append("Numero: "+data.results[0].bibjson.journal.number+"<br>");
+             $("#resultado_json").append("Volumen: "+data.results[0].bibjson.journal.volume+"<br>");
+             $("#resultado_json").append("issns: "+data.results[0].bibjson.journal.issns+"<br>");
+             $("#resultado_json").append("Lenguajes: "+data.results[0].bibjson.journal.language+"<br>");
+             $("#resultado_json").append("Año de publicacion: "+data.results[0].bibjson.year+"<br>");
+             $("#resultado_json").append("Abstract: "+data.results[0].bibjson.abstract+"<br>");
+             url= $("#resultado_json").append("Link: "+data.results[0].bibjson.link[0].url+"<br>");
+
+
+             /* $("#resultado_json").append("Tiempo: "+data.weather[0].main+"<br>");
+             $("#resultado_json").append("&nbsp;&nbsp;"+data.weather[0].description+"<br>");
+             $("#resultado_json").append("Humedad: "+data.main.humidity+"<br>");
+             var tmin = Math.round(10*(data.main.temp_min -273.15)) / 10;
+             var tmax = Math.round(10*(data.main.temp_max -273.15)) / 10 ;
+             $("#resultado_json").append("Temp. minima: "+tmin+"<br>");
+             $("#resultado_json").append("Temp. maxima: "+tmax+"<br>");*/
+
+          }
+        }
+
+        // Llamada al webservice
+        function callWebService()
+        {
+          var busqueda = document.getElementById("homepage-search-input").value;
+          var var1= "https://api.mr-dlib.org/v2/documents/arxiv-";
+          var var2= "/related_documents";
+          mm= busqueda;
+          console.log("Este es el valor del cookie:",mm);
+          var concatenacion= var1+busqueda+var2;
+          console.log("la url es:"+concatenacion);
+          try {
+
+
+            $.ajax({
+                url: 'http://ieeexploreapi.ieee.org/api/v1/search/articles?querytext=(rfid%20AND%20"internet%20of%20things")&apikey=29xad5nrvr6gbjyedq5jctsp',
+                //url: "&jsoncallback=?",
+                type: 'GET',//tipo de petición
+                dataType: 'json', //tipo de datos
+                //jsonpCallback: 'envoltorio',  //nombre de la funcion que envuelve la respuesta
+                error: function(xhr, status, error) {
+                  alert("error");
+                },
+                success: function(msg) { webServiceResult(msg) }
+              }
+            );
+          }
+
+          catch (err)
+          {
+            alert(err);
+          }
+        }
+      </script>
+
+      </body>
+      </html>
+
+
+      <!--------------------------
+      | Your Page Content Here END|
+      -------------------------->
+      <!-- /-------------------------------------------------------------------------------------------------------------/ -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

@@ -1,3 +1,6 @@
+/**
+ * Created by CEDIA on 24/07/2017.
+ */
 declare var module:any;
 
 module.exports = {
@@ -10,7 +13,7 @@ module.exports = {
     },
 
     title:{
-      type:"string"
+      type:"longtext"
     },
     country:{
       type:"string"
@@ -36,6 +39,9 @@ module.exports = {
     issns:{
       type:"string"
     },
+    doi:{
+      type:"string"
+    },
     language:{
       type:"string"
     },
@@ -45,7 +51,7 @@ module.exports = {
 
     link:
       {
-        type: "string"
+        type: "longtext"
 
       },
     authores:
@@ -57,17 +63,25 @@ module.exports = {
       {
         type: "string"
       },
-  pages:
-    {
-      type: "string"
-    },
+    pages:
+      {
+        type: "string"
+      },
     notas:
       {
         type: "longtext"
       },
+    busqueda:
+      {
+        type: "string"
+      },
+
     files: {
       collection: 'File',
       via: 'fkIdArticulo'
+    },
+    fkIdUser:{
+      model:'User'
     }
 
   }

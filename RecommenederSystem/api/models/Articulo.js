@@ -7,7 +7,7 @@ module.exports = {
             primaryKey: true
         },
         title: {
-            type: "string"
+            type: "longtext"
         },
         country: {
             type: "string"
@@ -33,6 +33,9 @@ module.exports = {
         issns: {
             type: "string"
         },
+        doi: {
+            type: "string"
+        },
         language: {
             type: "string"
         },
@@ -40,7 +43,7 @@ module.exports = {
             type: "string"
         },
         link: {
-            type: "string"
+            type: "longtext"
         },
         authores: {
             type: "string"
@@ -54,9 +57,15 @@ module.exports = {
         notas: {
             type: "longtext"
         },
+        busqueda: {
+            type: "string"
+        },
         files: {
             collection: 'File',
             via: 'fkIdArticulo'
+        },
+        fkIdUser: {
+            model: 'User'
         }
     }
 };

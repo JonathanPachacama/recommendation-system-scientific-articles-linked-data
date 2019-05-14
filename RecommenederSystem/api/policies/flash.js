@@ -4,12 +4,12 @@
 module.exports = function(req, res, next) {
   res.flash = {};
 
- if(req.flash) return next();
+  if(req.flash) return next();
 
-res.flash = _.clone(req.flash);
+  res.flash = _.clone(req.flash);
 
   //clear flash
-req.flash={};
+  req.flash={};
   next();
 }
 

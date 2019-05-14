@@ -27,7 +27,6 @@ module.exports = {
     collectionDefault:{
       type:"longtext"
     },
-
     misc_collection:{
       collection: 'Wkx_resource_misc',
       via: 'resourcemiscCollection'

@@ -289,6 +289,7 @@ module.exports = {
                                         email: User_Session[0].user_email,
                                         path_photo: User_Session[0].pro_path_photo,
                                     };
+                                    res.cookie('User', req.session.me.usuarioId);
                                     // console.log("req.session.me",req.session.me);
                                     // console.log("req.session.me",req.session.me.username);
                                     // console.log("req.session.all1",req.session.all);

@@ -33,34 +33,35 @@ module.exports.routes = {
   ***************************************************************************/
   //No necesitan seguridad (libres)
 
-  // 'get /': 'VistaController.biblioteca',
   '/perfil':{
     view:'UsuarioGestion/perfil',
     policy: 'sessionAuth'
   },
-  '/busqueda':{
-    view:'busqueda',
-    policy: 'sessionAuth'
-  },
-  '/MisArticulos':{
-    view:'MisArticulos',
-    policy: 'sessionAuth'
-  },
- // '/misArticulos': 'VistaController.misArticuloView',
+
+
+  '/AnadirArticulos': 'VistaController.AnadirArticulos',
+  '/busqueda':'VistaController.busqueda',
+  '/busquedaSpringer': 'VistaController.busquedaSpringer',
+  '/busquedaArxiv':'VistaController.busquedaArxiv',
+  '/busquedaMrDlib':'VistaController.busquedaMrDlib',
+  '/busquedaScopus': 'VistaController.busquedaScopus',
+
+
   '/mibiblioteca': 'SaludoController.VerMisArticulos',
   '/biblioteca': 'VistaController.biblioteca',
-  'get /crearMisArticulos':
-    'VistaController.crearMisArticulos',
-  'get /ArticuloSpringer':
-    'GuardarArticuloController.VerArticuloSpringer',
+  '/bibliotecaUser':'GuardarArticuloController.bibliotecaUser',
 
 
-  'get /ContenidoOculto':
-    'VistaController.vistaOculta',
-  'get /VerArticulo':
-    'ArticuloController.VerArticulo',
-  'get /VerMisArticulo':
-    'SaludoController.VerMiArticulo',
+  'get /VerArticulo': 'ArticuloController.VerArticulo',
+  'post /editarArticulo':'ArticuloController.editarArticulo',
+  'get /filedownloader': 'FileController.download',
+  'get /VerFile': 'FileController.BusquedaFile',
+
+
+  '/crearMisArticulos':'SaludoController.crearMiArticulo',
+  'get /VerMisArticulo': 'SaludoController.VerMiArticulo',
+  'get /Mifiledownloader': 'MiFileController.download',
+  'get /ViewMiFile': 'MiFileController.BusquedaFile',
 
   <!--(start) added for Recommender Module-->
 
@@ -79,7 +80,7 @@ module.exports.routes = {
 
   <!--(end) added for Recommender Module-->
 
-
+//login
   'get /login' :{
     view: 'Auth/login',
     locals: {

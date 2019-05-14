@@ -15,12 +15,15 @@ module.exports = {
       autoIncrement: true,
       primaryKey:true
     },
+
     publisherName:{
       type:"string"
     },
     publisherLocation:{
       type:"string"
     },
+
+
     publisherType:{
       type:"string"
     },
@@ -30,4 +33,5 @@ module.exports = {
     }
   }
 };
+
 
