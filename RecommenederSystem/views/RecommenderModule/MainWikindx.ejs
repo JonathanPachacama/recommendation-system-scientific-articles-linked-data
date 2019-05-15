@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-4">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-home"></i> Inicio</a></li>
             <li class="breadcrumb-item active"><a href="<%= MasterUrlService.base_url()%>recommendationsWkx"> Wikindx</a></li>
           </ol>
         </div>
@@ -42,18 +42,23 @@
           <div class="col-12">
             <div class="callout callout-info">
               <h5><i class="fa fa-info"></i> Note:</h5>
-              Articulos sincronizados a Wikindx
-              <small> Para mostrar los metadatos relacionado, escoja uno de los articulos guardados en wikindx:</small>
+              Artículos sincronizados a Wikindx por la comunidad de investigadores.
+              <small> Para mostrar los metadatos relacionado, escoja uno de los artículos guardados en wikindx:</small>
             </div>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        <%{%>
+          <div class="alert alert-warning">
+            <strong>¡Clik en BUSCAR! </strong> Para ver los todos los artículos
+          </div>
+        <%}%>
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                  List
+                  Lista
                 </h3>
                 <div class="card-tools">
 
@@ -62,7 +67,7 @@
                     <input
                       type="text"
                       class="form-control float-right"
-                      placeholder="Search"
+                      placeholder="Buscar"
                       id ="busqueda"
                       name="busqueda"
                       ng-model="busqueda">
@@ -85,7 +90,7 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Titulo</th>
+                    <th>Título</th>
                     <th></th>
                   </tr>
                   </thead>
