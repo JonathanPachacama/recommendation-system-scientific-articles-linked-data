@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-4">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-home"></i> Inicio</a></li>
             <li class="breadcrumb-item active"> Añadidos </li>
           </ol>
         </div>
@@ -84,7 +84,7 @@
                         <div class="user-block">
                           <img class="img-circle" src="<%= MasterUrlService.base_url()+req.session.me.path_photo%>" alt="User Image">
                           <span class="username"><%=MiArticulo[i].title%></span>
-                          <span class="description">Año Publicacion - <%=MiArticulo[i].year%></span>
+                          <span class="description">Año Publicación - <%=MiArticulo[i].year%></span>
                           <span class="username"> <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-plus"></i></button></span>
 
                         </div>

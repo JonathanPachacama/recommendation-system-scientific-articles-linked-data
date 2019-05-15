@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-4">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="<%= MasterUrlService.base_url()%>"><i class="fa fa-home"></i> Inicio</a></li>
             <li class="breadcrumb-item active"> Perfil</li>
           </ol>
         </div>
@@ -33,6 +33,13 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
+
+      <%{%>
+        <div class="alert alert-warning">
+          <strong>¡Aviso! </strong> Todos los cambios se reflejarán la próxima vez que ingrese al sistema
+        </div>
+      <%}%>
+
       <div class="row">
         <div class="col-md-3">
 
@@ -49,17 +56,17 @@
 
               <p class="text-muted text-center"><%= req.session.me.rol%></p>
 
-              <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                  <b>Articulos Guardados</b> <a class="float-right"><span class="badge badge-success">0</span></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Articulos Wikindx</b> <a class="float-right"><span class="badge badge-danger">0</span></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Articulos creados</b> <a class="float-right"><span class="badge badge-primary">0</span></a>
-                </li>
-              </ul>
+              <!--<ul class="list-group list-group-unbordered mb-3">-->
+                <!--<li class="list-group-item">-->
+                  <!--<b>Articulos Guardados</b> <a class="float-right"><span class="badge badge-success">0</span></a>-->
+                <!--</li>-->
+                <!--<li class="list-group-item">-->
+                  <!--<b>Articulos Wikindx</b> <a class="float-right"><span class="badge badge-danger">0</span></a>-->
+                <!--</li>-->
+                <!--<li class="list-group-item">-->
+                  <!--<b>Articulos creados</b> <a class="float-right"><span class="badge badge-primary">0</span></a>-->
+                <!--</li>-->
+              <!--</ul>-->
 
               <a href="<%= MasterUrlService.base_url()%>mibiblioteca" class="btn btn-primary btn-block"><b>Biblioteca</b></a>
             </div>
@@ -71,7 +78,7 @@
             <!-- About Me Box -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">About Me</h3>
+                <h3 class="card-title">Acerca de mí..</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -96,7 +103,7 @@
 
                 <hr>
 
-                <strong><i class="fa fa-file-text-o mr-1"></i> Sobre mi</strong>
+                <strong><i class="fa fa-file-text-o mr-1"></i> Sobre mí</strong>
 
                 <p class="text-muted"><%= req.session.all.pro_aboutMe%></p>
               </div>
@@ -150,10 +157,10 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="inputSkills" class="col-sm-2 control-label">telefono</label>
+                      <label for="inputSkills" class="col-sm-2 control-label">teléfono</label>
 
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pro_phone" id="pro_phone" placeholder="Mi telefono" autofocus required>
+                        <input type="text" class="form-control" name="pro_phone" id="pro_phone" placeholder="Mi teléfono" autofocus required>
                       </div>
                     </div>
 
@@ -161,7 +168,7 @@
                       <label for="inputExperience" class="col-sm-2 control-label">Información</label>
 
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="pro_aboutMe" id="pro_aboutMe" placeholder="Acerca de mi..." autofocus required></textarea>
+                        <textarea class="form-control" name="pro_aboutMe" id="pro_aboutMe" placeholder="Acerca de mí..." autofocus required></textarea>
                       </div>
                     </div>
 
@@ -272,7 +279,7 @@
                                 <!--<label>Some other metadata</label>-->
                                 <!--<input type="text" name="foo" placeholder="some other metadata"/>-->
                                 <br/>
-                                <label>Please upload your avatar:</label>
+                                <label>Por favor sube tu imagen:</label>
                                 <input type="file" name="image" class="file custom-file-input" data-show-upload="true" accept="image/*" required/>
                                 <!--uplaod_signature()-->
                                 <br/>

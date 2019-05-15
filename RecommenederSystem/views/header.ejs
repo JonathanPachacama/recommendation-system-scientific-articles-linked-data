@@ -7,7 +7,7 @@
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="<%= MasterUrlService.base_url()%>" class="nav-link">Home</a>
+      <a href="<%= MasterUrlService.base_url()%>" class="nav-link">Inicio</a>
     </li>
     <!--<li class="nav-item d-none d-sm-inline-block">-->
     <!--<a href="#" class="nav-link">Contact</a>-->
@@ -50,13 +50,13 @@
           <!-- Menu Toggle Button end-->
         </a>
         <div class="dropdown-divider"></div>
-        <a href="<%= MasterUrlService.base_url()%>Auth/logout" class="dropdown-item dropdown-footer">Sign out</a>
+        <a href="<%= MasterUrlService.base_url()%>Auth/logout" class="dropdown-item dropdown-footer">Salir</a>
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-          class="fa fa-th-large"></i></a>
-    </li>
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i-->
+          <!--class="fa fa-th-large"></i></a>-->
+    <!--</li>-->
   </ul>
 </nav>
 <!-- /.navbar -->
@@ -89,25 +89,20 @@
              with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview">
           <a href="#" id="navStarter" class="nav-link">
-            <i class="nav-icon fa fa-dashboard"></i>
+            <i class="nav-icon fa fa-home nav-icon"></i>
             <p>
-              Starter Pages
+              Inicio
               <i class="right fa fa-angle-left"></i>
             </p>
           </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="<%= MasterUrlService.base_url()%>" id="navHome" class="nav-link">
-              <i class="fa fa-home nav-icon"></i>
-              <p>Homepage</p>
+            <a href="<%= MasterUrlService.base_url()%>perfil" id="navHome" class="nav-link">
+              <i class="fa fa-user"></i>
+              <p>Mi Perfil</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<%= MasterUrlService.base_url()%>AnadirArticulos" class="nav-link">
-              <i class="fa fa-edit nav-icon"></i>
-              <p>Añadir artículos</p>
-            </a>
-          </li>
+
         </ul>
         </li>
 
@@ -152,6 +147,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<%= MasterUrlService.base_url()%>AnadirArticulos" class="nav-link">
+                <i class="fa fa-edit nav-icon"></i>
+                <p>Añadir artículos</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="<%= MasterUrlService.base_url()%>bibliotecaUser" id="navBiblioteca" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>

@@ -377,7 +377,7 @@ function  web(button){
         $("#webIEEE").val(dataWeb[0].web.value);
         $("#webIEEE").css({"font-style": "normal"})
         $("#webAddress").text("web").attr({"href":dataWeb[0].web.value,"title":dataWeb[0].web.value});
-        $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
+        $("#webAddressLink").text("Visitar Dirección Web del recurso: ");
         console.log("Web: ",dataWeb[0].web.value);
       }else {
         var resSparqlWeb2 = valueQuery.replace("http://acm.rkbexplorer.com/id/", '');
@@ -387,7 +387,7 @@ function  web(button){
           $("#webIEEE").val(webACMresult);
           $("#webIEEE").css({"font-style": "normal"})
           $("#webAddress").text("web").attr({"href":webACMresult,"title":webACMresult});
-          $("#webAddressLink").text("Visitar Direccion Web del recurso: ");
+          $("#webAddressLink").text("Visitar Dirección Web del recurso: ");
           console.log("Web: ",webACMresult);
         }else{
           $("#webIEEE").val("");
