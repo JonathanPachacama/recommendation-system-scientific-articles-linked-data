@@ -1,0 +1,52 @@
+<!--////partial inicio-->
+<!--- view result -->
+  <div ng-show="responseJson.length > 0">
+    <div class="row" >
+      <!--<div class="col-md-1"></div>-->
+      <div class="col-12">
+        <div id="resultAlgorithm">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-9">
+                  <h3 class="card-title float-sm-left" >
+                    <i class="ion ion-document"></i>
+                    TÍTULOS
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover">
+                <tbody>
+                <tr ng-repeat="articleTitle in responseJson track by $index">
+
+                  <th scope="row">{{$index+1}}</th>
+                  <td>
+                    {{articleTitle}}
+                  </td>
+                  <td>
+                    <button id="btn{{$index}}" type="button" value="{{articleTitle}}" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#metadataACM" onclick="web(this)">Metadatos</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <!--<div class="col-md-1"></div>-->
+    </div>
+  </div>
+  <div ng-hide="responseJson.length > 0">
+    <h1>No hay resultados</h1>
+  </div>
+<!-- /.view result -->
+
+
+

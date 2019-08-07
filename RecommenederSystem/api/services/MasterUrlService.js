@@ -60,8 +60,8 @@ module.exports = {
 
     // url for tests and google cloud
     var ip = IpService.ip()
-    var port = ':8084'
-    // var port = ':8080'
+    // var port = ':8084'
+    var port = ':8080'
     var url = 'http://'+ip+port+'/'
 
     return url;
