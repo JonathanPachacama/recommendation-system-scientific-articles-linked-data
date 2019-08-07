@@ -17,6 +17,27 @@ module.exports = {
             });
         });
     },
+    recommenderRDF: function (req, res) {
+        var parametros = req.allParams();
+        sails.log.info("Parametros", parametros);
+        Wkx_resource
+            .find()
+            .where({
+            resourceTitle: {
+                contains: parametros.busqueda
+            }
+        })
+            .exec(function (err, resourceFound) {
+            if (err)
+                return res.negotiate(err);
+            return res.view('RecommenderModule/MainRDF', {
+                resource: resourceFound
+            });
+        });
+    },
+    recommenderRelated: function (req, res) {
+        return res.view('RecommenderModule/recommenderRDF');
+    },
     recommenderWkxAPI: function (req, res) {
         var parametros = req.allParams();
         sails.log.info("Parametros", parametros);

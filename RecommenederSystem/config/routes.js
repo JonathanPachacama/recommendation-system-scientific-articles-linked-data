@@ -78,6 +78,12 @@ module.exports.routes = {
     action: "recommenderWkx"
   },
 
+  'GET /recommendationsRDF': {
+    policy: 'sessionAuth',
+    controller: "RecommenderModule/RecommenderWkxController",
+    action: "recommenderRDF"
+  },
+
   <!--(end) added for Recommender Module-->
 
 //login
