@@ -1,8 +1,8 @@
 module.exports = {
 
   ip: function (options) {
-    // var ip = '35.198.13.180'
-    var ip = '192.168.1.5'
+    var ip = '35.247.246.97'
+    // var ip = '172.29.64.213'
     return ip ;
   }
 };
