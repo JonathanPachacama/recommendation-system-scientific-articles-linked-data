@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2019 a las 20:39:59
+-- Tiempo de generación: 14-05-2019 a las 20:16:48
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -56,7 +56,7 @@ CREATE TABLE `article` (
 
 CREATE TABLE `articulo` (
   `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `title` longtext COLLATE utf8_spanish_ci,
   `country` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `number` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `volume` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -65,13 +65,16 @@ CREATE TABLE `articulo` (
   `editorial` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `abstract` longtext COLLATE utf8_spanish_ci,
   `issns` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `doi` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `language` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `keywords` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `link` longtext COLLATE utf8_spanish_ci,
   `authores` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `category` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `pages` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `notas` longtext COLLATE utf8_spanish_ci,
+  `busqueda` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fkIdUser` int(11) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -123,13 +126,15 @@ CREATE TABLE `miarticulo` (
   `editorial` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `abstract` longtext COLLATE utf8_spanish_ci,
   `issns` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `doi` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `language` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `keywords` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `link` longtext COLLATE utf8_spanish_ci,
   `authors` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `category` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `pages` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `notas` longtext COLLATE utf8_spanish_ci,
+  `fkIdUser` int(11) DEFAULT NULL,
   `id` int(10) UNSIGNED NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
