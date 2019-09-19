@@ -1,25 +1,37 @@
-thingproxy
-==========
+## Comando para levatar proxy
 
-A simple forward proxy server for processing API calls to servers that don't send CORS headers or support HTTPS.
+Comando para crear modelos
 
-### what?
+```
+> sudo node server
 
-thingproxy allows javascript code on your site to access resources on other domains that would normally be blocked due to the [same-origin policy](http://en.wikipedia.org/wiki/Same_origin_policy). It acts as a proxy between your browser and a remote server and adds the proper CORS headers to the response.
+```
 
-In addition, some browsers don't allow requests for non-encrypted HTTP data if the page itself is loaded from HTTPS. thingproxy also allows you to access non-secure HTTP API's from a secure HTTPS url. 
 
-We encourage you to run your own thingproxy server with this source code, but freeboard.io offers a free proxy available at:
+## Información thingproxy
+==========================
 
-http://thingproxy.freeboard.io and https://thingproxy.freeboard.io
+thingproxy es un servidor proxy directo simple para procesar llamadas API a servidores que no envían encabezados CORS o admiten HTTPS.
 
-### why?
+### ¿Que hace?
 
-Dashboards created with freeboard normally access APIs directly from ajax calls from javascript. Many API providers do not provide the proper CORS headers, or don't support HTTPS— thingproxy is provided to overcome these limitations.
+thingproxy permite que el código javascript en su sitio acceda a recursos en otros dominios que normalmente estarían bloqueados debido a la [Política del mismo origen](http://en.wikipedia.org/wiki/Same_origin_policy). Actúa como un proxy entre su navegador y un servidor remoto y agrega los encabezados CORS adecuados a la respuesta.
 
-### how?
+Además, algunos navegadores no permiten solicitudes de datos HTTP no cifrados si la página misma se carga desde HTTPS. thingproxy también le permite acceder a API HTTP no seguras desde una URL HTTPS segura.
 
-Just prefix any url with http(s)://thingproxy.freeboard.io/fetch/
+Se recomenda que ejecute el servidor thingproxy con este código fuente, pero freeboard.io ofrece un proxy gratuito disponible en:
+
+http://thingproxy.freeboard.io y https://thingproxy.freeboard.io
+
+
+
+### ¿Por qué?
+
+Los paneles creados con freeboard normalmente acceden a las API directamente desde llamadas ajax desde javascript. Muchos proveedores de API no proporcionan los encabezados CORS adecuados o no admiten HTTPS; se proporciona thingproxy para superar estas limitaciones.
+
+### ¿Cómo?
+
+Simplemente anteponer cualquier url con http (s): //thingproxy.freeboard.io/fetch/
 
 For example:
 
@@ -27,12 +39,12 @@ For example:
 https://thingproxy.freeboard.io/fetch/http://my.api.com/get/stuff
 ```
 
-Any HTTP method, headers and body you send, will be sent to the URL you specify and the response will be sent back to you with the proper CORS headers attached.
+Cualquier método HTTP, encabezados y cuerpo que envíe, se enviará a la URL que especifique y se le enviará la respuesta con los encabezados CORS correspondientes adjuntos.
 
-### caveats
+### Advertencias
 
-Don't abuse the thingproxy.freeboard.io server— it is meant for relatively small API calls and not as a proxy server to hide your identity. Right now we limit requests and responses to 100,000 characters each (sorry no file downloads), and throttle each IP to 10 requests/second.
+No abuse del servidor thingproxy.freeboard.io: está destinado a llamadas API relativamente pequeñas y no como un servidor proxy para ocultar su identidad. En este momento, se limita las solicitudes y respuestas a 100,000 caracteres cada una (lo siento, no hay descargas de archivos), y limitamos cada IP a 10 solicitudes / segundo.
 
-### privacy
+### Privacidad
 
-thingproxy.freeboard.io does log the date, requester's IP address, and URL for each request sent to it. We do not log headers or request bodies. We will not share or sell this data to anyone, period.
+thingproxy.freeboard.io registra la fecha, la dirección IP del solicitante y la URL de cada solicitud que se le envía. No registramos encabezados ni solicitamos cuerpos. No compartiremos ni venderemos estos datos a nadie, punto.
