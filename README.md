@@ -1,70 +1,19 @@
-# Ejemplo de uso del Framework Sailsjs
+# Sistema Web para Recomendar Articulos cientificos.
 
-## Instalacion
+## Información RecommenderSystem
+==========================
 
-Comando para instalar sails:
+RecommenderSystem es un sistema integrado para la recomendación, búsqueda y almacenamiento de artículos científicos enlazados.
 
-```
-> sudo npm install -g sails
-```
+### ¿Que hace?
 
-[Documentacion de instalacion](http://sailsjs.com/get-started)
+RecommenderSystem permite utilizar Apis de repositorios abiertos utilizando consultas SPARQL para consumir artículos en formato RDF.
 
 
-## Crear nueva aplicacion
+## Importante
 
-Archivo de aplicacion
-
-```
-> sails new aplicacion
-```
-
-"aplicacion" es el nombre de la carpeta que va a contener los archivos de sails
-
-## Levantar el Servidor
-Levantar el servidor
-```
-> sails lift
-```
-
-Para levantar en un diferente puerto usamos --port 
+se debe instalar las dependencias con el siguiente comando
 
 ```
-> sails lift --port 8080
+> sudo npm install
 ```
-
-```
-> node app.js 
-```
-## Comando para crear Controladores
-
-Comando para crear controladores
-
-```
-> sails generate controller Saludo
-```
-
-## Comando para crear Modelos
-
-Comando para crear modelos
-
-```
-> sails generate model Usuario
-```
-
-# Comandos
-
-## Levantar Servidor HTTP
-
-Para levantar el servidor usamos el comando:
-
-```
->> http-server
-```
-
-
-
-
-
-
-
