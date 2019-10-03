@@ -2,8 +2,8 @@ module.exports = {
 
   base_url: function (options) {
 
-    // url for tests
-    // var url = '/'
+    // url for local
+    //var port = ':1337'
 
     // // url for deployed
     // var url = '[DOMINIO]'
@@ -11,7 +11,7 @@ module.exports = {
 
     //url for google cloud
     var ip = IpService.ip()
-    var port = ':1337'
+    var port = ':8081'
     var url = 'http://'+ip+port+'/'
 
     return url;
