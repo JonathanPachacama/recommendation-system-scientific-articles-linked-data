@@ -24,7 +24,7 @@
     "machinepack-passwords": "^2.3.0",
     "nltk-stopwords": "^1.0.3",
     "rc": "1.0.1",
-    "sails": "~0.12.13",
+    "sails": "~1.5.3",
     "sails-custom-validation-messages": "0.0.1",
     "sails-disk": "^0.10.10",
     "sails-hook-flash": "^0.2.2",
