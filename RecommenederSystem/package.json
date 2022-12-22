@@ -20,7 +20,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "machinepack-passwords": "^2.3.0",
     "nltk-stopwords": "^1.0.3",
     "rc": "1.0.1",
